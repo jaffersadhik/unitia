@@ -1,0 +1,1203 @@
+package com.winnovature.unitia.util.db;
+
+import java.net.InetAddress;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+
+
+public class TableExsists {
+
+	private static final String SQL_TEMPLATE_USERWISE = "select username,count(*) from {0} group by username";
+	private static final String WORKERPOOL_INSERT_2 = "insert into workerpool(poolname,pooltype) values(?,?)";
+	private static final String WORKERPOOLROUTING_INSERT = "insert into workerpool_routing(poolname,poolclass) values(?,?)";
+	private static final String TABLENAME = "select poolname,tablecount from workerpool";
+	private static final String TABLENAME1 = "select distinct submission_tablename,dn_tablename,dnpost_tablename billingtable_routing";
+
+	private static String SQL_TEMPLATE="select count(*) cnt from {0}";
+	
+	
+	private static String getQuery(String tablename) {
+		
+		String params[]= {tablename};
+		
+		return MessageFormat.format(SQL_TEMPLATE, params);
+		
+	}
+	
+	public boolean isExsists(Connection connection,String tablename) {
+		
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		try {
+			
+			statement=connection.prepareStatement(getQuery(tablename));
+			resultset=statement.executeQuery();
+			if(resultset.next()) {
+				
+				return true;
+			}
+		}catch(Exception e) {
+			
+		}finally{
+			
+			Close.close(statement);
+			Close.close(resultset);
+		}
+		
+		return false;
+	}
+	
+	
+ public long getCount(Connection connection,String tablename) {
+		
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		try {
+			
+			statement=connection.prepareStatement(getQuery(tablename));
+			resultset=statement.executeQuery();
+			if(resultset.next()) {
+				
+				return resultset.getLong("cnt");
+			}
+		}catch(Exception e) {
+			Close.close(statement);
+			Close.close(resultset);
+			e.printStackTrace();
+			return -1;
+		}
+		
+		return 0;
+	}
+	
+	public static void main(String args[]) {
+		
+		System.out.println(getQuery("test"));
+	}
+
+	public boolean create(Connection connection, String sql,boolean islock) {
+		
+		PreparedStatement statement=null;
+		PreparedStatement createstatement=null;
+
+		PreparedStatement insertstatement=null;
+
+		String sqlstatement=null;
+		String sqlcreatestatement=null;
+		String sqlinsertstatement=null;
+
+		try {
+			sqlstatement=sql;
+			statement=connection.prepareStatement(sql);
+			statement.execute();
+			if(islock) {
+				sqlcreatestatement=SQLQuery.getSQLForLockCreate(SQLQuery.getTableName(sql)+"_lock");
+				createstatement=connection.prepareStatement(sqlcreatestatement);
+				createstatement.execute();
+				sqlinsertstatement=SQLQuery.getSQLForLockInsert(SQLQuery.getTableName(sql)+"_lock");
+				insertstatement=connection.prepareStatement(sqlinsertstatement);
+				insertstatement.execute(); 
+			}
+			return true;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			System.err.print("sqlstatement :"+sqlstatement);
+			System.err.print("sqlcreatestatement :"+sqlcreatestatement);
+			System.err.print("sqlinsertstatement :"+sqlinsertstatement);
+
+			Close.close(statement);
+			Close.close(insertstatement);
+			Close.close(createstatement);
+
+		}
+	
+		return false;
+	}
+
+	public void insertCircle(Connection connection,String code,String name,String category,String coverd_area) {
+		
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_CIRCLE_TABLE);
+			statement.setString(1, code);
+			statement.setString(2, name);
+			statement.setString(3, category);
+			statement.setString(4, coverd_area);
+
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}
+	
+	}
+	
+	public void insertOperator(Connection connection,String code,String network) {
+		
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_OPERATOR_TABLE);
+			statement.setString(1, code);
+			statement.setString(2, network);
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}
+	
+	}
+	
+	
+	public void insertNumberingPlan(Connection connection,String series,String operator,String circle) {
+		
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_NUMBERINGPLAN_TABLE);
+			statement.setString(1, series.trim());
+			statement.setString(2, operator.trim());
+			statement.setString(3, circle.trim());
+
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}
+	
+	}
+	public Set<String> getAccount(Connection connection,boolean isSchedule) {
+		
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Set<String> account=new HashSet();
+		try {
+			if(isSchedule) {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_ACCOUNT_TABLE_SCHEDULE_RELEASE);
+
+			}else {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_ACCOUNT_TABLE);
+
+			}
+			resultset=statement.executeQuery();
+			while(resultset.next()) {
+				
+				account.add(resultset.getString("username").toLowerCase());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return account;
+	}
+
+	public Map<String, Map<String, String>> getScheduleAccount(Connection connection) {
+
+		
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String, Map<String, String>> account=new HashMap<String, Map<String, String>>();
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_ACCOUNT_TABLE_SCHEDULE);
+
+			resultset=statement.executeQuery();
+
+			while(resultset.next()) {
+				HashMap data=new HashMap();
+				data.put("start", resultset.getString("block_start"));
+				data.put("end", resultset.getString("block_start"));
+
+				account.put(resultset.getString("username").toLowerCase(),data);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return account;
+	
+	}
+
+	public Map<String, Map<String, String>> getNP(Connection connection) {
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String, Map<String, String>> account=new HashMap<String, Map<String, String>>();
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_NP_TABLE);
+
+			resultset=statement.executeQuery();
+
+			while(resultset.next()) {
+				
+				String series=resultset.getString("series");
+				String operator=resultset.getString("operator");
+				String circle=resultset.getString("circle");
+
+				if(operator==null) {
+					operator="";
+				}
+				
+				if(circle==null) {
+					circle="";
+				}
+				
+				HashMap data=new HashMap();
+				data.put("operator", operator);
+				data.put("circle", circle);
+
+				account.put(series,data);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return account;		
+	}
+
+	public void insertSplitGroup(Connection connection, String groupname, String msgtype, int splitlength, int maxlength) {
+
+		
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_SPLITGROUP_TABLE);
+			statement.setString(1, groupname);
+			statement.setString(2, msgtype);
+			statement.setInt(3, splitlength);
+			statement.setInt(4, maxlength);
+
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}
+	
+			
+	}
+
+	public void insertKannel(Connection connection, String smscid, int port, String splitgroup) {
+
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_SMSCID_TABLE);
+			statement.setString(1, smscid);
+			statement.setInt(2, port);
+			statement.setString(3, splitgroup);
+
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}
+	}
+
+	public void insertRouteGroup(Connection connection, String groupname, String smscid) {
+
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_ROUTEGROUP_TABLE);
+			statement.setString(1, groupname);
+			statement.setString(2, smscid);
+
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}
+	}
+
+	public void insertRoute(Connection connection, int id, String routegroupname, String username, String operator,
+			String circle) {
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_ROUTE_TABLE);
+			statement.setInt(1,id);
+			statement.setString(2, routegroupname);
+			statement.setString(3, username);
+			statement.setString(4, operator);
+			statement.setString(5, circle);
+
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}
+	}
+
+	public void insertKannelLB(Connection connection, String ip) {
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_KANNEL_LOADBALANCER);
+			statement.setString(1, ip);		
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}		
+	}
+
+	public void insertDnLB(Connection connection, String ip, int port) {
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_DN_LOADBALANCER);
+			statement.setString(1, ip);	
+			statement.setInt(2, port);		
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}
+		
+	}
+
+	public void insertVsmscLB(Connection connection, String ip, int port) {
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_VSMSC_LOADBALANCER);
+			statement.setString(1, ip);	
+			statement.setInt(2, port);		
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}
+		
+	}
+
+	public Map<String,  Map<String,Map<String, String>>> getSplitGroup(Connection connection) {
+
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String,  Map<String,Map<String, String>>> splitgroup=new HashMap<String,  Map<String,Map<String, String>>> ();
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_SPLITGROUP_TABLE);
+
+			resultset=statement.executeQuery();
+
+			while(resultset.next()) {
+				
+				String groupname=resultset.getString("groupname");
+				String msgtype=resultset.getString("msgtype");
+				String splitlength=resultset.getString("splitlength");
+				String maxlength=resultset.getString("maxlength");
+
+				if(groupname!=null&&msgtype!=null&&splitlength!=null&&maxlength!=null) {
+				
+					Map<String,Map<String, String>> msgtypemap=splitgroup.get(groupname.trim());
+					if(msgtypemap==null) {
+						msgtypemap=new HashMap<String,Map<String, String>>();
+						splitgroup.put(groupname.trim(), msgtypemap);
+					}
+					Map<String,String> data=new HashMap<String,String>();
+					data.put("splitlength", splitlength);
+					data.put("maxlength", maxlength);
+					msgtypemap.put(msgtype.trim(), data);
+
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return splitgroup;		
+	
+		
+	}
+
+	public Map<String, Map<String, String>> getKannel(Connection connection) {
+
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String, Map<String,String>> kannel=new HashMap<String,Map<String, String>> ();
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_KANNEL_TABLE);
+
+			resultset=statement.executeQuery();
+
+			while(resultset.next()) {
+				
+				String smscid=resultset.getString("smscid");
+				String port=resultset.getString("port");
+				String splitgroup=resultset.getString("splitgroup");
+
+				if(smscid!=null&&port!=null&&splitgroup!=null) {
+				
+
+					Map<String,String> data=new HashMap<String,String>();
+					data.put("port", port);
+					data.put("splitgroup", splitgroup.trim());
+					kannel.put(smscid.trim(), data);
+
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return kannel;		
+	
+		
+	}
+
+	public Map<String, List<String>> getRouteGroup(Connection connection) {
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String, List<String>> routegroup=new HashMap<String,List<String>> ();
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_ROUTEGROUP_TABLE);
+
+			resultset=statement.executeQuery();
+
+			while(resultset.next()) {
+				
+				String smscid=resultset.getString("smscid");
+				String groupname=resultset.getString("groupname");
+
+				if(groupname!=null&&smscid!=null) {
+					
+					List<String> smscidlist=routegroup.get(groupname.trim());
+					
+					if(smscidlist==null) {
+						
+						smscidlist=new ArrayList<String>();
+						routegroup.put(groupname.trim(), smscidlist);
+					}
+					
+					smscidlist.add(smscid);	
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return routegroup;
+	
+	}
+
+	public Map<String, String> getRoute(Connection connection) {
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String, String> routegroup=new HashMap<String,String> ();
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_ROUTE_TABLE);
+
+			resultset=statement.executeQuery();
+
+			while(resultset.next()) {
+				
+				String username=resultset.getString("username");
+				String groupname=resultset.getString("routegroup");
+                String operator= resultset.getString("operator");
+                String circle= resultset.getString("circle");
+				if(username==null) {
+					username="";
+				}
+				
+				if(username==null) {
+					username="";
+				}
+				
+				if(groupname==null) {
+					groupname="";
+				}
+				
+				if(operator==null) {
+					operator="";
+				}
+				
+				if(circle==null) {
+					circle="";
+				}
+				
+				routegroup.put("~"+username.trim()+"~"+operator.trim()+"~"+circle.trim()+"~",groupname.trim());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return routegroup;
+	
+	}
+
+	public String getKannelIP(Connection connection) {
+
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		String routegroup=null;
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_KANNEL_LB_IP_TABLE);
+
+			resultset=statement.executeQuery();
+
+			if(resultset.next()) {
+				return resultset.getString("ip");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return routegroup;
+	
+	
+	}
+
+	public Map<String, String> getDnIp(Connection connection) {
+
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String,String> ipport=new HashMap<String,String>();
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_DN_LB_IP_TABLE);
+
+			resultset=statement.executeQuery();
+
+			if(resultset.next()) {
+				 ipport.put("ip", resultset.getString("ip"));
+				 ipport.put("port", resultset.getString("port"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return ipport;
+	
+	
+	}
+
+	public Map<String, String> getVsmscIp(Connection connection) {
+
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String,String> ipport=new HashMap<String,String>();
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_VSMSC_LB_IP_TABLE);
+
+			resultset=statement.executeQuery();
+
+			if(resultset.next()) {
+				
+				 ipport.put("ip", resultset.getString("ip"));
+				 ipport.put("port", resultset.getString("port"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return ipport;
+	
+	
+	}
+
+	public void insertHttpLB(Connection connection, String ip, int port) {
+		PreparedStatement statement=null;
+
+		try {
+			
+			statement=connection.prepareStatement(SQLQuery.INSERT_HTTP_LOADBALANCER);
+			statement.setString(1, ip);	
+			statement.setInt(2, port);		
+			statement.execute();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+
+		}
+		
+	}
+
+	public Map<String, String> getHttpIp(Connection connection) {
+
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String,String> ipport=new HashMap<String,String>();
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_HTTP_LB_IP_TABLE);
+
+			resultset=statement.executeQuery();
+
+			if(resultset.next()) {
+				
+				 ipport.put("ip", resultset.getString("ip"));
+				 ipport.put("port", resultset.getString("port"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return ipport;
+	
+	
+	}
+
+	public Map<String, Map<String, String>> getAccountCredential(Connection connection, boolean b) {
+
+
+
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String, Map<String, String>> account=new HashMap<String, Map<String, String>>();
+		
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_CREDENTIAL_TABLE);
+
+			resultset=statement.executeQuery();
+
+			while(resultset.next()) {
+				
+				String username=resultset.getString("username").trim().toLowerCase();
+				String password=resultset.getString("password");
+				String auth_type=resultset.getString("auth_type");
+				String status=resultset.getString("status");
+				String max_bind=resultset.getString("max_bind");
+				String max_sms_thread=resultset.getString("max_sms_thread");
+				String max_dn_thread=resultset.getString("max_dn_thread");
+
+				Map<String, String> data=account.get(username);
+				
+				if(data==null) {
+					
+					data=new HashMap<String, String>();
+					account.put(username, data);
+				}
+				
+				data.put("password", getPassword(password));
+				data.put("auth_type", auth_type);
+				data.put("status", status);
+				data.put("max_bind", max_bind);
+				data.put("max_sms_thread", max_sms_thread);
+				data.put("max_dn_thread", max_dn_thread);
+				
+				
+
+				 
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return account;
+	
+	
+	}
+
+	private String getPassword(String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Map<String, List<String>> getAccountUserAuthorizedIps(Connection connection, boolean b) {
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String, List<String>> account=new HashMap<String, List<String>>();
+		
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_AUTHORIZED_IP_TABLE);
+
+			resultset=statement.executeQuery();
+
+			while(resultset.next()) {
+				
+				String username=resultset.getString("username").trim().toLowerCase();
+				String ip_pattern=resultset.getString("ip_pattern ").trim().toLowerCase();;
+			
+
+				List<String> data=account.get(username);
+				
+				if(data==null) {
+					
+					data=new ArrayList<String>();
+					account.put(username, data);
+				}
+				
+				data.add(ip_pattern);
+
+				 
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return account;
+	
+	
+	}
+
+	public Map<String, List<String>> getAppsAuthorizedIps(Connection connection, boolean b) {
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String, List<String>> account=new HashMap<String, List<String>>();
+		
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_APPS_AUTHORIZED_IP_TABLE);
+
+			resultset=statement.executeQuery();
+
+			while(resultset.next()) {
+				
+				String username=resultset.getString("username").trim().toLowerCase();
+				String ip_pattern=resultset.getString("ip_pattern ").trim().toLowerCase();;
+			
+
+				List<String> data=account.get(username);
+				
+				if(data==null) {
+					
+					data=new ArrayList<String>();
+					account.put(username, data);
+				}
+				
+				data.add(ip_pattern);
+
+				 
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return account;
+	
+	}
+
+	public String getTableName(String superadminSql) {
+
+		StringTokenizer st=new StringTokenizer(superadminSql," ");
+		st.nextToken();
+		st.nextToken();
+		String tablename =st.nextToken();
+		if(tablename.indexOf("(")>-1){
+			
+			tablename=tablename.substring(0,tablename.indexOf("("));
+		}
+		
+		return tablename;
+	}
+
+public void persistQueueCounttoDB(Map<String,String> queuemap,String queuetype,String dbttype){
+		
+		Connection connection=null;
+		PreparedStatement statement=null;
+		
+		try{
+			
+			
+			if(queuemap!=null&&queuemap.size()>0){
+				
+				long id=System.currentTimeMillis();
+				String ip=InetAddress.getLocalHost().getHostAddress();
+				String sql="insert into queueu_history(ip,insertid,queuename,qtype,dbtype,count) values(?,?,?,?,?,?)";
+			
+				connection=CoreDBConnection.getInstance().getConnection();
+				statement =connection.prepareStatement(sql);
+				connection.setAutoCommit(false);
+				Iterator itr=queuemap.keySet().iterator();
+				
+				while(itr.hasNext()){
+				
+					String queuename=itr.next().toString();
+					String count=queuemap.get(queuemap);
+					
+					statement.setString(1, ip);
+					statement.setString(2, ""+id);
+					statement.setString(3, queuename);
+					statement.setString(4, queuetype);
+					statement.setString(5, dbttype);
+					statement.setString(6, count);
+					statement.addBatch();
+				}
+				
+				statement.executeBatch();
+				
+			}
+		}catch(Exception e){
+			
+			
+		}finally{
+			
+			Close.close(statement);
+			
+			Close.close(connection);
+		}
+	}
+
+
+private void add(Connection connection,Set<String> tableset,Map<String,Map<String,String>> map) {
+	
+	Iterator itr=tableset.iterator();
+	
+	while(itr.hasNext()){
+		
+		String tablename=itr.next().toString();
+		
+		map.put(tablename, getUserwiseCount(connection,tablename));
+	
+		
+	}
+	
+}
+
+private Map<String, String> getUserwiseCount(Connection connection, String tablename) {
+
+	
+	PreparedStatement statement=null;
+	ResultSet resultset=null;
+	Map<String,String> map=new HashMap<String,String>();
+	try {
+		
+		statement=connection.prepareStatement(getUserwiseQuery(tablename));
+		resultset=statement.executeQuery();
+		while(resultset.next()) {
+			
+			map.put(resultset.getString("username"), resultset.getString("cnt"));
+		}
+	}catch(Exception e) {
+		Close.close(statement);
+		Close.close(resultset);
+		
+	}
+	
+	return map;
+
+}
+
+private String getUserwiseQuery(String tablename) {
+	String params[]= {tablename};
+	
+	return MessageFormat.format(SQL_TEMPLATE_USERWISE, params);
+}
+
+public void persistQueueCounttoDB(Connection connection,long id, String queuename, String username, String count) {
+	
+
+	
+	PreparedStatement statement=null;
+	
+	try{
+		
+		
+			
+			String ip=InetAddress.getLocalHost().getHostAddress();
+			String sql="insert into queueu_history(ip,insertid,queuename,qtype,dbtype,count) values(?,?,?,?,?,?)";
+		
+			connection=CoreDBConnection.getInstance().getConnection();
+			statement =connection.prepareStatement(sql);
+		
+				
+				statement.setString(1, ip);
+				statement.setString(2, ""+id);
+				statement.setString(3, queuename);
+				statement.setString(4, username);
+				statement.setString(5, "mysql");
+				statement.setString(6, count);
+						
+			statement.execute();
+			
+		
+	}catch(Exception e){
+		
+		
+	}finally{
+		
+		Close.close(statement);
+		
+	}
+
+}
+
+public void insertworkerpool(Connection connection) {
+	
+	
+	insert(connection, "transpool", "sms");
+	insert(connection, "promopool", "sms");
+	insert(connection, "credittranspool", "sms");
+	insert(connection, "creditpromopool", "sms");
+	insert(connection, "bulktranspool", "sms");
+	insert(connection, "bulkpromopool", "sms");
+	insert(connection, "otppool", "sms");
+	insert(connection, "optinpool", "sms");
+	insert(connection, "duplicatepool", "sms");
+	insert(connection, "httpdnpostpool", "dnhttppost");
+
+}
+
+private void insert(Connection connection,String poolname,String pooltype){
+	
+PreparedStatement statement=null;
+	
+	try{
+		
+		statement=connection.prepareStatement(WORKERPOOL_INSERT_2);
+		
+		statement.setString(1, poolname);
+		statement.setString(2, pooltype);
+		statement.execute();
+
+	}catch(Exception e){
+		
+	}finally{
+		
+		Close.close(statement);
+	}
+	
+}
+
+public void insertworkerroutingpool(Connection connection) {
+
+	insertworkerroutingpool(connection, "transpool", "1");
+	insertworkerroutingpool(connection, "promopool", "2");
+	insertworkerroutingpool(connection, "credittranspool", "3");
+	insertworkerroutingpool(connection, "creditpromopool", "4");
+	insertworkerroutingpool(connection, "bulktranspool", "5");
+	insertworkerroutingpool(connection, "bulkpromopool", "6");
+	insertworkerroutingpool(connection, "otppool", "7");
+	insertworkerroutingpool(connection, "optinpool", "8");
+	insertworkerroutingpool(connection, "optoutpool", "9");
+	insertworkerroutingpool(connection, "duplicatepool", "10");
+	insertworkerroutingpool(connection, "schedulepool", "10");
+	insertworkerroutingpool(connection, "blockoutpool", "10");
+	insertworkerroutingpool(connection, "traipool", "10");
+	insertworkerroutingpool(connection, "otpretrypool", "10");
+	insertworkerroutingpool(connection, "dnretrypool", "10");
+	insertworkerroutingpool(connection, "httpdnpostpool", "11");
+
+	
+}
+
+private void insertworkerroutingpool(Connection connection, String poolname, String poolclass) {
+PreparedStatement statement=null;
+	
+	try{
+		
+		statement=connection.prepareStatement(WORKERPOOLROUTING_INSERT);
+		
+		statement.setString(1, poolname);
+		statement.setString(2, poolclass);
+		statement.execute();
+
+	}catch(Exception e){
+		
+	}finally{
+		
+		Close.close(connection);
+	}
+	
+}
+
+public Map<String,String> getPoolTableName(){
+	
+	Connection connection=null;
+	Map<String,String> tablemap=new HashMap<String,String>();
+	try{
+		
+		tablemap.putAll(getCountMap(connection));
+		tablemap.putAll(getCountMap1(connection));
+
+		
+	}catch(Exception e){
+		
+	}finally{
+		
+		Close.close(connection);
+	}
+	return tablemap;
+}
+
+private Map<String, String> getCountMap1(Connection connection) {
+	
+	PreparedStatement statement=null;
+	ResultSet resultset=null;
+	Map<String,String> tablemap=new HashMap<String,String>();
+	tablemap.put("submission_default","1" );
+	tablemap.put("dn_default","1" );
+	tablemap.put("dnpost_default","1" );
+
+
+	try {
+		
+		statement=connection.prepareStatement(TABLENAME1);
+		resultset=statement.executeQuery();
+		while(resultset.next()) {
+			
+			tablemap.put(resultset.getString("submission_tablename"),"1" );
+			tablemap.put(resultset.getString("dn_tablename"),"1" );
+			tablemap.put(resultset.getString("dnpost_tablename"),"1" );
+		}
+		
+	}catch(Exception e) {
+		Close.close(statement);
+		Close.close(resultset);
+	}
+	
+	return tablemap;
+
+}
+
+private Map<String, String> getCountMap(Connection connection) {
+	
+	PreparedStatement statement=null;
+	ResultSet resultset=null;
+	Map<String,String> tablemap=new HashMap<String,String>();
+
+	try {
+		
+		statement=connection.prepareStatement(TABLENAME);
+		resultset=statement.executeQuery();
+		while(resultset.next()) {
+			
+			tablemap.put(resultset.getString("poolname"),resultset.getString("1") );
+		}
+	}catch(Exception e) {
+		Close.close(statement);
+		Close.close(resultset);
+		
+	}
+	
+	return tablemap;
+}
+
+public void insertjvmid(Connection connection) {
+	
+	PreparedStatement statement=null;
+	
+	try{
+		
+		connection.setAutoCommit(false);
+		statement=connection.prepareStatement("insert into interface_jvm_uniqueid(id,updateid)values(?,?)");
+		
+		for(int i=100;i<1000;i++){
+			
+			statement.setString(1, ""+i);
+			statement.setString(2, "0");
+			statement.addBatch();
+
+		}
+		statement.executeBatch();
+		connection.commit();
+		
+	}catch(Exception e){
+		
+	}finally{
+		
+		Close.close(statement);
+	}
+	
+}
+}
