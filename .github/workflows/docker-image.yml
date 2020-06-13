@@ -1,5 +1,7 @@
 name: Unitia Docker Image CI
 
+### Variable {{tagname $(date +%s)}}
+
 on:
   push:
     branches: [ master ]
@@ -15,13 +17,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag unitia:$(date +%s)
+      run: docker build . --file Dockerfile --tag unitia:{{tagname}}
     - uses: docker/build-push-action@v1
-    - name: Push Docker Image to Repository  
-      with:
-      username: ${{ secrets.DOCKER_USERNAME }}
-      password: ${{ secrets.DOCKER_PASSWORD }}
-      repository: winnovature/unitia
-      tag_with_ref: true
-      push: ${{ startsWith(github.ref, 'refs/tags/') }}
-      run: docker push	
+    - name: Docker Image Tag 
+      run: docker tag unitia:{{tagname}} winnovature/unitia:{{tagname}}
+    - uses: docker/build-push-action@v1
+    - name: Docker PushTag 
+      run: docker push winnovature/unitia:{{tagname}}
