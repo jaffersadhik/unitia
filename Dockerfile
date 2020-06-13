@@ -15,5 +15,5 @@ COPY *.prop /usr/local/tomcat/conf/
 COPY server.xml /usr/local/tomcat/conf/server.xml
 
 # Copy war file to tomcat webapps folder
-COPY /home/runner/work/unitia/unitia/api/target/*.war /usr/local/tomcat/webapps/app.war
+COPY api/target/*.war /usr/local/tomcat/webapps/app.war
 
