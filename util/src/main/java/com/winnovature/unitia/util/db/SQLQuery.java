@@ -30,17 +30,17 @@ public class SQLQuery {
 	
 	public static final String INSERT_SPLITGROUP_TABLE = "insert into splitgroup(groupname,msgtype,splitlength,maxlength) values(?,?,?,?)";
 
-	public static final String CREATE_SMSCID_TABLE = "create table kannel(smscid varchar(10) primary key,port numeric(6),splitgroup varchar(25) default 'default_group')";
+	public static final String CREATE_SMSCID_TABLE = "create table kannel(smscid varchar(10) primary key,ip varchar(15) default '127.0.0.1',port numeric(6),routeclass varchar(1) default '4',splitgroup varchar(25) default 'default_group')";
 	
-	public static final String INSERT_SMSCID_TABLE = "insert into kannel(smscid,port,splitgroup) values(?,?,?)";
+	public static final String INSERT_SMSCID_TABLE = "insert into kannel(smscid,ip,port,splitgroup,routeclass) values(?,?,?,?,?)";
 
 	public static final String CREATE_ROUTEGROUP_TABLE = "create table routegroup(groupname varchar(25) ,smscid varchar(10))";
 
 	public static final String INSERT_ROUTEGROUP_TABLE = "insert into routegroup(groupname ,smscid ) values(?,?)";
 
-	public static final String CREATE_ROUTE_TABLE = "create table route(id numeric(5),routegroup varchar(25),username varchar(21),operator varchar(2),circle varchar(2),primary key(username,operator,circle))";
+	public static final String CREATE_ROUTE_TABLE = "create table route(id INT PRIMARY KEY AUTO_INCREMENT,routegroup varchar(25),superadmin varchar(21),admin varchar(21),username varchar(21),operator varchar(2),circle varchar(2),index(superadmin,admin,username,operator,circle))";
 	
-	public static final String INSERT_ROUTE_TABLE = "insert into route(id ,routegroup,username,operator,circle ) values(?,?,?,?,?)";
+	public static final String INSERT_ROUTE_TABLE = "insert into route(routegroup,superadmin,admin,username,operator,circle ) values(?,?,?,?,?,?)";
 
 	public static final String CREATE_KANNEL_LOADBALANCER = "create table loadbalancer_kannel(ip varchar(15) primary key)";
 	

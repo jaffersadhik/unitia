@@ -1,8 +1,3 @@
-/**
- * 	@(#)MessageStatus.java	1.0
- *
- * 	Copyright 2000-2008 Air2web India Pvt Ltd. All Rights Reserved.
- */
 package com.winnovature.unitia.util.misc;
 
 import java.util.HashMap;
@@ -20,6 +15,13 @@ public class MessageStatus {
 	public static final int MSG_REJECTED_SCHEDULE_OPTION_DISABLE = 108;
 	public static final int INVALID_DESTINATION_ADDRESS = 109;
 	public static final int SENT_TO_QUEUE_FAILED = 110;
+	public static final int MOBILE_SERIES_NOT_REGISTERED_NP = 111;
+	public static final int ROUTEGROUP_NOT_FOUND = 112;
+	public static final int INVALID_MSGTYPE = 113;
+	public static final int INVALID_SPLITGROUP = 114;
+	public static final int INVALID_ROUTE_GROUP = 115;
+	public static final int INVALID_SMSCID = 116;
+	
 	private static Map<String,String> status=new HashMap<String,String>();
 	private static MessageStatus obj=null;
 	
@@ -35,6 +37,12 @@ public class MessageStatus {
 		status.put(""+MessageStatus.INVALID_DESTINATION_ADDRESS, "Invalid mobile value");
 		status.put(""+MessageStatus.MSG_REJECTED_SCHEDULE_OPTION_DISABLE, "schedule feature disable for the account");
 		status.put(""+MessageStatus.SENT_TO_QUEUE_FAILED, "Sent Queue fail in Interface Level");
+		status.put(""+MessageStatus.MOBILE_SERIES_NOT_REGISTERED_NP, "Mobile Number Series Not Registered in Numbering Plan Table");
+		status.put(""+MessageStatus.ROUTEGROUP_NOT_FOUND, "Route Group Not Available in Route table");
+		status.put(""+MessageStatus.INVALID_MSGTYPE, "Msgtype not Available for particular split group in splitgroup table");
+		status.put(""+MessageStatus.INVALID_SPLITGROUP, "split group not available in splitgroup table");
+		status.put(""+MessageStatus.INVALID_ROUTE_GROUP, "routegroup not available in routegroup table");
+		status.put(""+MessageStatus.INVALID_SMSCID, "smscid not available in kannel table");
 
 	}
 

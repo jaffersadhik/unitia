@@ -314,7 +314,7 @@ public class TableExsists {
 			
 	}
 
-	public void insertKannel(Connection connection, String smscid, int port, String splitgroup) {
+	public void insertKannel(Connection connection, String smscid,String ip, int port, String splitgroup,String routeclass) {
 
 		PreparedStatement statement=null;
 
@@ -322,9 +322,10 @@ public class TableExsists {
 			
 			statement=connection.prepareStatement(SQLQuery.INSERT_SMSCID_TABLE);
 			statement.setString(1, smscid);
-			statement.setInt(2, port);
-			statement.setString(3, splitgroup);
-
+			statement.setString(2, ip);
+			statement.setInt(3, port);
+			statement.setString(4, splitgroup);
+			statement.setString(5, routeclass);
 			statement.execute();
 			
 		}catch(Exception e) {
@@ -353,19 +354,19 @@ public class TableExsists {
 		}
 	}
 
-	public void insertRoute(Connection connection, int id, String routegroupname, String username, String operator,
+	public void insertRoute(Connection connection, String routegroupname,String username,String superadmin, String admin, String operator,
 			String circle) {
 		PreparedStatement statement=null;
 
 		try {
 			
 			statement=connection.prepareStatement(SQLQuery.INSERT_ROUTE_TABLE);
-			statement.setInt(1,id);
-			statement.setString(2, routegroupname);
-			statement.setString(3, username);
-			statement.setString(4, operator);
-			statement.setString(5, circle);
-
+			statement.setString(1, routegroupname);
+			statement.setString(2,superadmin);
+			statement.setString(3, admin);
+			statement.setString(4, username);
+			statement.setString(5, operator);
+			statement.setString(6, circle);
 			statement.execute();
 			
 		}catch(Exception e) {
@@ -565,16 +566,19 @@ public class TableExsists {
 
 			while(resultset.next()) {
 				
+				String superadmin=resultset.getString("superadmin");
+				String admin=resultset.getString("admin");
 				String username=resultset.getString("username");
 				String groupname=resultset.getString("routegroup");
                 String operator= resultset.getString("operator");
                 String circle= resultset.getString("circle");
-				if(username==null) {
-					username="";
+			
+                if(superadmin==null) {
+					superadmin="";
 				}
 				
-				if(username==null) {
-					username="";
+				if(admin==null) {
+					admin="";
 				}
 				
 				if(groupname==null) {
@@ -589,7 +593,7 @@ public class TableExsists {
 					circle="";
 				}
 				
-				routegroup.put("~"+username.trim()+"~"+operator.trim()+"~"+circle.trim()+"~",groupname.trim());
+				routegroup.put("~"+superadmin.trim()+"~"+admin.trim()+"~"+username.trim()+"~"+operator.trim()+"~"+circle.trim()+"~",groupname.trim());
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -235,6 +235,10 @@ public class ThreadPoolTon {
 		if(pooltype.equals("sms")){
 			
 			pool.runTask(new SMSWorker( poolname, pooltype, record));
+			
+		}else if(pooltype.equals("billing")){
+			
+			pool.runTask(new BillingWorker( poolname, pooltype, record));
 		}
 		
 	}

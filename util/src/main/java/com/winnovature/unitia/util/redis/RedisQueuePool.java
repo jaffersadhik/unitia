@@ -284,10 +284,13 @@ public class RedisQueuePool {
 		
 		Connection connection=null;
 		PreparedStatement statement=null;
+		PreparedStatement statement1=null;
+		
 		try{
 			
 			connection =CoreDBConnection.getInstance().getConnection();
 			statement=connection.prepareStatement("insert into redis_queue_count(queuename,count ,updatetime ) values(?,?,?)");
+			statement1=connection.prepareStatement("delete from redis_queue_count where updatetime<?");
 			connection.setAutoCommit(false);
 			
 			Iterator itr=queueCount.keySet().iterator();
@@ -305,10 +308,12 @@ public class RedisQueuePool {
 			
 			statement.executeBatch();
 			connection.commit();
+			statement1.setLong(1, updatetime);
+			statement1.execute();
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			
+			Close.close(statement1);
 			Close.close(statement);
 			Close.close(connection);
 		}

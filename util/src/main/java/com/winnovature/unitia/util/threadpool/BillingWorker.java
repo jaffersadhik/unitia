@@ -7,7 +7,7 @@ import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.processor.SMSProcessor;
 
 
-public class SMSWorker implements Runnable {
+public class BillingWorker implements Runnable {
 
 
 		
@@ -16,9 +16,9 @@ public class SMSWorker implements Runnable {
 	
 	String pooltype=null;
 	String poolname=null;
-	SMSWorker obj=null;
+	BillingWorker obj=null;
 	
-	public SMSWorker(String poolname,String pooltype,Map<String,String> payloadPack) 
+	public BillingWorker(String poolname,String pooltype,Map<String,String> payloadPack) 
 	{
 		this.msgmap = payloadPack;
 		this.poolname= poolname;
@@ -30,14 +30,7 @@ public class SMSWorker implements Runnable {
 	{
 		logmap.put("poolname", poolname);
 		
-		SMSProcessor processor=new SMSProcessor(msgmap,logmap);
-		processor
-		.doNumberingPlan()
-		.doRouteGroupAvailable()
-		.doSMSCIDAvailable()
-		.doKannelAvailable()
-		.doSplitGroupAvilable();
-	
+		
 		logmap.putAll(msgmap);
 		
 		new Log().log(logmap);
@@ -56,7 +49,7 @@ public class SMSWorker implements Runnable {
 		return poolname;
 	}
 	
-	public SMSWorker getInstance(){
+	public BillingWorker getInstance(){
 		
 		return obj;
 	}
