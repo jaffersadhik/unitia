@@ -17,5 +17,8 @@ jobs:
     - name: build the source code by maven
       run : mvn install
     - uses: actions/checkout@v2
+    - name: list out the directories
+      run : ls -lrt
+    - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag unitia:$(date +%s)
