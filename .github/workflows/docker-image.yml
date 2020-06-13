@@ -14,9 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: list out the directory
-      run : ls -lrt
-    - uses: actions/checkout@v2
     - name: build the source code by maven
       run : mvn install
     - uses: actions/checkout@v2
