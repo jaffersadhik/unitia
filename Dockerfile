@@ -15,5 +15,5 @@ COPY ./*.prop /usr/local/tomcat/conf/
 COPY ./server.xml /usr/local/tomcat/conf/server.xml
 
 # Copy war file to tomcat webapps folder
-COPY ./api/target/*.war /usr/local/tomcat/webapps/app.war
+COPY /home/runner/.m2/repository/winovature/api/1.0/api-1.0.war /usr/local/tomcat/webapps/app.war
 
