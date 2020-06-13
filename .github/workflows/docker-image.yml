@@ -1,5 +1,4 @@
 name: Unitia Docker Image CI
-TAGNAME $(date +%s)
 
 on:
   push:
@@ -16,10 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag unitia:$TAGNAME
+      run: docker build . --file Dockerfile --tag unitia:tiger
     - uses: docker/build-push-action@v1
     - name: Docker Image Tag 
-      run: docker tag unitia:$TAGNAME winnovature/unitia:$TAGNAME
+      run: docker tag unitia:tiger winnovature/unitia:tiger
     - uses: docker/build-push-action@v1
     - name: Docker PushTag 
-      run: docker push winnovature/unitia:$TAGNAME
+      run: docker push winnovature/unitia:tiger
