@@ -20,6 +20,7 @@ import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.ToJsonString;
 import com.winnovature.unitia.util.misc.WinDate;
 import com.winnovature.unitia.util.redis.RedisQueuePool;
+import com.winnovature.unitia.util.routing.Refresh;
 import com.winnovature.unitia.util.test.Account;
 
 public class HttpLink extends HttpServlet 
@@ -41,6 +42,8 @@ public class HttpLink extends HttpServlet
 		Account.getInstance();
 	
 		RedisQueuePool.getInstance().reload();
+		
+		Refresh.getInsatnce().reload();
 		
 	}
 
