@@ -6,6 +6,10 @@
   <packaging>pom</packaging>
   <name>unitia</name>
   <description>sms platform</description>
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+</properties>
   <modules>
   	<module>util</module>
   	<module>api</module>
