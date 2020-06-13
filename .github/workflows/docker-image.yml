@@ -20,5 +20,10 @@ jobs:
     - name: Docker Image Tag 
       run: docker tag unitia:tiger winnovature/unitia:tiger
     - uses: docker/build-push-action@v1
+    - name: Docker Login 
+      run: docker login https://hub.docker.com/ -u winnovature -p R3qErf%a1
+    - uses: docker/build-push-action@v1
     - name: Docker PushTag 
       run: docker push winnovature/unitia:tiger
+
+
