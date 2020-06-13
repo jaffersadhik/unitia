@@ -10,10 +10,10 @@ RUN rm -rf /usr/local/tomcat/webapps/examples
 RUN rm -rf /usr/local/tomcat/webapps/host-manager
 RUN rm -rf /usr/local/tomcat/webapps/manager
 
-COPY numeringplan/*.prop /usr/local/tomcat/conf/
+COPY ../numeringplan/*.prop /usr/local/tomcat/conf/
 
-COPY server.xml /usr/local/tomcat/conf/server.xml
+COPY ../server.xml /usr/local/tomcat/conf/server.xml
 
 # Copy war file to tomcat webapps folder
-COPY api/target/*.war /usr/local/tomcat/webapps/app.war
+COPY ../api/target/*.war /usr/local/tomcat/webapps/app.war
 
