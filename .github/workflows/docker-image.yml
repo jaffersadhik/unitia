@@ -20,5 +20,8 @@ jobs:
     - name: list out the directories
       run : ls -lrt
     - uses: actions/checkout@v2
+    - name: list out the directories api
+      run : ls -lrt api
+    - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag unitia:$(date +%s)
