@@ -70,7 +70,7 @@ public class Prop {
 	
 		if(result==null){
 			
-			File source=new File("queuedb.prop");
+			File source=new File("/opt/tomcat/conf/queuedb.prop");
 			File dest=new File(fileName);
 			try {
 				Files.copy(source.toPath(), dest.toPath());
@@ -93,7 +93,7 @@ public class Prop {
 	
 		if(result==null){
 			
-			File source=new File("billingdb.prop");
+			File source=new File("/opt/tomcat/conf/billingdb.prop");
 			File dest=new File(fileName);
 			try {
 				Files.copy(source.toPath(), dest.toPath());
@@ -116,7 +116,7 @@ public class Prop {
 	
 		if(result==null){
 			
-			File source=new File("coredb.prop");
+			File source=new File("/opt/tomcat/conf/coredb.prop");
 			File dest=new File(fileName);
 			try {
 				Files.copy(source.toPath(), dest.toPath());
@@ -139,7 +139,7 @@ public class Prop {
 	
 		if(result==null){
 			
-			File source=new File("redisqueue.prop");
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
 			File dest=new File(fileName);
 			try {
 				Files.copy(source.toPath(), dest.toPath());
