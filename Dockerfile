@@ -17,3 +17,6 @@ COPY ./server.xml /usr/local/tomcat/conf/server.xml
 # Copy war file to tomcat webapps folder
 COPY ./api/target/api-1.0.war /usr/local/tomcat/webapps/app.war
 
+EXPOSE 8080
+
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
