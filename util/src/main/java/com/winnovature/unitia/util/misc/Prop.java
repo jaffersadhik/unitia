@@ -64,7 +64,7 @@ public class Prop {
  
 	public Properties getQueueDBProp() {
 		
-		String fileName="/opt/unitiaconfig/queuedb.prop";
+		String fileName="/unitia/queuedb.prop";
 		
 		Properties result= new FileReader().getProperties(fileName);
 	
@@ -87,7 +87,7 @@ public class Prop {
 
 	public Properties getBillingDBProp() {
 		
-		String fileName="/opt/unitiaconfig/billingdb.prop";
+		String fileName="/unitia/billingdb.prop";
 		
 		Properties result= new FileReader().getProperties(fileName);
 	
@@ -110,7 +110,7 @@ public class Prop {
 
 	public Properties getCoreDBProp() {
 		
-		String fileName="/opt/unitiaconfig/coredb.prop";
+		String fileName="/unitia/coredb.prop";
 		
 		Properties result= new FileReader().getProperties(fileName);
 	
@@ -133,7 +133,7 @@ public class Prop {
 
 	public Properties getRedisQueueProp() {
 		
-		String fileName="/opt/unitiaconfig/redisqueue.prop";
+		String fileName="/unitia/redisqueue.prop";
 		
 		Properties result= new FileReader().getProperties(fileName);
 	
