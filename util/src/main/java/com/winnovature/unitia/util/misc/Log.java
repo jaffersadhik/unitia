@@ -45,7 +45,7 @@ public class Log {
 	
 		 try {
 		      // Creates a FileWriter
-			 String filename=ConfigParams.getInstance().getProperty(ConfigKey.LOGPATH)+name+".log";
+			 String filename="/unitialogs/"+name+".log";
 		      FileWriter file = new FileWriter(filename,true);
 
 		      // Creates a BufferedWriter
