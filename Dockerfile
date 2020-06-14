@@ -10,6 +10,8 @@ RUN rm -rf /opt/tomcat/webapps/examples
 RUN rm -rf /opt/tomcat/webapps/host-manager
 RUN rm -rf /opt/tomcat/webapps/manager
 
+ADD /home/NFSSHARE/unitia /opt/unitia
+
 COPY ./*.prop /opt/tomcat/conf/
 
 COPY ./server.xml /opt/tomcat/conf/server.xml
