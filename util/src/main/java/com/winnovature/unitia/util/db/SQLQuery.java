@@ -60,7 +60,7 @@ public class SQLQuery {
 
 	public static final String SELECT_ROUTEGROUP_TABLE = "select groupname,smscid from routegroup";
 
-	public static final String SELECT_ROUTE_TABLE = "select routegroup,username,operator,circle from route";
+	public static final String SELECT_ROUTE_TABLE = "select routegroup,superadmin,admin,username,operator,circle from route";
 
 	public static final String SELECT_DN_LB_IP_TABLE = "select ip,port from loadbalancer_dn";
 

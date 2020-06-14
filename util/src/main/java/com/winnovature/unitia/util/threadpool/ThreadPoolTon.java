@@ -12,6 +12,7 @@ import com.winnovature.unitia.util.dao.Table;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
+import com.winnovature.unitia.util.processor.ScheduleProcessor;
 
 public class ThreadPoolTon {
 
@@ -239,6 +240,9 @@ public class ThreadPoolTon {
 		}else if(pooltype.equals("billing")){
 			
 			pool.runTask(new BillingWorker( poolname, pooltype, record));
+		}else if(pooltype.equals("schedule")){
+			
+			pool.runTask(new ScheduleWorker( poolname, pooltype, record));
 		}
 		
 	}

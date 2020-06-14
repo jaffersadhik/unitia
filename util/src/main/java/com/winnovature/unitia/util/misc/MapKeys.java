@@ -58,14 +58,6 @@ public interface MapKeys {
 
 	public static String RTIME = "rtime";
 
-	public static String RDAY = "rday";
-
-	public static String RSECOND = "rsecond";
-
-	public static String RMINUTE = "rminute";
-
-	public static String RHOUR = "rhour";
-
 	public static String SUPERADMIN = "superadmin";
 
 	public static String ADMIN = "admin";
@@ -104,7 +96,7 @@ public interface MapKeys {
 
 	public static String RTIME_ORG = "rtime_org";
 
-	public static String RDATE = "rdate";
+	public static String SCHEDULE_TYPE = "schedule_type";
 
 
 

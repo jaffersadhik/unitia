@@ -85,10 +85,7 @@ public class Route
 		try {
 			connection=CoreDBConnection.getInstance().getConnection();
 			TableExsists table=new TableExsists();
-			if(route.isEmpty()) {
-				
-				addMaster(connection, table);
-			}
+		
 			loadData(connection,table);
 		}catch(Exception e) {
 			

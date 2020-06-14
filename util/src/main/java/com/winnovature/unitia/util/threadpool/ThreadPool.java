@@ -184,6 +184,8 @@ class MyRejectedExecutionHandler implements RejectedExecutionHandler
 				
 				new QueueSender().sendR(poolname, message, false);
 				
+			}else if(worker instanceof ScheduleWorker){
+				
 			}
 			
 			

@@ -2,6 +2,7 @@ package com.winnovature.unitia.util.threadpool;
 
 import java.util.Map;
 
+import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.redis.RedisReader;
 
 public class RedisReceiver extends Thread {
@@ -22,7 +23,38 @@ public class RedisReceiver extends Thread {
 			
 			if(data!=null){
 				
-				ThreadPoolTon.getInstance().doProcess(poolname, "sms", data);
+				if(poolname.equals("schedule")){
+					
+					ThreadPoolTon.getInstance().doProcess(poolname, "schedule", data);
+
+				}else if(poolname.equals("otpretry")){
+					
+					ThreadPoolTon.getInstance().doProcess(poolname, "otpretry", data);
+
+				}else if(poolname.equals("msgretry")){
+					
+					ThreadPoolTon.getInstance().doProcess(poolname, "msgretry", data);
+
+				}else if(poolname.equals("dnretry")){
+					
+					ThreadPoolTon.getInstance().doProcess(poolname, "dnretry", data);
+
+				}else{
+
+					String scheduletype=data.get(MapKeys.SCHEDULE_TYPE);
+					
+					if(scheduletype!=null&&scheduletype.equals("trai")){
+						
+						ThreadPoolTon.getInstance().doProcess(poolname, "trai", data);
+
+					}else{
+					
+						ThreadPoolTon.getInstance().doProcess(poolname, "sms", data);
+
+
+					}
+
+				}
 			}else{
 				
 				gotosleep();
