@@ -12,8 +12,18 @@ public class Prop {
 	
 	private Prop() {
 		
+		makeready();
 	}
 	
+	private void makeready() {
+		
+		getCoreDBProp();
+		getQueueDBProp();
+		getBillingDBProp();
+		getRedisQueueProp();
+		
+	}
+
 	public static Prop getInstance() {
 		
 		if(obj==null) {
