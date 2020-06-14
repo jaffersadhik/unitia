@@ -15,9 +15,8 @@ public class FileReader {
 		
 		Properties prop=new Properties();
 		
-		String folder=System.getProperty("config.folder");
 		
-		File configfile=new File(folder+fileName);
+		File configfile=new File(fileName);
 		
 		InputStream inputStream=null;
 		
@@ -42,11 +41,10 @@ public class FileReader {
 	
 	public List<String> readFile(String filename){
 		
-		String folder=System.getProperty("config.folder");
 
 		 List<String> lines=null;
 		try {
-			lines = Files.readAllLines(Paths.get(folder+filename));
+			lines = Files.readAllLines(Paths.get(filename));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

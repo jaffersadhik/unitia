@@ -1,0 +1,7 @@
+db=1
+ip=127.0.0.1
+password=
+port=6379
+maxpool=20
+maxwait=60
+timeout=60
