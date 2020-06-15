@@ -45,7 +45,7 @@ public class Log {
 	
 		 try {
 		      // Creates a FileWriter
-			 String filename="/unitialogs/"+name+".log";
+			 String filename="/unitia/logs/"+name+".log";
 		      FileWriter file = new FileWriter(filename,true);
 
 		      // Creates a BufferedWriter

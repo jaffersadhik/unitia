@@ -23,4 +23,3 @@ EXPOSE 8080
 
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
 VOLUME ["/unitia"]
-VOLUME ["/unitialogs"]
