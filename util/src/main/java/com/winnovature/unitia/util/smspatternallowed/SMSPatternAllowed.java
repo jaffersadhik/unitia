@@ -55,7 +55,7 @@ public class SMSPatternAllowed {
 				
 				if(!table.isExsists(connection, "allowed_smspattern")){
 					
-					if(table.create(connection, " create table allowed_smspattern(pattern_id INT PRIMARY KEY AUTO_INCREMENT,username varchar(16),smspattern varchar(1000) ,unique(smspattern))", false)){
+					if(table.create(connection, " create table allowed_smspattern(pattern_id INT PRIMARY KEY AUTO_INCREMENT,username varchar(16),smspattern varchar(700) ,unique(smspattern))", false)){
 					
 						isTableAvailable=true;
 					}

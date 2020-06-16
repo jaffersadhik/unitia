@@ -51,7 +51,7 @@ public class SMSPatternBlackList {
 				
 				if(!table.isExsists(connection, "blacklist_smspattern")){
 					
-					if(table.create(connection, " create table blacklist_smspattern(smspattern varchar(1000) primary key)", false)){
+					if(table.create(connection, " create table blacklist_smspattern(smspattern varchar(700) primary key)", false)){
 					
 						isTableAvailable=true;
 					}
