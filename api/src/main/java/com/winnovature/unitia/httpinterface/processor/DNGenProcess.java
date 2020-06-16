@@ -29,10 +29,10 @@ public class DNGenProcess {
                 throw new ServletException();
             }
         }
-        out.print("Sent.");
+       */ out.print("Sent.");
         out.flush();
         out.close();
-*/
+
 	
 	}
 }
