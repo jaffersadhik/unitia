@@ -30,6 +30,7 @@ public class Refresh {
 		SenderidRouting.getInstance().reload();
 		SenderidSwapping.getInstance().reload();
 		ReRouting.getInstance().reload();
+		SenderidSwapScheduling.getInstance().reload();
 	}
 	
 	class T extends Thread{

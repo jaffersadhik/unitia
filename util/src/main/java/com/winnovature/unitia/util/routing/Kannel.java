@@ -84,7 +84,7 @@ public class Kannel
 		Connection connection=null;
 		
 		try {
-			connection=CoreDBConnection.getInstance().getConnection();
+			connection=RouteDBConnection.getInstance().getConnection();
 			TableExsists table=new TableExsists();
 			if(kannel.isEmpty()) {
 				

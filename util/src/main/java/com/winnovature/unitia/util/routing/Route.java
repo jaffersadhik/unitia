@@ -30,7 +30,7 @@ public class Route
 		
 		Connection connection =null;
 		try {
-			connection=CoreDBConnection.getInstance().getConnection();
+			connection=RouteDBConnection.getInstance().getConnection();
 			TableExsists table=new TableExsists();
 			if(!table.isExsists(connection, "route")) {
 			addMaster(connection,table);

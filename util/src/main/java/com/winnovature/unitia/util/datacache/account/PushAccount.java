@@ -31,14 +31,13 @@ public class PushAccount {
 		sb.append("password varchar(8), ");
 		sb.append("status varchar(1) default '1', ");
 		sb.append("bill_type varchar(25) default 'postpaid', ");
-
 		sb.append("admin_id INT, ");
 		sb.append("smpp_maxbind varchar(2) default '0' ,");
 		sb.append("msgclass varchar(1) default '1' ,");
 		sb.append("otp_yn varchar(1) default '0', ");
+		sb.append("otpdn_waittime_insec varchar(3) default '0', ");
 		sb.append("otpretry_yn varchar(1) default '0', ");
 		sb.append("dnretry_yn varchar(1) default '0', ");
-		sb.append("intl varchar(1) default '0', ");
 		sb.append("intl varchar(1) default '0', ");
 		sb.append("trans_senderid varchar(15) , ");
 		sb.append("promo_senderid varchar(15) , ");
@@ -61,8 +60,7 @@ public class PushAccount {
 		sb.append("sms_latency_in_ms varchar(4) default '0', ");
 		sb.append("log_yn varchar(1) default '0', ");
 		sb.append("itime timestamp default CURRENT_TIMESTAMP, ");
-		sb.append(
-				"CONSTRAINT fk_user FOREIGN KEY (admin_id) REFERENCES admin(admin_id) ON DELETE CASCADE ON UPDATE CASCADE) ");
+		sb.append("CONSTRAINT fk_u_admin_id FOREIGN KEY (admin_id) REFERENCES admin(admin_id) ON DELETE CASCADE ON UPDATE CASCADE) ");
 		USER_SQL = sb.toString();
 
 	}

@@ -85,7 +85,7 @@ public class SplitGroup
 		Connection connection=null;
 		
 		try {
-			connection=CoreDBConnection.getInstance().getConnection();
+			connection=RouteDBConnection.getInstance().getConnection();
 			TableExsists table=new TableExsists();
 			if(splitgroup.isEmpty()) {
 				
