@@ -105,7 +105,7 @@ public class OptinAccount {
 		Set<String> useridset=new HashSet<String>();
 		try{
 			connection=CoreDBConnection.getInstance().getConnection();
-			statement=connection.prepareStatement("select userid from account where optin='1'");
+			statement=connection.prepareStatement("select userid from users where optin_type='1'");
 			resultset=statement.executeQuery();
 			
 			while(resultset.next()){

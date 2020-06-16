@@ -106,7 +106,7 @@ public class OptoutAccount {
 		Set<String> useridset=new HashSet<String>();
 		try{
 			connection=CoreDBConnection.getInstance().getConnection();
-			statement=connection.prepareStatement("select userid from users where optin='2'");
+			statement=connection.prepareStatement("select userid from users where optin_type='2'");
 			resultset=statement.executeQuery();
 			
 			while(resultset.next()){
