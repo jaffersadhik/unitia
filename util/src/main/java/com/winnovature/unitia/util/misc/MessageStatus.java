@@ -21,6 +21,13 @@ public class MessageStatus {
 	public static final int INVALID_SPLITGROUP = 114;
 	public static final int INVALID_ROUTE_GROUP = 115;
 	public static final int INVALID_SMSCID = 116;
+	public static final int OPTOUT_MOBILE_NUMBER = 117;
+	public static final int MOBILE_NOT_REGISTERED_OPTIN = 118;
+	public static final int BLACKLIST_MOBILE = 119;
+	public static final int BLACKLIST_SENDERID = 120;
+	public static final int BLACKLIST_SMS_PATTERN = 121;
+	public static final int FILTERING_SMS_PATTERN = 122;
+	public static final int DND_REJECTED = 123;
 	
 	private static Map<String,String> status=new HashMap<String,String>();
 	private static MessageStatus obj=null;
@@ -43,6 +50,13 @@ public class MessageStatus {
 		status.put(""+MessageStatus.INVALID_SPLITGROUP, "split group not available in splitgroup table");
 		status.put(""+MessageStatus.INVALID_ROUTE_GROUP, "routegroup not available in routegroup table");
 		status.put(""+MessageStatus.INVALID_SMSCID, "smscid not available in kannel table");
+		status.put(""+MessageStatus.OPTOUT_MOBILE_NUMBER, "Message Rejected due to Optout mobile number for that acoount");
+		status.put(""+MessageStatus.MOBILE_NOT_REGISTERED_OPTIN, "Message Rejected due to mobile number not registered in optin list for that acoount");
+		status.put(""+MessageStatus.BLACKLIST_MOBILE, "Message Rejected due to mobile number blacklisted by Platform");
+		status.put(""+MessageStatus.BLACKLIST_SENDERID, "Message Rejected due to senderid blacklisted by Platform");
+		status.put(""+MessageStatus.BLACKLIST_SMS_PATTERN, "Message Rejected due to sms pattern is blacklisted by Platform");
+		status.put(""+MessageStatus.FILTERING_SMS_PATTERN, "Message Rejected due to sms pattern is filetred by Account Level");
+		status.put(""+MessageStatus.DND_REJECTED, "Message Rejected due to Mobile number Registered As DND");
 
 	}
 

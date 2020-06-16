@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
+import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.SQLQuery;
 import com.winnovature.unitia.util.db.TableExsists;
 
@@ -28,7 +29,7 @@ public class Kannel
 		
 		Connection connection =null;
 		try {
-			connection=CoreDBConnection.getInstance().getConnection();
+			connection=RouteDBConnection.getInstance().getConnection();
 			TableExsists table=new TableExsists();
 			if(!table.isExsists(connection, "kannel")) {
 			addMaster(connection,table);
@@ -55,8 +56,9 @@ public class Kannel
 	private void loadSMSCID(Connection connection, TableExsists table) {
 
 		if(table.create(connection, SQLQuery.CREATE_SMSCID_TABLE, false)) {
-			
+
 			table.insertKannel(connection,"apps","127.0.0.1",8080,"default_group","4");
+			table.insertKannel(connection,"reapps","127.0.0.1",8080,"default_group","4");
 			table.insertKannel(connection,"retry","127.0.0.1",1111,"default_group","5");
 
 		}

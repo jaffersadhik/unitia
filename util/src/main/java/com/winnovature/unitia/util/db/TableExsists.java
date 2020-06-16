@@ -1021,7 +1021,7 @@ public void persistQueueCounttoDB(Connection connection,long id, String queuenam
 	}finally{
 		
 		Close.close(statement);
-		
+		Close.close(connection);
 	}
 
 }
@@ -1100,7 +1100,7 @@ PreparedStatement statement=null;
 		
 	}finally{
 		
-		Close.close(connection);
+		Close.close(statement);
 	}
 	
 }
@@ -1196,6 +1196,29 @@ public void insertjvmid(Connection connection) {
 		statement.executeBatch();
 		connection.commit();
 		
+	}catch(Exception e){
+		
+	}finally{
+		
+		Close.close(statement);
+	}
+	
+}
+
+public void insertReroute(Connection connection, String smscid, String reroutesmscid) {
+
+	PreparedStatement statement=null;
+	
+	try{
+		
+		statement=connection.prepareStatement("insert into rerouting(username,smscid,reroute_smscid) values(?,?,?)");
+		
+		statement.setString(1, "");
+		statement.setString(2, smscid);
+		statement.setString(3, reroutesmscid);
+
+		statement.execute();
+
 	}catch(Exception e){
 		
 	}finally{

@@ -98,6 +98,13 @@ public interface MapKeys {
 
 	public static String SCHEDULE_TYPE = "schedule_type";
 
+	public static String ROUTE_CLASS = "routeclass";
+
+	public static String ALLOWED_PATTERN_ID = "allowedpatternid";
+	
+	public static String FILTERING_PATTERN_ID = "filteringpatternid";
+
+
 
 
 }

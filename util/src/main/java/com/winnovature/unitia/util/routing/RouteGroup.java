@@ -8,6 +8,8 @@ import java.util.Map;
 
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
+import com.winnovature.unitia.util.db.RouteDBConnection;
+import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.SQLQuery;
 import com.winnovature.unitia.util.db.TableExsists;
 
@@ -30,7 +32,7 @@ public class RouteGroup
 		
 		Connection connection =null;
 		try {
-			connection=CoreDBConnection.getInstance().getConnection();
+			connection=RouteDBConnection.getInstance().getConnection();
 			TableExsists table=new TableExsists();
 			if(!table.isExsists(connection, "loadbalancer_http")) {
 			addMaster(connection,table);

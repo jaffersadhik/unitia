@@ -162,6 +162,127 @@ public class Prop {
 		}
 		
 		return result;
+	}
+
+	public Properties getOptinDBProp() {
+		
+		String fileName="/unitia/optindb.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/optindb.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	}	
+	
+
+	public Properties getOptoutDBProp() {
+		
+		String fileName="/unitia/optoutdb.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/optoutdb.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	}
+
+	public Properties getDNDDBProp() {
+		
+		String fileName="/unitia/dnddb.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/dnddb.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	}
+
+	public Properties getRouteDBProp() {
+		
+		String fileName="/unitia/routedb.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/routedb.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	}
+
+	public Properties getDuplicateDBProp() {
+		
+
+		
+		String fileName="/unitia/duplicatedb.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/duplicatedb.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	
+		
+		
 	}	
 	
 	

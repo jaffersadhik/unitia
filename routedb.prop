@@ -1,0 +1,15 @@
+ip=127.0.0.1
+port=3306
+url=jdbc:mysql://127.0.0.1:3306/routedb
+username=root
+password=root@123
+driverClassName=com.mysql.jdbc.Driver
+maxActive=3
+maxIdle=2
+minIdle=2
+initialSize=1
+minEvictableIdleTimeMillis=290000
+timeBetweenEvictionRunsMillis=1000
+numTestsPerEviction=-1
+MaxWaitMillis=3000
+schema=core

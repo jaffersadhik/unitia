@@ -1,1 +1,4 @@
+com\winnovature\unitia\httpinterface\processor\SMSReceiverProcessor.class
+com\winnovature\unitia\httpinterface\processor\DNGenProcess.class
 com\winnovature\unitia\httpinterface\servlet\HttpLink.class
+com\winnovature\unitia\httpinterface\servlet\Controller.class

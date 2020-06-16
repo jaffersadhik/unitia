@@ -1,0 +1,15 @@
+ip=127.0.0.1
+port=3306
+url=jdbc:mysql://127.0.0.1:3306/opout
+username=root
+password=root@123
+driverClassName=com.mysql.jdbc.Driver
+maxActive=25
+maxIdle=5
+minIdle=5
+initialSize=1
+minEvictableIdleTimeMillis=290000
+timeBetweenEvictionRunsMillis=1000
+numTestsPerEviction=-1
+MaxWaitMillis=3000
+schema=core

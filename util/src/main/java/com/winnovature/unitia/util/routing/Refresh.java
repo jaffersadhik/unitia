@@ -26,6 +26,10 @@ public class Refresh {
 		Kannel.getInstance().reload();
 		RouteGroup.getInstance().reload();
 		Route.getInstance().reload();
+		MobileRouting.getInstance().reload();
+		SenderidRouting.getInstance().reload();
+		SenderidSwapping.getInstance().reload();
+		ReRouting.getInstance().reload();
 	}
 	
 	class T extends Thread{

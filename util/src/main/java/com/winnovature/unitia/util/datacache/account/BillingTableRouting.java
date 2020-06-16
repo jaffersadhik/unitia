@@ -50,7 +50,7 @@ public class BillingTableRouting {
 	
 	private void loadbillingroutingtable(Connection connection, TableExsists table) {
 		
-		if (table.isExsists(connection, table.getTableName(BILLINGTABLE_ROUTING))) {
+		if (!table.isExsists(connection, table.getTableName(BILLINGTABLE_ROUTING))) {
 			if (table.create(connection, BILLINGTABLE_ROUTING, false)) {
 
 			
@@ -58,6 +58,9 @@ public class BillingTableRouting {
 		}
 	}
 
+	public void reload(){
+		
+	}
 	
 	
 	

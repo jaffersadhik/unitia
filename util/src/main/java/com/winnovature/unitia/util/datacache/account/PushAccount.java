@@ -36,7 +36,12 @@ public class PushAccount {
 		sb.append("smpp_maxbind varchar(2) default '0' ,");
 		sb.append("msgclass varchar(1) default '1' ,");
 		sb.append("otp_yn varchar(1) default '0', ");
+		sb.append("otpretry_yn varchar(1) default '0', ");
+		sb.append("dnretry_yn varchar(1) default '0', ");
 		sb.append("intl varchar(1) default '0', ");
+		sb.append("intl varchar(1) default '0', ");
+		sb.append("trans_senderid varchar(15) , ");
+		sb.append("promo_senderid varchar(15) , ");
 		sb.append("prefix91 varchar(1) default '1', ");
 		sb.append("schedule_yn varchar(1) default '0', ");
 		sb.append("optin_type varchar(1) default '0', ");

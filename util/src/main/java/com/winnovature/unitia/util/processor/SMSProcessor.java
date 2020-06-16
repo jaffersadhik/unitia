@@ -1,17 +1,29 @@
 package com.winnovature.unitia.util.processor;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
 
+import com.winnovature.unitia.util.datacache.account.PushAccount;
+import com.winnovature.unitia.util.dnd.DNDProcessoer;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.RoundRobinTon;
+import com.winnovature.unitia.util.mobileblacklist.MobileBlackList;
+import com.winnovature.unitia.util.optin.OptinProcessor;
+import com.winnovature.unitia.util.optout.OptoutProcessor;
 import com.winnovature.unitia.util.redis.QueueSender;
 import com.winnovature.unitia.util.routing.Kannel;
 import com.winnovature.unitia.util.routing.NumberingPlan;
 import com.winnovature.unitia.util.routing.Route;
 import com.winnovature.unitia.util.routing.RouteGroup;
 import com.winnovature.unitia.util.routing.SplitGroup;
+import com.winnovature.unitia.util.senderidblacklist.SenderidBlackList;
+import com.winnovature.unitia.util.smspatternallowed.SMSPatternAllowed;
+import com.winnovature.unitia.util.smspatternblacklist.SMSPatternBlackList;
+import com.winnovature.unitia.util.smspatternfiltering.SMSPatternFiltering;
 
 public class SMSProcessor {
 	
@@ -60,6 +72,214 @@ public class SMSProcessor {
 		return this;
 	}
 	
+	
+	
+	public SMSProcessor doBlackListSenderid(){
+	
+		
+		if(isfurtherprocess){
+		
+			String senderid=msgmap.get(MapKeys.SENDERID);
+			
+			if(SenderidBlackList.getInstance().isBalckList(senderid)){
+			
+				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.BLACKLIST_SENDERID);
+
+				isfurtherprocess=false;
+		
+			}
+		}
+		
+		return this;
+	}
+
+	
+public SMSProcessor doDNDCheck(){
+		
+
+	
+		
+		if(isfurtherprocess){
+		
+			String routeclass=msgmap.get(MapKeys.ROUTE_CLASS);
+			if(routeclass.equals("2")){
+			if(new DNDProcessoer().isDND(msgmap.get(MapKeys.MOBILE))){
+				
+				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.DND_REJECTED);
+
+				
+				isfurtherprocess=false;
+			}
+			}
+		}
+
+		return this;
+	
+		
+	}
+
+	
+	
+	public SMSProcessor doFilteringSMSPatternCheck(){
+		
+
+	
+		
+		if(isfurtherprocess){
+		
+			Set<String> patternset=SMSPatternFiltering.getInstance().getFilteringPaternSet(msgmap.get(MapKeys.USERNAME));
+			
+			Iterator itr= patternset.iterator();
+			
+			while(itr.hasNext()){
+			
+				String spamPattern=itr.next().toString();
+				
+				if(Pattern.compile(spamPattern, Pattern.CASE_INSENSITIVE).matcher(msgmap.get(MapKeys.MESSAGE)).matches())
+				{
+					msgmap.put(MapKeys.FILTERING_PATTERN_ID, SMSPatternFiltering.getInstance().getPatternId(spamPattern));
+					msgmap.put(MapKeys.STATUSID, ""+MessageStatus.FILTERING_SMS_PATTERN);
+
+					isfurtherprocess=false;
+					return this;
+				}
+			}
+			
+		}
+		msgmap.put(MapKeys.ROUTE_CLASS, "2");
+
+		return this;
+	
+		
+	}
+	
+	
+	public SMSProcessor doAllowedSMSPatternCheck(){
+		
+
+	
+		
+		if(isfurtherprocess){
+		
+			Set<String> patternset=SMSPatternAllowed.getInstance().getAllowedPaternSet(msgmap.get(MapKeys.USERNAME));
+			
+			Iterator itr= patternset.iterator();
+			
+			while(itr.hasNext()){
+			
+				String spamPattern=itr.next().toString();
+				
+				if(Pattern.compile(spamPattern, Pattern.CASE_INSENSITIVE).matcher(msgmap.get(MapKeys.MESSAGE)).matches())
+				{
+					msgmap.put(MapKeys.ROUTE_CLASS, "1");
+					msgmap.put(MapKeys.ALLOWED_PATTERN_ID, SMSPatternAllowed.getInstance().getPatternId(spamPattern));
+
+					return this;
+				}
+			}
+			
+		}
+		msgmap.put(MapKeys.ROUTE_CLASS, "2");
+
+		return this;
+	
+		
+	}
+	
+	public SMSProcessor doBlackListSMSPattern(){
+	
+		
+		if(isfurtherprocess){
+		
+			Set<String> patternset=SMSPatternBlackList.getInstance().getBlacklistPaternSet();
+			
+			Iterator itr= patternset.iterator();
+			
+			while(itr.hasNext()){
+			
+				String spamPattern=itr.next().toString();
+				
+				if(Pattern.compile(spamPattern, Pattern.CASE_INSENSITIVE).matcher(msgmap.get(MapKeys.MESSAGE)).matches())
+				{
+					msgmap.put(MapKeys.STATUSID, ""+MessageStatus.BLACKLIST_SMS_PATTERN);
+
+					isfurtherprocess=false;
+					
+					return this;
+				}
+			}
+			
+		}
+		
+		return this;
+	}
+
+
+	public SMSProcessor doBlackListMobileNumber(){
+	
+		
+		if(isfurtherprocess){
+		
+			String mobile=msgmap.get(MapKeys.MOBILE);
+			
+			if(MobileBlackList.getInstance().isBalckList(mobile)){
+			
+				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.BLACKLIST_MOBILE);
+
+				isfurtherprocess=false;
+		
+			}
+		}
+		
+		return this;
+	}
+	
+	public SMSProcessor doOptin(){
+		
+		if(isfurtherprocess){
+			
+			String username=msgmap.get(MapKeys.USERNAME);
+			String userid=msgmap.get(MapKeys.USERID);
+			String mobile=msgmap.get(MapKeys.MOBILE);
+			
+			if(PushAccount.instance().getPushAccount(username).get(MapKeys.OPTIN_TYPE).equals("1")){
+			if(new OptinProcessor().isOptin(userid, mobile)){
+				
+				return this;
+			}else{
+				
+				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.MOBILE_NOT_REGISTERED_OPTIN);
+
+				isfurtherprocess=false;
+			}
+			
+			}
+		}
+		
+		return this;
+	}
+	
+	public SMSProcessor doOptout(){
+		
+		if(isfurtherprocess){
+			String username=msgmap.get(MapKeys.USERNAME);
+			String userid=msgmap.get(MapKeys.USERID);
+			String mobile=msgmap.get(MapKeys.MOBILE);
+			
+			if(PushAccount.instance().getPushAccount(username).get(MapKeys.OPTIN_TYPE).equals("2")){
+				if(new OptoutProcessor().isOptout(userid, mobile)){
+
+				isfurtherprocess=false;
+				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.OPTOUT_MOBILE_NUMBER);
+
+				return this;
+				}
+			
+			}
+		}
+		
+		return this;
+	}
 	public SMSProcessor doSMSCIDAvailable() {
 		
 		if(isfurtherprocess){

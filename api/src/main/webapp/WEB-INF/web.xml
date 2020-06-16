@@ -4,13 +4,13 @@
    <display-name>HttpInterface</display-name>	
 	
   <servlet>
-    <servlet-name>HttpLink</servlet-name>
-    <servlet-class>com.winnovature.unitia.httpinterface.servlet.HttpLink</servlet-class>
+    <servlet-name>Controller</servlet-name>
+    <servlet-class>com.winnovature.unitia.httpinterface.servlet.Controller</servlet-class>
  	<load-on-startup>1</load-on-startup>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>HttpLink</servlet-name>
+    <servlet-name>Controller</servlet-name>
     <url-pattern>/*</url-pattern>
   </servlet-mapping> 
   
