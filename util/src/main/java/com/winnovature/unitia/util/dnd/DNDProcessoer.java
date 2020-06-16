@@ -11,7 +11,7 @@ import com.winnovature.unitia.util.misc.MapKeys;
 
 public class DNDProcessoer {
 
-	private static String SQL="create table dnd (mobile numeric(21))";
+	private static String SQL="create table dnd (mobile numeric(21,0))";
 	
 	private static boolean isTableAvailable=false;
 
@@ -25,7 +25,7 @@ public class DNDProcessoer {
 			connection=DNDDBConnection.getInstance().getConnection();
 		
 				
-				if(isTableAvailable){
+				if(!isTableAvailable){
 					
 					TableExsists table=new TableExsists();			
 					
@@ -42,7 +42,7 @@ public class DNDProcessoer {
 				}
 						
 			statement =connection.prepareStatement("select * from dnd where mobile = ?");
-			statement.setLong(1,Long.parseLong(MapKeys.MOBILE));
+			statement.setLong(1,Long.parseLong(mobile));
 			resultset=statement.executeQuery();
 			if(resultset.next()){
 				
