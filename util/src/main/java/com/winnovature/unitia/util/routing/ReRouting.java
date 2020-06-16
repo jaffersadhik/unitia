@@ -63,7 +63,7 @@ public class ReRouting {
 				}
 			}
 			
-			statement =connection.prepareStatement("select username,smscid,reroute_smscid from reroute_smscid");
+			statement =connection.prepareStatement("select username,smscid,reroute_smscid from rerouting");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
