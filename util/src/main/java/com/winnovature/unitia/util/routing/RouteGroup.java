@@ -34,7 +34,7 @@ public class RouteGroup
 		try {
 			connection=RouteDBConnection.getInstance().getConnection();
 			TableExsists table=new TableExsists();
-			if(!table.isExsists(connection, "loadbalancer_http")) {
+			if(!table.isExsists(connection, "routegroup")) {
 			addMaster(connection,table);
 			}
 			
