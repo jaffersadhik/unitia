@@ -31,6 +31,7 @@ public class Refresh {
 		SenderidSwapping.getInstance().reload();
 		ReRouting.getInstance().reload();
 		SenderidSwapScheduling.getInstance().reload();
+		Countrycode.getInstance().reload();
 	}
 	
 	class T extends Thread{

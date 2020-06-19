@@ -1227,4 +1227,103 @@ public void insertReroute(Connection connection, String smscid, String reroutesm
 	}
 	
 }
+
+public void insertCountryCode(Connection connection, String countryname, String countrycode) {
+	
+
+
+	PreparedStatement statement=null;
+	
+	try{
+		
+		statement=connection.prepareStatement("insert into countrycode(countryname,countrycode) values(?,?)");
+		
+		statement.setString(1, countryname);
+		statement.setString(2, countrycode);
+
+		statement.execute();
+
+	}catch(Exception e){
+		
+	}finally{
+		
+		Close.close(statement);
+	}
+	
+
+	
+}
+
+public Map<String, String> getCountrycode(Connection connection) {
+	PreparedStatement statement=null;
+	ResultSet resultset=null;
+	Map<String,String> countrycodemap=new HashMap<String,String>();
+ 	try{
+		statement=connection.prepareStatement("select countrycode,countryname from countrycode");
+		resultset=statement.executeQuery();
+		
+		while(resultset.next()){
+			
+			String countrycode=resultset.getString("countrycode").trim();
+			String countryname=resultset.getString("countryname").trim();
+			countrycodemap.put(countrycode, countryname);
+		}
+	}catch(Exception e){
+		
+	}finally{
+		
+		Close.close(statement);
+		Close.close(resultset);
+	}
+ 	
+ 	return countrycodemap;
+}
+
+public Map<String, String> getIntlRoute(Connection connection) {
+
+	PreparedStatement statement=null;
+	ResultSet resultset=null;
+	Map<String, String> routegroup=new HashMap<String,String> ();
+	try {
+			
+			statement=connection.prepareStatement(SQLQuery.SELECT_INTL_ROUTE_TABLE);
+
+		resultset=statement.executeQuery();
+
+		while(resultset.next()) {
+			
+			String superadmin=resultset.getString("superadmin");
+			String admin=resultset.getString("admin");
+			String username=resultset.getString("username");
+			String groupname=resultset.getString("routegroup");
+            String countrycode= resultset.getString("countrycode");
+		
+            if(superadmin==null) {
+				superadmin="";
+			}
+			
+			if(admin==null) {
+				admin="";
+			}
+			
+			if(groupname==null) {
+				groupname="";
+			}
+			
+			if(countrycode==null) {
+				countrycode="";
+			}
+			
+			routegroup.put("~"+superadmin.trim()+"~"+admin.trim()+"~"+username.trim()+"~"+countrycode.trim()+"~",groupname.trim());
+		}
+	}catch(Exception e) {
+		e.printStackTrace();
+		Close.close(statement);
+		Close.close(resultset);
+		return null;
+	}
+	
+	return routegroup;
+
+}
 }

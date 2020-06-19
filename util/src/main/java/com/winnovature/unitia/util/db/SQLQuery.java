@@ -40,6 +40,8 @@ public class SQLQuery {
 
 	public static final String CREATE_ROUTE_TABLE = "create table route(id INT PRIMARY KEY AUTO_INCREMENT,routegroup varchar(25),superadmin varchar(21),admin varchar(21),username varchar(21),operator varchar(2),circle varchar(2),index(superadmin,admin,username,operator,circle))";
 	
+	public static final String CREATE_INTL_ROUTE_TABLE = "create table international_route(id INT PRIMARY KEY AUTO_INCREMENT,routegroup varchar(25),superadmin varchar(21),admin varchar(21),username varchar(21),countrycode varchar(10),index(superadmin,admin,username,countrycode))";
+
 	public static final String INSERT_ROUTE_TABLE = "insert into route(routegroup,superadmin,admin,username,operator,circle ) values(?,?,?,?,?,?)";
 
 	public static final String CREATE_KANNEL_LOADBALANCER = "create table loadbalancer_kannel(ip varchar(15) primary key)";
@@ -61,6 +63,8 @@ public class SQLQuery {
 	public static final String SELECT_ROUTEGROUP_TABLE = "select groupname,smscid from routegroup";
 
 	public static final String SELECT_ROUTE_TABLE = "select routegroup,superadmin,admin,username,operator,circle from route";
+
+	public static final String SELECT_INTL_ROUTE_TABLE = "select routegroup,superadmin,admin,username,countrycode from international_route";
 
 	public static final String SELECT_DN_LB_IP_TABLE = "select ip,port from loadbalancer_dn";
 

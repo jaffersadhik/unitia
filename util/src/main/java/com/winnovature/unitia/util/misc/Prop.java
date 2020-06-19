@@ -283,6 +283,12 @@ public class Prop {
 	
 		
 		
+	}
+
+	public List<String> getCountryCode() {
+		
+  		return new FileReader().readFile("countrycode.prop");
+
 	}	
 	
 	

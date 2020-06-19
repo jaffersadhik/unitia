@@ -85,6 +85,7 @@ public class SenderidSwapping {
 				if(map1==null){
 					
 					map1=new HashMap<String,String>();
+					senderidswap.put(key, map1);
 				}
 				map1.put(resultset.getString("senderid"), resultset.getString("senderid_swapping"));
 			
@@ -93,6 +94,9 @@ public class SenderidSwapping {
 				if(map2==null){
 					
 					map2=new HashMap<String,String>();
+					
+					senderidreswap.put(key, map2);
+					
 				}
 				map2.put(resultset.getString("senderid_swapping"), resultset.getString("senderid"));
 			
