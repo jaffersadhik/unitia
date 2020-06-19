@@ -60,7 +60,7 @@ public class Countrycode
 
 	private void loadCountrycode(Connection connection, TableExsists table) {
 
-		if(table.create(connection,"create table countrycode(countrycode numberic(10,0) not null,countryname varchar(50) not null)", false)) {
+		if(table.create(connection,"create table countrycode(countrycode varchar(10) not null,countryname varchar(50) not null)", false)) {
 		
 			add(connection,table,Prop.getInstance().getCountryCode());
 		}
