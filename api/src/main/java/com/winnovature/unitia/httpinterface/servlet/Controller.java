@@ -1,9 +1,6 @@
 package com.winnovature.unitia.httpinterface.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -13,14 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.winnovature.unitia.httpinterface.processor.DNGenProcess;
+import com.winnovature.unitia.httpinterface.processor.DNReceiverProcessor;
 import com.winnovature.unitia.httpinterface.processor.SMSReceiverProcessor;
-import com.winnovature.unitia.util.http.HttpRequestProcessor;
-import com.winnovature.unitia.util.misc.Bean;
-import com.winnovature.unitia.util.misc.ErrorMessage;
-import com.winnovature.unitia.util.misc.Log;
-import com.winnovature.unitia.util.misc.MapKeys;
-import com.winnovature.unitia.util.misc.ToJsonString;
-import com.winnovature.unitia.util.misc.WinDate;
 import com.winnovature.unitia.util.redis.RedisQueuePool;
 import com.winnovature.unitia.util.routing.Refresh;
 import com.winnovature.unitia.util.test.Account;
@@ -55,18 +46,22 @@ public class Controller extends HttpServlet
 	
 		String URIString = request.getRequestURI().trim().toLowerCase();
 		
-		if(URIString.startsWith("api/dngen")){
+		if(URIString.startsWith("/api/dngen")){
 			
 			new DNGenProcess().doProcess(request, response);
 			
-		}else if(URIString.startsWith("api/dnreceiver")){
+		}else if(URIString.startsWith("/api/dnreceiver")){
+			
+			new DNReceiverProcessor().doProcess(request, response);
+			
+		}else if(URIString.startsWith("/api/receiver")){
 			
 			new SMSReceiverProcessor().doProcess(request, response);
+		}else{
 			
-		}else if(URIString.startsWith("api/receiver")){
-			
-			new SMSReceiverProcessor().doProcess(request, response);
+			new ServletException("Unknown Context Path");
 		}
+		
 	}
 
 
