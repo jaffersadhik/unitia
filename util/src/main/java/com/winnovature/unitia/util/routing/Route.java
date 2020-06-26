@@ -125,11 +125,11 @@ public class Route
 			
 			if(routeclass.equals("1")){
 				
-				(route.get(key)).get(ROUTE_TRANS);
+				return (route.get(key)).get(ROUTE_TRANS);
 				
 			}else{
 				
-				(route.get(key)).get(ROUTE_PROMO);
+				return (route.get(key)).get(ROUTE_PROMO);
 				
 
 			}
