@@ -58,7 +58,7 @@ public class Route
 
 		if(table.create(connection, SQLQuery.CREATE_ROUTE_TABLE, false)) {
 		
-			table.insertRoute(connection,"apps_group","apps_group", "","","","","");
+			table.insertRoute(connection,"apps_group","apps_group", null,null,null,null,null);
 		}
 	}
 
