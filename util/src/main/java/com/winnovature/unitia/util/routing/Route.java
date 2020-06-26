@@ -14,16 +14,22 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class Route
 {
+	public static String CONJUNCTION="~";
+
 	public static String NULL="NULL";
+	
+	private static Map<String, Map<String, String>> route=new HashMap<String, Map<String, String>> ();
+
     private static Route    obj        = null;
     
    
-	private Map<String, Map<String, String>> route=new HashMap<String, Map<String, String>> ();
 
 	private Route()
     {
         
         addMaster();
+    
+        reload();
     }
     
 	private void addMaster() {

@@ -580,7 +580,7 @@ public class TableExsists {
 				 data.put("trans",groupname_trans.trim());
 				 data.put("promo",groupname_promo.trim());
 
-				routegroup.put("~"+superadmin.trim()+"~"+admin.trim()+"~"+username.trim()+"~"+operator.trim()+"~"+circle.trim()+"~",data);
+				routegroup.put(Route.CONJUNCTION+superadmin.trim()+Route.CONJUNCTION+admin.trim()+Route.CONJUNCTION+username.trim()+Route.CONJUNCTION+operator.trim()+Route.CONJUNCTION+circle.trim()+Route.CONJUNCTION,data);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -1303,7 +1303,7 @@ public Map<String, String> getIntlRoute(Connection connection) {
 				countrycode="";
 			}
 			
-			routegroup.put("~"+superadmin.trim()+"~"+admin.trim()+"~"+username.trim()+"~"+countrycode.trim()+"~",groupname.trim());
+			routegroup.put(Route.CONJUNCTION+superadmin.trim()+Route.CONJUNCTION+admin.trim()+Route.CONJUNCTION+username.trim()+Route.CONJUNCTION+countrycode.trim()+Route.CONJUNCTION,groupname.trim());
 		}
 	}catch(Exception e) {
 		e.printStackTrace();
