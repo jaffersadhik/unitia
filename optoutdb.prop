@@ -1,6 +1,6 @@
 ip=127.0.0.1
 port=3306
-url=jdbc:mysql://127.0.0.1:3306/opout
+url=jdbc:mysql://127.0.0.1:3306/optout
 username=root
 password=root@123
 driverClassName=com.mysql.jdbc.Driver
