@@ -1095,9 +1095,11 @@ public class SMSProcessor {
 		}
 		
 		String expiry=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME)).get(MapKeys.EXPIRY);
-	
-		int expirtInt=Integer.parseInt(expiry);
+		int expirtInt=0;
+		if(expiry!=null){
+			expirtInt=Integer.parseInt(expiry);
 		
+		}
 		if(expirtInt>0){
 			
 			kannelurl=kannelurl+"&validity="+expirtInt;
