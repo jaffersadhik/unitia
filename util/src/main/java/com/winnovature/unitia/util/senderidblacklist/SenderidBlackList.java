@@ -12,11 +12,12 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class SenderidBlackList {
 
+	private static boolean isTableAvailable=false;
+
 	private static SenderidBlackList obj=null;
 	
 	private Set<String> senderidblacklistset=new HashSet<String>();
 	
-	private boolean isTableAvailable=false;
 	
 	private SenderidBlackList(){
 	

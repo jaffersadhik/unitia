@@ -14,11 +14,13 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class WhiteListedSenderid {
 
+	private static boolean isTableAvailable=false;
+
 	private static WhiteListedSenderid obj=null;
 	
+
 	private Map<String,Set<String>> whitelistedsenderid=new HashMap<String,Set<String>>();
 	
-	private boolean isTableAvailable=false;
 	
 	private WhiteListedSenderid(){
 	

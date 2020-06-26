@@ -11,12 +11,13 @@ import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 
 public class SMSPatternBlackList {
+	
+	private static boolean isTableAvailable=false;
 
 	private static SMSPatternBlackList obj=null;
 	
 	private Set<String> smspatternblacklistset=new HashSet<String>();
 	
-	private boolean isTableAvailable=false;
 	
 	private SMSPatternBlackList(){
 	

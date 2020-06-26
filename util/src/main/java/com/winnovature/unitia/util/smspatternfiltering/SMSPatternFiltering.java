@@ -14,12 +14,13 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class SMSPatternFiltering {
 
+	private static boolean isTableAvailable=false;
+
 	private static SMSPatternFiltering obj=null;
 	
 	private Map<String,Set<String>> smspatternfilteringset=new HashMap<String,Set<String>>();
 	private Map<String,String> smspatternidmap=new HashMap<String,String>();
 
-	private boolean isTableAvailable=false;
 	
 	private SMSPatternFiltering(){
 	
@@ -76,6 +77,7 @@ public class SMSPatternFiltering {
 				if(patternmap==null){
 					
 					patternmap=new HashSet<String>();
+					patternset.put(username, patternmap);
 				}
 				
 				patternidmap.put(resultset.getString("smspattern").toLowerCase(), resultset.getString("pattern_id"));
