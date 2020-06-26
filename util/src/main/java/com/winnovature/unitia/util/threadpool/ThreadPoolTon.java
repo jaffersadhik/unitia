@@ -14,7 +14,7 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class ThreadPoolTon {
 
-	private static final String WORKERPOOL = "create table workerpool(poolname varchar(50) PRIMARY KEY,pooltype varchar(3) default 'sms',poolsize varchar(2) default '2',maxpoolsize varchar(2) default '4',keepalivetime varchar(10) default '20',queuesize varchar(2) default '25',tablecount varchar(1) default '1',itime timestamp default CURRENT_TIMESTAMP)";
+	private static final String WORKERPOOL = "create table workerpool(poolname varchar(50) PRIMARY KEY,pooltype varchar(10) default 'sms',poolsize varchar(2) default '2',maxpoolsize varchar(2) default '4',keepalivetime varchar(10) default '20',queuesize varchar(2) default '25',tablecount varchar(1) default '1',itime timestamp default CURRENT_TIMESTAMP)";
 
 	private static ThreadPoolTon obj=null;
 	
