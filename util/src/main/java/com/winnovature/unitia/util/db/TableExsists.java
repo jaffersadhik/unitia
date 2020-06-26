@@ -289,31 +289,6 @@ public class TableExsists {
 		
 		return account;		
 	}
-
-	public void insertSplitGroup(Connection connection, String groupname, String msgtype, int splitlength, int maxlength) {
-
-		
-		PreparedStatement statement=null;
-
-		try {
-			
-			statement=connection.prepareStatement(SQLQuery.INSERT_SPLITGROUP_TABLE);
-			statement.setString(1, groupname);
-			statement.setString(2, msgtype);
-			statement.setInt(3, splitlength);
-			statement.setInt(4, maxlength);
-
-			statement.execute();
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-			Close.close(statement);
-
-		}
-	
-			
-	}
-
 	public void insertKannel(Connection connection, String smscid,String ip, int port, String routeclass) {
 
 		PreparedStatement statement=null;
@@ -353,19 +328,21 @@ public class TableExsists {
 		}
 	}
 
-	public void insertRoute(Connection connection, String routegroupname,String username,String superadmin, String admin, String operator,
+	public void insertRoute(Connection connection, String routegrouptrans,String routegrouppromo,String username,String superadmin, String admin, String operator,
 			String circle) {
 		PreparedStatement statement=null;
 
 		try {
 			
 			statement=connection.prepareStatement(SQLQuery.INSERT_ROUTE_TABLE);
-			statement.setString(1, routegroupname);
-			statement.setString(2,superadmin);
-			statement.setString(3, admin);
-			statement.setString(4, username);
-			statement.setString(5, operator);
-			statement.setString(6, circle);
+			statement.setString(1, routegrouptrans);
+			statement.setString(2, routegrouppromo);
+
+			statement.setString(3,superadmin);
+			statement.setString(4, admin);
+			statement.setString(5, username);
+			statement.setString(6, operator);
+			statement.setString(7, circle);
 			statement.execute();
 			
 		}catch(Exception e) {
@@ -554,11 +531,11 @@ public class TableExsists {
 	
 	}
 
-	public Map<String, String> getRoute(Connection connection) {
+	public Map<String, Map<String, String>> getRoute(Connection connection) {
 
 		PreparedStatement statement=null;
 		ResultSet resultset=null;
-		Map<String, String> routegroup=new HashMap<String,String> ();
+		Map<String,  Map<String, String>> routegroup=new HashMap<String, Map<String, String>> ();
 		try {
 				
 				statement=connection.prepareStatement(SQLQuery.SELECT_ROUTE_TABLE);
@@ -570,8 +547,10 @@ public class TableExsists {
 				String superadmin=resultset.getString("superadmin");
 				String admin=resultset.getString("admin");
 				String username=resultset.getString("username");
-				String groupname=resultset.getString("routegroup");
-                String operator= resultset.getString("operator");
+				String groupname_trans=resultset.getString("routegroup_trans");
+				String groupname_promo=resultset.getString("routegroup_trans");
+
+				String operator= resultset.getString("operator");
                 String circle= resultset.getString("circle");
 			
                 if(superadmin==null) {
@@ -582,9 +561,6 @@ public class TableExsists {
 					admin="";
 				}
 				
-				if(groupname==null) {
-					groupname="";
-				}
 				
 				if(operator==null) {
 					operator="";
@@ -594,7 +570,11 @@ public class TableExsists {
 					circle="";
 				}
 				
-				routegroup.put("~"+superadmin.trim()+"~"+admin.trim()+"~"+username.trim()+"~"+operator.trim()+"~"+circle.trim()+"~",groupname.trim());
+				 Map<String, String> data=new HashMap<String, String>();
+				 data.put("trans",groupname_trans.trim());
+				 data.put("promo",groupname_promo.trim());
+
+				routegroup.put("~"+superadmin.trim()+"~"+admin.trim()+"~"+username.trim()+"~"+operator.trim()+"~"+circle.trim()+"~",data);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

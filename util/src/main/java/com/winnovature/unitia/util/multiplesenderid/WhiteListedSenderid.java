@@ -71,6 +71,7 @@ public class WhiteListedSenderid {
 				if(senderidset==null){
 					
 					senderidset=new HashSet<String>();
+					whitelistedsenderid.put(resultset.getString("username"), senderidset);
 				}
 				senderidset.add(resultset.getString("senderid"));
 			}

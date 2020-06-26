@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import com.winnovature.unitia.util.datacache.account.PushAccount;
+import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.misc.MapKeys;

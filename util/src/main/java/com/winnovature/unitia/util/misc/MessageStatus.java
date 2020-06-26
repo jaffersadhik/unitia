@@ -15,7 +15,6 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class MessageStatus {
 		
-	public static final int SMS_HANDOVER_SUCCESS = 0;
 	public static final int PLATFORM_ACCEPTED = 100;
 	public static final int INVALID_USERNAME = 101;
 	public static final int INVALID_PASSWORD = 102;
@@ -43,8 +42,9 @@ public class MessageStatus {
 	public static final int INVALID_COUNTRYCODE = 124;
 	public static final int UNEBALE_TO_PREDICT_FEATURECODE = 125;
 	public static final int KANNEL_SUBMIT_FAILED = 126;
+	public static final int SENDER_NOT_WHITELISTED = 127;
 	public static final int KANNEL_SUBMIT_SUCCESS = 200;
-	
+
 	private static Map<String,String> status=new HashMap<String,String>();
 	private static MessageStatus obj=null;
 	
@@ -54,7 +54,6 @@ public class MessageStatus {
 	static{
 
 		status.put(""+MessageStatus.PLATFORM_ACCEPTED, "Platform Accepted For SMS Delivery");
-		status.put(""+MessageStatus.SMS_HANDOVER_SUCCESS, "SMS Handover to Mobile Successfully");
 		status.put(""+MessageStatus.INVALID_USERNAME, "Username not Registered");
 		status.put(""+MessageStatus.INVALID_PASSWORD, "Invalid password");
 		status.put(""+MessageStatus.ACCOUNT_INACTIVATED, "account inactivated");
@@ -81,6 +80,7 @@ public class MessageStatus {
 		status.put(""+MessageStatus.INVALID_COUNTRYCODE, "Message Rejected due to Invalid Country code");
 		status.put(""+MessageStatus.UNEBALE_TO_PREDICT_FEATURECODE, "Message Rejected due to unable to predict the feature code for that message");
 		status.put(""+MessageStatus.KANNEL_SUBMIT_FAILED, "Message Rejected due to unable to connect the Kannel");
+		status.put(""+MessageStatus.SENDER_NOT_WHITELISTED, "Message Rejected due to senderid not registered in platform for that account");
 
 	}
 

@@ -42,6 +42,7 @@ public class SMSWorker implements Runnable {
 		.doBlackListMobileNumber()
 		.doFilteringSMSPatternCheck()
 		.doDNDCheck()
+		.doSenderCheck()
 		.doRouteGroupAvailable()
 		.doFeatureCodeIndentification()
 		.doConcate()

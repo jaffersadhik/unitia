@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.winnovature.unitia.util.datacache.account.PushAccount;
+import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;

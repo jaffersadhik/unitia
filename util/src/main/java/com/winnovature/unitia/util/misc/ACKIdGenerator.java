@@ -1,7 +1,7 @@
 
 package com.winnovature.unitia.util.misc;
 
-import com.winnovature.unitia.util.datacache.instance.InstanceInfoMemory;
+import com.winnovature.unitia.util.instance.InstanceInfoMemory;
 
 public class ACKIdGenerator {
 

@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.winnovature.unitia.util.datacache.account.PushAccount;
+import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.dnd.DNDProcessoer;
 import com.winnovature.unitia.util.misc.ACKIdGenerator;
 import com.winnovature.unitia.util.misc.ConfigKey;
@@ -29,6 +29,7 @@ import com.winnovature.unitia.util.misc.MessageType;
 import com.winnovature.unitia.util.misc.RoundRobinTon;
 import com.winnovature.unitia.util.misc.SpecialCharacters;
 import com.winnovature.unitia.util.mobileblacklist.MobileBlackList;
+import com.winnovature.unitia.util.multiplesenderid.WhiteListedSenderid;
 import com.winnovature.unitia.util.optin.OptinProcessor;
 import com.winnovature.unitia.util.optout.OptoutProcessor;
 import com.winnovature.unitia.util.redis.QueueSender;
@@ -141,7 +142,7 @@ public class SMSProcessor {
 					msgmap.put(MapKeys.OPERATOR, npinfo.get(MapKeys.OPERATOR));
 					msgmap.put(MapKeys.CIRCLE, npinfo.get(MapKeys.CIRCLE));
 		            msgmap.put(MapKeys.OPERATOR_NAME, NumberingPlan.getInstance().getOperatorName(npinfo.get(MapKeys.OPERATOR)));
-		            msgmap.put(MapKeys.CIRCLE_NAME, NumberingPlan.getInstance().getOperatorName(npinfo.get(MapKeys.CIRCLE)));
+		            msgmap.put(MapKeys.CIRCLE_NAME, NumberingPlan.getInstance().getCircleName(npinfo.get(MapKeys.CIRCLE)));
 		
 					
 					return this;
@@ -268,6 +269,44 @@ public class SMSProcessor {
 		return this;
 	
 		
+	}
+	
+	public SMSProcessor doSenderCheck(){
+		
+		if(isfurtherprocess){
+		
+			String senderidtype=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME)).get(MapKeys.SENDERID_TYPE);
+		
+			String senderid=msgmap.get(MapKeys.SENDERID_ORG);
+
+			if(senderidtype.equals("multiple")){
+				
+				if(senderid!=null){
+					
+					if(WhiteListedSenderid.getInstance().isWhiteListedSenderid(msgmap.get(MapKeys.USERNAME), senderid)){
+					
+						msgmap.put(MapKeys.STATUSID, ""+MessageStatus.SENDER_NOT_WHITELISTED);
+					
+						isfurtherprocess=false;
+					}
+			
+				}
+			}
+			
+			if(senderid==null){
+			
+				if(msgmap.get(MapKeys.ROUTECLASS).equals("1")){
+					
+					msgmap.put(MapKeys.SENDERID_ORG, PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME)).get(MapKeys.SENDERID_TRANS));
+				}else{
+					
+					msgmap.put(MapKeys.SENDERID_ORG, PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME)).get(MapKeys.SENDERID_PROMO));
+
+				}
+			}
+		}
+
+		return this;
 	}
 	
 	public SMSProcessor doBlackListSMSPattern(){
@@ -827,11 +866,11 @@ public class SMSProcessor {
 		String operator=msgmap.get(MapKeys.OPERATOR).toString();
 		String circle=msgmap.get(MapKeys.CIRCLE).toString();
 
-		for(int logic=1;logic<8;logic++) {
+		for(int logic=1;logic<17;logic++) {
 			
 			String key=getKey(superadmin,admin,username,operator,circle,logic);
 			
-			String routegroup=Route.getInstance().getRouteGroup(key);
+			String routegroup=Route.getInstance().getRouteGroup(key,msgmap.get(MapKeys.ROUTECLASS));
 			
 			if(routegroup!=null&&routegroup.trim().length()>0) {
 				

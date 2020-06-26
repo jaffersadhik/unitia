@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.winnovature.unitia.util.datacache.account.PushAccount;
+import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.misc.MapKeys;

@@ -1,4 +1,4 @@
-package com.winnovature.unitia.util.datacache.instance;
+package com.winnovature.unitia.util.instance;
 
 import com.winnovature.unitia.util.dao.JVMUniqueId;
 

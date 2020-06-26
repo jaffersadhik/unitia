@@ -18,7 +18,7 @@ public class Route
     private static Route    obj        = null;
     
    
-	private Map<String, String> route=new HashMap<String, String> ();
+	private Map<String, Map<String, String>> route=new HashMap<String, Map<String, String>> ();
 
 	private Route()
     {
@@ -59,7 +59,7 @@ public class Route
 
 		if(table.create(connection, SQLQuery.CREATE_ROUTE_TABLE, false)) {
 		
-			table.insertRoute(connection,"apps_group", "","","","","");
+			table.insertRoute(connection,"apps_group","apps_group", "","","","","");
 		}
 	}
 
@@ -71,7 +71,7 @@ public class Route
 	
 	private void reloadRoute(Connection connection, TableExsists table) {
 		
-		Map<String,String> temp_route=table.getRoute(connection);
+		Map<String,Map<String, String>> temp_route=table.getRoute(connection);
 		if(temp_route!=null) {
 			route=temp_route;
 		}
@@ -109,14 +109,19 @@ public class Route
     }
     
 
-	public String getRouteGroup(String key){
+	public String getRouteGroup(String key,String routeclass){
 		
-		return route.get(key);
-	}
-	public Map<String,Map<String, String>> getRoutetoString() {
-		Map<String,Map<String, String>> result=new HashMap<String,Map<String, String>>();
-		result.put("route", route);
-		return result;
-	}
+		if(route.containsKey(key)){
+			
+			if(routeclass.equals("1")){
+				route.get(key).get("trans");
+			}else{
+				route.get(key).get("promo");
 
+			}
+			}
+		
+		return null;
+	}
+	
 }

@@ -26,9 +26,7 @@ public class SQLQuery {
 
 	public static final String INSERT_NUMBERINGPLAN_TABLE="insert into numberingplan(series,operator,circle) values(?,?,?)";
 
-	public static final String CREATE_SPLITGROUP_TABLE = "create table splitgroup(groupname varchar(25) ,msgtype varchar(3),splitlength numeric(3),maxlength numeric(3))";
 	
-	public static final String INSERT_SPLITGROUP_TABLE = "insert into splitgroup(groupname,msgtype,splitlength,maxlength) values(?,?,?,?)";
 
 	public static final String CREATE_SMSCID_TABLE = "create table kannel(smscid varchar(10) primary key,ip varchar(15) default '127.0.0.1',port numeric(6),routeclass varchar(1) default '4')";
 	
@@ -38,11 +36,11 @@ public class SQLQuery {
 
 	public static final String INSERT_ROUTEGROUP_TABLE = "insert into routegroup(groupname ,smscid ) values(?,?)";
 
-	public static final String CREATE_ROUTE_TABLE = "create table route(id INT PRIMARY KEY AUTO_INCREMENT,routegroup varchar(25),superadmin varchar(21),admin varchar(21),username varchar(21),operator varchar(2),circle varchar(2),index(superadmin,admin,username,operator,circle))";
+	public static final String CREATE_ROUTE_TABLE = "create table route(id INT PRIMARY KEY AUTO_INCREMENT,routegroup_trans varchar(25) not null,routegroup_promo varchar(25)  not null,superadmin varchar(21),admin varchar(21),username varchar(21),operator varchar(2),circle varchar(2),index(superadmin,admin,username,operator,circle))";
 	
 	public static final String CREATE_INTL_ROUTE_TABLE = "create table international_route(id INT PRIMARY KEY AUTO_INCREMENT,routegroup varchar(25),superadmin varchar(21),admin varchar(21),username varchar(21),countrycode varchar(10),index(superadmin,admin,username,countrycode))";
 
-	public static final String INSERT_ROUTE_TABLE = "insert into route(routegroup,superadmin,admin,username,operator,circle ) values(?,?,?,?,?,?)";
+	public static final String INSERT_ROUTE_TABLE = "insert into route(routegroup_trans,routegroup_promo,superadmin,admin,username,operator,circle ) values(?,?,?,?,?,?,?)";
 
 	public static final String CREATE_KANNEL_LOADBALANCER = "create table loadbalancer_kannel(ip varchar(15) primary key)";
 	
@@ -62,7 +60,7 @@ public class SQLQuery {
 
 	public static final String SELECT_ROUTEGROUP_TABLE = "select groupname,smscid from routegroup";
 
-	public static final String SELECT_ROUTE_TABLE = "select routegroup,superadmin,admin,username,operator,circle from route";
+	public static final String SELECT_ROUTE_TABLE = "select routegroup_trans,routegroup_promo,superadmin,admin,username,operator,circle from route";
 
 	public static final String SELECT_INTL_ROUTE_TABLE = "select routegroup,superadmin,admin,username,countrycode from international_route";
 

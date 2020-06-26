@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.winnovature.unitia.util.datacache.account.PushAccount;
+import com.winnovature.unitia.util.account.PushAccount;
 
 public class Utility {
 	

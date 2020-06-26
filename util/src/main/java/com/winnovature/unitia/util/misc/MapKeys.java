@@ -182,4 +182,10 @@ public interface MapKeys {
 
 	public static String KANNEL_URL = "kannel_url";
 
+	public static String SENDERID_TYPE = "senderid_type";
+
+	public static String SENDERID_TRANS = "senderid_trans";
+
+	public static String SENDERID_PROMO = "senderid_promo";
+
 }
