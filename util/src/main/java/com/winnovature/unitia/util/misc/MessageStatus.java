@@ -103,7 +103,7 @@ public class MessageStatus {
 		
 		try{
 			connection=CoreDBConnection.getInstance().getConnection();
-			statement=connection.prepareStatement("select status_id,status_description,upper(smscid),stat,err,dnretry_yn from message_status");
+			statement=connection.prepareStatement("select status_id,status_description,upper(smscid) smscid ,stat,err,dnretry_yn from message_status");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
