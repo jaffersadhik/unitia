@@ -819,8 +819,7 @@ public class SMSProcessor {
 		String msg=msgmap.get(MapKeys.FULLMSG);
 		
 		
-		
-		if (msgmap.get(MapKeys.ENGLISH_AS_HEX).toString().equals("true")) {
+		if (msgmap.get(MapKeys.ENGLISH_AS_HEX)!=null&&msgmap.get(MapKeys.ENGLISH_AS_HEX).toString().equals("true")) {
 			msg = msg.length() > 40 ? msg.toString().substring(0, 40) : msg;
 			msg =decodeHexString(msg);
 		} else {
