@@ -537,6 +537,7 @@ public class SMSProcessor {
 			msgmap.put(MapKeys.KANNEL_PORT, kannelinfo.get(MapKeys.KANNEL_PORT));
 			msgmap.put(MapKeys.ROUTECLASS_ORG, kannelinfo.get(MapKeys.ROUTECLASS));
         	
+			return;
 		}
 		msgmap.put(MapKeys.STATUSID, ""+MessageStatus.INVALID_SMSCID);
 		
