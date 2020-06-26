@@ -1056,7 +1056,7 @@ public class SMSProcessor {
 		
 		String msg=msgmap.get(MapKeys.MESSAGE);
 		
-		if (msgmap.get(MapKeys.ENGLISH_AS_HEX).toString().equals("true")||FeatureCode.isHexa(msgmap.get(MapKeys.FEATURECODE))) {
+		if ((msgmap.get(MapKeys.ENGLISH_AS_HEX)!=null && msgmap.get(MapKeys.ENGLISH_AS_HEX).toString().equals("true"))||FeatureCode.isHexa(msgmap.get(MapKeys.FEATURECODE))) {
 			
 			msg=addKannelSpecialCharactertoHex(msg);
 		}
