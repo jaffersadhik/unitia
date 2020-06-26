@@ -58,7 +58,7 @@ public class SQLQuery {
 	
 	public static final String INSERT_VSMSC_LOADBALANCER = "insert into loadbalancer_vsmsc(ip,port) values(?,?)";
 
-	public static final String SELECT_KANNEL_TABLE = "select smscid,ip,port,splitgroup,routeclass from kannel";
+	public static final String SELECT_KANNEL_TABLE = "select smscid,ip,port,routeclass from kannel";
 
 	public static final String SELECT_ROUTEGROUP_TABLE = "select groupname,smscid from routegroup";
 
