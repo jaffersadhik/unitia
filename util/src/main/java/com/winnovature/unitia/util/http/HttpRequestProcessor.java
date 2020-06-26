@@ -97,6 +97,8 @@ public class HttpRequestProcessor
 			message = message.trim();
 			
 		
+			msgmap.put(MapKeys.FULLMSG, message);
+			
 			if(StringUtils.isNotEmpty(signature))
 			{
 				signature = signature.trim();
