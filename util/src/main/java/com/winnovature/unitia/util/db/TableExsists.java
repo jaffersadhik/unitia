@@ -577,8 +577,8 @@ public class TableExsists {
 				}
 				
 				 Map<String, String> data=new HashMap<String, String>();
-				 data.put("trans",groupname_trans.trim());
-				 data.put("promo",groupname_promo.trim());
+				 data.put(Route.ROUTE_TRANS,groupname_trans.trim());
+				 data.put(Route.ROUTE_PROMO,groupname_promo.trim());
 
 				routegroup.put(Route.CONJUNCTION+superadmin.trim()+Route.CONJUNCTION+admin.trim()+Route.CONJUNCTION+username.trim()+Route.CONJUNCTION+operator.trim()+Route.CONJUNCTION+circle.trim()+Route.CONJUNCTION,data);
 			}

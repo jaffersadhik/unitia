@@ -15,7 +15,11 @@ import com.winnovature.unitia.util.db.TableExsists;
 public class Route
 {
 	public static String CONJUNCTION="~";
+	
+	public static String ROUTE_TRANS="trans";
 
+	public static String ROUTE_PROMO="promo";
+	
 	public static String NULL="NULL";
 	
 	private static Map<String, Map<String, String>> route=new HashMap<String, Map<String, String>> ();
@@ -120,9 +124,13 @@ public class Route
 		if(route.containsKey(key)){
 			
 			if(routeclass.equals("1")){
-				(route.get(key)).get("trans");
+				
+				(route.get(key)).get(ROUTE_TRANS);
+				
 			}else{
-				(route.get(key)).get("promo");
+				
+				(route.get(key)).get(ROUTE_PROMO);
+				
 
 			}
 			}
