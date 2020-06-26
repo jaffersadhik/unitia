@@ -25,7 +25,7 @@ public class DNGenProcess {
         Map<String,String> logmap=new HashMap() ;
         new QueueSender().sendL("dngenpool", msgmap, false,logmap);
         logmap.putAll(msgmap);
-        logmap.put("status", "dnren receiver");
+        logmap.put("status", "dngen receiver");
         out.print("Sent.");
         out.flush();
         out.close();
