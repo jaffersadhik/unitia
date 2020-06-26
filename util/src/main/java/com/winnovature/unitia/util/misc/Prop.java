@@ -21,6 +21,10 @@ public class Prop {
 		getQueueDBProp();
 		getBillingDBProp();
 		getRedisQueueProp();
+		getDNDDBProp();
+		getOptinDBProp();
+		getOptoutDBProp();
+		getDuplicateDBProp();
 		
 	}
 
