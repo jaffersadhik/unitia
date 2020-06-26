@@ -1188,9 +1188,9 @@ public class SMSProcessor {
 				URLEncoder.encode(msgmap.get(MapKeys.SMSCID_ORG)),
 				URLEncoder.encode(msgmap.get(MapKeys.RTIME)),
 				URLEncoder.encode(msgmap.get(MapKeys.KTIME)),
-				URLEncoder.encode(SYSTEMID),
-				URLEncoder.encode(DR),
-				URLEncoder.encode(STATUSCD)				
+				SYSTEMID,
+				DR,
+				STATUSCD				
 		};
 		
 		String dlrurl=MessageFormat.format(DLR_URL, params);
