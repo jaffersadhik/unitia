@@ -9,7 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.winnovature.unitia.util.misc.ACKIdGenerator;
 import com.winnovature.unitia.util.misc.Log;
+import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.redis.QueueSender;
 
 public class DNGenProcess {
@@ -22,6 +24,8 @@ public class DNGenProcess {
     
         Map<String,String> msgmap=new HashMap<String,String>();
         msgmap.put("dlrurl", dlrurl);
+        msgmap.put(MapKeys.MSGID, ACKIdGenerator.getAckId());
+        msgmap.put(MapKeys.USERNAME, request.getParameter("username"));
         Map<String,String> logmap=new HashMap() ;
         new QueueSender().sendL("dngenpool", msgmap, false,logmap);
         logmap.putAll(msgmap);
