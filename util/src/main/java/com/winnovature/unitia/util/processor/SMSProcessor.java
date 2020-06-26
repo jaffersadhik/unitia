@@ -882,7 +882,12 @@ public class SMSProcessor {
 				
 				return this;
 				
+			}else{
+				
+				msgmap.put(MapKeys.ROUTEKEY, key);
+
 			}
+			
 		}
 	
 		isfurtherprocess=false;
