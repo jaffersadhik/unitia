@@ -19,7 +19,6 @@ public class ConfigParams {
 	
 	static{
 		
-		prop.put(ConfigKey.DN_32_QS, "");
 		prop.put(ConfigKey.PREFIX_START_NUMBER, "9~7~8~6");
 		prop.put(ConfigKey.HTTP_CONNECTION_TIMEOUT, "1000");
 		prop.put(ConfigKey.HTTP_RESPONSE_TIMEOUT, "1000");
@@ -32,11 +31,6 @@ public class ConfigParams {
 		prop.put(ConfigKey.MAX_SCHEDULE_TIME_ALLOWED_MINS, "10080");
 		prop.put(ConfigKey.SPCECIAL_CHAR_WORD_COUNT, "3");
 
-		prop.put(ConfigKey.PRIORITY_Q_REPEAR_COUNT, "3");
-		prop.put(ConfigKey.TRANSACTIONAL_Q_REPEAR_COUNT, "5");
-		prop.put(ConfigKey.PROMOTIONAL_Q_REPEAR_COUNT, "5");
-		prop.put(ConfigKey.INMEMORY_THRESHOLD_SIZE, "3000");
-
 		prop.put(ConfigKey.MAX_MOBILE_LENGTH_ALLOWED, "15");
 		prop.put(ConfigKey.MAX_SENDERID_LENGTH_ALLOWED, "10");
 		prop.put(ConfigKey.MIN_MOBILE_LENGTH_ALLOWED, "7");
@@ -46,7 +40,8 @@ public class ConfigParams {
 		prop.put(ConfigKey.MAX_RETRY_QUEUE, "15");
 
 		prop.put(ConfigKey.LOGMODE, "y");
-		prop.put(ConfigKey.LOGPATH, "E:/logs/");
+		prop.put(ConfigKey.LOADBALANCER_DN_IP, "127.0.0.1");
+		prop.put(ConfigKey.LOADBALANCER_DN_PORT, "8080");
 
 	}
 	

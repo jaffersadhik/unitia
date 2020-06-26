@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.winnovature.unitia.httpinterface.processor.DNGenProcess;
 import com.winnovature.unitia.httpinterface.processor.SMSReceiverProcessor;
 import com.winnovature.unitia.util.http.HttpRequestProcessor;
 import com.winnovature.unitia.util.misc.Bean;
@@ -55,6 +56,12 @@ public class Controller extends HttpServlet
 		String URIString = request.getRequestURI().trim().toLowerCase();
 		
 		if(URIString.startsWith("api/dngen")){
+			
+			new DNGenProcess().doProcess(request, response);
+			
+		}else if(URIString.startsWith("api/dnreceiver")){
+			
+			new SMSReceiverProcessor().doProcess(request, response);
 			
 		}else if(URIString.startsWith("api/receiver")){
 			

@@ -1,22 +1,23 @@
 package com.winnovature.unitia.util.threadpool;
 
-import java.util.List;
 import java.util.Map;
+
+import com.winnovature.unitia.util.processor.DNGenProcessor;
 
 
 public class DNGenWorker implements Runnable {
 
 
 		
-	List payload = null;
+	Map<String,String> payload = null;
 	String pooltype=null;
 	String poolname=null;
 	DNGenWorker obj=null;
-	public DNGenWorker(Map<String,Object> payloadPack) 
+	public DNGenWorker(String poolname,String pooltype,Map<String,String> payloadPack) 
 	{
-		this.payload = (List) payloadPack.get("data");
-		this.poolname= (String)payloadPack.get("poolname");
-		this.pooltype=(String)payloadPack.get("pooltype");
+		this.payload =  payloadPack;
+		this.poolname= poolname;
+		this.pooltype= pooltype;
 		obj=this;
 	}
 
@@ -25,10 +26,11 @@ public class DNGenWorker implements Runnable {
 
 		if(payload.size()>0)
 		{
+			new DNGenProcessor().handoverToDN(payload.get("dlrurl"));
 		}
 	}
 
-	public List getPayload() {
+	public Map<String,String> getPayload() {
 		return payload;
 	}
 

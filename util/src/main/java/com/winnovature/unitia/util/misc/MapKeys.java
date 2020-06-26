@@ -28,7 +28,7 @@ public interface MapKeys {
 	
 	public static String ROUTEKEY = "routekey";
 	
-	public static String ROUTE = "route";
+	public static String SMSCID = "smscid";
 
 	public static String ROUTELOGIC = "routelogic";
 
@@ -104,7 +104,82 @@ public interface MapKeys {
 	
 	public static String FILTERING_PATTERN_ID = "filteringpatternid";
 
+	public static String DN_STATUSCD = "statuscd";
 
+	public static String ACKID_ORG = "ackidorg";
 
+	public static String KTIME = "ktime";
+
+	public static String DNMSG = "dnmsg";
+
+	public static String FULLMSG = "fullmsg";
+
+	public static String DR = "dr";
+
+	public static String CARRIER_MSGID = "carrier_msgid";
+
+	public static String CARRIER_SUBMITDATE = "carrier_submitdate";
+
+	public static String CARRIER_DONEDATE = "carrier_donedate";
+
+	public static String CARRIER_STAT = "carrier_stat";
+
+	public static String CARRIER_ERR = "carrier_err";
+
+	public static String CARRIER_SUBMITTIME = "carrier_submittime";
+
+	public static String CARRIER_DONETIME = "carrier_donetime";
+
+	public static String CARRIER_DONETIME_ORG = "carrier_donetime_org";
+
+	public static String SMS_LATENCY_ADJUST = "sms_latency_in_ms";
+
+	public static String ADJUSTMENT_INDICATOR = "adjustment_indicator";
+
+	public static String SMS_LATENCY = "sms_latency";
+	
+	public static String SMS_LATENCY_ORG = "sms_latency_org";
+
+	public static String CARRIER_LATENCY = "carrier_latency";
+
+	public static String STATUSID_ORG = "statusid_org";
+
+	public static String SENDERID_ORG = "senderidorg";
+
+	public static String COUNTRYCODE = "countrycode";
+
+	public static String SMSCID_ORG = "smscidorg";
+
+	public static String CARRIER_SYSTEMID = "carriersystemid";
+
+	public static String CARRIER_DR = "carrierdr";
+
+	public static String PLATFORM_LATENCY = "platform_latency";
+
+	public static String KANNEL_IP = "kannel_ip";
+
+	public static String KANNEL_PORT = "kannel_port";
+
+	public static String ROUTECLASS = "routeclass";
+
+	public static String COUNTRYNAME = "countryname";
+
+	public static String OPERATOR_NAME = "operator_name";
+
+	public static String CIRCLE_NAME = "circle_name";
+
+	public static String FEATURECODE = "featurecd";
+
+	public static String UDHBIT = "udhbit";
+
+	public static String TOTAL_MSG_COUNT = "total_msg_count";
+
+	public static String SPLIT_SEQ = "split_seq";
+
+	public static String ENGLISH_AS_HEX = "hex";
+
+	public static String DLR_URL = "dlrurl";
+
+	public static String KANNEL_URL = "kannel_url";
 
 }

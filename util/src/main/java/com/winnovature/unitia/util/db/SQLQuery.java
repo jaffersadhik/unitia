@@ -30,9 +30,9 @@ public class SQLQuery {
 	
 	public static final String INSERT_SPLITGROUP_TABLE = "insert into splitgroup(groupname,msgtype,splitlength,maxlength) values(?,?,?,?)";
 
-	public static final String CREATE_SMSCID_TABLE = "create table kannel(smscid varchar(10) primary key,ip varchar(15) default '127.0.0.1',port numeric(6),routeclass varchar(1) default '4',splitgroup varchar(25) default 'default_group')";
+	public static final String CREATE_SMSCID_TABLE = "create table kannel(smscid varchar(10) primary key,ip varchar(15) default '127.0.0.1',port numeric(6),routeclass varchar(1) default '4')";
 	
-	public static final String INSERT_SMSCID_TABLE = "insert into kannel(smscid,ip,port,splitgroup,routeclass) values(?,?,?,?,?)";
+	public static final String INSERT_SMSCID_TABLE = "insert into kannel(smscid,ip,port,routeclass) values(?,?,?,?)";
 
 	public static final String CREATE_ROUTEGROUP_TABLE = "create table routegroup(groupname varchar(25) ,smscid varchar(10))";
 
@@ -58,7 +58,7 @@ public class SQLQuery {
 	
 	public static final String INSERT_VSMSC_LOADBALANCER = "insert into loadbalancer_vsmsc(ip,port) values(?,?)";
 
-	public static final String SELECT_KANNEL_TABLE = "select smscid,port,splitgroup from kannel";
+	public static final String SELECT_KANNEL_TABLE = "select smscid,ip,port,splitgroup,routeclass from kannel";
 
 	public static final String SELECT_ROUTEGROUP_TABLE = "select groupname,smscid from routegroup";
 

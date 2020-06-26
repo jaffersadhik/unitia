@@ -11,7 +11,6 @@ import com.winnovature.unitia.util.routing.Kannel;
 import com.winnovature.unitia.util.routing.NumberingPlan;
 import com.winnovature.unitia.util.routing.Route;
 import com.winnovature.unitia.util.routing.RouteGroup;
-import com.winnovature.unitia.util.routing.SplitGroup;
 
 public class TraiProcessor {
 	
@@ -70,7 +69,7 @@ public class TraiProcessor {
 			String key=msgmap.get(MapKeys.ROUTEKEY).toString();
 
 			String smscid=smscidlist.get(RoundRobinTon.getInstance().getCurrentIndex(key, smscidlist.size()));
-			msgmap.put(MapKeys.ROUTE,smscid);
+			msgmap.put(MapKeys.SMSCID,smscid);
 			return this;
 		}
 			msgmap.put(MapKeys.STATUSID, ""+MessageStatus.INVALID_ROUTE_GROUP);
@@ -87,7 +86,7 @@ public class TraiProcessor {
 	public TraiProcessor doKannelAvailable() {
 		
 		if(isfurtherprocess){
-		String route=msgmap.get(MapKeys.ROUTE);
+		String route=msgmap.get(MapKeys.SMSCID);
 			
 		Map<String,String> kannelinfo=Kannel.getInstance().getKannelInfo(route);
 		
@@ -106,41 +105,6 @@ public class TraiProcessor {
 
 		return this;
 	}
-
-	
-	public TraiProcessor doSplitGroupAvilable() {
-
-		if(isfurtherprocess){
-		String splitgroup=msgmap.get(MapKeys.SPLITGROUP);
-		String msgtype=msgmap.get(MapKeys.MSGTYPE);
-
-	
-		Map<String,Map<String,String>> splitgroupinfo=SplitGroup.getInstance().getSplitGroup(splitgroup);
-		
-		if(splitgroupinfo!=null && splitgroup.trim().length()>0) {
-			
-			if(splitgroupinfo.containsKey(msgtype)) {
-				Map<String,String> splitgroupdata=splitgroupinfo.get(msgtype);
-				msgmap.put(MapKeys.SMSMAXLENGTH, splitgroupdata.get(MapKeys.SMSMAXLENGTH));
-				msgmap.put(MapKeys.SMSSPLITLENGTH, splitgroupdata.get(MapKeys.SMSSPLITLENGTH));
-				
-				return this;
-			}
-		
-			msgmap.put(MapKeys.STATUSID, ""+MessageStatus.INVALID_MSGTYPE);
-
-		}
-		
-		msgmap.put(MapKeys.STATUSID, ""+MessageStatus.INVALID_SPLITGROUP);
-		
-		isfurtherprocess=false;
-
-		}
-
-
-		return this;
-	}
-
 
 	
 	

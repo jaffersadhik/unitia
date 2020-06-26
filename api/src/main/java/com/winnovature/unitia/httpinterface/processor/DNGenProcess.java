@@ -2,10 +2,14 @@ package com.winnovature.unitia.httpinterface.processor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.winnovature.unitia.util.redis.QueueSender;
 
 public class DNGenProcess {
 
@@ -14,22 +18,13 @@ public class DNGenProcess {
 
         PrintWriter out = response.getWriter();
         String dlrurl = request.getParameter("dlr-url");
-     /*   if (Queue.getInstance().getQ().size() < 50000)
-        {
-            Queue.getInstance().add(dlrurl);
-        }
-        else
-        {
-            try
-            {
-                new Utility().handoverToDN(dlrurl);
-            }
-            catch (Exception e)
-            {
-                throw new ServletException();
-            }
-        }
-       */ out.print("Sent.");
+    
+        Map<String,String> msgmap=new HashMap<String,String>();
+        msgmap.put("dlrurl", dlrurl);
+        
+        new QueueSender().sendL("dngenpool", msgmap, false,new HashMap());
+        
+        out.print("Sent.");
         out.flush();
         out.close();
 

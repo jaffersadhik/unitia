@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.winnovature.unitia.util.constants.MessageSource;
 import com.winnovature.unitia.util.datacache.account.PushAccount;
-import com.winnovature.unitia.util.misc.ACKIdGenerator;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.ToJsonString;
@@ -121,7 +119,6 @@ public class HttpRequestProcessor
 			msgmap.put(MapKeys.SCHEDULE_TIME_STRING, scheTime);
 			msgmap.put(MapKeys.SENDERID,signature);
 			msgmap.put(MapKeys.UDH, udh);
-			msgmap.put(MapKeys.MSGSRC, ""+MessageSource.MSGSRC_HTTP_QS_INTERFACE);
 			msgmap.put(MapKeys.MSGCLASS, msgClass);
 			
 			String status = "";
@@ -136,7 +133,6 @@ public class HttpRequestProcessor
 			
 			if(len > 1){ // Multiple Mobile Number (Or) Email
 			
-				msgmap.put(MapKeys.MSGSRC, ""+MessageSource.MSGSRC_HTTP_QS_MULTI_INTERFACE);
 				
 				
 				int errorFlag = doMultipleMnumbers(splittedMnumber, msgmap, len,logmap);
@@ -199,7 +195,7 @@ public class HttpRequestProcessor
 	{
 		Map status=new HashMap();
 		status.put("ackid", msgmap.get(MapKeys.ACKID));
-		status.put("code", "000");
+		status.put("code", "100");
 		status.put("status", "Platform accepted");
 		status.put("rtime",new WinDate().getLogDate());
 

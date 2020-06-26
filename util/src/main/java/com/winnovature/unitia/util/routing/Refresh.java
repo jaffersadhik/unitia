@@ -22,7 +22,6 @@ public class Refresh {
 	public void reload(){
 		
 		NumberingPlan.getInstance().reload();
-		SplitGroup.getInstance().reload();
 		Kannel.getInstance().reload();
 		RouteGroup.getInstance().reload();
 		Route.getInstance().reload();

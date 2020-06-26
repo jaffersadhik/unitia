@@ -41,7 +41,11 @@ public interface ConfigKey {
 
 	public static final String MAX_QUEUE = "max.queue.length"; 
 	
-	public static final String MAX_RETRY_QUEUE = "max.retry.queue.length"; 
+	public static final String MAX_RETRY_QUEUE = "max.retry.queue.length";
+
+	public static final String LOADBALANCER_DN_IP = "loadbalancer.dn.ip";
+
+	public static final String LOADBALANCER_DN_PORT = "loadbalancer.dn.port"; 
 
 	public final String MAX_MOBILE_LENGTH_ALLOWED = "max.mobile.length.allowed";
 	

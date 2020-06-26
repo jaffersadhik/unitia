@@ -5,14 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import com.winnovature.unitia.util.dao.Table;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
-import com.winnovature.unitia.util.processor.ScheduleProcessor;
 
 public class ThreadPoolTon {
 
@@ -165,10 +163,10 @@ public class ThreadPoolTon {
 		Map<String,String> configmap =new HashMap<String,String>();
 		
 		configmap.put("poolsize", "1");
-		configmap.put("maxpoolsize", "10");
+		configmap.put("maxpoolsize", "4");
 		configmap.put("tablecount", "1");
 		configmap.put("keepalivetime", "20");
-		configmap.put("queuesize", "5");
+		configmap.put("queuesize", "25");
 
 		return configmap;
 	}
@@ -240,6 +238,15 @@ public class ThreadPoolTon {
 		}else if(pooltype.equals("billing")){
 			
 			pool.runTask(new BillingWorker( poolname, pooltype, record));
+			
+		}else if(pooltype.equals("dngen")){
+			
+			pool.runTask(new DNGenWorker( poolname, pooltype, record));
+			
+		}else if(pooltype.equals("dnreceiver")){
+			
+			pool.runTask(new DNWorker( poolname, pooltype, record));
+			
 		}else if(pooltype.equals("schedule")){
 			
 			pool.runTask(new ScheduleWorker( poolname, pooltype, record));

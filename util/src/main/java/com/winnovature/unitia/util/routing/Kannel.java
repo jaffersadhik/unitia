@@ -57,9 +57,9 @@ public class Kannel
 
 		if(table.create(connection, SQLQuery.CREATE_SMSCID_TABLE, false)) {
 
-			table.insertKannel(connection,"apps","127.0.0.1",8080,"default_group","4");
-			table.insertKannel(connection,"reapps","127.0.0.1",8080,"default_group","4");
-			table.insertKannel(connection,"retry","127.0.0.1",1111,"default_group","5");
+			table.insertKannel(connection,"apps","127.0.0.1",8080,"4");
+			table.insertKannel(connection,"reapps","127.0.0.1",8080,"4");
+			table.insertKannel(connection,"retry","127.0.0.1",1111,"5");
 
 		}
 	}

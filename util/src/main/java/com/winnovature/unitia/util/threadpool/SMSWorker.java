@@ -32,12 +32,20 @@ public class SMSWorker implements Runnable {
 		
 		SMSProcessor processor=new SMSProcessor(msgmap,logmap);
 		processor
+		.doCountryCodeCheck()
 		.doNumberingPlan()
+		.doOptin()
+		.doOptout()
+		.doAllowedSMSPatternCheck()
+		.doBlackListSMSPattern()
+		.doBlackListSenderid()
+		.doBlackListMobileNumber()
+		.doFilteringSMSPatternCheck()
+		.doDNDCheck()
 		.doRouteGroupAvailable()
-		.doSMSCIDAvailable()
-		.doKannelAvailable()
-		.doSplitGroupAvilable();
-	
+		.doFeatureCodeIndentification()
+		.doConcate()
+		.submitKannel();
 		logmap.putAll(msgmap);
 		
 		new Log().log(logmap);

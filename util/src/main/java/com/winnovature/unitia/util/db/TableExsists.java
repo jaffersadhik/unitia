@@ -314,7 +314,7 @@ public class TableExsists {
 			
 	}
 
-	public void insertKannel(Connection connection, String smscid,String ip, int port, String splitgroup,String routeclass) {
+	public void insertKannel(Connection connection, String smscid,String ip, int port, String routeclass) {
 
 		PreparedStatement statement=null;
 
@@ -324,8 +324,7 @@ public class TableExsists {
 			statement.setString(1, smscid);
 			statement.setString(2, ip);
 			statement.setInt(3, port);
-			statement.setString(4, splitgroup);
-			statement.setString(5, routeclass);
+			statement.setString(4, routeclass);
 			statement.execute();
 			
 		}catch(Exception e) {
@@ -489,13 +488,17 @@ public class TableExsists {
 				
 				String smscid=resultset.getString("smscid");
 				String port=resultset.getString("port");
+				String ip=resultset.getString("ip");
+				String routeclass=resultset.getString("routeclass");
 				String splitgroup=resultset.getString("splitgroup");
 
 				if(smscid!=null&&port!=null&&splitgroup!=null) {
 				
 
 					Map<String,String> data=new HashMap<String,String>();
-					data.put("port", port);
+					data.put("kannel_port", port);
+					data.put("kannel_ip", ip.trim());
+					data.put("routeclass", routeclass.trim());
 					data.put("splitgroup", splitgroup.trim());
 					kannel.put(smscid.trim(), data);
 
@@ -1039,6 +1042,8 @@ public void insertworkerpool(Connection connection) {
 	insert(connection, "optinpool", "sms");
 	insert(connection, "duplicatepool", "sms");
 	insert(connection, "httpdnpostpool", "dnhttppost");
+	insert(connection, "dngenpool", "dngen");
+	insert(connection, "dnreceiverpool", "dnreceiver");
 
 }
 
@@ -1324,6 +1329,129 @@ public Map<String, String> getIntlRoute(Connection connection) {
 	}
 	
 	return routegroup;
+
+}
+
+public void insertMessageStatus(Connection connection, String statusid, String statusdescription, String smscid,
+		String stat, String err) {
+	PreparedStatement statement=null;
+	try{
+		statement=connection.prepareStatement("insert into message_status(status_id,status_description,smscid,stat,err) values(?,?,?,?,?)");
+		statement.setString(1, statusid);
+		statement.setString(2, statusdescription);
+		statement.setString(3, smscid);
+		statement.setString(4, stat);
+		statement.setString(5, err);
+		statement.execute();
+		
+	}catch(Exception e){
+		
+		e.printStackTrace();
+		
+	}finally{
+		
+		Close.close(statement);
+	}
+}
+
+public void insertMessageStatus(String smscid, String errorcode, String stat) {
+	
+	Connection connection=null;
+	PreparedStatement statement=null;
+	try{
+		connection=CoreDBConnection.getInstance().getConnection();
+		statement=connection.prepareStatement("insert into message_status(smscid,stat,err,status_description) values(?,?,?,?)");
+	
+		statement.setString(1, smscid);
+		statement.setString(2, stat);
+		statement.setString(3, errorcode);
+		statement.setString(4, "SMS Delivery Failed Due to Carrier side Rejection");
+		
+		statement.execute();
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		
+		Close.close(statement);
+		Close.close(connection);
+		
+	}
+	
+}
+
+public void insertKannelMessageStatus(Connection connection, String statusid, String dr) {
+
+	PreparedStatement statement=null;
+	try{
+		statement=connection.prepareStatement("insert into kannel_message_status(statusid,dr) values(?,?)");
+
+		statement.setString(1, statusid);
+		statement.setString(2, dr);
+		statement.execute();
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		
+		Close.close(connection);
+	}
+}
+
+public Map<String, String> getOperator(Connection connection) {
+
+	PreparedStatement statement=null;
+	ResultSet resultset=null;
+	Map<String, String> operator=new HashMap<String,String> ();
+	try {
+			
+			statement=connection.prepareStatement("select code,network from operator");
+
+		resultset=statement.executeQuery();
+
+		while(resultset.next()) {
+			
+			String code=resultset.getString("code");
+			String network=resultset.getString("network");
+			operator.put(code,network);
+		}
+	}catch(Exception e) {
+		e.printStackTrace();
+		Close.close(statement);
+		Close.close(resultset);
+		return null;
+	}
+	
+	return operator;
+
+}
+
+public Map<String, String> getCircle(Connection connection) {
+
+
+
+	PreparedStatement statement=null;
+	ResultSet resultset=null;
+	Map<String, String> circle=new HashMap<String,String> ();
+	try {
+			
+			statement=connection.prepareStatement("select code,name from circle");
+
+		resultset=statement.executeQuery();
+
+		while(resultset.next()) {
+			
+			String code=resultset.getString("code");
+			String name=resultset.getString("name");
+			circle.put(code,name);
+		}
+	}catch(Exception e) {
+		e.printStackTrace();
+		Close.close(statement);
+		Close.close(resultset);
+		return null;
+	}
+	
+	return circle;
+
 
 }
 }

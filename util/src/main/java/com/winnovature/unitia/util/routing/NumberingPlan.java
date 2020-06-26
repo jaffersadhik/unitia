@@ -19,7 +19,10 @@ public class NumberingPlan
 {
     private static NumberingPlan    obj        = null;
     
-    
+    private  Map<String,String> operator=new HashMap<String,String>();
+
+    private  Map<String,String> circle=new HashMap<String,String>();
+
     private  Map<String,Map<String,String>> numberingplan=new HashMap<String,Map<String,String>>();
     
    private NumberingPlan()
@@ -80,6 +83,17 @@ public class NumberingPlan
 		Map<String, Map<String, String>> temp_nnp=table.getNP(connection);
 		if(temp_nnp!=null) {
 			numberingplan=temp_nnp;
+		}
+		
+		Map<String, String> temp_operator=table.getOperator(connection);
+		if(temp_operator!=null) {
+			operator=temp_operator;
+		}
+		
+		
+		Map<String, String> temp_circle=table.getCircle(connection);
+		if(temp_circle!=null) {
+			circle=temp_circle;
 		}
 	
 		
@@ -273,4 +287,14 @@ public class NumberingPlan
 		return numberingplan.get(series);
 	}
 
+	public String getCircleName(String code){
+		
+		return circle.get(code);
+	}
+	
+	public String getOperatorName(String code){
+		
+		return operator.get(code);
+		
+	}
 }
