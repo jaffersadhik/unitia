@@ -94,6 +94,7 @@ public class Kannel
 		}catch(Exception e) {
 			
 		}finally {
+	
 			
 			Close.close(connection);
 		}

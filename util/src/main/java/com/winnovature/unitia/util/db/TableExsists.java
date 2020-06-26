@@ -490,16 +490,14 @@ public class TableExsists {
 				String port=resultset.getString("port");
 				String ip=resultset.getString("ip");
 				String routeclass=resultset.getString("routeclass");
-				String splitgroup=resultset.getString("splitgroup");
-
-				if(smscid!=null&&port!=null&&splitgroup!=null) {
+				
+				if(smscid!=null&&port!=null) {
 				
 
 					Map<String,String> data=new HashMap<String,String>();
 					data.put("kannel_port", port);
 					data.put("kannel_ip", ip.trim());
 					data.put("routeclass", routeclass.trim());
-					data.put("splitgroup", splitgroup.trim());
 					kannel.put(smscid.trim(), data);
 
 				}
