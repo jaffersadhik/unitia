@@ -188,4 +188,6 @@ public interface MapKeys {
 
 	public static String SENDERID_PROMO = "senderid_promo";
 
+	public static String ROUTECLASS_ORG = "routeclassorg";
+
 }

@@ -528,14 +528,14 @@ public class SMSProcessor {
 	private void doKannelAvailable(Map<String,String> msgmap) {
 		
 		
-		String route=msgmap.get(MapKeys.SMSCID_ORG);
+		String route=msgmap.get(MapKeys.SMSCID);
 			
 		Map<String,String> kannelinfo=Kannel.getInstance().getKannelInfo(route);
 		
 		if(kannelinfo!=null) {
 			msgmap.put(MapKeys.KANNEL_IP, kannelinfo.get(MapKeys.KANNEL_IP));
 			msgmap.put(MapKeys.KANNEL_PORT, kannelinfo.get(MapKeys.KANNEL_PORT));
-			msgmap.put(MapKeys.ROUTECLASS, kannelinfo.get(MapKeys.ROUTECLASS));
+			msgmap.put(MapKeys.ROUTECLASS_ORG, kannelinfo.get(MapKeys.ROUTECLASS));
         	
 		}
 		msgmap.put(MapKeys.STATUSID, ""+MessageStatus.INVALID_SMSCID);
@@ -1075,11 +1075,11 @@ public class SMSProcessor {
 		
 		String kannelurl="";
 		
-		if(msgmap.get(MapKeys.ROUTECLASS).equals("4")){
+		if(msgmap.get(MapKeys.ROUTECLASS_ORG).equals("4")){
 			
 			kannelurl=MessageFormat.format(APPS_URL, params);
 
-		}else if(msgmap.get(MapKeys.ROUTECLASS).equals("5")){
+		}else if(msgmap.get(MapKeys.ROUTECLASS_ORG).equals("5")){
 			
 			kannelurl=MessageFormat.format(RETRY_URL, params);
 
