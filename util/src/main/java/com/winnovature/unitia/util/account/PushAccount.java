@@ -141,7 +141,7 @@ public class PushAccount {
 	public Map<String,String> getPushAccount(String username)
 	{
 			
-		if(pushAccountMap != null && pushAccountMap.containsKey(username.toLowerCase()))		{
+		if(pushAccountMap != null && pushAccountMap.containsKey(username.toLowerCase()) && username !=null )		{
 			return (Map) pushAccountMap.get(username.toLowerCase());
 		}
 		else
