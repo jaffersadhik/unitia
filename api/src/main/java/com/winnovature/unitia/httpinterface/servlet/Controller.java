@@ -68,7 +68,14 @@ public class Controller extends HttpServlet
 			String routeclass=request.getParameter("routeclass");
 
 	        PrintWriter out = response.getWriter();
+	        
+	        if(routeclass==null){
+	        	
+		        out.print(Route.getInstance().getRouteGroup(key));
+
+	        }else{
 	        out.print(Route.getInstance().getRouteGroup(key, routeclass));
+	        }
 	        out.flush();
 	        out.close();
 

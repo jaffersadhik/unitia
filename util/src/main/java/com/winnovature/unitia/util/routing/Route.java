@@ -120,9 +120,9 @@ public class Route
 		if(route.containsKey(key)){
 			
 			if(routeclass.equals("1")){
-				route.get(key).get("trans");
+				(route.get(key)).get("trans");
 			}else{
-				route.get(key).get("promo");
+				(route.get(key)).get("promo");
 
 			}
 			}
@@ -133,5 +133,10 @@ public class Route
 	public String getRoute(){
 		
 		return route.toString();
+	}
+
+	public String getRouteGroup(String key) {
+		
+		return route.get(key).toString();
 	}
 }
