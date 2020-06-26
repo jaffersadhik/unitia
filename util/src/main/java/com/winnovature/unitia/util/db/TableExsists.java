@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import com.winnovature.unitia.util.routing.Route;
+
 
 
 public class TableExsists {
@@ -553,21 +555,25 @@ public class TableExsists {
 				String operator= resultset.getString("operator");
                 String circle= resultset.getString("circle");
 			
-                if(superadmin==null) {
-					superadmin="";
+                if(superadmin==null||superadmin.trim().length()<1) {
+					superadmin=Route.NULL;
 				}
 				
-				if(admin==null) {
-					admin="";
+				if(admin==null||admin.trim().length()<1) {
+					admin=Route.NULL;
+				}
+				
+				if(username==null||username.trim().length()<1) {
+					username=Route.NULL;
 				}
 				
 				
-				if(operator==null) {
-					operator="";
+				if(operator==null||operator.trim().length()<1) {
+					operator=Route.NULL;
 				}
 				
-				if(circle==null) {
-					circle="";
+				if(circle==null||circle.trim().length()<1) {
+					circle=Route.NULL;
 				}
 				
 				 Map<String, String> data=new HashMap<String, String>();

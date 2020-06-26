@@ -14,6 +14,7 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class Route
 {
+	public static String NULL="NULL";
     private static Route    obj        = null;
     
    
