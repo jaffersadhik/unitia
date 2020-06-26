@@ -61,9 +61,20 @@ public class Controller extends HttpServlet
 		}else if(URIString.startsWith("/api/receiver")){
 			
 			new SMSReceiverProcessor().doProcess(request, response);
-		}else if(URIString.startsWith("/api/route")){
 			
+		}else if(URIString.startsWith("/api/route")){
 
+			String key=request.getParameter("key");
+			String routeclass=request.getParameter("routeclass");
+
+	        PrintWriter out = response.getWriter();
+	        out.print(Route.getInstance().getRouteGroup(key, routeclass));
+	        out.flush();
+	        out.close();
+
+		}else if(URIString.startsWith("/api/allroute")){
+
+		
 	        PrintWriter out = response.getWriter();
 	        out.print(Route.getInstance().getRoute());
 	        out.flush();
