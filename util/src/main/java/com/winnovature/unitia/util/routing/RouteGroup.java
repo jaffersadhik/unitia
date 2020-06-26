@@ -60,7 +60,7 @@ public class RouteGroup
 		if(table.create(connection, SQLQuery.CREATE_ROUTEGROUP_TABLE, false)) {
 			
 			table.insertRouteGroup(connection,"retry_group","retry");
-			table.insertRouteGroup(connection,"appa_group","apps");
+			table.insertRouteGroup(connection,"apps_group","apps");
 		}
 	}
 
