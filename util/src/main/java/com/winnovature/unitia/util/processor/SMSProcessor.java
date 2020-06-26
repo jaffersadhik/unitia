@@ -1171,7 +1171,7 @@ public class SMSProcessor {
 	
 	private void setDLRURL(Map<String,String> msgmap){
 		
-		
+		msgmap.put(MapKeys.KTIME, ""+System.currentTimeMillis());
 		
 		String [] params=
 		{
