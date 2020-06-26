@@ -396,6 +396,9 @@ public class SMSProcessor {
 	
 	public void submitKannel(){
 		
+		if(isfurtherprocess){
+			
+		
 		for(int i=0;i<msgmaplist.size();i++){
 			
 			Map<String,String> msgmap=msgmaplist.get(i);
@@ -428,7 +431,7 @@ public class SMSProcessor {
 				}
 			}
 			
-			
+		}
 			
 			if(msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)){
 				
