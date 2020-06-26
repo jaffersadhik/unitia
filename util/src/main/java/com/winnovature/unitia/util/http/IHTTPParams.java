@@ -60,7 +60,7 @@ public interface IHTTPParams
 	/**
 	 * Schedule time
 	 */
-	public final String SCHETIME = "scheTime";
+	public final String SCHETIME = "scheduletime";
 	
 	/**
 	 * Ondemand / pull id
@@ -75,7 +75,7 @@ public interface IHTTPParams
 	/**
 	 * Message type
 	 */
-	public final String MSGTYPE = "msgType";
+	public final String MSGTYPE = "msgtype";
 	
 	/**
 	 * User Data Header

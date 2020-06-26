@@ -46,6 +46,16 @@ public class HttpRequestProcessor
 			String custIP		=	req.getRemoteAddr();
 			
 			/*	Validate Account */
+			
+			if(msgType==null){
+				
+				msgmap.put(MapKeys.MSGTYPE, "EM");
+			}else{
+				
+				msgmap.put(MapKeys.MSGTYPE, msgType);
+
+			}
+			
 			msgmap.put(MapKeys.USERNAME, username.toLowerCase());
 
 			Map<String,String> partnerMap =PushAccount.instance().getPushAccount(username);

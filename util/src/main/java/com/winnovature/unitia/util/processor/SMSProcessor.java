@@ -53,9 +53,13 @@ public class SMSProcessor {
 	
 	private static String RETRY_URL="http://{0}:{1}/retry/retry?username=unitia&password=unitia&smsc={2}&from={3}&to={4}&text={5}&dlr-mask=27&dlr-url={6}";
 
-	private static String DLR_URL="http://{0}:{1}/api/dnreceiver?username={2}&senderidorg={3}&dnmsg={4}&ackid={5}&msgid={6}&mobile={7}&smscidorg={8}&rtime={9}&ktime={10}&carriersystemid={11}&carrierdr={12}";
+	private static String DLR_URL="http://{0}:{1}/api/dnreceiver?username={2}&senderidorg={3}&dnmsg={4}&ackid={5}&msgid={6}&mobile={7}&smscidorg={8}&rtime={9}&ktime={10}&carriersystemid={11}&carrierdr={12}&statuscd={13}&";
 	
 	private static String SYSTEMID="%o";
+	
+	private static String SMSCID="%i";
+	
+	private static String STATUSCD="%d";
 
 	private static String DR="%a";
 	
@@ -1183,7 +1187,8 @@ public class SMSProcessor {
 				URLEncoder.encode(msgmap.get(MapKeys.RTIME)),
 				URLEncoder.encode(msgmap.get(MapKeys.KTIME)),
 				URLEncoder.encode(SYSTEMID),
-				URLEncoder.encode(DR)
+				URLEncoder.encode(DR),
+				URLEncoder.encode(STATUSCD)				
 		};
 		
 		String dlrurl=MessageFormat.format(DLR_URL, params);
