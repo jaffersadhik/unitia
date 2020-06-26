@@ -529,7 +529,7 @@ public class SMSProcessor {
 		
 		
 		String route=msgmap.get(MapKeys.SMSCID);
-			
+		msgmap.put(MapKeys.SMSCID_ORG, route);	
 		Map<String,String> kannelinfo=Kannel.getInstance().getKannelInfo(route);
 		
 		if(kannelinfo!=null) {
