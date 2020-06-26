@@ -137,7 +137,7 @@ public class MessageStatus {
 			TableExsists table=new TableExsists();
 			if(!table.isExsists(connection, "message_status")){
 				
-				if(table.create(connection, "create table message_status(status_id INT PRIMARY KEY AUTO_INCREMENT,status_description varchar(650),smscid varchar(15),stat varchar(7),err varchar(3),dnretry_yn varchar(1) default '0',uniqiue(smscid,err))", false)){
+				if(table.create(connection, "create table message_status(status_id INT PRIMARY KEY AUTO_INCREMENT,status_description varchar(650),smscid varchar(15),stat varchar(7),err varchar(3),dnretry_yn varchar(1) default '0',unique(smscid,err))", false)){
 					
 				
 					Iterator itr=status.keySet().iterator();
