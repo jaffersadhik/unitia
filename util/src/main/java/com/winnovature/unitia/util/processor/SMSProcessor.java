@@ -247,6 +247,7 @@ public class SMSProcessor {
 		
 			Set<String> patternset=SMSPatternAllowed.getInstance().getAllowedPaternSet(msgmap.get(MapKeys.USERNAME));
 			
+			if(patternset!=null){
 			Iterator itr= patternset.iterator();
 			
 			while(itr.hasNext()){
@@ -262,6 +263,7 @@ public class SMSProcessor {
 				}
 			}
 			
+			}
 		}
 		msgmap.put(MapKeys.ROUTECLASS, "2");
 
