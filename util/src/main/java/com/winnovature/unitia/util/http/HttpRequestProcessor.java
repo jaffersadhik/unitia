@@ -118,6 +118,8 @@ public class HttpRequestProcessor
 			msgmap.put(MapKeys.MOBILE,mnumber);
 			msgmap.put(MapKeys.SCHEDULE_TIME_STRING, scheTime);
 			msgmap.put(MapKeys.SENDERID,signature);
+			msgmap.put(MapKeys.SENDERID_ORG,signature);
+
 			msgmap.put(MapKeys.UDH, udh);
 			msgmap.put(MapKeys.MSGCLASS, msgClass);
 			

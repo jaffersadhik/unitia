@@ -548,7 +548,7 @@ public class TableExsists {
 				String admin=resultset.getString("admin");
 				String username=resultset.getString("username");
 				String groupname_trans=resultset.getString("routegroup_trans");
-				String groupname_promo=resultset.getString("routegroup_trans");
+				String groupname_promo=resultset.getString("routegroup_promo");
 
 				String operator= resultset.getString("operator");
                 String circle= resultset.getString("circle");

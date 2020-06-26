@@ -1,6 +1,8 @@
 package com.winnovature.unitia.httpinterface.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -12,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.winnovature.unitia.httpinterface.processor.DNGenProcess;
 import com.winnovature.unitia.httpinterface.processor.DNReceiverProcessor;
 import com.winnovature.unitia.httpinterface.processor.SMSReceiverProcessor;
+import com.winnovature.unitia.util.redis.QueueSender;
 import com.winnovature.unitia.util.redis.RedisQueuePool;
 import com.winnovature.unitia.util.routing.Refresh;
+import com.winnovature.unitia.util.routing.Route;
 import com.winnovature.unitia.util.test.Account;
 
 public class Controller extends HttpServlet 
@@ -57,6 +61,14 @@ public class Controller extends HttpServlet
 		}else if(URIString.startsWith("/api/receiver")){
 			
 			new SMSReceiverProcessor().doProcess(request, response);
+		}else if(URIString.startsWith("/api/route")){
+			
+
+	        PrintWriter out = response.getWriter();
+	        out.print(Route.getInstance().getRoute());
+	        out.flush();
+	        out.close();
+
 		}else{
 			
 			new ServletException("Unknown Context Path");
