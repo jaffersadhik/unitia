@@ -1,7 +1,9 @@
 package com.winnovature.unitia.util.threadpool;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.processor.DNGenProcessor;
 
 
@@ -26,7 +28,11 @@ public class DNGenWorker implements Runnable {
 
 		if(payload.size()>0)
 		{
+			Map<String,String> logmap=new HashMap<String,String>();
 			new DNGenProcessor().handoverToDN(payload.get("dlrurl"));
+			logmap.put("status", "DNGenWorker worker");
+			logmap.put("dlrurl", payload.get("dlrurl"));
+			new Log().log(logmap);
 		}
 	}
 

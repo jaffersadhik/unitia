@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.redis.QueueSender;
 
 public class DNGenProcess {
@@ -21,13 +22,15 @@ public class DNGenProcess {
     
         Map<String,String> msgmap=new HashMap<String,String>();
         msgmap.put("dlrurl", dlrurl);
-        
-        new QueueSender().sendL("dngenpool", msgmap, false,new HashMap());
-        
+        Map<String,String> logmap=new HashMap() ;
+        new QueueSender().sendL("dngenpool", msgmap, false,logmap);
+        logmap.putAll(msgmap);
+        logmap.put("status", "dnren receiver");
         out.print("Sent.");
         out.flush();
         out.close();
 
+        new Log().log(logmap);
 	
 	}
 }

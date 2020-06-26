@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.redis.QueueSender;
 
 public class DNReceiverProcessor {
@@ -18,11 +19,15 @@ public class DNReceiverProcessor {
 	{
 
         PrintWriter out = response.getWriter();
-        new QueueSender().sendL("dnreceiverpool", request.getParameterMap(), false,new HashMap());
+        Map<String,String> logmap=new HashMap();
+        logmap.putAll(request.getParameterMap());
+        new QueueSender().sendL("dnreceiverpool", request.getParameterMap(), false,logmap);
         out.print("Ok");
         out.flush();
         out.close();
-
+        logmap.put("pool","dnreceiver");
+        
+        new Log().log(logmap);
 	
 	}
 		
