@@ -52,6 +52,7 @@ public class Log {
 		      BufferedWriter output = new BufferedWriter(file);
 
 		      // Writes the string to the file
+		      System.out.println(ToJsonString.toString(logmap));
 		      output.write(ToJsonString.toString(logmap));
 		      output.newLine();
 
