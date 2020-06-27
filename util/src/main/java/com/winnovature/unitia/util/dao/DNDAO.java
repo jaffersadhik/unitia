@@ -53,7 +53,13 @@ public class DNDAO {
 			statement=connection.prepareStatement(sql);
 			
 			statement.setString(1, msgmap.get(MapKeys.ACKID));
-			statement.setString(2, msgmap.get(MapKeys.ACKID_ORG));
+			if(msgmap.get(MapKeys.ACKID_ORG)==null){
+			statement.setString(2, msgmap.get(MapKeys.ACKID));
+			}else{
+				
+				statement.setString(2, msgmap.get(MapKeys.ACKID_ORG));
+
+			}
 			statement.setString(3, msgmap.get(MapKeys.MSGID));
 			statement.setString(4, msgmap.get(MapKeys.USERNAME));
 			statement.setString(5, msgmap.get(MapKeys.SENDERID));
