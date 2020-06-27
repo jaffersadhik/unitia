@@ -7,6 +7,7 @@ import java.text.MessageFormat;
 import java.util.Map;
 
 import com.winnovature.unitia.util.account.BillingTableRouting;
+import com.winnovature.unitia.util.account.DNTable;
 import com.winnovature.unitia.util.db.BillingDBConnection;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.misc.MapKeys;
@@ -48,6 +49,11 @@ public class DNDAO {
 			String tablename=BillingTableRouting.getInstance().getDNTableName(msgmap.get(MapKeys.USERNAME));
 		
 			String sql=getSQL(tablename);
+			
+			if(!DNTable.getInstance().isVailableTable(tablename)){
+			
+				DNTable.getInstance().reload();
+			}
 			
 			connection=BillingDBConnection.getInstance().getConnection();
 			statement=connection.prepareStatement(sql);

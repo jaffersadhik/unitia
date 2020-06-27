@@ -163,4 +163,10 @@ public class DNTable {
 		
 		return result;
 	}
+	
+	
+	public boolean isVailableTable(String tablename){
+		
+		return avilabletable.contains(tablename);
+	}
 }
