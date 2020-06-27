@@ -22,14 +22,14 @@ public class DNDAO {
 		StringBuffer sb=new StringBuffer();
 		
 		sb.append("insert into {0}");
-		sb.append("values(");
+		sb.append("(");
 		sb.append("ackid,ackid_org,msgid,username,senderid,");
 		sb.append("senderid_org,mobile,message,operator,circle,");
 		sb.append("countrycode,smscid_org,smscid,rtime,ktime,");
 		sb.append("itime,carrier_stime,carrier_dtime,carrier_dtime_org,");
 		sb.append("carrier_sdate,carrier_ddate,carrier_stat,carrier_err,carrier_msgid,");
 		sb.append("carrier_systemid,carrier_dr,sms_latency_slap,sms_latency_slap_org,carrier_latency_slap,");
-		sb.append("paltform_latency_slap,statusid,statusid_org)(");
+		sb.append("paltform_latency_slap,statusid,statusid_org)values(");
 		sb.append("?,?,?,?,?,");
 		sb.append("?,?,?,?,?,");
 		sb.append("?,?,?,?,?,");
@@ -122,7 +122,6 @@ public class DNDAO {
 			statement.executeUpdate();
 			
 		}catch(SQLException e){
-			
 			if(e.getNextException()!=null){
 			System.err.println(e.getNextException().getMessage());
 			}
