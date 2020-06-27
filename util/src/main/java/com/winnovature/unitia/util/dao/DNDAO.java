@@ -106,7 +106,7 @@ public class DNDAO {
 			statement.execute();
 			
 		}catch(Exception e){
-			
+			System.err.println(((com.mysql.jdbc.PreparedStatement)statement).getPreparedSql());
 			e.printStackTrace();
 			
 		}finally{

@@ -38,7 +38,7 @@ public class DNTable {
 		 sb.append("smscid varchar(10),");
 		 sb.append("rtime timestamp,");
 		 sb.append("ktime timestamp,");
-		 sb.append("itime timestamp,");
+		 sb.append("itime timestamp default CURRENT_TIMESTAMP,");
 		 sb.append("carrier_stime timestamp,");
 		 sb.append("carrier_dtime timestamp,");
 		 sb.append("carrier_dtime_org timestamp,");
