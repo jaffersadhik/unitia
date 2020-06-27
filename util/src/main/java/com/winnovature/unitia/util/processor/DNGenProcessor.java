@@ -34,7 +34,7 @@ public class DNGenProcessor
 			e.printStackTrace();
 		}
         final Map<String,String> reqmap = getRequestParam(url.getQuery());
-        final Map drmap = getDR( reqmap.get("username"),  reqmap.get("message"));
+        final Map drmap = getDR( reqmap.get("username"),  reqmap.get("dnmsg"));
         final String a = URLEncoder.encode((String) drmap.get("dlr"));
         final String err = (String) drmap.get("err");
         DLRURL = DLRURL.replace("%a", a);

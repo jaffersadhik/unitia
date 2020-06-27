@@ -114,7 +114,7 @@ public interface MapKeys {
 
 	public static String FULLMSG = "fullmsg";
 
-	public static String DR = "dr";
+	public static String DR = "carrierdr";
 
 	public static String CARRIER_MSGID = "carrier_msgid";
 
