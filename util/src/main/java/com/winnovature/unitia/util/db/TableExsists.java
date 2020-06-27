@@ -1016,6 +1016,7 @@ public void persistQueueCounttoDB(Connection connection,long id, String queuenam
 public void insertworkerpool(Connection connection) {
 	
 	
+	insert(connection, "billingpool", "billing");
 	insert(connection, "transpool", "sms");
 	insert(connection, "promopool", "sms");
 	insert(connection, "credittranspool", "sms");
