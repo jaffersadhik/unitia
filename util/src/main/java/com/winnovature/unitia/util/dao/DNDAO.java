@@ -19,7 +19,7 @@ public class DNDAO {
 		
 		StringBuffer sb=new StringBuffer();
 		
-		sb.append("insert into {}");
+		sb.append("insert into {0}");
 		sb.append("values(");
 		sb.append("ackid,ackid_org,msgid,username,senderid,");
 		sb.append("senderid_org,mobile,message,operator,circle,");
