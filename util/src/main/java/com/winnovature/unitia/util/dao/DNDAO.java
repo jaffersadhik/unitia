@@ -100,8 +100,8 @@ public class DNDAO {
 			statement.setString(30, msgmap.get(MapKeys.CARRIER_LATENCY));
 
 			statement.setString(31, msgmap.get(MapKeys.PLATFORM_LATENCY));
-			statement.setString(32, msgmap.get(MapKeys.STATUSID));
-			statement.setString(33, msgmap.get(MapKeys.STATUSID_ORG));
+			statement.setInt(32, Integer.parseInt(msgmap.get(MapKeys.STATUSID)));
+			statement.setInt(33, Integer.parseInt(msgmap.get(MapKeys.STATUSID_ORG)));
 
 			statement.execute();
 			
