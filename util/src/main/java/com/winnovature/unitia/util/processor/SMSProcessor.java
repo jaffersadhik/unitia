@@ -483,6 +483,10 @@ public class SMSProcessor {
 				
 				doBilling(msgmap);
 			}
+		}else{
+			
+			doBilling(msgmap);
+
 		}
 	}
 	
