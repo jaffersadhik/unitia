@@ -2,6 +2,7 @@ package com.winnovature.unitia.httpinterface.processor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -19,16 +20,30 @@ public class DNReceiverProcessor {
 	{
 
         PrintWriter out = response.getWriter();
+        Map<String,String> msgmap=getMap(request);
         Map<String,String> logmap=new HashMap();
-        logmap.putAll(request.getParameterMap());
-        new QueueSender().sendL("dnreceiverpool", request.getParameterMap(), false,logmap);
+        new QueueSender().sendL("dnreceiverpool", msgmap, false,logmap);
         out.print("Ok");
         out.flush();
         out.close();
+        logmap.putAll(msgmap);
         logmap.put("pool","dnreceiver");
         
         new Log().log(logmap);
 	
+	}
+
+	private Map<String, String> getMap(HttpServletRequest request) {
+
+		Map<String,String> requestmap=new HashMap<String,String>();
+		Enumeration dd=request.getParameterNames();
+		  if(dd.hasMoreElements()){
+			  
+			  String name=dd.nextElement().toString();
+			  String value=request.getParameter(name);
+			  requestmap.put(name, value);
+		  }
+		return requestmap;
 	}
 		
 }
