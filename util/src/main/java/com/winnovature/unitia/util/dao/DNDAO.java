@@ -69,8 +69,14 @@ public class DNDAO {
 			}
 			statement.setString(3, msgmap.get(MapKeys.MSGID));
 			statement.setString(4, msgmap.get(MapKeys.USERNAME));
-			statement.setString(5, msgmap.get(MapKeys.SENDERID));
+			
+			if( msgmap.get(MapKeys.SENDERID)==null){
+			statement.setString(5, msgmap.get(MapKeys.SENDERID_ORG));
+			}else{
+				
+				statement.setString(5, msgmap.get(MapKeys.SENDERID));
 
+			}
 			statement.setString(6, msgmap.get(MapKeys.SENDERID_ORG));
 			statement.setString(7, msgmap.get(MapKeys.MOBILE));
 			statement.setString(8, msgmap.get(MapKeys.DNMSG));
@@ -78,8 +84,17 @@ public class DNDAO {
 			statement.setString(10, msgmap.get(MapKeys.CIRCLE));
 
 			statement.setString(11, msgmap.get(MapKeys.COUNTRYCODE));
+			
 			statement.setString(12, msgmap.get(MapKeys.SMSCID_ORG));
-			statement.setString(13, msgmap.get(MapKeys.SMSCID));
+			if(msgmap.get(MapKeys.SMSCID)==null){
+				
+				statement.setString(13, msgmap.get(MapKeys.SMSCID_ORG));
+				
+			}else{
+			
+				statement.setString(13, msgmap.get(MapKeys.SMSCID));
+				
+			}
 			statement.setTimestamp(14,new Timestamp(Long.parseLong(msgmap.get(MapKeys.RTIME))));
 			statement.setTimestamp(15,new Timestamp(Long.parseLong(msgmap.get(MapKeys.KTIME))));
 
