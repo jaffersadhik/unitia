@@ -27,7 +27,7 @@ public class RedisReceiver extends Thread {
 					
 					ThreadPoolTon.getInstance().doProcess(poolname, "schedule", data);
 
-				}else if(poolname.equals("bilingpool")){
+				}else if(poolname.equals("billingpool")){
 					
 					ThreadPoolTon.getInstance().doProcess(poolname, "billing", data);
 
@@ -37,8 +37,8 @@ public class RedisReceiver extends Thread {
 
 				}else if(poolname.equals("dnreceiverpool")){
 					
-					ThreadPoolTon.getInstance().doProcess(poolname, "dnreceiver", data);
 
+					ThreadPoolTon.getInstance().doProcess(poolname, "dnreceiver", data);
 				}else if(poolname.equals("otpretry")){
 					
 					ThreadPoolTon.getInstance().doProcess(poolname, "otpretry", data);
