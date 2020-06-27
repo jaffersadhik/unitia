@@ -476,6 +476,8 @@ public class SMSProcessor {
 				
 				Map<String,String> logmap=new HashMap<String,String>();
 				logmap.putAll(msgmap1);
+				logmap.put("processor", "sms processor");
+
 				doRetry(msgmap1,logmap);
 				
 				new Log().log(logmap);
@@ -483,6 +485,7 @@ public class SMSProcessor {
 
 				Map<String,String> logmap=new HashMap<String,String>();
 				logmap.putAll(msgmap1);
+				logmap.put("processor", "sms processor");
 				doBilling(msgmap1,logmap);
 				new Log().log(logmap);
 
@@ -493,7 +496,7 @@ public class SMSProcessor {
 			
 			Map<String,String> logmap=new HashMap<String,String>();
 			logmap.putAll(msgmap);
-			
+			logmap.put("processor", "sms processor");			
 			doBilling(msgmap,logmap);
 			new Log().log(logmap);
 
