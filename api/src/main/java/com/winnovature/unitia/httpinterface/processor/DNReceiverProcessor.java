@@ -34,16 +34,25 @@ public class DNReceiverProcessor {
 	}
 
 	private Map<String, String> getMap(HttpServletRequest request) {
-
-		Map<String,String> requestmap=new HashMap<String,String>();
-		Enumeration dd=request.getParameterNames();
-		  if(dd.hasMoreElements()){
-			  
-			  String name=dd.nextElement().toString();
-			  String value=request.getParameter(name);
-			  requestmap.put(name, value);
-		  }
-		return requestmap;
-	}
+		
+        final StringTokenizer st = new StringTokenizer(request.getQueryString(), "&");
+        final HashMap reqParam = new HashMap();
+        while (st.hasMoreTokens())
+        {
+            final StringTokenizer st2 = new StringTokenizer(st.nextToken(), "=");
+            String key = "";
+            String value = "";
+            if (st2.hasMoreTokens())
+            {
+                key = st2.nextToken();
+                if (st2.hasMoreTokens())
+                {
+                    value = st2.nextToken();
+                }
+            }
+            reqParam.put(key, value);
+        }
+        return reqParam;
+    }
 		
 }

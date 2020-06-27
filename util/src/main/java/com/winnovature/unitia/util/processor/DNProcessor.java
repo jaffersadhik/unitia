@@ -31,7 +31,7 @@ public class DNProcessor
     public void doProcess()
     {
         
-    	String statuscd=requestmap.get(MapKeys.DN_STATUSCD).toString();
+    	String statuscd=requestmap.get(MapKeys.DN_STATUSCD);
     	requestmap.put(MapKeys.ADJUSTMENT_INDICATOR, "0");
 
     	
