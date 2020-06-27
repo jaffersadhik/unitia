@@ -49,7 +49,7 @@ public class SubmissionTable {
 		 sb.append("ktime timestamp,");
 		 sb.append("ktime_org timestamp,");
 		 sb.append("stime timestamp,");
-		 sb.append("statusid varchar(3),");
+		 sb.append("statusid varchar(3)");
 		 sb.append(")");
 
 		 SQL=sb.toString();
