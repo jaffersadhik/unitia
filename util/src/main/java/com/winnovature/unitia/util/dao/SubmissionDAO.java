@@ -45,7 +45,7 @@ public class SubmissionDAO {
 		PreparedStatement statement=null;
 		
 		try{
-			String tablename=BillingTableRouting.getInstance().getDNTableName(msgmap.get(MapKeys.USERNAME));
+			String tablename=BillingTableRouting.getInstance().getSubmissionTableName(msgmap.get(MapKeys.USERNAME));
 		
 			String sql=getSQL(tablename);
 			
