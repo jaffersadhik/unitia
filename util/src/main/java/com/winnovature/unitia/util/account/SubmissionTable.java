@@ -29,6 +29,7 @@ public class SubmissionTable {
 		 sb.append("username varchar(16),");
 		 sb.append("msgclass varchar(3),");
 		 sb.append("routeclass varchar(3),");
+		 sb.append("routegroup varchar(30),");
 		 sb.append("msgtype varchar(3),");
 		 sb.append("featurecode varchar(3),");
 		 sb.append("udh varchar(30),");
