@@ -29,7 +29,7 @@ public class DNTable {
 		 sb.append("username varchar(16),");
 		 sb.append("senderid varchar(15),");
 		 sb.append("senderid_org varchar(15),");
-		 sb.append("mobile varchar(15,0),");
+		 sb.append("mobile varchar(15),");
 		 sb.append("message varchar(20),");
 		 sb.append("operator varchar(50),");
 		 sb.append("circle varchar(50),");
