@@ -24,14 +24,14 @@ public class DNDAO {
 		sb.append("ackid,ackid_org,msgid,username,senderid,");
 		sb.append("senderid_org,mobile,message,operator,circle,");
 		sb.append("countrycode,smscid_org,smscid,rtime,ktime,");
-		sb.append("itime,expiry,carrier_stime,carrier_dtime,carrier_dtime_org,");
+		sb.append("itime,carrier_stime,carrier_dtime,carrier_dtime_org,");
 		sb.append("carrier_sdate,carrier_ddate,carrier_stat,carrier_err,carrier_msgid,");
 		sb.append("carrier_systemid,carrier_dr,sms_latency_slap,sms_latency_slap_org,carrier_latency_slap,");
 		sb.append("paltform_latency_slap,statusid,statusid_org)(");
 		sb.append("?,?,?,?,?,");
 		sb.append("?,?,?,?,?,");
 		sb.append("?,?,?,?,?,");
-		sb.append("?,?,?,?,?,");
+		sb.append("?,?,?,?,");
 		sb.append("?,?,?,?,?,");
 		sb.append("?,?,?,?,?,");
 		sb.append("?,?,?)");
@@ -77,31 +77,25 @@ public class DNDAO {
 			statement.setTimestamp(15,new Timestamp(Long.parseLong(msgmap.get(MapKeys.KTIME))));
 
 			statement.setTimestamp(16, new Timestamp(System.currentTimeMillis()));
-			if( msgmap.get(MapKeys.EXPIRY)==null){
-				statement.setString(17, "0");
-					
-			}else{
-			statement.setString(17, msgmap.get(MapKeys.EXPIRY));
-			}
-			statement.setTimestamp(18, new Timestamp(Long.parseLong(msgmap.get(MapKeys.CARRIER_SUBMITTIME))));
-			statement.setTimestamp(19,  new Timestamp(Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME))));
-			statement.setTimestamp(20, new Timestamp(Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME_ORG))));
+			statement.setTimestamp(17, new Timestamp(Long.parseLong(msgmap.get(MapKeys.CARRIER_SUBMITTIME))));
+			statement.setTimestamp(18,  new Timestamp(Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME))));
+			statement.setTimestamp(19, new Timestamp(Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME_ORG))));
 
-			statement.setString(21, msgmap.get(MapKeys.CARRIER_SUBMITDATE));
-			statement.setString(22, msgmap.get(MapKeys.CARRIER_DONEDATE));
-			statement.setString(23, msgmap.get(MapKeys.CARRIER_STAT));
-			statement.setString(24, msgmap.get(MapKeys.CARRIER_ERR));
-			statement.setString(25, msgmap.get(MapKeys.CARRIER_MSGID));
+			statement.setString(20, msgmap.get(MapKeys.CARRIER_SUBMITDATE));
+			statement.setString(21, msgmap.get(MapKeys.CARRIER_DONEDATE));
+			statement.setString(22, msgmap.get(MapKeys.CARRIER_STAT));
+			statement.setString(23, msgmap.get(MapKeys.CARRIER_ERR));
+			statement.setString(24, msgmap.get(MapKeys.CARRIER_MSGID));
 
-			statement.setString(26, msgmap.get(MapKeys.CARRIER_SYSTEMID));
-			statement.setString(27, msgmap.get(MapKeys.CARRIER_DR));
-			statement.setString(28, msgmap.get(MapKeys.SMS_LATENCY));
-			statement.setString(29, msgmap.get(MapKeys.SMS_LATENCY_ORG));
-			statement.setString(30, msgmap.get(MapKeys.CARRIER_LATENCY));
+			statement.setString(25, msgmap.get(MapKeys.CARRIER_SYSTEMID));
+			statement.setString(26, msgmap.get(MapKeys.CARRIER_DR));
+			statement.setString(27, msgmap.get(MapKeys.SMS_LATENCY));
+			statement.setString(28, msgmap.get(MapKeys.SMS_LATENCY_ORG));
+			statement.setString(29, msgmap.get(MapKeys.CARRIER_LATENCY));
 
-			statement.setString(31, msgmap.get(MapKeys.PLATFORM_LATENCY));
-			statement.setInt(32, Integer.parseInt(msgmap.get(MapKeys.STATUSID)));
-			statement.setInt(33, Integer.parseInt(msgmap.get(MapKeys.STATUSID_ORG)));
+			statement.setString(30, msgmap.get(MapKeys.PLATFORM_LATENCY));
+			statement.setInt(31, Integer.parseInt(msgmap.get(MapKeys.STATUSID)));
+			statement.setInt(32, Integer.parseInt(msgmap.get(MapKeys.STATUSID_ORG)));
 
 			statement.execute();
 			

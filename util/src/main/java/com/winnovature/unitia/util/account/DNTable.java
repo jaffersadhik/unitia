@@ -29,17 +29,16 @@ public class DNTable {
 		 sb.append("username varchar(16),");
 		 sb.append("senderid varchar(15),");
 		 sb.append("senderid_org varchar(15),");
-		 sb.append("mobile numeric(15,0),");
+		 sb.append("mobile varchar(15,0),");
 		 sb.append("message varchar(20),");
 		 sb.append("operator varchar(50),");
 		 sb.append("circle varchar(50),");
-		 sb.append("countrycode numeric(10,0),");
+		 sb.append("countrycode varchar(10),");
 		 sb.append("smscid_org varchar(10),");
 		 sb.append("smscid varchar(10),");
 		 sb.append("rtime timestamp,");
 		 sb.append("ktime timestamp,");
 		 sb.append("itime timestamp,");
-		 sb.append("expiry numeric(10,0),");
 		 sb.append("carrier_stime timestamp,");
 		 sb.append("carrier_dtime timestamp,");
 		 sb.append("carrier_dtime_org timestamp,");
@@ -54,8 +53,8 @@ public class DNTable {
 		 sb.append("sms_latency_slap_org numeric(2,0),");
 		 sb.append("carrier_latency_slap numeric(2,0),");
 		 sb.append("paltform_latency_slap numeric(2,0),");
-		 sb.append("statusid numeric(3,0),");
-		 sb.append("statusid_org numeric(3,0)");
+		 sb.append("statusid varchar(3,0),");
+		 sb.append("statusid_org varchar(3,0)");
 		 sb.append(")");
 
 		 SQL=sb.toString();
