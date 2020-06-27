@@ -137,6 +137,7 @@ public class DNProcessor
 	private void setLatencySlap() {
 
     	long rtime=Long.parseLong(requestmap.get(MapKeys.RTIME));
+    	long ktime=Long.parseLong(requestmap.get(MapKeys.KTIME));
     	long dtime=Long.parseLong(requestmap.get(MapKeys.CARRIER_DONETIME));
     	long dtime_org=Long.parseLong(requestmap.get(MapKeys.CARRIER_DONETIME_ORG));
     	long ctime=Long.parseLong(requestmap.get(MapKeys.CARRIER_SUBMITTIME));
@@ -148,11 +149,13 @@ public class DNProcessor
     	int smslatency=slap.getSlap(dtime-rtime);
     	
     	int carrierlatency=slap.getSlap(dtime_org-ctime);
+    	
+    	int paltformlatency=slap.getSlap(ktime-rtime);
 
     	requestmap.put(MapKeys.SMS_LATENCY, smslatency+"");
     	requestmap.put(MapKeys.SMS_LATENCY_ORG, smslatency_org+"");
-    	requestmap.put(MapKeys.CARRIER_LATENCY, carrierlatency+"");
-    	
+    	requestmap.put(MapKeys.CARRIER_LATENCY, carrierlatency+"");    	
+    	requestmap.put(MapKeys.PLATFORM_LATENCY, paltformlatency+"");
 
     	
     }
