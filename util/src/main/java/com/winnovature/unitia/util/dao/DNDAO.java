@@ -50,7 +50,7 @@ public class DNDAO {
 		
 			String sql=getSQL(tablename);
 			
-			if(!DNTable.getInstance().isVailableTable(tablename)){
+`			if(!DNTable.getInstance().isVailableTable(tablename)){
 			
 				DNTable.getInstance().reload();
 			}
