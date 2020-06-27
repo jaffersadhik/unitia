@@ -23,6 +23,7 @@ import com.winnovature.unitia.util.misc.ACKIdGenerator;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.misc.FeatureCode;
+import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.MessageType;
@@ -72,13 +73,10 @@ public class SMSProcessor {
 	
 	Map<String,String> msgmap=null;
 	
-	Map<String,String> logmap=null;
-	
 	private boolean isfurtherprocess=true;
 	
-	public SMSProcessor(Map<String,String> msgmap,Map<String,String> logmap){
+	public SMSProcessor(Map<String,String> msgmap){
 		
-		this.logmap=logmap;
 		this.msgmap=msgmap;
 	}
 	
@@ -476,17 +474,29 @@ public class SMSProcessor {
 
 			if(msgmap1.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)){
 				
-				doRetry(msgmap1);
+				Map<String,String> logmap=new HashMap<String,String>();
+				logmap.putAll(msgmap1);
+				doRetry(msgmap1,logmap);
 				
+				new Log().log(logmap);
 			}else{
-				
-				doBilling(msgmap1);
+
+				Map<String,String> logmap=new HashMap<String,String>();
+				logmap.putAll(msgmap1);
+				doBilling(msgmap1,logmap);
+				new Log().log(logmap);
+
 			}
 		}
 			
 		}else{
 			
-			doBilling(msgmap);
+			Map<String,String> logmap=new HashMap<String,String>();
+			logmap.putAll(msgmap);
+			
+			doBilling(msgmap,logmap);
+			new Log().log(logmap);
+
 
 		}
 	}
@@ -908,7 +918,7 @@ public class SMSProcessor {
 		return this;
 	}
 
-	private void doBilling(Map<String,String> msgmap){
+	private void doBilling(Map<String,String> msgmap,Map<String,String> logmap){
 		
 	
 			if(new QueueSender().sendL("billingpool", msgmap, false, logmap)){
@@ -925,7 +935,7 @@ public class SMSProcessor {
 		
 	}
 	
-	private void doRetry(Map<String,String> msgmap){
+	private void doRetry(Map<String,String> msgmap,Map<String,String> logmap){
 		
 		
 		if(new QueueSender().sendL("kannelretrypool", msgmap, false, logmap)){
