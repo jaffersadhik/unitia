@@ -25,5 +25,14 @@ jobs:
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiaweb PushTag 
       run: docker push registry-1.docker.io/winnovature/unitiaweb:lion
+    - uses: actions/checkout@v2
+    - name: Build the Dockerfileunitiadngen image
+      run: docker build . --file Dockerfileunitiadngen --tag unitiadngen:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadngen Image Tag 
+      run: docker tag unitiadngen:lion registry-1.docker.io/winnovature/unitiadngen:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadngen PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiadngen:lion
 
 
