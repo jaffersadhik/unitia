@@ -77,7 +77,12 @@ public class DNDAO {
 			statement.setTimestamp(15,new Timestamp(Long.parseLong(msgmap.get(MapKeys.KTIME))));
 
 			statement.setTimestamp(16, new Timestamp(System.currentTimeMillis()));
+			if( msgmap.get(MapKeys.EXPIRY)==null){
+				statement.setString(17, msgmap.get(MapKeys.EXPIRY));
+					
+			}else{
 			statement.setString(17, msgmap.get(MapKeys.EXPIRY));
+			}
 			statement.setTimestamp(18, new Timestamp(Long.parseLong(msgmap.get(MapKeys.CARRIER_SUBMITTIME))));
 			statement.setTimestamp(19,  new Timestamp(Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME))));
 			statement.setTimestamp(20, new Timestamp(Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME_ORG))));
@@ -96,7 +101,15 @@ public class DNDAO {
 
 			statement.setString(31, msgmap.get(MapKeys.PLATFORM_LATENCY));
 			statement.setString(32, msgmap.get(MapKeys.STATUSID));
-			statement.setString(33, msgmap.get(MapKeys.STATUSID_ORG));
+			if(msgmap.get(MapKeys.STATUSID)==null){
+				statement.setString(33, msgmap.get(MapKeys.STATUSID));
+
+				
+			}else{
+			
+				statement.setString(33, msgmap.get(MapKeys.STATUSID_ORG));
+
+			}
 
 			statement.execute();
 			
