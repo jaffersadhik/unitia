@@ -1,11 +1,11 @@
 package com.winnovature.unitia.util.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.util.Map;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 import com.winnovature.unitia.util.account.BillingTableRouting;
 import com.winnovature.unitia.util.account.DNTable;
 import com.winnovature.unitia.util.db.BillingDBConnection;
@@ -55,8 +55,8 @@ public class DNDAO {
 				DNTable.getInstance().reload();
 			}
 			
-			connection=BillingDBConnection.getInstance().getConnection();
-			statement=connection.prepareStatement(sql);
+			connection=(Connection) BillingDBConnection.getInstance().getConnection();
+			statement=(PreparedStatement) connection.prepareStatement(sql);
 			
 			statement.setString(1, msgmap.get(MapKeys.ACKID));
 			if(msgmap.get(MapKeys.ACKID_ORG)==null){
@@ -100,13 +100,13 @@ public class DNDAO {
 			statement.setString(29, msgmap.get(MapKeys.CARRIER_LATENCY));
 
 			statement.setString(30, msgmap.get(MapKeys.PLATFORM_LATENCY));
-			statement.setInt(31, Integer.parseInt(msgmap.get(MapKeys.STATUSID)));
-			statement.setInt(32, Integer.parseInt(msgmap.get(MapKeys.STATUSID_ORG)));
+			statement.setString(31, msgmap.get(MapKeys.STATUSID));
+			statement.setString(32, msgmap.get(MapKeys.STATUSID_ORG));
 
 			statement.execute();
 			
 		}catch(Exception e){
-			System.err.println(((com.mysql.jdbc.PreparedStatement)statement).getPreparedSql());
+			System.err.println(statement.getPreparedSql());
 			e.printStackTrace();
 			
 		}finally{
