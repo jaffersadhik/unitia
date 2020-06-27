@@ -53,8 +53,8 @@ public class DNTable {
 		 sb.append("sms_latency_slap_org numeric(2,0),");
 		 sb.append("carrier_latency_slap numeric(2,0),");
 		 sb.append("paltform_latency_slap numeric(2,0),");
-		 sb.append("statusid varchar(3,0),");
-		 sb.append("statusid_org varchar(3,0)");
+		 sb.append("statusid varchar(3),");
+		 sb.append("statusid_org varchar(3)");
 		 sb.append(")");
 
 		 SQL=sb.toString();
