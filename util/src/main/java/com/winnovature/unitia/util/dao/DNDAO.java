@@ -1,11 +1,12 @@
 package com.winnovature.unitia.util.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.util.Map;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 import com.winnovature.unitia.util.account.BillingTableRouting;
 import com.winnovature.unitia.util.account.DNTable;
 import com.winnovature.unitia.util.db.BillingDBConnection;
@@ -56,7 +57,7 @@ public class DNDAO {
 			}
 			
 			connection=(Connection) BillingDBConnection.getInstance().getConnection();
-			statement=(PreparedStatement) connection.prepareStatement(sql);
+			statement= connection.prepareStatement(sql);
 			
 			statement.setString(1, msgmap.get(MapKeys.ACKID));
 			if(msgmap.get(MapKeys.ACKID_ORG)==null){
@@ -105,8 +106,11 @@ public class DNDAO {
 
 			statement.execute();
 			
+		}catch(SQLException e){
+			
+			System.err.println(e.getNextException().getMessage());
 		}catch(Exception e){
-			System.err.println(statement.getPreparedSql());
+		
 			e.printStackTrace();
 			
 		}finally{
