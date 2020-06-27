@@ -97,9 +97,30 @@ public class SubmissionDAO {
 			statement.setTimestamp(15,new Timestamp(Long.parseLong(msgmap.get(MapKeys.KTIME))));
 
 			statement.setTimestamp(16, new Timestamp(System.currentTimeMillis()));
+			if(msgmap.get(MapKeys.RTIME_ORG)!=null){
 			statement.setTimestamp(17, new Timestamp(Long.parseLong(msgmap.get(MapKeys.RTIME_ORG))));
+			}else{
+				
+				statement.setTimestamp(17,null);
+
+			}
+			
+			if(msgmap.get(MapKeys.KTIME_ORG)!=null){
 			statement.setTimestamp(18,  new Timestamp(Long.parseLong(msgmap.get(MapKeys.KTIME_ORG))));
-			statement.setTimestamp(19, new Timestamp(Long.parseLong(msgmap.get(MapKeys.SCHEDULE_TIME))));
+			}else{
+				
+				statement.setTimestamp(18,  null);
+
+			}
+			
+			if(msgmap.get(MapKeys.SCHEDULE_TIME)!=null&&msgmap.get(MapKeys.SCHEDULE_TIME).length()>0){
+				statement.setTimestamp(19, new Timestamp(Long.parseLong(msgmap.get(MapKeys.SCHEDULE_TIME))));
+
+			}else{
+				statement.setTimestamp(19, null);
+				
+			}
+			
 			statement.setString(20, msgmap.get(MapKeys.FEATURECODE));
 			statement.setString(21, msgmap.get(MapKeys.MSGTYPE));
 			statement.setString(22, msgmap.get(MapKeys.ROUTEGROUP));
