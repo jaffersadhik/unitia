@@ -78,7 +78,7 @@ public class DNDAO {
 
 			statement.setTimestamp(16, new Timestamp(System.currentTimeMillis()));
 			if( msgmap.get(MapKeys.EXPIRY)==null){
-				statement.setString(17, msgmap.get(MapKeys.EXPIRY));
+				statement.setString(17, "0");
 					
 			}else{
 			statement.setString(17, msgmap.get(MapKeys.EXPIRY));
