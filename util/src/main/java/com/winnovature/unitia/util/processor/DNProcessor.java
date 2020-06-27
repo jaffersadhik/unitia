@@ -79,6 +79,8 @@ public class DNProcessor
     	if(statuscd.equals("1")){
     		
     		requestmap.put(MapKeys.STATUSID, "000");
+    		requestmap.put(MapKeys.STATUSID_ORG, "000");
+
     		
     	}else{
     
