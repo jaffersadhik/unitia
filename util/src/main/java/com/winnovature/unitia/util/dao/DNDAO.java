@@ -108,8 +108,12 @@ public class DNDAO {
 			
 		}catch(SQLException e){
 			
+			if(e.getNextException()!=null){
 			System.err.println(e.getNextException().getMessage());
-		}catch(Exception e){
+			}
+			e.printStackTrace();
+			
+			}catch(Exception e){
 		
 			e.printStackTrace();
 			
