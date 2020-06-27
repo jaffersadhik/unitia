@@ -164,4 +164,9 @@ public class SubmissionTable {
 		
 		return avilabletable.contains(tablename);
 	}
+	
+	public static void main(String args[]){
+		
+		System.out.println(new SubmissionTable().getSQL("test"));
+	}
 }

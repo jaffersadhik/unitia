@@ -29,10 +29,12 @@ public class BillingWorker implements Runnable {
 
 	public void run() 
 	{
-		logmap.put("poolname", poolname);
-		
-
 		logmap.putAll(msgmap);
+
+		logmap.put("poolname", poolname);
+		logmap.put("worker", "Billing Worker");
+
+
 		
 		new SubmissionDAO().insert(msgmap);
 		
