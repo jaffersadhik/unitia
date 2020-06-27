@@ -23,9 +23,9 @@ public class DNTable {
 		 StringBuffer sb=new StringBuffer();
 		 
 		 sb.append("create table {0}(");
-		 sb.append("ackid numeric(20,0),");
-		 sb.append("ackid_org numeric(20,0),");
-		 sb.append("msgid numeric(20,0),");
+		 sb.append("ackid varchar(20),");
+		 sb.append("ackid_org varchar(20),");
+		 sb.append("msgid varchar(20),");
 		 sb.append("username varchar(16),");
 		 sb.append("senderid varchar(15),");
 		 sb.append("senderid_org varchar(15),");
@@ -48,11 +48,11 @@ public class DNTable {
 		 sb.append("carrier_err varchar(3),");
 		 sb.append("carrier_msgid varchar(30),");
 		 sb.append("carrier_systemid varchar(30),");
-		 sb.append("carrier_dr varchar(300),");
-		 sb.append("sms_latency_slap numeric(2,0),");
-		 sb.append("sms_latency_slap_org numeric(2,0),");
-		 sb.append("carrier_latency_slap numeric(2,0),");
-		 sb.append("paltform_latency_slap numeric(2,0),");
+		 sb.append("carrier_dr varchar(600),");
+		 sb.append("sms_latency_slap varchar(2),");
+		 sb.append("sms_latency_slap_org varchar(2),");
+		 sb.append("carrier_latency_slap varchar(2),");
+		 sb.append("paltform_latency_slap varchar(2),");
 		 sb.append("statusid varchar(3),");
 		 sb.append("statusid_org varchar(3)");
 		 sb.append(")");

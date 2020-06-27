@@ -56,7 +56,7 @@ public class DNDAO {
 				DNTable.getInstance().reload();
 			}
 			
-			connection=(Connection) BillingDBConnection.getInstance().getConnection();
+			connection= BillingDBConnection.getInstance().getConnection();
 			statement= connection.prepareStatement(sql);
 			
 			statement.setString(1, msgmap.get(MapKeys.ACKID));
@@ -119,7 +119,7 @@ public class DNDAO {
 			statement.setString(31, msgmap.get(MapKeys.STATUSID));
 			statement.setString(32, msgmap.get(MapKeys.STATUSID_ORG));
 
-			statement.execute();
+			statement.executeUpdate();
 			
 		}catch(SQLException e){
 			
