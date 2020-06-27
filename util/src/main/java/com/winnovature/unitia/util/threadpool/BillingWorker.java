@@ -3,6 +3,7 @@ package com.winnovature.unitia.util.threadpool;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.winnovature.unitia.util.dao.SubmissionDAO;
 import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.processor.SMSProcessor;
 
@@ -30,8 +31,10 @@ public class BillingWorker implements Runnable {
 	{
 		logmap.put("poolname", poolname);
 		
-		
+
 		logmap.putAll(msgmap);
+		
+		new SubmissionDAO().insert(msgmap);
 		
 		new Log().log(logmap);
 		

@@ -190,4 +190,6 @@ public interface MapKeys {
 
 	public static String ROUTECLASS_ORG = "routeclassorg";
 
+	public static String KTIME_ORG = "ktime_org";
+
 }
