@@ -443,29 +443,29 @@ public class SMSProcessor {
 		
 		for(int i=0;i<msgmaplist.size();i++){
 			
-			Map<String,String> msgmap=msgmaplist.get(i);
+			Map<String,String> msgmap1=msgmaplist.get(i);
 			
-			doSMSCIDAvailable(msgmap);
+			doSMSCIDAvailable(msgmap1);
 			
-			if(msgmap.get(MapKeys.STATUSID)==null){
+			if(msgmap1.get(MapKeys.STATUSID)==null){
 				
-				doKannelAvailable(msgmap);
+				doKannelAvailable(msgmap1);
 				
-				if(msgmap.get(MapKeys.STATUSID)==null){
+				if(msgmap1.get(MapKeys.STATUSID)==null){
 					
-					doDNMessage(msgmap);
+					doDNMessage(msgmap1);
 					
-					setDLRURL(msgmap);
+					setDLRURL(msgmap1);
 					
-					setKannelURL(msgmap);
+					setKannelURL(msgmap1);
 					
-					if(connectKannel(msgmap.get(MapKeys.KANNEL_URL)).startsWith(SENT)){
+					if(connectKannel(msgmap1.get(MapKeys.KANNEL_URL)).startsWith(SENT)){
 						
-						msgmap.put(MapKeys.STATUSID, ""+MessageStatus.KANNEL_SUBMIT_SUCCESS);
+						msgmap1.put(MapKeys.STATUSID, ""+MessageStatus.KANNEL_SUBMIT_SUCCESS);
 					
 					}else{
 						
-						msgmap.put(MapKeys.STATUSID, ""+MessageStatus.KANNEL_SUBMIT_FAILED);
+						msgmap1.put(MapKeys.STATUSID, ""+MessageStatus.KANNEL_SUBMIT_FAILED);
 
 					}
 					
@@ -473,16 +473,17 @@ public class SMSProcessor {
 				}
 			}
 			
-		}
-			
-			if(msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)){
+
+			if(msgmap1.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)){
 				
-				doRetry(msgmap);
+				doRetry(msgmap1);
 				
 			}else{
 				
-				doBilling(msgmap);
+				doBilling(msgmap1);
 			}
+		}
+			
 		}else{
 			
 			doBilling(msgmap);
