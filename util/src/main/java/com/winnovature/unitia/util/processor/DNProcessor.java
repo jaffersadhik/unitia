@@ -35,9 +35,9 @@ public class DNProcessor
     	String statuscd=requestmap.get(MapKeys.DN_STATUSCD);
     	requestmap.put(MapKeys.ADJUSTMENT_INDICATOR, "0");
 
-    	new SMSProcessor(requestmap)
-    	.doCountryCodeCheck()
-    	.doNumberingPlan();
+    	SMSProcessor processor=new SMSProcessor(requestmap);
+    			processor.doCountryCodeCheck();
+    			processor.doNumberingPlan();
     	
     	if(statuscd.equals("32")){
     		

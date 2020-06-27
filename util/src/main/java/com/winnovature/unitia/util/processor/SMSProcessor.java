@@ -81,7 +81,7 @@ public class SMSProcessor {
 	}
 	
 	
-	public SMSProcessor doCountryCodeCheck(){
+	public void doCountryCodeCheck(){
 		
 		if(isfurtherprocess){
 		
@@ -95,7 +95,7 @@ public class SMSProcessor {
 
 				msgmap.put(MapKeys.COUNTRYNAME, countryname);
 
-				return this;
+				return ;
 			}
 			
 		
@@ -110,7 +110,7 @@ public class SMSProcessor {
 					msgmap.put(MapKeys.COUNTRYCODE, series)	;
 					msgmap.put(MapKeys.COUNTRYNAME, countryname);
 					
-					return this;
+					return ;
 				}
 			}
 			
@@ -120,9 +120,9 @@ public class SMSProcessor {
 
 		}
 		
-		return this;
+		return ;
 	}
-	public SMSProcessor doNumberingPlan(){
+	public void doNumberingPlan(){
 		
 		if(isfurtherprocess){
 		
@@ -130,7 +130,7 @@ public class SMSProcessor {
 
 			if(!mobile.startsWith("91")){
 				
-				return this;
+				return ;
 			}
 			for(int i=7;i>5;i--) {
 				
@@ -146,7 +146,7 @@ public class SMSProcessor {
 		            msgmap.put(MapKeys.CIRCLE_NAME, NumberingPlan.getInstance().getCircleName(npinfo.get(MapKeys.CIRCLE)));
 		
 					
-					return this;
+					return ;
 				}
 			}
 			msgmap.put(MapKeys.STATUSID, ""+MessageStatus.MOBILE_SERIES_NOT_REGISTERED_NP);
@@ -155,12 +155,12 @@ public class SMSProcessor {
 		
 		}
 		
-		return this;
+		return ;
 	}
 	
 	
 	
-	public SMSProcessor doBlackListSenderid(){
+	public void doBlackListSenderid(){
 	
 		
 		if(isfurtherprocess){
@@ -176,11 +176,11 @@ public class SMSProcessor {
 			}
 		}
 		
-		return this;
+		return ;
 	}
 
 	
-	public SMSProcessor doDNDCheck(){
+	public void doDNDCheck(){
 		
 
 	
@@ -199,14 +199,14 @@ public class SMSProcessor {
 			}
 		}
 
-		return this;
+		return ;
 	
 		
 	}
 
 	
 	
-	public SMSProcessor doFilteringSMSPatternCheck(){
+	public void doFilteringSMSPatternCheck(){
 		
 
 	
@@ -227,18 +227,18 @@ public class SMSProcessor {
 					msgmap.put(MapKeys.STATUSID, ""+MessageStatus.FILTERING_SMS_PATTERN);
 
 					isfurtherprocess=false;
-					return this;
+					return ;
 				}
 			}
 			}
 		}
-		return this;
+		return ;
 	
 		
 	}
 	
 	
-	public SMSProcessor doAllowedSMSPatternCheck(){
+	public void doAllowedSMSPatternCheck(){
 		
 
 	
@@ -259,7 +259,7 @@ public class SMSProcessor {
 					msgmap.put(MapKeys.ROUTECLASS, "1");
 					msgmap.put(MapKeys.ALLOWED_PATTERN_ID, SMSPatternAllowed.getInstance().getPatternId(spamPattern));
 
-					return this;
+					return ;
 				}
 			}
 			
@@ -267,12 +267,12 @@ public class SMSProcessor {
 		}
 		msgmap.put(MapKeys.ROUTECLASS, "2");
 
-		return this;
+		return ;
 	
 		
 	}
 	
-	public SMSProcessor doSenderCheck(){
+	public void doSenderCheck(){
 		
 		if(isfurtherprocess){
 		
@@ -307,10 +307,10 @@ public class SMSProcessor {
 			}
 		}
 
-		return this;
+		return ;
 	}
 	
-	public SMSProcessor doBlackListSMSPattern(){
+	public void doBlackListSMSPattern(){
 	
 		
 		if(isfurtherprocess){
@@ -329,17 +329,17 @@ public class SMSProcessor {
 
 					isfurtherprocess=false;
 					
-					return this;
+					return ;
 				}
 			}
 			
 		}
 		
-		return this;
+		return ;
 	}
 
 
-	public SMSProcessor doBlackListMobileNumber(){
+	public void doBlackListMobileNumber(){
 	
 		
 		if(isfurtherprocess){
@@ -355,10 +355,10 @@ public class SMSProcessor {
 			}
 		}
 		
-		return this;
+		return ;
 	}
 	
-	public SMSProcessor doOptin(){
+	public void doOptin(){
 		
 		if(isfurtherprocess){
 			
@@ -369,7 +369,7 @@ public class SMSProcessor {
 			if(PushAccount.instance().getPushAccount(username).get(MapKeys.OPTIN_TYPE).equals("1")){
 			if(new OptinProcessor().isOptin(userid, mobile)){
 				
-				return this;
+				return ;
 			}else{
 				
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.MOBILE_NOT_REGISTERED_OPTIN);
@@ -380,10 +380,10 @@ public class SMSProcessor {
 			}
 		}
 		
-		return this;
+		return ;
 	}
 	
-	public SMSProcessor doOptout(){
+	public void doOptout(){
 		
 		if(isfurtherprocess){
 			String username=msgmap.get(MapKeys.USERNAME);
@@ -396,13 +396,13 @@ public class SMSProcessor {
 				isfurtherprocess=false;
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.OPTOUT_MOBILE_NUMBER);
 
-				return this;
+				return ;
 				}
 			
 			}
 		}
 		
-		return this;
+		return ;
 	}
 	private void doSMSCIDAvailable(Map<String,String> msgmap) {
 		
@@ -560,7 +560,7 @@ public class SMSProcessor {
 	}
 
 	
-	public SMSProcessor doConcate(){
+	public void doConcate(){
 		
 		if(isfurtherprocess){
 
@@ -611,7 +611,7 @@ public class SMSProcessor {
 			}
 		}
 		
-		return this;
+		return ;
 	}
 
 	
@@ -729,7 +729,7 @@ public class SMSProcessor {
 	}
 
 
-	public SMSProcessor doFeatureCodeIndentification(){
+	public void doFeatureCodeIndentification(){
 
 		if(isfurtherprocess){
 
@@ -826,7 +826,7 @@ public class SMSProcessor {
 					
 					
 		}
-		return this;
+		return ;
 	}
 	
 	private void doDNMessage(Map<String,String> msgmap){
@@ -873,7 +873,7 @@ public class SMSProcessor {
 		return decodedText;
 	}
 
-	public SMSProcessor doRouteGroupAvailable() {
+	public void doRouteGroupAvailable() {
 		
 
 		if(isfurtherprocess){
@@ -898,7 +898,7 @@ public class SMSProcessor {
 				
 				msgmap.put(MapKeys.ROUTELOGIC, ""+logic);
 				
-				return this;
+				return ;
 				
 			}else{
 				
@@ -915,7 +915,7 @@ public class SMSProcessor {
 		}
 		
 		
-		return this;
+		return ;
 	}
 
 	private void doBilling(Map<String,String> msgmap,Map<String,String> logmap){
