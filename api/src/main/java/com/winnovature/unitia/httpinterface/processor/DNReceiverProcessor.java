@@ -2,6 +2,7 @@ package com.winnovature.unitia.httpinterface.processor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.winnovature.unitia.util.misc.Log;
+import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.redis.QueueSender;
 
 public class DNReceiverProcessor {
@@ -21,6 +23,8 @@ public class DNReceiverProcessor {
 
         PrintWriter out = response.getWriter();
         Map<String,String> msgmap=getMap(request);
+        String dr=msgmap.get(MapKeys.DR);
+        msgmap.put(MapKeys.DR,URLDecoder.decode(dr));
         Map<String,String> logmap=new HashMap();
         new QueueSender().sendL("dnreceiverpool", msgmap, false,logmap);
         out.print("Ok");
