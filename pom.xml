@@ -13,6 +13,7 @@
   <modules>
   	<module>util</module>
   	<module>api</module>
+  	<module>unitiaweb</module>
   </modules>
   <dependencies>
   <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity -->
