@@ -7,8 +7,6 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import com.winnovature.unitia.util.redis.QueueSender;
-
 
 public class ThreadPool 
 {
@@ -43,6 +41,8 @@ public class ThreadPool
 
 		/* Set RejectedExecutionHandler */
 		executor.setRejectedExecutionHandler(new MyRejectedExecutionHandler());
+	
+		
 	}
 
 	public void runTask(Runnable task) {
@@ -57,7 +57,8 @@ public class ThreadPool
 		}
 		catch(Exception e)
 		{
-			
+		
+			e.printStackTrace();
 		}
 	}
 	
@@ -169,7 +170,7 @@ class MyRejectedExecutionHandler implements RejectedExecutionHandler
 
 	public void rejectedExecution(Runnable worker, ThreadPoolExecutor executor)
 	{
-		
+		/*
 		try
 		{
 			
@@ -194,7 +195,9 @@ class MyRejectedExecutionHandler implements RejectedExecutionHandler
 			
 		}
 
+		*/
 		
+		System.err.println("rejecetd Thread Pool");
 	}
 	
 

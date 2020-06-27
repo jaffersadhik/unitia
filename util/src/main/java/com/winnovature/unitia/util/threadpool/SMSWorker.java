@@ -13,14 +13,13 @@ public class SMSWorker implements Runnable {
 	
 	String pooltype=null;
 	String poolname=null;
-	SMSWorker obj=null;
 	
 	public SMSWorker(String poolname,String pooltype,Map<String,String> payloadPack) 
 	{
 		this.msgmap = payloadPack;
 		this.poolname= poolname;
 		this.pooltype= pooltype;
-		obj=this;
+		
 	}
 
 	public void run() 
@@ -57,11 +56,6 @@ public class SMSWorker implements Runnable {
 		return poolname;
 	}
 	
-	public SMSWorker getInstance(){
-		
-		return obj;
-	}
-
 	
 	
 }
