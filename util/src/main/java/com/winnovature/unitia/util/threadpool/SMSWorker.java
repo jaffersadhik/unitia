@@ -26,18 +26,10 @@ public class SMSWorker implements Runnable {
 	{
 		
 		SMSProcessor processor=new SMSProcessor(msgmap);
-		processor.doCountryCodeCheck();
-		processor.doNumberingPlan();
+		processor.doRouting();
 		processor.doOptin();
 		processor.doOptout();
-		processor.doAllowedSMSPatternCheck();
-		processor.doBlackListSMSPattern();
-		processor.doBlackListSenderid();
-		processor.doBlackListMobileNumber();
-		processor.doFilteringSMSPatternCheck();
 		processor.doDNDCheck();
-		processor.doSenderCheck();
-		processor.doRouteGroupAvailable();
 		processor.doFeatureCodeIndentification();
 		processor.doConcate();
 		processor.submitKannel();

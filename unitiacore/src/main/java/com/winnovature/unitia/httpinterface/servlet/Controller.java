@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.winnovature.unitia.util.redis.RedisQueuePool;
-import com.winnovature.unitia.util.routing.Refresh;
 import com.winnovature.unitia.util.test.Account;
 
 public class Controller extends HttpServlet 
@@ -32,9 +31,7 @@ public class Controller extends HttpServlet
 		Account.getInstance();
 		
 		RedisQueuePool.getInstance().reload();
-		
-		Refresh.getInsatnce().reload();
-		
+
 		com.winnovature.unitia.util.account.Refresh.getInsatnce().reload();
 	}
 

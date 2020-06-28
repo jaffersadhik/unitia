@@ -17,6 +17,8 @@
   	<module>unitiadngen</module>
   	<module>unitiadnreceiver</module>
   	<module>unitiacore</module>
+  	<module>unitiaroute</module>
+  	<module>unitiahttpd</module>
   </modules>
   <dependencies>
   <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity -->

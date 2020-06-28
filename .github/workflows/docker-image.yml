@@ -52,3 +52,11 @@ jobs:
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiacore PushTag 
       run: docker push registry-1.docker.io/winnovature/unitiacore:lion
+    - name: Build the Dockerfileunitiahttpd image
+      run: docker build . --file Dockerfileunitiahttpd --tag unitiahttpd:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiahttpd Image Tag 
+      run: docker tag unitiahttpd:lion registry-1.docker.io/winnovature/unitiahttpd:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiahttpd PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiahttpd:lion

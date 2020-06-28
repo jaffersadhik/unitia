@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.winnovature.unitia.util.http.HttpRequestProcessor;
 import com.winnovature.unitia.util.misc.Bean;
 import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.Log;

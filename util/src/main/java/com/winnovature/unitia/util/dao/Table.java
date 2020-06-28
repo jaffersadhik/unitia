@@ -11,7 +11,7 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class Table {
 
-	private static final String TABLE_CREATE_SQL = "create table {0}(msgid numeric(25,0) primary key ,username varchar(30),scheduletime numeric(13,0),data BLOB,pstatus numeric(1,0),index(scheduletime,pstatus))";
+	private static final String TABLE_CREATE_SQL = "create table {0}(msgid numeric(25,0) primary key ,itime timestamp default CURRENT_TIMESTAMP,username varchar(30),scheduletime numeric(13,0),data BLOB,pstatus numeric(1,0),index(scheduletime,pstatus))";
 
 	private static Table obj=null;
 	
