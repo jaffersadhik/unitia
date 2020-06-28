@@ -17,7 +17,7 @@ COPY ./*.prop /opt/tomcat/conf/
 COPY ./server.xml /opt/tomcat/conf/server.xml
 
 # Copy war file to tomcat webapps folder
-COPY ./unitiaweb/target/unitiadngen-1.0.war /opt/tomcat/webapps/app.war
+COPY ./unitiadngen/target/unitiadngen-1.0.war /opt/tomcat/webapps/app.war
 
 EXPOSE 8080
 

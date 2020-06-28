@@ -1,6 +1,8 @@
 package com.winnovature.unitia.httpinterface.servlet;
 
 import com.winnovature.unitia.util.account.PushAccount;
+import com.winnovature.unitia.util.redis.RedisQueuePool;
+import com.winnovature.unitia.util.test.Account;
 
 public class T  extends Thread{
 
@@ -11,7 +13,11 @@ public class T  extends Thread{
 			try{
 				
 				PushAccount.instance().reload();
+			
+				Account.getInstance();
 				
+				RedisQueuePool.getInstance().reload();
+			
 				gotosleep();
 				
 			}catch(Exception e){
@@ -24,8 +30,7 @@ public class T  extends Thread{
 
 
 		try{
-			
-			Thread.sleep(10L);
+			Thread.sleep(100L);
 		}catch(Exception e){
 			
 		}

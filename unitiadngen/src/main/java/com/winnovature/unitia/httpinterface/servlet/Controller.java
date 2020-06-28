@@ -1,7 +1,6 @@
 package com.winnovature.unitia.httpinterface.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -11,10 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.winnovature.unitia.httpinterface.processor.DNGenProcess;
-import com.winnovature.unitia.util.redis.RedisQueuePool;
-import com.winnovature.unitia.util.routing.Refresh;
-import com.winnovature.unitia.util.routing.Route;
-import com.winnovature.unitia.util.test.Account;
 
 public class Controller extends HttpServlet 
 {
@@ -33,7 +28,7 @@ public class Controller extends HttpServlet
 	public void init(ServletConfig config) throws ServletException 
 	{
 		
-		RedisQueuePool.getInstance().reload();
+		new T().start();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

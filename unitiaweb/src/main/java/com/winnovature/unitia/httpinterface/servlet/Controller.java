@@ -29,9 +29,7 @@ public class Controller extends HttpServlet
 	 */
 	public void init(ServletConfig config) throws ServletException 
 	{
-		Account.getInstance();
 		
-		RedisQueuePool.getInstance().reload();
 		
 		new T().start();
 	}
