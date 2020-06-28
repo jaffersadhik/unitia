@@ -14,8 +14,6 @@ import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.misc.Prop;
-import com.winnovature.unitia.util.threadpool.SMSWorkerPoolRouter;
-import com.winnovature.unitia.util.threadpool.ThreadPoolTon;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -39,8 +37,7 @@ public class RedisQueuePool {
 		createPool();
 		checkQueueTableAvailable();
 		reload();
-		
-		new T().start();
+
 	}
 
 	private void checkQueueTableAvailable() {
@@ -238,48 +235,7 @@ public class RedisQueuePool {
 		}
 	}
 
-	class T extends Thread{
-		
-		long updateTime=0;
-		public void run(){
-			
-			while(true){
-				
-				try{
-				obj.reload();
-				long currenttime=System.currentTimeMillis();
-				long diff=currenttime-updateTime;
-				if(diff>(1*1000)){
-
-					obj.insertQueueintoDB(currenttime);
-					updateTime=currenttime;
-
-				}
-				
-				ThreadPoolTon.getInstance().reload();
-				SMSWorkerPoolRouter.getInstance().reload();
-				
-				}catch(Exception e){
-					e.printStackTrace();
-				}
-				
-				
-				gotosleep();
-			}
-		}
-	}
-
-	public void gotosleep() {
-		
-		try{
-			
-			Thread.sleep(10L);
-		}catch(Exception e){
-			
-		}
-		
-	}
-
+	
 	public void insertQueueintoDB(long updatetime) {
 		
 		Connection connection=null;
