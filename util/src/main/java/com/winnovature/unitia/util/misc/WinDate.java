@@ -9,6 +9,7 @@ import java.util.Date;
 public class WinDate {
 
 	private SimpleDateFormat sdfforlog=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private SimpleDateFormat sdfforid=new SimpleDateFormat("mmssSSS");
 
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -75,7 +76,7 @@ public class WinDate {
 
 	public String getTime() {
 		
-		return getWinDayId()+getQuarterOfDate();
+		return getWinDayId()+getQuarterOfDate()+ sdfforid.format(new Date());
 	}
 	
 	public String getLogTime() {
@@ -83,7 +84,8 @@ public class WinDate {
 	}
 	public static void main(String args[]){
 		
-		System.out.print(new WinDate().getTime());
+		WinDate date=new WinDate();
+		System.out.println(date.getTime());
 	}
 
 	public String getHour() {
@@ -100,4 +102,5 @@ public class WinDate {
 		return ""+Calendar.getInstance().get(Calendar.SECOND);
 
 	}
+	
 }

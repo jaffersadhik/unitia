@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.winnovature.unitia.util.http.RequestProcessor;
 import com.winnovature.unitia.util.misc.Bean;
 import com.winnovature.unitia.util.misc.Log;
 
