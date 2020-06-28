@@ -27,7 +27,7 @@
   <configuration>
     <archive>
       <manifest>
-        <mainClass>nano.App</mainClass>
+        <mainClass>unitiahttpd.App</mainClass>
       </manifest>
     </archive>
     <descriptorRefs>
