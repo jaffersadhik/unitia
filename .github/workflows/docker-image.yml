@@ -34,5 +34,21 @@ jobs:
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiadngen PushTag 
       run: docker push registry-1.docker.io/winnovature/unitiadngen:lion
-
-
+    - uses: actions/checkout@v2
+    - name: Build the Dockerfileunitiadnreceiver image
+      run: docker build . --file Dockerfileunitiadnreceiver --tag unitiadnreceiver:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadnreceiver Image Tag 
+      run: docker tag unitiadnreceiver:lion registry-1.docker.io/winnovature/unitiadnreceiver:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadnreceiver PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiadnreceiver:lion
+    - uses: actions/checkout@v2
+    - name: Build the Dockerfileunitiadncore image
+      run: docker build . --file Dockerfileunitiadncore --tag unitiadncore:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadncore Image Tag 
+      run: docker tag unitiadncore:lion registry-1.docker.io/winnovature/unitiadncore:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadncore PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiadncore:lion
