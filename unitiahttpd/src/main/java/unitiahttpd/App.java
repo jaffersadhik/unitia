@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.winnovature.unitia.util.http.RequestProcessor;
+import com.winnovature.unitia.util.misc.Bean;
 import com.winnovature.unitia.util.misc.Log;
 
 import fi.iki.elonen.NanoHTTPD;
@@ -33,6 +34,7 @@ public class App extends NanoHTTPD {
     	Map<String, String> msgmap = session.getParms();
     	Map<String, String> logmap = new HashMap<String,String>();
 		RequestProcessor processor = new RequestProcessor();
+		Bean.setDefaultValues(msgmap);
 		String responsestring=processor.processRequest(msgmap, logmap);		
 		logmap.putAll(msgmap);
 		new Log().log(logmap);
