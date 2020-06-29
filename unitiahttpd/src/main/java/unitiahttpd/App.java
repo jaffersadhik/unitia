@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import com.winnovature.unitia.util.misc.Bean;
-import com.winnovature.unitia.util.misc.Log;
-
 import javaxt.http.servlet.HttpServlet;
 import javaxt.http.servlet.HttpServletRequest;
 import javaxt.http.servlet.HttpServletResponse;
@@ -19,8 +16,7 @@ public class App {
  
       //Start the server
         try {
-        	new T().start();
-            int port = 8080;
+            int port = 9080;
             int numThreads = 50;
             javaxt.http.Server server = new javaxt.http.Server(port, numThreads, new TestServlet());
             server.start();
@@ -31,27 +27,16 @@ public class App {
         }
     }
  
-
-
   //Custom Servlet
     private static class TestServlet extends HttpServlet {
  
         public void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, java.io.IOException {
  
-
-            Map<String,String> msgmap=getMap(request);
-
-            Map<String, String> logmap = new HashMap<String,String>();
-    		RequestProcessor processor = new RequestProcessor();
-    		Bean.setDefaultValues(msgmap);
-    		String responsestring=processor.processRequest(msgmap, logmap);		
-    		logmap.putAll(msgmap);
-    		new Log().log(logmap);
-            response.getWriter().println(responsestring);
-
+            response.write("Hello, the time is now " + new java.util.Date());
         }
         
+
 
     	private Map<String, String> getMap(HttpServletRequest request) {
     		
