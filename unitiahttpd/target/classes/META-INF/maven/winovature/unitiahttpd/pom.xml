@@ -19,18 +19,13 @@
     </properties>
     <dependencies>
     
-
-  <dependency>
-         <groupId>javaxt</groupId>
-         <artifactId>javaxt-server</artifactId>
-         <version>4.0.0</version>
-       </dependency>
-  <dependency>
-         <groupId>javaxt</groupId>
-         <artifactId>javaxt-core</artifactId>
-         <version>1.10.1</version>
-       </dependency>
  
+   <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
+<dependency>
+    <groupId>org.eclipse.jetty</groupId>
+    <artifactId>jetty-server</artifactId>
+    <version>9.4.30.v20200611</version>
+</dependency>
    
 
  
