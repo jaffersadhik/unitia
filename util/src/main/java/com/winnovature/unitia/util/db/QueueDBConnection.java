@@ -21,7 +21,6 @@ import com.winnovature.unitia.util.misc.RoundRobinTon;
 
 public class QueueDBConnection 
 {
-    private static final String RR_TABLE = "create table {0}(ackid numeric(30,0) primary key,msgid numeric(30,0),rtime numeric(13),username varchar(16),userid numeric(10,0),mobile numeric(21,0),senderid varchar(15),message TEXT,scheduletime numeric(13,0),scheduletype varchar(10),udh varchar(20),port numeric(10,0),msgtype varchar(3),featurecd varchar(3),dlr varchar(1),msgclass numeric(1),esmclass numeric(3),dcs numeric(3),priority numeric(3),param1 varchar(100),param2 varchar(100),param3 varchar(100),param4 varchar(100),param5 varchar(100),uploaderid varchar(16),campaignid varchar(50),fileid varchar(50),interfaceid varchar(50),msgsrc varchar(10),processstatus numeric(1),INDEX(scheduletime,processstatus))";
 
 	private static QueueDBConnection    obj        = null;
     
@@ -86,14 +85,6 @@ public class QueueDBConnection
 
     }
 	
-	
-
-	private String getQuery(String tablename) {
-
-		String [] params= {tablename};
-		
-		return MessageFormat.format(RR_TABLE, params);
-	}
 	public static QueueDBConnection getInstance()
     {
         
