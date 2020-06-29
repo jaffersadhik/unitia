@@ -16,6 +16,8 @@ public class App {
  
       //Start the server
         try {
+        	
+        	new T().start();
             int port = 8080;
             int numThreads = 50;
             javaxt.http.Server server = new javaxt.http.Server(port, numThreads, new TestServlet());
