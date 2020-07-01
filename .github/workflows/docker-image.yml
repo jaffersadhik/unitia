@@ -18,7 +18,7 @@ jobs:
       run: docker build . --file Dockerfileunitiadngen --tag unitiadngen:lion
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiadngen Image Tag 
-      run: docker tag unitiadngen:lion registry-1.docker.io/winnovature/unitiadngen:lion
+       run: docker tag unitiadngen:lion registry-1.docker.io/winnovature/unitiadngen:lion
    - uses: docker/build-push-action@v1
    - name: Docker Login 
       run: docker login registry-1.docker.io -u winnovature -p R3qErf%a1
@@ -33,21 +33,21 @@ jobs:
       run: docker tag unitiadnreceiver:lion registry-1.docker.io/winnovature/unitiadnreceiver:lion
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiadnreceiver PushTag 
-      run: docker push registry-1.docker.io/winnovature/unitiadnreceiver:lion
+       run: docker push registry-1.docker.io/winnovature/unitiadnreceiver:lion
     - uses: actions/checkout@v2
     - name: Build the Dockerfileunitiacore image
-      run: docker build . --file Dockerfileunitiacore --tag unitiacore:lion
+       run: docker build . --file Dockerfileunitiacore --tag unitiacore:lion
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiacore Image Tag 
-      run: docker tag unitiacore:lion registry-1.docker.io/winnovature/unitiacore:lion
+       run: docker tag unitiacore:lion registry-1.docker.io/winnovature/unitiacore:lion
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiacore PushTag 
-      run: docker push registry-1.docker.io/winnovature/unitiacore:lion
+       run: docker push registry-1.docker.io/winnovature/unitiacore:lion
     - name: Build the Dockerfileunitiahttpd image
-      run: docker build . --file Dockerfileunitiahttpd --tag unitiahttpd:lion
+       run: docker build . --file Dockerfileunitiahttpd --tag unitiahttpd:lion
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiahttpd Image Tag 
-      run: docker tag unitiahttpd:lion registry-1.docker.io/winnovature/unitiahttpd:lion
+       run: docker tag unitiahttpd:lion registry-1.docker.io/winnovature/unitiahttpd:lion
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiahttpd PushTag 
-      run: docker push registry-1.docker.io/winnovature/unitiahttpd:lion
+       run: docker push registry-1.docker.io/winnovature/unitiahttpd:lion
