@@ -13,22 +13,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: docker/build-push-action@v1
-    - name: Docker Login 
-      run: docker login registry-1.docker.io -u winnovature -p R3qErf%a1
     - uses: actions/checkout@v2
     - name: Build the Dockerfileunitiadngen image
       run: docker build . --file Dockerfileunitiadngen --tag unitiadngen:lion
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiadngen Image Tag 
       run: docker tag unitiadngen:lion registry-1.docker.io/winnovature/unitiadngen:lion
-    - uses: docker/build-push-action@v1
-    - name: Dockerfileunitiadngen PushTag 
+   - uses: docker/build-push-action@v1
+   - name: Docker Login 
+      run: docker login registry-1.docker.io -u winnovature -p R3qErf%a1
+   - uses: docker/build-push-action@v1
+   - name: Dockerfileunitiadngen PushTag 
       run: docker push registry-1.docker.io/winnovature/unitiadngen:lion
-    - uses: actions/checkout@v2
-    - name: Build the Dockerfileunitiadnreceiver image
+   - uses: actions/checkout@v2
+   - name: Build the Dockerfileunitiadnreceiver image
       run: docker build . --file Dockerfileunitiadnreceiver --tag unitiadnreceiver:lion
-    - uses: docker/build-push-action@v1
+   - uses: docker/build-push-action@v1
     - name: Dockerfileunitiadnreceiver Image Tag 
       run: docker tag unitiadnreceiver:lion registry-1.docker.io/winnovature/unitiadnreceiver:lion
     - uses: docker/build-push-action@v1
