@@ -260,7 +260,7 @@ public class ThreadPoolTon {
 			 pool=getPool().get(poolname);
 		}
 		
-		if(poolname.startsWith("_redisreader")){
+		if(poolname.endsWith("_redisreader")){
 			
 			pool.runTask(new RedisReceiver(poolname.substring(0,poolname.indexOf("_redisreader"))));
 
