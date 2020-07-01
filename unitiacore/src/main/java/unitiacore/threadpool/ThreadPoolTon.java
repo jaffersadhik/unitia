@@ -265,29 +265,7 @@ public class ThreadPoolTon {
 			pool.runTask(new RedisReceiver(poolname.substring(0,poolname.indexOf("_redisreader"))));
 
 		}else{
-
-			if(pooltype.equals("sms")){
-				
-				pool.runTask(new SMSWorker( poolname, pooltype, record));
-				
-			}else if(pooltype.equals("billing")){
-				
-				pool.runTask(new BillingWorker( poolname, pooltype, record));
-				
-			}else if(pooltype.equals("dngen")){
-				
-				pool.runTask(new DNGenWorker( poolname, pooltype, record));
-				
-			}else if(pooltype.equals("dnreceiver")){
-				
-				pool.runTask(new DNWorker( poolname, pooltype, record));
-				
-			}else if(pooltype.equals("schedule")){
-				
-				pool.runTask(new ScheduleWorker( poolname, pooltype, record));
-			}
 			
-
 		}
 	}
 

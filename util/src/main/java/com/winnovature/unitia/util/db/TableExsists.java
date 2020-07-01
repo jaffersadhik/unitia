@@ -957,7 +957,7 @@ public void persistQueueCounttoDB(Connection connection,long id, String queuenam
 
 public void insertworkerpool(Connection connection) {
 	
-	
+	/*
 	insert(connection, "billingpool", "billing");
 	insert(connection, "transpool", "sms");
 	insert(connection, "promopool", "sms");
@@ -972,7 +972,7 @@ public void insertworkerpool(Connection connection) {
 	insert(connection, "dngenpool", "dngen");
 	insert(connection, "dnreceiverpool", "dnreceiver");
 	
-	
+	*/
 	insert(connection, "billingpool_redisreader", "billing");
 	insert(connection, "transpool_redisreader", "sms");
 	insert(connection, "promopool_redisreader", "sms");

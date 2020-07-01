@@ -16,6 +16,7 @@ public class RedisReceiver implements Runnable {
 	public void run(){
 		
 		RedisReader reader=new RedisReader();
+		
 		while(true){
 			
 				
@@ -23,72 +24,83 @@ public class RedisReceiver implements Runnable {
 			
 			if(data!=null){
 				
-				while(true){
+				String pooltype=getPoolType(poolname,data);
 					
+				if(pooltype.equals("sms")){
 					
-					if(ThreadPoolTon.getInstance().isAvailable(poolname)){
-						
-				if(poolname.equals("schedule")){
+					new SMSWorker( poolname, pooltype, data).doProcess();
 					
-					ThreadPoolTon.getInstance().doProcess(poolname, "schedule", data);
-
-				}else if(poolname.equals("billingpool")){
+				}else if(pooltype.equals("billing")){
 					
-					ThreadPoolTon.getInstance().doProcess(poolname, "billing", data);
-
-				}else if(poolname.equals("dngenpool")){
+					new BillingWorker( poolname, pooltype, data).doProcess();
 					
-					ThreadPoolTon.getInstance().doProcess(poolname, "dngen", data);
-
-				}else if(poolname.equals("dnreceiverpool")){
+				}else if(pooltype.equals("dngen")){
 					
-
-					ThreadPoolTon.getInstance().doProcess(poolname, "dnreceiver", data);
-				}else if(poolname.equals("otpretry")){
+					new DNGenWorker( poolname, pooltype, data).doProcess();
 					
-					ThreadPoolTon.getInstance().doProcess(poolname, "otpretry", data);
-
-				}else if(poolname.equals("msgretry")){
+				}else if(pooltype.equals("dnreceiver")){
 					
-					ThreadPoolTon.getInstance().doProcess(poolname, "msgretry", data);
-
-				}else if(poolname.equals("dnretry")){
+					new DNWorker( poolname, pooltype, data).doProcess();
 					
-					ThreadPoolTon.getInstance().doProcess(poolname, "dnretry", data);
-
-				}else{
-
-					String scheduletype=data.get(MapKeys.SCHEDULE_TYPE);
+				}else if(pooltype.equals("schedule")){
 					
-					if(scheduletype!=null&&scheduletype.equals("trai")){
-						
-						ThreadPoolTon.getInstance().doProcess(poolname, "trai", data);
-
-					}else{
-					
-						ThreadPoolTon.getInstance().doProcess(poolname, "sms", data);
-
-
-					}
-
-				}	
-				
-				break;
+				}
 			}else{
-				
-				gotosleep2MS();
-				
-			}
-			}
-			
-			}
-			else{
 				
 				return;
 				
 			}
+			}
+			
+		
 			
 		}
+	private String getPoolType(String poolname2, Map<String, String> data) {
+			
+			if(poolname.equals("schedule")){
+				
+				 return "schedule";
+
+			}else if(poolname.equals("billingpool")){
+				
+				return "billing";
+
+			}else if(poolname.equals("dngenpool")){
+				
+				return  "dngen";
+
+			}else if(poolname.equals("dnreceiverpool")){
+				
+
+				return  "dnreceiver";
+			}else if(poolname.equals("otpretry")){
+				
+				return  "otpretry";
+
+			}else if(poolname.equals("msgretry")){
+				
+				return  "msgretry";
+
+			}else if(poolname.equals("dnretry")){
+				
+				return  "dnretry";
+
+			}else{
+
+				String scheduletype=data.get(MapKeys.SCHEDULE_TYPE);
+				
+				if(scheduletype!=null&&scheduletype.equals("trai")){
+					
+					return  "trai";
+
+				}else{
+				
+					return "sms";
+
+
+				}
+
+			}	
 	}
 	private void gotosleep2MS() {
 		

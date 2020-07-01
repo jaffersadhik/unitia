@@ -5,10 +5,8 @@ import java.util.Map;
 import com.winnovature.unitia.util.processor.DNProcessor;
 
 
-public class DNWorker implements Runnable {
+public class DNWorker {
 
-
-		
 	Map<String,String> payload = null;
 	String pooltype=null;
 	String poolname=null;
@@ -21,7 +19,7 @@ public class DNWorker implements Runnable {
 		obj=this;
 	}
 
-	public void run() 
+	public void doProcess() 
 	{
 
 		if(payload.size()>0)

@@ -7,7 +7,7 @@ import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.processor.DNGenProcessor;
 
 
-public class DNGenWorker implements Runnable {
+public class DNGenWorker {
 
 
 		
@@ -23,7 +23,7 @@ public class DNGenWorker implements Runnable {
 		obj=this;
 	}
 
-	public void run() 
+	public void doProcess() 
 	{
 
 		if(payload.size()>0)

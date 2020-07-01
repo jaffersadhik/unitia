@@ -7,7 +7,7 @@ import com.winnovature.unitia.util.processor.SMSProcessor;
 import unitiaroute.RouteProcessor;
 
 
-public class SMSWorker implements Runnable {
+public class SMSWorker  {
 
 
 		
@@ -24,7 +24,7 @@ public class SMSWorker implements Runnable {
 		
 	}
 
-	public void run() 
+	public void doProcess() 
 	{
 
 		RouteProcessor route=new RouteProcessor(msgmap);

@@ -5,10 +5,9 @@ import java.util.Map;
 
 import com.winnovature.unitia.util.dao.SubmissionDAO;
 import com.winnovature.unitia.util.misc.Log;
-import com.winnovature.unitia.util.processor.SMSProcessor;
 
 
-public class BillingWorker implements Runnable {
+public class BillingWorker {
 
 
 		
@@ -27,7 +26,7 @@ public class BillingWorker implements Runnable {
 		obj=this;
 	}
 
-	public void run() 
+	public void doProcess() 
 	{
 		logmap.putAll(msgmap);
 
