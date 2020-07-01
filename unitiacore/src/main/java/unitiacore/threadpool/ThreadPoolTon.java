@@ -299,7 +299,17 @@ public class ThreadPoolTon {
 	
 	public boolean isAvailable(String poolname){
 		
-		return pool.get(poolname).isAvailable();
+	ThreadPool pool=getPool().get(poolname);
+		
+		if(pool==null){
+			
+			getPool().put(poolname,new ThreadPool(poolname, getDefaultConfig()));
+			
+			 pool=getPool().get(poolname);
+			 
+			 return true;
+		}
+		return pool.isAvailable();
 	}
 	
 	public boolean isAvailableForRetry(String poolname){
