@@ -1331,4 +1331,20 @@ public Map<String, String> getCircle(Connection connection) {
 
 
 }
+
+public void updatePoolSize(Connection connection, String poolname, String currentPoolSize) {
+	PreparedStatement statement=null;
+	try{
+		statement=connection.prepareStatement("update workerpool set currentpoolsize=? where poolname=?");
+		statement.setString(1, currentPoolSize);
+		statement.setString(2, poolname);
+		statement.executeUpdate();
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		
+		Close.close(statement);
+	}
+	
+}
 }

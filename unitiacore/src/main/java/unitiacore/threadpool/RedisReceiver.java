@@ -8,6 +8,7 @@ import com.winnovature.unitia.util.redis.RedisReader;
 public class RedisReceiver extends Thread {
 
 	String poolname=null;
+	
 	public RedisReceiver(String poolname){
 		
 		this.poolname=poolname;
@@ -17,12 +18,16 @@ public class RedisReceiver extends Thread {
 		RedisReader reader=new RedisReader();
 		while(true){
 			
-			if(ThreadPoolTon.getInstance().isAvailable(poolname)){
 				
 			Map<String,String> data=reader.getData(poolname);
 			
 			if(data!=null){
 				
+				while(true){
+					
+					
+					if(ThreadPoolTon.getInstance().isAvailable(poolname)){
+						
 				if(poolname.equals("schedule")){
 					
 					ThreadPoolTon.getInstance().doProcess(poolname, "schedule", data);
@@ -66,17 +71,36 @@ public class RedisReceiver extends Thread {
 
 					}
 
-				}
+				}	
+				
+				break;
 			}else{
 				
-				gotosleep();
+				gotosleep2MS();
+				
 			}
-			}else{
+			}
+			
+			}
+			else{
 				
 				gotosleep();
+				
 			}
 			
 		}
+	}
+	private void gotosleep2MS() {
+		
+		try{
+			
+			Thread.sleep(2L);
+			
+		}catch(Exception e){
+			
+		}
+	
+		
 	}
 	private void gotosleep() {
 		

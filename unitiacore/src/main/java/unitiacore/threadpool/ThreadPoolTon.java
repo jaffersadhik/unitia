@@ -14,7 +14,7 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class ThreadPoolTon {
 
-	private static final String WORKERPOOL = "create table workerpool(poolname varchar(50) PRIMARY KEY,pooltype varchar(10) default 'sms',poolsize varchar(2) default '2',maxpoolsize varchar(2) default '4',keepalivetime varchar(10) default '20',queuesize varchar(2) default '25',tablecount varchar(1) default '1',itime timestamp default CURRENT_TIMESTAMP)";
+	private static final String WORKERPOOL = "create table workerpool(poolname varchar(50) PRIMARY KEY,pooltype varchar(10) default 'sms',poolsize varchar(2) default '2',maxpoolsize varchar(2) default '10',currentpoolsize varchar(2) default '0',keepalivetime varchar(10) default '20',queuesize varchar(2) default '50',tablecount varchar(1) default '1',itime timestamp default CURRENT_TIMESTAMP)";
 
 	private static ThreadPoolTon obj=null;
 	
@@ -99,9 +99,42 @@ public class ThreadPoolTon {
 		}
 		
 		checkRedisDBReceiverAvailability();
+		
+		historyOfCurrentPoolSize();
 	}
 
 	
+	private void historyOfCurrentPoolSize() {
+
+		
+	Connection connection =null;
+		
+		try{
+			connection=CoreDBConnection.getInstance().getConnection();
+
+		Iterator itr=pool.keySet().iterator();
+
+		 TableExsists table=new TableExsists();
+
+		while(itr.hasNext()){
+			
+			String poolname=itr.next().toString();
+			
+			ThreadPool poolworker=pool.get(poolname);
+			
+			table.updatePoolSize(connection,poolname,""+poolworker.getCurrentPoolSize());
+
+		}
+
+		}catch(Exception e){
+			
+			e.printStackTrace();
+		}finally{
+			
+			Close.close(connection);
+		}
+	}
+
 	private void checkRedisDBReceiverAvailability() {
 
 
@@ -163,10 +196,10 @@ public class ThreadPoolTon {
 		Map<String,String> configmap =new HashMap<String,String>();
 		
 		configmap.put("poolsize", "1");
-		configmap.put("maxpoolsize", "4");
+		configmap.put("maxpoolsize", "10");
 		configmap.put("tablecount", "1");
 		configmap.put("keepalivetime", "20");
-		configmap.put("queuesize", "25");
+		configmap.put("queuesize", "50");
 
 		return configmap;
 	}
