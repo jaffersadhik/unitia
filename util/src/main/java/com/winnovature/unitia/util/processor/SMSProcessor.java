@@ -60,9 +60,10 @@ public class SMSProcessor {
 	
 	private boolean isfurtherprocess=true;
 	
-	public SMSProcessor(Map<String,String> msgmap){
+	public SMSProcessor(Map<String,String> msgmap,boolean isfurtherprocess){
 		
 		this.msgmap=msgmap;
+		this.isfurtherprocess=isfurtherprocess;
 	}
 	
 	public void doDNDCheck(){
@@ -800,10 +801,6 @@ public class SMSProcessor {
 		String dlrurl=MessageFormat.format(DLR_URL, params);
 		msgmap.put(MapKeys.DLR_URL, dlrurl);
 		
-		
-	}
-
-	public void doRouting() {
 		
 	}
 		

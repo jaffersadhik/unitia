@@ -8,7 +8,7 @@ public class Refresh {
 	
 	private Refresh(){
 		
-		new T().start();
+	
 	}
 	
 	public static Refresh getInsatnce(){
@@ -46,26 +46,4 @@ public class Refresh {
 
 	}
 	
-	class T extends Thread{
-		
-		public void run(){
-			
-			while(true){
-				
-				Refresh.getInsatnce().reload();
-			
-				gotosleep();
-			}
-		}
-
-		private void gotosleep() {
-			
-			try{
-				
-				Thread.sleep(100L);
-			}catch(Exception e){
-				
-			}
-		}
-	}
 }

@@ -10,7 +10,6 @@ public class Refresh {
 	
 	private Refresh(){
 		
-		new T().start();
 	}
 	
 	public static Refresh getInsatnce(){
@@ -32,26 +31,4 @@ public class Refresh {
 		new DNDProcessoer().isDND("919487660738");
 	}
 	
-	class T extends Thread{
-		
-		public void run(){
-			
-			while(true){
-				
-				Refresh.getInsatnce().reload();
-			
-				gotosleep();
-			}
-		}
-
-		private void gotosleep() {
-			
-			try{
-				
-				Thread.sleep(20L);
-			}catch(Exception e){
-				
-			}
-		}
-	}
 }

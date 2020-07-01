@@ -6,7 +6,7 @@
     <version>1.0</version>
   </parent>
   <artifactId>unitiaroute</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   
   <dependencies>
   <dependency>

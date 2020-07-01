@@ -10,7 +10,6 @@ import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.redis.QueueSender;
-import com.winnovature.unitia.util.threadpool.SMSWorkerPoolRouter;
 
 public class Utility
 {

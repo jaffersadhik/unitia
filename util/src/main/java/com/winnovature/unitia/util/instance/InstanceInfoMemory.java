@@ -17,31 +17,12 @@ public class InstanceInfoMemory {
 			System.exit(-1);
 		}
 		
-		new T().start();
 	}
-	
-	static class T extends Thread{
-		
-		public void run(){
-			
-			while(true){
-				
-				new JVMUniqueId().upateJVMId(INSTANCE_ID);
-			
-				gotosleep();
-			}
-		}
 
-		private void gotosleep() {
-			
-			try{
-				
-				Thread.sleep(10000L);
-			}catch(Exception e){
-				
-			}
-			
-		}
+
+	public static void update(){
+		
+		new JVMUniqueId().upateJVMId(INSTANCE_ID);
 	}
 
 }
