@@ -23,9 +23,9 @@ public class DNTable {
 		 StringBuffer sb=new StringBuffer();
 		 
 		 sb.append("create table {0}(");
-		 sb.append("ackid varchar(20),");
-		 sb.append("ackid_org varchar(20),");
-		 sb.append("msgid varchar(20),");
+		 sb.append("ackid varchar(40),");
+		 sb.append("ackid_org varchar(40),");
+		 sb.append("msgid varchar(40),");
 		 sb.append("username varchar(16),");
 		 sb.append("senderid varchar(15),");
 		 sb.append("senderid_org varchar(15),");

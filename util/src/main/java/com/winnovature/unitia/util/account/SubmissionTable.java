@@ -23,9 +23,9 @@ public class SubmissionTable {
 		 StringBuffer sb=new StringBuffer();
 		 
 		 sb.append("create table {0}(");
-		 sb.append("ackid varchar(20),");
-		 sb.append("ackid_org varchar(20),");
-		 sb.append("msgid varchar(20),");
+		 sb.append("ackid varchar(40),");
+		 sb.append("ackid_org varchar(40),");
+		 sb.append("msgid varchar(40),");
 		 sb.append("username varchar(16),");
 		 sb.append("msgclass varchar(3),");
 		 sb.append("routeclass varchar(3),");
