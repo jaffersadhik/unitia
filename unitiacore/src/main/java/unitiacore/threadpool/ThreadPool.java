@@ -104,6 +104,11 @@ public class ThreadPool
 		
 		return  executor.getQueue().size()<executor.getMaximumPoolSize();
 	}
+	
+	public boolean isAvailableForReader(){
+		
+		return  executor.getPoolSize()<(executor.getMaximumPoolSize()-5);
+	}
 	public String getQSize()
 	{		
 		return "" + executor.getQueue().size();

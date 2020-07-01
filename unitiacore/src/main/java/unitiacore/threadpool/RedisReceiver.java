@@ -5,7 +5,7 @@ import java.util.Map;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.redis.RedisReader;
 
-public class RedisReceiver extends Thread {
+public class RedisReceiver implements Runnable {
 
 	String poolname=null;
 	
@@ -84,7 +84,7 @@ public class RedisReceiver extends Thread {
 			}
 			else{
 				
-				gotosleep();
+				return;
 				
 			}
 			

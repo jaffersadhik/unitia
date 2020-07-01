@@ -39,6 +39,14 @@ public class RedisQueuePool {
 		reload();
 
 	}
+	
+	
+
+	public Map<String, String> getQueueCount() {
+		return queueCount;
+	}
+
+
 
 	private void checkQueueTableAvailable() {
 		
@@ -222,6 +230,7 @@ public class RedisQueuePool {
 		this.unavailablequeue=unavailablequeue;
 		this.unavailableretryqueue=unavailableretryqueue;
 		queuemap.put("allqueuecount", Long.toString(totalqueue));
+		this.queueCount=queuemap;
 		return queuemap;
 	}
 	

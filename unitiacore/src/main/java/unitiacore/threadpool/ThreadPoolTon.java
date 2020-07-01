@@ -21,8 +21,7 @@ public class ThreadPoolTon {
 	
 	Map<String,DBReceiver> dbreader=new HashMap<String,DBReceiver>();
 
-	Map<String,RedisReceiver> redisreceiver=new HashMap<String,RedisReceiver>();
-	
+
 	Map<String,ThreadPool> pool=new HashMap<String,ThreadPool>();
 	
 	private ThreadPoolTon(){
@@ -146,12 +145,8 @@ public class ThreadPoolTon {
 			
 			String poolname=itr.next().toString();
 			
-			if(!redisreceiver.containsKey(poolname)){
-				
-				RedisReceiver obj=new RedisReceiver(poolname);
-				redisreceiver.put(poolname,obj );
-				obj.start();
-			}
+						
+			if(!poolname.endsWith("_redisreader")){
 			
 			if(!dbreader.containsKey(poolname)){
 				
@@ -164,6 +159,7 @@ public class ThreadPoolTon {
 				dbreader.put(poolname, obj);
 				obj.start();
 				
+			}
 			}
 		}
 	}
@@ -264,27 +260,35 @@ public class ThreadPoolTon {
 			 pool=getPool().get(poolname);
 		}
 		
-		if(pooltype.equals("sms")){
+		if(poolname.startsWith("_redisreader")){
 			
-			pool.runTask(new SMSWorker( poolname, pooltype, record));
+			pool.runTask(new RedisReceiver(poolname.substring(0,poolname.indexOf("_redisreader"))));
+
+		}else{
+
+			if(pooltype.equals("sms")){
+				
+				pool.runTask(new SMSWorker( poolname, pooltype, record));
+				
+			}else if(pooltype.equals("billing")){
+				
+				pool.runTask(new BillingWorker( poolname, pooltype, record));
+				
+			}else if(pooltype.equals("dngen")){
+				
+				pool.runTask(new DNGenWorker( poolname, pooltype, record));
+				
+			}else if(pooltype.equals("dnreceiver")){
+				
+				pool.runTask(new DNWorker( poolname, pooltype, record));
+				
+			}else if(pooltype.equals("schedule")){
+				
+				pool.runTask(new ScheduleWorker( poolname, pooltype, record));
+			}
 			
-		}else if(pooltype.equals("billing")){
-			
-			pool.runTask(new BillingWorker( poolname, pooltype, record));
-			
-		}else if(pooltype.equals("dngen")){
-			
-			pool.runTask(new DNGenWorker( poolname, pooltype, record));
-			
-		}else if(pooltype.equals("dnreceiver")){
-			
-			pool.runTask(new DNWorker( poolname, pooltype, record));
-			
-		}else if(pooltype.equals("schedule")){
-			
-			pool.runTask(new ScheduleWorker( poolname, pooltype, record));
+
 		}
-		
 	}
 
 	public Map<String, ThreadPool> getPool() {
@@ -296,5 +300,12 @@ public class ThreadPoolTon {
 	public boolean isAvailable(String poolname){
 		
 		return pool.get(poolname).isAvailable();
+	}
+	
+	public boolean isAvailableForRetry(String poolname){
+		
+		return pool.get(poolname).isAvailable();
+
+	
 	}
 }
