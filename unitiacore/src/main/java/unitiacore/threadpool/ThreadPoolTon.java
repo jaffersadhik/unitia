@@ -191,7 +191,7 @@ public class ThreadPoolTon {
 	private Map<String, String> getDefaultConfig() {
 		Map<String,String> configmap =new HashMap<String,String>();
 		
-		configmap.put("poolsize", "1");
+		configmap.put("poolsize", "2");
 		configmap.put("maxpoolsize", "10");
 		configmap.put("tablecount", "1");
 		configmap.put("keepalivetime", "20");
@@ -304,7 +304,17 @@ public class ThreadPoolTon {
 	
 	public boolean isAvailableForRetry(String poolname){
 		
-		return pool.get(poolname).isAvailable();
+		ThreadPool pool=getPool().get(poolname);
+		
+		if(pool==null){
+			
+			getPool().put(poolname,new ThreadPool(poolname, getDefaultConfig()));
+			
+			 pool=getPool().get(poolname);
+			 
+			 return true;
+		}
+		return pool.isAvailableForReader();
 
 	
 	}
