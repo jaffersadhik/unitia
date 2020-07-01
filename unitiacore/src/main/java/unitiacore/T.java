@@ -1,5 +1,7 @@
 package unitiacore;
 
+import com.winnovature.unitia.util.account.Refresh;
+
 import unitiacore.threadpool.ThreadPoolTon;
 
 public class T  extends Thread{
@@ -11,7 +13,8 @@ public class T  extends Thread{
 			try{
 	
 				ThreadPoolTon.getInstance().reload();
-				
+				Refresh.getInsatnce().reload();
+				unitiaroute.Refresh.getInsatnce().reload();
 				gotosleep();
 				
 			}catch(Exception e){
@@ -24,7 +27,7 @@ public class T  extends Thread{
 
 
 		try{
-			Thread.sleep(100L);
+			Thread.sleep(1000L);
 		}catch(Exception e){
 			
 		}

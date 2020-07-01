@@ -82,7 +82,7 @@ public class RedisReceiver extends Thread {
 		
 		try{
 			
-			Thread.sleep(5L);
+			Thread.sleep(750L);
 		}catch(Exception e){
 			
 		}

@@ -1,4 +1,4 @@
-package com.winnovature.unitia.util;
+package unitiaroute;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +10,9 @@ import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 
-public class SenderidSwapping {
+public class InternationalSenderidSwapping {
 
-	private static SenderidSwapping obj=null;
+	private static InternationalSenderidSwapping obj=null;
 	
 	private Map<String,Map<String,String>> senderidreswapping=new HashMap<String,Map<String,String>>();
 
@@ -20,16 +20,16 @@ public class SenderidSwapping {
 	
 	private boolean isTableAvailable=false;
 	
-	private SenderidSwapping(){
+	private InternationalSenderidSwapping(){
 	
 		reload();
 	}
 	
-	public static SenderidSwapping getInstance(){
+	public static InternationalSenderidSwapping getInstance(){
 		
 		if(obj==null){
 			
-			obj=new SenderidSwapping();
+			obj=new InternationalSenderidSwapping();
 		}
 		
 		return obj;
@@ -52,9 +52,9 @@ public class SenderidSwapping {
 				
 				TableExsists table=new TableExsists();
 				
-				if(!table.isExsists(connection, "senderid_swapping")){
+				if(!table.isExsists(connection, "international_senderid_swapping")){
 					
-					if(table.create(connection, " create table senderid_swapping(id INT PRIMARY KEY AUTO_INCREMENT ,operator varchar(2),circle varchar(2),senderid varchar(15) , senderid_swap varchar(15))", false)){
+					if(table.create(connection, " create table international_senderid_swapping(id INT PRIMARY KEY AUTO_INCREMENT ,countrycode varchar(10),senderid varchar(15) , senderid_swap varchar(15))", false)){
 					
 						isTableAvailable=true;
 					}
@@ -64,21 +64,18 @@ public class SenderidSwapping {
 				}
 			}
 			
-			statement =connection.prepareStatement("select operator,circle,senderid,senderid_swap from senderid_swapping");
+			statement =connection.prepareStatement("select countrycode,senderid,senderid_swap from international_senderid_swapping");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
 			
-				String operator =resultset.getString("operator");
-				String circle =resultset.getString("circle");
-				if(operator==null){
-					operator="";
+				String countrycode =resultset.getString("countrycode");
+				if(countrycode==null){
+					countrycode="";
 				}
-				if(circle==null){
-					circle="";
-				}
+			
 				
-				String key=operator.trim()+"~"+circle.trim();
+				String key=countrycode.trim();
 				
 				Map<String,String> map1=senderidswap.get(key);
 				
@@ -94,9 +91,7 @@ public class SenderidSwapping {
 				if(map2==null){
 					
 					map2=new HashMap<String,String>();
-					
 					senderidreswap.put(key, map2);
-					
 				}
 				map2.put(resultset.getString("senderid_swapping"), resultset.getString("senderid"));
 			

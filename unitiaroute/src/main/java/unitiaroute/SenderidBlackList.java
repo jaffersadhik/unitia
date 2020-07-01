@@ -1,37 +1,34 @@
-package com.winnovature.unitia.util;
+package unitiaroute;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 
-public class WhiteListedSenderid {
+public class SenderidBlackList {
 
 	private static boolean isTableAvailable=false;
 
-	private static WhiteListedSenderid obj=null;
+	private static SenderidBlackList obj=null;
 	
-
-	private Map<String,Set<String>> whitelistedsenderid=new HashMap<String,Set<String>>();
+	private Set<String> senderidblacklistset=new HashSet<String>();
 	
 	
-	private WhiteListedSenderid(){
+	private SenderidBlackList(){
 	
 		reload();
 	}
 	
-	public static WhiteListedSenderid getInstance(){
+	public static SenderidBlackList getInstance(){
 		
 		if(obj==null){
 			
-			obj=new WhiteListedSenderid();
+			obj=new SenderidBlackList();
 		}
 		
 		return obj;
@@ -39,7 +36,7 @@ public class WhiteListedSenderid {
 	
 	public void reload(){
 		
-		Map<String,Set<String>> whitelistedsenderid=new HashMap<String,Set<String>>();
+		Set<String> senderidset=null;
 		
 		Connection connection =null;
 		PreparedStatement statement=null;
@@ -53,9 +50,9 @@ public class WhiteListedSenderid {
 				
 				TableExsists table=new TableExsists();
 				
-				if(!table.isExsists(connection, "whitelisted_senderid")){
+				if(!table.isExsists(connection, "blacklist_senderid")){
 					
-					if(table.create(connection, " create table whitelisted_senderid(id INT PRIMARY KEY AUTO_INCREMENT,username varchar(16),senderid varchar(15))", false)){
+					if(table.create(connection, " create table blacklist_senderid(senderid varchar(15) primary key)", false)){
 					
 						isTableAvailable=true;
 					}
@@ -65,16 +62,16 @@ public class WhiteListedSenderid {
 				}
 			}
 			
-			statement =connection.prepareStatement("select username,senderid from whitelisted_senderid");
+			statement =connection.prepareStatement("select senderid from blacklist_senderid");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
-				Set<String> senderidset=whitelistedsenderid.get(resultset.getString("username"));	
 				if(senderidset==null){
 					
 					senderidset=new HashSet<String>();
-					whitelistedsenderid.put(resultset.getString("username"), senderidset);
+					
 				}
+				
 				senderidset.add(resultset.getString("senderid"));
 			}
 		}catch(Exception e){
@@ -88,20 +85,17 @@ public class WhiteListedSenderid {
 		}
 		
 		
+		if(senderidset!=null){
 			
-			this.whitelistedsenderid=whitelistedsenderid;
-		
+			senderidblacklistset=senderidset;
+		}
 		
 	}
 	
 	
-	public boolean isWhiteListedSenderid(String username,String senderid){
+	public boolean isBalckList(String senderid){
 		
-		if(whitelistedsenderid.containsKey(username)){
-			
-			return whitelistedsenderid.get(username).contains(senderid);
-		}
-		return false;
+		return senderidblacklistset.contains(senderid);
 	}
 	
 	

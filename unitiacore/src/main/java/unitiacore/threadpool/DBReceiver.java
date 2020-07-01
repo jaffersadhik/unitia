@@ -76,7 +76,7 @@ public class DBReceiver extends Thread {
 		
 		try{
 			
-			Thread.sleep(5L);
+			Thread.sleep(1000L);
 		}catch(Exception e){
 			
 		}
