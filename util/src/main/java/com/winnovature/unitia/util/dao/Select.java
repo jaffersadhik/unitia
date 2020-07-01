@@ -97,7 +97,7 @@ public class Select {
 			for (int i = 0; i < result.size(); i++) {
 
 				Map<String, String> data = result.get(i);
-				statement.setLong(1, Long.parseLong(data.get(MapKeys.MSGID)));
+				statement.setString(1, data.get(MapKeys.MSGID));
 				statement.addBatch();
 			}
 
@@ -112,7 +112,7 @@ public class Select {
 		}
 	}
 
-	public void delete(String tablename, long msgid) {
+	public void delete(String tablename, String msgid) {
 
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -120,7 +120,7 @@ public class Select {
 
 			connection = QueueDBConnection.getInstance().getConnection();
 			statement = connection.prepareStatement(" delete from " + tablename + "  where msgid = ?");
-			statement.setLong(1, msgid);
+			statement.setString(1, msgid);
 			statement.execute();
 
 		} catch (Exception e) {

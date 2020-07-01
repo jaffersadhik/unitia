@@ -61,7 +61,7 @@ public class DBReceiver extends Thread {
 			
 			if(queuesender.sendL( poolname, map, true, logmap)){
 				
-				select.delete(poolname,Long.parseLong(map.get(MapKeys.MSGID)));
+				select.delete(poolname,map.get(MapKeys.MSGID));
 				logmap.putAll(map);
 				logmap.put("db reader status", "successfully sent to "+poolname+" queue");
 				log.log(logmap);
