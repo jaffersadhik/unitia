@@ -1,0 +1,106 @@
+name: Unitia Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Dockerfileunitiadngen image
+      run: docker build . --file Dockerfile --tag unitiadngen:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadngen Image Tag 
+      run: docker tag unitiadngen:lion registry-1.docker.io/winnovature/unitiadngen:lion
+    - uses: docker/build-push-action@v1
+    - name: Docker Login 
+      run: docker login registry-1.docker.io -u winnovature -p R3qErf%a1
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadngen PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiadngen:lion
+    - uses: actions/checkout@v2
+    - name: Build the Dockerfileunitiadnreceiver image
+      run: docker build . --file Dockerfileunitiadnreceiver --tag unitiadnreceiver:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadnreceiver Image Tag 
+      run: docker tag unitiadnreceiver:lion registry-1.docker.io/winnovature/unitiadnreceiver:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadnreceiver PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiadnreceiver:lion
+    - uses: actions/checkout@v2
+    - name: Build the Dockerfileunitiacore image
+      run: docker build . --file Dockerfileunitiacore --tag unitiacore:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiacore Image Tag 
+      run: docker tag unitiacore:lion registry-1.docker.io/winnovature/unitiacore:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiacore PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiacore:lion
+    - name: Build the Dockerfileunitiahttpd image
+      run: docker build . --file Dockerfileunitiahttpd --tag unitiahttpd:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiahttpd Image Tag 
+      run: docker tag unitiahttpd:lion registry-1.docker.io/winnovature/unitiahttpd:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiahttpd PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiahttpd:lion
+    - name: Build the Dockerfileunitiahttpd image
+      run: docker build . --file Dockerfileunitiadbpersist --tag unitiadbpersist:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadppersist Image Tag 
+      run: docker tag unitiadbpersist:lion registry-1.docker.io/winnovature/unitiadbpersist:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadbpersist PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiadbpersist:lion
+    - uses: docker/build-push-action@v1
+    - name: Build the Dockerfiledngencore image
+      run: docker build . --file Dockerfiledngencore --tag unitiadngencore:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadngencore Image Tag 
+      run: docker tag unitiadngencore:lion registry-1.docker.io/winnovature/unitiadngencore:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadngencore PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiadngencore:lion
+    - uses: docker/build-push-action@v1
+    - name: Build the Dockerfileunitiasmpp image
+      run: docker build . --file Dockerfileunitiasmpp --tag unitiasmpp:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiasmpp Image Tag 
+      run: docker tag unitiasmpp:lion registry-1.docker.io/winnovature/unitiasmpp:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiasmpp PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiasmpp:lion
+    - uses: docker/build-push-action@v1
+    - name: Build the Dockerfileunitiadnhttppost image
+      run: docker build . --file Dockerfileunitiadnhttppost --tag unitiadnhttppost:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadnhttppost Image Tag 
+      run: docker tag unitiadnhttppost:lion registry-1.docker.io/winnovature/unitiadnhttppost:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadnhttppost PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiadnhttppost:lion
+    - uses: docker/build-push-action@v1
+    - name: Build the Dockerfileunitiadbtoredis image
+      run: docker build . --file Dockerfileunitiadbtoredis --tag unitiadbtoredis:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadbtoredis Image Tag 
+      run: docker tag unitiadbtoredis:lion registry-1.docker.io/winnovature/unitiadbtoredis:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiaunitiadbtoredis PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiadbtoredis:lion
+    - uses: docker/build-push-action@v1
+    - name: Build the Dockerfileunitiatablereader image
+      run: docker build . --file Dockerfileunitiatablereader --tag unitiatablereader:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiatablereader Image Tag 
+      run: docker tag unitiatablereader:lion registry-1.docker.io/winnovature/unitiatablereader:lion
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiaunitiatablereader PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitiatablereader:lion

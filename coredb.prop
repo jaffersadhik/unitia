@@ -1,0 +1,15 @@
+ip=127.0.0.1
+port=3306
+url=jdbc:mysql://unitia.mysql.ip:3306/core?useLegacyDatetimeCode=false&serverTimezone=Asia/Kolkata&useSSL=false
+username=unitia
+password=Unitia@123
+driverClassName=com.mysql.jdbc.Driver
+maxActive=15
+maxIdle=3
+minIdle=2
+initialSize=1
+minEvictableIdleTimeMillis=50000
+timeBetweenEvictionRunsMillis=1000
+numTestsPerEviction=-1
+MaxWaitMillis=3000
+schema=core
