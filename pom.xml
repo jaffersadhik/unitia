@@ -130,4 +130,32 @@
    <scope>runtime</scope>
 </dependency> 
   </dependencies>
+  
+ 
+  <build>
+  	<plugins>
+  	
+  	 <plugin>
+        <groupId>com.spotify</groupId>
+             <artifactId>dockerfile-maven-plugin</artifactId>
+             <version>1.4.3</version>
+             <executions>
+                 <execution>
+                     <id>default</id>
+                     <goals>
+                         <goal>build</goal>
+                     </goals>
+                 </execution>
+             </executions>
+             <configuration>
+             <username>winnovature</username>
+             <password>R3qErf%a1</password>
+             <repository>registry-1.docker.io/winnovature/unitia</repository>
+             <tag>lion</tag>
+             <
+             </configuration>
+         </plugin>
+  		
+  	</plugins>
+  </build>
 </project>
