@@ -1,0 +1,37 @@
+name: Unitia Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+
+    - name: Build the Dockerfileunitiad image
+      run: docker build . --file Dockerfile --tag unitia:cat
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadngen Image Tag 
+      run: docker tag unitia:cat registry-1.docker.io/winnovature/unitia:cat
+    - uses: docker/build-push-action@v1
+    - name: Docker Login 
+      run: docker login registry-1.docker.io -u winnovature -p R3qErf%a1
+    - uses: docker/build-push-action@v1
+    - name: Dockerfileunitiadngen PushTag 
+      run: docker push registry-1.docker.io/winnovature/unitia:cat
