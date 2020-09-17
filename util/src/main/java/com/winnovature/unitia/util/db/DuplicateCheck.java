@@ -124,7 +124,7 @@ public class DuplicateCheck {
 				
 				TableExsists table=new TableExsists();
 				
-				if(table.isExsists(connection, "duplicate")){
+				if(table.isExsists(connection, "duplicate.duplicate")){
 					
 					istableAvailable=true;
 					
