@@ -76,13 +76,7 @@ public void saveFile() {
 	private void makeready() {
 		//saveFile();
 		getCoreDBProp();
-		getQueueDBProp();
-		getBillingDBProp();
 		getRedisQueue1Prop();
-		getDNDDBProp();
-		getOptinDBProp();
-		getOptoutDBProp();
-		getDuplicateDBProp();
 		
 	}
 
