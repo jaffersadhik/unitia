@@ -39,7 +39,6 @@ public class App extends AbstractHandler
 		RequestProcessor processor = new RequestProcessor();
 		Bean.setDefaultValues(msgmap);
         Map<String, Object> logmap = new HashMap<String,Object>();
-
 		String responsestring=processor.processRequest(request,msgmap, logmap);
 		logmap.put("module", "http receiver");
 		if(responsestring.indexOf("100")>-1){
