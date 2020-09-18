@@ -36,7 +36,7 @@ public class ConfigParams {
 		prop.put(ConfigKey.MAX_QUEUE, "500000");
 		prop.put(ConfigKey.MAX_RETRY_QUEUE, "525000");
 
-		prop.put(ConfigKey.LOGMODE, "0");
+		prop.put(ConfigKey.LOGMODE, "1");
 		prop.put(ConfigKey.LOADBALANCER_DN_IP, "Unitia-8042041824a6b544.elb.ap-south-1.amazonaws.com");
 		prop.put(ConfigKey.LOADBALANCER_DN_PORT, "9301");
 		prop.put(ConfigKey.OTPDNWAITTIMEINMS, "10000");
