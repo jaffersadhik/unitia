@@ -8,6 +8,7 @@ import java.util.Map;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
+import com.winnovature.unitia.util.misc.Carrier;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.Prop;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
@@ -23,6 +24,7 @@ public class App
     {
     	System.out.println("unitiacore.App.doProcess()");
     	Prop.getInstance();
+    	Carrier.getInstance();
     	checkQueueTableAvailable();
     	System.out.println("unitiacore.App.doProcess() properties loaded");
 		TableAvailability.instance();
