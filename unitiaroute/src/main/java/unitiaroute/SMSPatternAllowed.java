@@ -58,6 +58,9 @@ public class SMSPatternAllowed {
 					
 					if(table.create(connection, "create table allowed_smspattern(pattern_id INT PRIMARY KEY AUTO_INCREMENT,username varchar(16),smspattern varchar(700) ,unique(username,smspattern))  ENGINE=InnoDB DEFAULT CHARSET=utf8", false)){
 					
+						table.create(connection, "insert  into allowed_smspattern(username ,smspattern) values('testuser','.*')", false);
+						table.create(connection, "insert  into allowed_smspattern(username ,smspattern) values('unitia','.*')", false);
+
 						isTableAvailable=true;
 					}
 				}else{

@@ -39,7 +39,7 @@ public class DNPostDAO {
 		try{
 		
 			String tablename="delivery_post";
-			String sql=getSQL(tablename);
+			String sql=getSQL("billing."+tablename);
 			
 			if(!DNPostTable.getInstance().isVailableTable(tablename)){
 			

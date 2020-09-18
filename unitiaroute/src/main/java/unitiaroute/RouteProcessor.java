@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.winnovature.unitia.util.account.PushAccount;
+import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.misc.Convertor;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
@@ -211,7 +212,7 @@ public class RouteProcessor {
 			String fullmsg=(String)msgmap.get(MapKeys.FULLMSG);
 			
 			try{
-				if(MessageType.isHexa( (String)msgmap.get(MapKeys.FEATURECODE))){
+				if(MessageType.isHexa( (String)msgmap.get(MapKeys.MSGTYPE))){
 					
 					fullmsg=Convertor.getMessage(fullmsg);
 				}

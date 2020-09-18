@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import com.winnovature.unitia.util.account.Route;
+
 
 
 
@@ -1636,5 +1638,71 @@ public void createLockTable(Connection connection, String username) {
 	}
 	
 }
+
+public Map<String, Map<String, String>> getRoute(Connection connection) {
+
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String,  Map<String, String>> routegroup=new HashMap<String, Map<String, String>> ();
+		try {
+				
+				statement=connection.prepareStatement(SQLQuery.SELECT_ROUTE_TABLE);
+
+			resultset=statement.executeQuery();
+
+			while(resultset.next()) {
+				
+				String superadmin=resultset.getString("superadmin");
+				String admin=resultset.getString("admin");
+				String username=resultset.getString("username");
+				String groupname_trans=resultset.getString("routegroup_trans");
+				String groupname_promo=resultset.getString("routegroup_promo");
+
+				String operator= resultset.getString("operator");
+                String circle= resultset.getString("circle");
+			
+                if(superadmin==null||superadmin.trim().length()<1) {
+					superadmin=Route.NULL;
+				}
+				
+                superadmin=superadmin.toLowerCase();
+                
+				if(admin==null||admin.trim().length()<1) {
+					admin=Route.NULL;
+				}
+				
+				admin=admin.toLowerCase();
+				
+				if(username==null||username.trim().length()<1) {
+					username=Route.NULL;
+				}
+				
+				username=username.toLowerCase();
+				
+				if(operator==null||operator.trim().length()<1) {
+					operator=Route.NULL;
+				}
+				
+				if(circle==null||circle.trim().length()<1) {
+					circle=Route.NULL;
+				}
+				
+				 Map<String, String> data=new HashMap<String, String>();
+				 data.put(Route.ROUTE_TRANS,groupname_trans.trim());
+				 data.put(Route.ROUTE_PROMO,groupname_promo.trim());
+
+				routegroup.put(Route.CONJUNCTION+superadmin.trim()+Route.CONJUNCTION+admin.trim()+Route.CONJUNCTION+username.trim()+Route.CONJUNCTION+operator.trim()+Route.CONJUNCTION+circle.trim()+Route.CONJUNCTION,data);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			Close.close(statement);
+			Close.close(resultset);
+			return null;
+		}
+		
+		return routegroup;
+	
+	}
+
 
 }

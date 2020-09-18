@@ -22,6 +22,8 @@ public class MessageType {
 	private static Set<String> UNICODE=new HashSet();
 	static{
 		
+		UNICODE.add(UF);
+
 		UNICODE.add(UM);
 
 		UNICODE.add(PUM);

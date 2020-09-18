@@ -82,9 +82,9 @@ public class DNPostTable {
 				
 				TableExsists table=new TableExsists();
 				
-				if(!table.isExsists(connection, tablename)){
+				if(!table.isExsists(connection, "billing."+tablename)){
 				
-					if(table.create(connection, getSQL(tablename), false)){
+					if(table.create(connection, getSQL("billing."+tablename), false)){
 						
 						avilabletable.add(tablename);
 						

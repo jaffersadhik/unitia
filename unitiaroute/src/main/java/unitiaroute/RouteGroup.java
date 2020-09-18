@@ -61,6 +61,8 @@ public class RouteGroup
 			
 			table.insertRouteGroup(connection,"retry_group","retry");
 			table.insertRouteGroup(connection,"apps_group","apps");
+			table.insertRouteGroup(connection,"unitia_group","unitia");
+
 		}
 	}
 
