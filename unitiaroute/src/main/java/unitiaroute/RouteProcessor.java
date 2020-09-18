@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import javax.net.ssl.ManagerFactoryParameters;
-
 import com.winnovature.unitia.util.account.PushAccount;
+import com.winnovature.unitia.util.misc.Convertor;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
+import com.winnovature.unitia.util.misc.MessageType;
 import com.winnovature.unitia.util.misc.RoundRobinTon;
 import com.winnovature.unitia.util.misc.ToJsonString;
 
@@ -208,6 +208,16 @@ public class RouteProcessor {
 				return ;
 			}
 			
+			String fullmsg=(String)msgmap.get(MapKeys.FULLMSG);
+			
+			try{
+				if(MessageType.isHexa( (String)msgmap.get(MapKeys.FEATURECODE))){
+					
+					fullmsg=Convertor.getMessage(fullmsg);
+				}
+			}catch(Exception e){
+				
+			}
 			List<Map<String,String>>  patternset=SMSPatternAllowed.getInstance().getAllowedPaternSet(msgmap.get(MapKeys.USERNAME).toString());
 			
 			if(patternset!=null){
@@ -219,7 +229,7 @@ public class RouteProcessor {
 				String spamPattern=data.get("smspattern");
 			
 				try{
-				if(Pattern.compile(spamPattern, Pattern.CASE_INSENSITIVE).matcher(msgmap.get(MapKeys.FULLMSG).toString()).matches())
+				if(Pattern.compile(spamPattern, Pattern.CASE_INSENSITIVE).matcher(fullmsg).matches())
 				{
 					msgmap.put(MapKeys.ROUTECLASS, "1");
 					msgmap.put(MapKeys.ALLOWED_PATTERN_ID, data.get("pattern_id"));

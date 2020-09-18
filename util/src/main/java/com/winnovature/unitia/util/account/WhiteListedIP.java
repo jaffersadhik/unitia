@@ -117,6 +117,9 @@ public class WhiteListedIP {
 		if (!table.isExsists(connection, table.getTableName(CREATE_SQL))) {
 			if (table.create(connection, CREATE_SQL, false)) {
 
+				table.create(connection, "insert into customer_ip_pattern(username,ip_pattern) values ('unitia','.*')", false);
+				table.create(connection, "insert into customer_ip_pattern(username,ip_pattern) values ('testuser','.*')", false);
+	
 			}
 		}
 	}

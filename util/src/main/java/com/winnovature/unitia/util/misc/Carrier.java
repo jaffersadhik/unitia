@@ -36,16 +36,20 @@ public class Carrier {
 			if(!table.isExsists(connection, "carrier")){
 				
 				if(table.create(connection, "create table carrier(id INT PRIMARY KEY AUTO_INCREMENT,carrier varchar(45),mode varchar(50) default 'production')", false)){
-					
+				
+					table.create(connection, "insert into carrier(carrier) values('unitia')", false);
 				
 				}
 			}
 			
 			if(!table.isExsists(connection, "carrier_smscid_mapping")){
 				
-				if(table.create(connection, "create table carrier_smscid_mapping(id INT PRIMARY KEY AUTO_INCREMENT,carrier varchar(45),smscid varchar(50))", false)){
+				if(table.create(connection, "create table carrier_smscid_mapping(id INT PRIMARY KEY AUTO_INCREMENT,carrier varchar(45),smscid varchar(50)) ENGINE=InnoDB DEFAULT CHARSET=utf8", false)){
 					
-				
+					table.create(connection, "insert into carrier_smscid_mapping(carrier,smscid) values('unitia','unitia')", false);
+					table.create(connection, "insert into carrier_smscid_mapping(carrier,smscid) values('unitia','apps')", false);
+					table.create(connection, "insert into carrier_smscid_mapping(carrier,smscid) values('unitia','reapps')", false);
+						
 				}
 			}
 			

@@ -62,6 +62,7 @@ public class TableAvailability {
 				
 					if (table.create(connection, KANNEL_CONFIG, false)) {
 
+						table.create(connection, "insert into kannel_config(smscid,ip,port,username,password,routeclass) values('unitia','smpp','8080','unitia','unitia','1')", false);
 					}
 			}
 			
