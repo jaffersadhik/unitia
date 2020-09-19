@@ -3,6 +3,7 @@ package com.winnovature.unitia.util.test;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -117,8 +118,16 @@ public class Account {
 		Route.getInstance();
 		insert(connection,"insert into users(username,password,smpp_maxbind,admin_id,msgclass,dlr_post_yn,dlr_post_url) values('unitia','unitia','10',"+adminid+",'1','1','http://dngen1:8080/api/clientdn?ackid={0}&statusid={1}')");
 		insert(connection,"insert into users(username,password,smpp_maxbind,admin_id,msgclass,dlr_post_yn,dlr_post_url) values('testuser','testuser','10',"+adminid+",'1','1','http://dngen1:8080/api/clientdn?ackid={0}&statusid={1}')");
-		new TableExsists().create(connection, "insert into route(routegroup_trans,routegroup_promo,superadmin,admin,username) values('unitia_group','unitia_group',"+adminid+","+adminid+",'testuser')", false);
-
+		Connection conn=null;
+		try{
+			conn = RouteDBConnection.getInstance().getConnection();
+		new TableExsists().create(conn, "insert into route(routegroup_trans,routegroup_promo,superadmin,admin,username) values('unitia_group','unitia_group',"+adminid+","+adminid+",'testuser')", false);
+		}catch(Exception e){
+			
+			e.printStackTrace();
+		}finally{
+			Close.close(conn);
+		}
 		insert(connection,"insert into users(username,password,smpp_maxbind,admin_id,msgclass,dlr_post_yn,dlr_post_url) values('"+TestcaseUserName.encryptString(ackid+(i++))+"','rdqgga','10',"+adminid+",'1','1','http://127.0.0.1:8080/api/testdn?ackid={0}&statusid={1}')");
 		insert(connection,"insert into users(username,password,smpp_maxbind,admin_id,msgclass,dlr_post_yn,dlr_post_url) values('"+TestcaseUserName.encryptString(ackid+(i++))+"','rdqgga','10',"+adminid+",'2','1','http://127.0.0.1:8080/api/testdn?ackid={0}&statusid={1}')");
 		insert(connection,"insert into users(username,password,smpp_maxbind,admin_id,msgclass,dlr_post_yn,dlr_post_url,optin_type) values('"+TestcaseUserName.encryptString(ackid+(i++))+"','rdqgga','10',"+adminid+",'1','1','http://127.0.0.1:8080/api/testdn?ackid={0}&statusid={1}','1')");
