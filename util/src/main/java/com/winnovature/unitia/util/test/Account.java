@@ -121,7 +121,7 @@ public class Account {
 		Connection conn=null;
 		try{
 			conn = RouteDBConnection.getInstance().getConnection();
-		new TableExsists().create(conn, "insert into route(routegroup_trans,routegroup_promo,superadmin,admin,username) values('unitia_group','unitia_group',"+ackid2+","+ackid2+",'testuser')", false);
+		new TableExsists().create(conn, "insert into route(routegroup_trans,routegroup_promo,superadmin,admin,username) values('unitia_group','unitia_group','"+ackid2+"','"+ackid2+"','testuser')", false);
 		}catch(Exception e){
 			
 			e.printStackTrace();
