@@ -97,7 +97,7 @@ public class Account {
 				ADMIN=ackid;
 				ADMIN_ID=getAdminId(connection,ackid);
 				insert(connection,"insert into test_admin(superadmin_id,admin_id) values("+SUPERADMIN_ID+","+ADMIN_ID+")");
-				createUser(connection,ADMIN_ID);
+				createUser(connection,ADMIN_ID,ackid);
 				
 			}
 			
@@ -110,7 +110,7 @@ public class Account {
 		
 	}
 
-	private void createUser(Connection connection, int adminid) {
+	private void createUser(Connection connection, int adminid, String ackid2) {
 		//""
 		WinDate date=new WinDate();
 		String ackid=date.getTime();
@@ -121,7 +121,7 @@ public class Account {
 		Connection conn=null;
 		try{
 			conn = RouteDBConnection.getInstance().getConnection();
-		new TableExsists().create(conn, "insert into route(routegroup_trans,routegroup_promo,superadmin,admin,username) values('unitia_group','unitia_group',"+adminid+","+adminid+",'testuser')", false);
+		new TableExsists().create(conn, "insert into route(routegroup_trans,routegroup_promo,superadmin,admin,username) values('unitia_group','unitia_group',"+ackid2+","+ackid2+",'testuser')", false);
 		}catch(Exception e){
 			
 			e.printStackTrace();
