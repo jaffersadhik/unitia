@@ -218,7 +218,7 @@ public class Select {
 			if(iscampaign){
 				
 				connection = CampaignDBConnection.getInstance().getConnection();
-				statement = connection.prepareStatement(" update " + tablename + " set pstatus=1 where id = ?");
+				statement = connection.prepareStatement(" update uiq_campaign." + tablename + " set pstatus=1 where id = ?");
 
 			}else{
 		
@@ -258,7 +258,7 @@ public class Select {
 			if(isCampaign){
 				
 				connection = CampaignDBConnection.getInstance().getConnection();
-				statement = connection.prepareStatement(" delete from " + tablename + "  where id = ?");
+				statement = connection.prepareStatement(" delete from uiq_campaign." + tablename + "  where id = ?");
 				
 				
 			}else{
