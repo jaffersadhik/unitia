@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.Properties;
 
 import com.winnovature.unitia.util.db.Close;
@@ -158,9 +157,15 @@ public class ConfigParams {
 	}
 	
 	public String getProperty(String key){
-		
+		try{
 		return prop.get(key).toString();
-		
+		}catch(Exception e){
+			
+			System.err.println("key : "+key);
+			e.printStackTrace();
+			
+			return null;
+		}
 	}
 	
 	public static void main(String args[]){
