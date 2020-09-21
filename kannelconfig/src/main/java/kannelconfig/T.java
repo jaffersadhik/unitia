@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.KannelDBConnection;
+import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 public class T  extends Thread{
 
@@ -51,6 +52,10 @@ public class T  extends Thread{
 				tableCountCheck();
 				
 				new DLRCount().doProcess();
+
+				RedisQueueConnectionPool.getInstance().reload();
+
+				RedisQueueConnectionPool.getInstance().print();
 				
 				gotosleep();
 

@@ -13,8 +13,8 @@ public class T  extends Thread{
 		while(true){
 			
 			try{
-	
 				RedisQueueConnectionPool.getInstance().reload();
+
 				Refresh.getInsatnce().reload();
 				new OtpMessageDNRegister().removeOldAckid();
 				ReRouting.getInstance().reload();
