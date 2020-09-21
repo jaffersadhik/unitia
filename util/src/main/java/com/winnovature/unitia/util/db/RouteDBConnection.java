@@ -46,7 +46,12 @@ public class RouteDBConnection {
 
 		}catch(Exception e){
 			e.printStackTrace();
-			
+			try {
+				Thread.sleep(1000L);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 		return null;
