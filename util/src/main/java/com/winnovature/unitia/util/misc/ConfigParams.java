@@ -44,6 +44,14 @@ public class ConfigParams {
 		prop.put(ConfigKey.KANNEL_RESPONSE, "Accepted for delivery");
 		prop.put(ConfigKey.GRACE_STOP, "0");
 
+		prop.put(ConfigKey.MAX_COMMONPOOL, "5000");
+		prop.put(ConfigKey.MAX_SUBMISSIONPOOL, "5000");
+		prop.put(ConfigKey.MAX_DNRECEIVERPOOL, "5000");
+		prop.put(ConfigKey.MAX_DNPOSTPOOL, "5000");
+		prop.put(ConfigKey.MAX_HTTPDN, "5000");
+		prop.put(ConfigKey.MAX_KANNELRETRYPOOL, "5000");
+		prop.put(ConfigKey.MAX_LOGSPOOL, "5000");
+		prop.put(ConfigKey.MAX_SMPPDN, "5000");
 	}
 	
 	

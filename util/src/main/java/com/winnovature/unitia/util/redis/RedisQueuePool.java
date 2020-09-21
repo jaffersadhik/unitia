@@ -46,9 +46,6 @@ public class RedisQueuePool {
 	private Set<String> unavailableretryqueue=new HashSet<String>();
 	
 
-	private Set<String> unavailablednpostqueue=new HashSet<String>();
-	
-	private Set<String> unavailablednpostretryqueue=new HashSet<String>();
 
 	
 	private Map<String, String> queueCount=new HashMap<String, String>();
@@ -445,10 +442,6 @@ public class RedisQueuePool {
 
 		Map<String, String> queuemap=new HashMap<String, String>();
 	
-		Set<String> unavailablednpostqueue=new HashSet<String>();
-		
-		Set<String> unavailablednpostretryqueue=new HashSet<String>();
-	
 		Set<String> unavailablequeue=new HashSet<String>();
 		
 		Set<String> unavailableretryqueue=new HashSet<String>();
@@ -473,18 +466,11 @@ public class RedisQueuePool {
 
 				long maxretrycount=Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_RETRY_QUEUE));
 
-				if(count>maxdnpost){
-					
-					unavailablednpostqueue.add(queuename);
-				}
-				if(count>maxretrydnpost){
-					
-					unavailablednpostretryqueue.add(queuename);
-				}
-				if(count>maxcount){
+			
+				if(isUnavilable(queuename,count)){
 					unavailablequeue.add(queuename);
 				}
-				if(count> maxretrycount){
+				if(isUnavilableRetry(queuename,count)){
 					unavailableretryqueue.add(queuename);
 				}
 				totalqueue+=count;
@@ -499,21 +485,89 @@ public class RedisQueuePool {
 		return queuemap;
 	}
 	
+	private boolean isUnavilableRetry(String queuename, long count) {
+
+		long maxcount=getMaxCount(queuename)+2500;
+		
+		if(maxcount>count){
+			
+			return false;
+		}
+		return true;
+	}
+
+
+
+	private boolean isUnavilable(String queuename, long count) {
+	
+		long maxcount=getMaxCount(queuename);
+		
+		if(maxcount>count){
+			
+			return false;
+		}
+		return true;
+	}
+
+
+
+	private long getMaxCount(String queuename) {
+		
+		try{
+			
+			if((MODE+"commonpool").equals(queuename)){
+				
+			 return Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_COMMONPOOL));
+			
+			}else if((MODE+"submissionpool").equals(queuename)){
+				
+				 return Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_SUBMISSIONPOOL));
+					
+			}else if((MODE+"dnreceiverpool").equals(queuename)){
+				
+				return Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_DNRECEIVERPOOL));
+
+			}else if((MODE+"dnpostpool").equals(queuename)){
+				
+				return Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_DNPOSTPOOL));
+
+			}else if((MODE+"httpdn").equals(queuename)){
+				
+				return Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_HTTPDN));
+				
+			}else if((MODE+"kannelretrypool").equals(queuename)){
+				
+				return Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_KANNELRETRYPOOL));
+						
+			}else if((MODE+"logspool").equals(queuename)){
+				
+				return Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_LOGSPOOL));
+
+			}else if(queuename.startsWith(MODE+"smppdn")){
+
+				return Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_SMPPDN));
+	
+			}
+			
+			
+			
+			
+		}catch(Exception e){
+			
+		}
+		return 5000;
+	}
+
+
+
 	public boolean isAvailableQueue(String queuename,boolean isRetry) {
 		
 		if(isRetry){
-			if(queuename.startsWith("smppdn")||queuename.startsWith("httpdn")){
-			
-				return !unavailablednpostretryqueue.contains(MODE+queuename);
-			}
+		
 			return !unavailableretryqueue.contains(MODE+queuename);
 
 		}else{
-			
-			if(queuename.startsWith("smppdn")||queuename.startsWith("httpdn")){
-				
-				return !unavailablednpostqueue.contains(MODE+queuename);
-			}
+		
 			return !unavailablequeue.contains(MODE+queuename);
 		}
 	}
