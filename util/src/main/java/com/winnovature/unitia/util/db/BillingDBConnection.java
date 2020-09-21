@@ -38,7 +38,7 @@ public class BillingDBConnection
     
     public Connection getConnection() throws SQLException
     {
-    	return CoreDBConnection.getInstance().getConnection();
+    	return KannelDBConnection.getInstance().getConnection();
     }
 
 

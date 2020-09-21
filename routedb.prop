@@ -4,7 +4,6 @@ url=jdbc:mysql://unitia.mysql.ip:3306/route?useLegacyDatetimeCode=false&serverTi
 username=unitia
 password=Unitia@123
 driverClassName=com.mysql.jdbc.Driver
-maxActive=2
 maxIdle=2
 minIdle=2
 initialSize=1
@@ -13,3 +12,5 @@ timeBetweenEvictionRunsMillis=1000
 numTestsPerEviction=-1
 MaxWaitMillis=3000
 schema=core
+poolPreparedStatements=true
+maxTotal=2

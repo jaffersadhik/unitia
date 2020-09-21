@@ -1,6 +1,6 @@
 ip=127.0.0.1
 port=3306
-url=jdbc:mysql://unitia.mysql.ip:3306/core?useLegacyDatetimeCode=false&serverTimezone=Asia/Kolkata&useSSL=false
+url=jdbc:mysql://unitia.mysql.ip:3306/billing?useLegacyDatetimeCode=false&serverTimezone=Asia/Kolkata&useSSL=false
 username=unitia
 password=Unitia@123
 driverClassName=com.mysql.jdbc.Driver
@@ -13,4 +13,4 @@ numTestsPerEviction=-1
 MaxWaitMillis=3000
 schema=core
 poolPreparedStatements=true
-maxTotal=2
+maxTotal=15

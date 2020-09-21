@@ -4,7 +4,6 @@ url=jdbc:mysql://unitiadb:3306/mysql?useLegacyDatetimeCode=false&serverTimezone=
 username=root
 password=kannel
 driverClassName=com.mysql.jdbc.Driver
-maxActive=20
 maxIdle=2
 minIdle=1
 initialSize=1
@@ -13,3 +12,5 @@ timeBetweenEvictionRunsMillis=1000
 numTestsPerEviction=-1
 MaxWaitMillis=3000
 schema=core
+poolPreparedStatements=true
+maxTotal=15
