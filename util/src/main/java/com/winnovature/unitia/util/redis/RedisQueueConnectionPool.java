@@ -103,4 +103,12 @@ public class RedisQueueConnectionPool {
 		}
 		return list;
 	}
+	
+	public void print(){
+		
+		for(int i=0,max=redisqueuelist.size();i<max;i++){
+			
+			redisqueuelist.get(i).print();
+		}
+	}
 }

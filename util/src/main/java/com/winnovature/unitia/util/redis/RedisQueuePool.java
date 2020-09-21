@@ -9,11 +9,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
+import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.misc.Prop;
 
@@ -487,7 +489,12 @@ public class RedisQueuePool {
 	
 	private boolean isUnavilableRetry(String queuename, long count) {
 
-		long maxcount=getMaxCount(queuename)+2500;
+		long maxcount=getMaxCount(queuename);
+		
+		if(!queuename.startsWith("smppdn_")){
+			
+			maxcount+=1000;
+		}
 		
 		if(maxcount>count){
 			
@@ -679,4 +686,17 @@ public void insertQueueintoDB(Connection connection,String queuename,String coun
 	}
 	
 	
+	public void print(){
+		
+		
+		Map<String,Object> logmap=new HashMap<String,Object>();
+		logmap.put("username", "sys");
+		logmap.put("logname", "redisqueue");
+		logmap.put("unavailablequeue", unavailablequeue);
+		logmap.put("unavailableretryqueue", unavailableretryqueue);
+
+		logmap.putAll(queueCount);
+
+		new FileWrite().write(logmap);
+	}
 }
