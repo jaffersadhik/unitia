@@ -20,6 +20,11 @@ public class Insert {
 	
 	public boolean insert(String tablename, Map<String,Object> requestObject) {
 		
+		
+		if(tablename.startsWith("smppdn_")){
+			
+			tablename="smppdn";
+		}
 		if(!Table.getInstance().isAvailableTable(tablename)){
 			
 			Table.getInstance().addTable(tablename);

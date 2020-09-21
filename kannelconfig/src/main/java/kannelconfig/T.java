@@ -19,7 +19,11 @@ public class T  extends Thread{
 	static List<String> TABLES=new ArrayList<String>();
 	
 	static{
-		
+
+		TABLES.add("dngenpool");
+		TABLES.add("submissionpool");
+		TABLES.add("smppdn");
+		TABLES.add("httpdn");
 		TABLES.add("dnreceiverpool");
 		TABLES.add("dnpostpool");
     	TABLES.add("clientdnpool");

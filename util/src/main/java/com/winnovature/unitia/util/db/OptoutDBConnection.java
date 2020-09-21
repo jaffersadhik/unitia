@@ -32,7 +32,7 @@ public class OptoutDBConnection {
 	}
 
 	public Connection getConnection() throws SQLException {
-		return CoreDBConnection.getInstance().getConnection();
+		return BillingDBConnection.getInstance().getConnection();
 	}
 
 }

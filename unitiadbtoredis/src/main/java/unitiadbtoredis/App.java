@@ -23,6 +23,8 @@ public class App
     	start("dngenpool");
     	start("clientdnpool");
     	start("dnretrypool");
+    	start("smppdn");
+    	start("httpdn");
 
     	new T().start();
     	

@@ -44,6 +44,12 @@ public class DBReceiver extends Thread {
 			
 			isDNDelay=true;
 			
+		}else if(poolname.equals("smppdn")){
+			
+			queuename="smppdn_"+username;
+			
+			isDNDelay=true;
+			
 		}else{
 			
 			queuename=poolname;
