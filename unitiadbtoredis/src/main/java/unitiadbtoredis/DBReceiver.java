@@ -110,12 +110,15 @@ public class DBReceiver extends Thread {
 	private void sendUntilSuccess(Map<String, Object> map) {
 		
 		Map<String,Object> logmap=new HashMap<String,Object>();
-		logmap.put("module", "db reader");
-	
+		logmap.put("module", "dbtoredis");
+		logmap.put("logname", "dbtoredis_"+queuename);
+		logmap.putAll(map);
 		while(true){
 			
 			if(queuesender.sendL( queuename, map, true, logmap)){
 				
+				new FileWrite().write(logmap);
+
 				return;
 			}
 			

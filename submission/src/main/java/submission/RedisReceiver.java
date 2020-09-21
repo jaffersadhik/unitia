@@ -133,6 +133,8 @@ public class RedisReceiver extends Thread {
 			
 			if(new ReportDAO().insert("reportlog_submit",datalist)){
 			
+				log(datalist);
+				
 				return;
 			}else{
 				
@@ -145,6 +147,18 @@ public class RedisReceiver extends Thread {
 	
 	
 	
+private void log(List<Map<String, Object>> datalist) {
+		
+	
+	for(int i=0;i<datalist.size();i++){
+		
+		Map<String,Object> logmap=new HashMap<String,Object>();
+		logmap.put("module", "submission");
+		logmap.put("logname", "submission");
+		logmap.putAll(datalist.get(i));
+	}
+		
+	}
 private void errorDNHandover(List<Map<String, Object>> datalist) {
 		
 		for(int i=0,max=datalist.size();i<max;i++){
