@@ -30,7 +30,7 @@ public class PollerStartup {
 		sb.append("username varchar(20) NOT NULL,");
 		sb.append("execution_date decimal(13,0) NOT NULL,");
 		sb.append("msg_type varchar(11) NOT NULL,");
-		sb.append("content varchar(2000) NOT NULL,");
+		sb.append("content varchar(4000) NOT NULL,");
 		sb.append("sender_id varchar(11) NOT NULL,");
 		sb.append("pstatus int(2) NOT NULL DEFAULT 0,");
 		sb.append("mobile varchar(20) NOT NULL");
