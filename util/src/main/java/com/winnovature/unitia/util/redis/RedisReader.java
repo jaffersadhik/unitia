@@ -3,10 +3,12 @@ package com.winnovature.unitia.util.redis;
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 
@@ -59,7 +61,7 @@ public Map<String,Object> getData(String queuename,String redisid){
         catch (Exception e)
         {
 
-        	e.printStackTrace();
+        	System.err.println(new Date()+" \t "+ErrorMessage.getMessage(e));
         	
         	try {
 				Thread.sleep(1000L);
