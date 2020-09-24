@@ -49,7 +49,7 @@ public class ConfigParams {
 		prop.put(ConfigKey.MAX_HTTPDN, "5000");
 		prop.put(ConfigKey.MAX_KANNELRETRYPOOL, "5000");
 		prop.put(ConfigKey.MAX_LOGSPOOL, "5000");
-		prop.put(ConfigKey.MAX_SMPPDN, "5000");
+		prop.put(ConfigKey.MAX_SMPPDN, "200");
 	}
 	
 	

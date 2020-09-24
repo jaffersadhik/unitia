@@ -460,15 +460,7 @@ public class RedisQueuePool {
 				long count= getCount(pool,queuename);
 				
 				
-				long maxdnpost=10000L;
-				
-				long maxretrydnpost=12000L;
-				
-				long maxcount=Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_QUEUE));
-
-				long maxretrycount=Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.MAX_RETRY_QUEUE));
-
-			
+						
 				if(isUnavilable(queuename,count)){
 					unavailablequeue.add(queuename);
 				}
@@ -491,9 +483,13 @@ public class RedisQueuePool {
 
 		long maxcount=getMaxCount(queuename);
 		
-		if(!queuename.startsWith("smppdn_")){
+		if(queuename.startsWith("smppdn_")){
+			
+			maxcount+=100;
+		}else{
 			
 			maxcount+=1000;
+
 		}
 		
 		if(maxcount>count){

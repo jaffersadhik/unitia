@@ -39,7 +39,6 @@ public interface ConfigKey {
 
 	public static final String LOGPATH = "log.path";
 
-	public static final String MAX_QUEUE = "max.queue.length"; 
 	
 	public static final String MAX_COMMONPOOL = "commonpool.max.queue.length"; 
 	public static final String MAX_SUBMISSIONPOOL = "submissionpool.max.queue.length"; 
@@ -51,7 +50,6 @@ public interface ConfigKey {
 	public static final String MAX_SMPPDN = "smppdn.max.queue.length"; 
 
 	
-	public static final String MAX_RETRY_QUEUE = "max.retry.queue.length";
 
 	public static final String LOADBALANCER_DN_IP = "loadbalancer.dn.ip";
 
