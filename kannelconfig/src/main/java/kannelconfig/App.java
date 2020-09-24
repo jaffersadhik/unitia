@@ -23,6 +23,14 @@ public class App
     public static void doProcess() 
     {
     	System.out.println("unitiacore.App.doProcess()");
+    	while(!CoreDBConnection.isAvailable()){
+    		try {
+				Thread.sleep(10L);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     	Prop.getInstance();
     	Carrier.getInstance();
     	checkQueueTableAvailable();
