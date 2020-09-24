@@ -61,6 +61,13 @@ public Map<String,Object> getData(String queuename,String redisid){
 
         	e.printStackTrace();
         	
+        	try {
+				Thread.sleep(1000L);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	
         }finally{
         	if (jedis != null){
 				try {
