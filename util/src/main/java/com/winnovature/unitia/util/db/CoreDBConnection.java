@@ -18,6 +18,14 @@ public class CoreDBConnection {
 
 	private CoreDBConnection() {
 
+		while(!isAvailable()){
+    		try {
+				Thread.sleep(10L);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
 		createDataSource();
 	}
 
