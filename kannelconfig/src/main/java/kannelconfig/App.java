@@ -306,7 +306,7 @@ public class App
     	sb.append("group = smsbox").append("\n");	
     	sb.append("bearerbox-host = localhost").append("\n");		
     	sb.append("sendsms-port = 13013").append("\n");	
-    	sb.append("immediate-sendsms-reply = true").append("\n");	
+    //	sb.append("immediate-sendsms-reply = true").append("\n");	
     	
     	sb.append("\n");
     	sb.append("\n");
@@ -328,7 +328,7 @@ public class App
     	sb.append("access-log = \"/var/log/kannel/access.log\"").append("\n");		
     	sb.append("store-type = spool").append("\n");		
     	sb.append("store-location = /var/spool/kannel").append("\n");		
-    	sb.append("sms-outcoming-queue-limit = 3500").append("\n");		
+    	sb.append("sms-outgoing-queue-limit = 1000").append("\n");		
 
     	
     	
