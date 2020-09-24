@@ -31,7 +31,7 @@ private static String MODE="";
 	public void write(Map<String,Object> logmap){
 		
 		try{	
-		
+			logmap.put(MapKeys.MSGID, ACKIdGenerator.getAckId());
 			new QueueSender().sendL("logspool", logmap, false, logmap);
 			
 					
