@@ -25,6 +25,7 @@ public class App
     	start("dnretrypool");
     	start("smppdn");
     	start("httpdn");
+    	start("logspool");
 
     	new T().start();
     	

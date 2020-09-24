@@ -1,9 +1,10 @@
 package com.winnovature.unitia.util.db;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
+
+import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp.BasicDataSourceFactory;
 
 import com.winnovature.unitia.util.misc.Prop;
 
@@ -11,15 +12,36 @@ public class RouteDBConnection {
 
 	private static RouteDBConnection obj = null;
 
+	private static BasicDataSource datasource = null;
 
 	private RouteDBConnection() {
+
+		createDataSource();
 	}
 
 
 	
 
 	
+	public static void main(String args[]) {
 
+		TableExsists table = new TableExsists();
+
+	}
+
+	
+	private void createDataSource() {
+
+		if (datasource == null) {
+			try {
+				datasource = (BasicDataSource) BasicDataSourceFactory
+						.createDataSource(Prop.getInstance().getRouteDBProp());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 
 	public void reload() {
 
@@ -37,25 +59,7 @@ public class RouteDBConnection {
 	}
 
 	public Connection getConnection() throws SQLException {
-		try{
-		Class.forName("com.mysql.jdbc.Driver");
-
-		Properties prop=Prop.getInstance().getRouteDBProp();
-		return DriverManager.getConnection
-				(prop.getProperty("url"),prop.getProperty("username"),prop.getProperty("password"));
-
-		}catch(Exception e){
-			e.printStackTrace();
-			try {
-				Thread.sleep(1000L);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		
-		return null;
-
+		return datasource.getConnection();
 	}
 
 }
