@@ -328,7 +328,7 @@ public class App
     	sb.append("access-log = \"/var/log/kannel/access.log\"").append("\n");		
     	sb.append("store-type = spool").append("\n");		
     	sb.append("store-location = /var/spool/kannel").append("\n");		
-    	sb.append("sms-incoming-queue-limit = 3500").append("\n");		
+    	sb.append("sms-outcoming-queue-limit = 3500").append("\n");		
 
     	
     	
