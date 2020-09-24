@@ -32,8 +32,6 @@ public class ConfigParams {
 		prop.put(ConfigKey.MIN_MOBILE_LENGTH_ALLOWED, "7");
 		prop.put(ConfigKey.MAX_UDH_LENGTH_ALLOWED, "20");
 		prop.put(ConfigKey.MAX_MSG_LENGTH_ALLOWED, "4000");
-		prop.put(ConfigKey.MAX_QUEUE, "500000");
-		prop.put(ConfigKey.MAX_RETRY_QUEUE, "525000");
 
 		prop.put(ConfigKey.LOGMODE, "1");
 		prop.put(ConfigKey.LOADBALANCER_DN_IP, "Unitia-8042041824a6b544.elb.ap-south-1.amazonaws.com");

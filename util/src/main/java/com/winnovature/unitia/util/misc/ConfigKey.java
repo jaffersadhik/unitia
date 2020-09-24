@@ -41,7 +41,7 @@ public interface ConfigKey {
 
 	public static final String MAX_QUEUE = "max.queue.length"; 
 	
-	public static final String MAX_COMMONPOOL = "ommonpool.max.queue.length"; 
+	public static final String MAX_COMMONPOOL = "commonpool.max.queue.length"; 
 	public static final String MAX_SUBMISSIONPOOL = "submissionpool.max.queue.length"; 
 	public static final String MAX_DNRECEIVERPOOL = "dnreceiverpool.max.queue.length"; 
 	public static final String MAX_DNPOSTPOOL = "dnpostpool.max.queue.length"; 
