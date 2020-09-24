@@ -135,7 +135,8 @@ private static String MODE="";
 
 		      FileHandler fh=null;
 			try {
-				fh = fh = new FileHandler(filename);
+				fh = fh = new FileHandler(filename,102400,3);
+			
 			} catch (SecurityException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
