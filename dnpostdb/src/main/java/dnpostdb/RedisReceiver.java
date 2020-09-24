@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.winnovature.unitia.util.db.DNPostDAO;
 import com.winnovature.unitia.util.db.ReportDAO;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
@@ -127,7 +128,7 @@ public class RedisReceiver extends Thread {
 		}
 		while(true){
 			
-			if(new ReportDAO().insert("delivery_post",datalist)){
+			if(new DNPostDAO().insert("delivery_post",datalist)){
 			
 				log(datalist);
 				
