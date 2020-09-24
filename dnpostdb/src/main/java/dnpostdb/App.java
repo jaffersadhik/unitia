@@ -32,7 +32,7 @@ public class App
 		try{
 		
 		
-		for(int i=0;i<3;i++){
+		for(int i=0;i<5;i++){
 
 			Map<String, RedisQueuePool> map=RedisQueueConnectionPool.getInstance().getPoolMap();
 

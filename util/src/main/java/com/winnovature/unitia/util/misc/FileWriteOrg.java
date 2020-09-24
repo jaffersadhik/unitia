@@ -2,9 +2,16 @@ package com.winnovature.unitia.util.misc;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import com.winnovature.unitia.util.account.PushAccount;
 
@@ -27,6 +34,9 @@ private static String MODE="";
 		
 
 	}
+
+	static Map<String,Logger> LOGSNAME=new HashMap<String,Logger>();
+	
 	public void write(Map<String,Object> logmap){
 		try{
 			
@@ -38,7 +48,7 @@ private static String MODE="";
 		
 		if(statusid!=null&&statusid.equals(""+MessageStatus.INVALID_IP)){
 		
-			savefile("invalidiplist", logmap,true);
+			savefile("invalidiplist", logmap);
 
 		}
 		
@@ -46,7 +56,7 @@ private static String MODE="";
 		
 		if(bindlog!=null&&bindlog.equals("y")){
 			
-			savefile("bindlog", logmap,true);
+			savefile("bindlog", logmap);
 
 		}
 		
@@ -55,7 +65,7 @@ private static String MODE="";
 		
 		if(invalidresponse!=null&&invalidresponse.equals("y")){
 			
-			savefile("invalidresponse", logmap,true);
+			savefile("invalidresponse", logmap);
 
 		}
 
@@ -64,14 +74,14 @@ private static String MODE="";
 		
 		if(tablereaderlog!=null&&tablereaderlog.equals("y")){
 			
-			savefile("tablereaderlog", logmap,true);
+			savefile("tablereaderlog", logmap);
 
 		}
 		if(logmode.equals("1")){
 		
 			if(username!=null&&username.equals("kannelretry")){
 				
-				savefile(username, logmap,true);
+				savefile(username, logmap);
 
 			}else{
 		
@@ -93,44 +103,57 @@ private static String MODE="";
 		
 		String logname=(String)logmap.get("logname");
 		if(logname!=null&&logname.length()>1){
-			savefile(logname, logmap,true);
+			savefile(logname, logmap);
 
 		}else{
-			savefile("commonapplog", logmap,true);
+			savefile("commonapplog", logmap);
 
 		}
 		
 	}
 	
-	private void savefile(String name,Map<String,Object> logmap,boolean isError){
+	private void savefile(String name,Map<String,Object> logmap){
 		
 	
-		 try {
-			 
 
-		      if(isError){
 		      // Creates a FileWriter
-			 String filename="/logs/"+MODE+"/apps/"+name+".log";
-		      FileWriter file = new FileWriter(filename,true);
+		      String filename="/logs/"+MODE+"/apps/"+name+".log";
+		   
+		      Logger logger= getLogger(filename);
+		      logger.log(Level.INFO, ToJsonString.toString(logmap));
 
-		      // Creates a BufferedWriter
-		      BufferedWriter output = new BufferedWriter(file);
-
-		      // Writes the string to the file
-		      output.write(ToJsonString.toString(logmap));
-		      output.newLine();
-
-		      // Closes the writer
-		      output.close();
-		      }
 		      
+}
+	
+	
+	private Logger getLogger(String filename) {
+		
+		 Logger logger=LOGSNAME.get(filename);
+		 
+		 if(logger==null){
+			 logger= Logger.getLogger(filename);
 
-		 }catch (Exception e) {
-		      e.getStackTrace();
-		    }
+		      FileHandler fh=null;
+			try {
+				fh = fh = new FileHandler(filename);
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		      logger.addHandler(fh);
+		      SimpleFormatter formatter = new SimpleFormatter();  
+		      fh.setFormatter(formatter);
+		      
+		      LOGSNAME.put(filename, logger);
+		 }
+		      return logger;
 	}
-	
-	
+
+
+
 	public void savekannelfile(String kannelfile){
 		
 		
@@ -173,7 +196,7 @@ private static String MODE="";
 		logmap.put("useraccount map",usermap==null?"":usermap.toString() );
 		logmap.put("Error Message",ErrorMessage.getMessage(e) );
 
-		savefile("error", logmap,true);
+		savefile("error", logmap);
 		
 	}
 }
