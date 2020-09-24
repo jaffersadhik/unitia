@@ -45,7 +45,7 @@ public class App
 	private static void start(String poolname) {
 		
 	
-		for(int i=0;i<15;i++){
+		for(int i=0;i<5;i++){
 			Map<String, RedisQueuePool> map=RedisQueueConnectionPool.getInstance().getPoolMap();
 
 			Iterator itr=map.keySet().iterator();

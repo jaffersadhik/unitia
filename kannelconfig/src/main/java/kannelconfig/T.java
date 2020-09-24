@@ -26,6 +26,7 @@ public class T  extends Thread{
 		TABLES.add("smppdn");
 		TABLES.add("httpdn");
 		TABLES.add("dnreceiverpool");
+		TABLES.add("logspool");
 		TABLES.add("dnpostpool");
     	TABLES.add("clientdnpool");
     	TABLES.add("schedulepool");
