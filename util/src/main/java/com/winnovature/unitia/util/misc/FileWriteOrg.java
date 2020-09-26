@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
@@ -148,7 +149,9 @@ private static String MODE="";
 		      fh.setFormatter(formatter);
 		      
 				logger.setUseParentHandlers(false);
-
+				LogManager.getLogManager().reset();
+				Logger globalLogger = Logger.getLogger(java.util.logging.Logger.GLOBAL_LOGGER_NAME);
+				globalLogger.setLevel(java.util.logging.Level.OFF);
 		      LOGSNAME.put(filename, logger);
 		 }
 		 

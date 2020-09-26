@@ -36,7 +36,7 @@ public class DNHttpPost
 		String url=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DLR_POST_URL);
     
 		
-		
+		long start=System.currentTimeMillis();
 		
 		String response="";
 				
@@ -77,8 +77,11 @@ public class DNHttpPost
 		logmap.put("module", "DNHTTPPOST");
 		
 		logmap.put("logname", "clientdnhttppost");
+		long end=System.currentTimeMillis();
+		logmap.put("clientdnhttpposttimetaken",""+(end-start));
 
 		sendToQ(msgmap,logmap);
+		
 		
         new FileWrite().write(logmap);
 
