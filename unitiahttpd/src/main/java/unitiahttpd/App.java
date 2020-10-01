@@ -36,18 +36,14 @@ public class App extends AbstractHandler
         	
         Map<String,Object> msgmap= new HashMap<String,Object>();
 
-		RequestProcessor processor = new RequestProcessor();
+		GsonProcessor processor = new GsonProcessor();
 		Bean.setDefaultValues(msgmap);
         Map<String, Object> logmap = new HashMap<String,Object>();
+		logmap.put("logname", "httpinterface");
+
 		String responsestring=processor.processRequest(request,msgmap, logmap);
 		logmap.put("module", "http receiver");
-		if(responsestring.indexOf("100")>-1){
-			logmap.put("logname", "httpinterface");
-
-		}else{
-			logmap.put("logname", "httperrorresponse");
-
-		}
+		
 		logmap.put("link", "send");
 		logmap.put("responsestring", responsestring);
 
