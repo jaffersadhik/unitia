@@ -119,10 +119,21 @@ private static String MODE="";
 
 		      // Creates a FileWriter
 		      String filename="/logs/"+MODE+"/apps/"+name+".log";
-		   
-		      Logger logger= getLogger(filename);
-		      logger.info( ToJsonString.toString(logmap));
+		   try{
+		      FileWriter file = new FileWriter(filename,true);
 
+		      // Creates a BufferedWriter
+		      BufferedWriter output = new BufferedWriter(file);
+
+		      // Writes the string to the file
+		      output.write(ToJsonString.toString(logmap));
+		      output.newLine();
+
+		      // Closes the writer
+		      output.close();
+		   }catch(Exception e){
+			   e.printStackTrace();
+		   }
 		      
 }
 	
