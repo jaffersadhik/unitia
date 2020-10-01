@@ -151,7 +151,6 @@ private static String MODE="";
 				logger.setUseParentHandlers(false);
 				LogManager.getLogManager().reset();
 				Logger globalLogger = Logger.getLogger(java.util.logging.Logger.GLOBAL_LOGGER_NAME);
-				globalLogger.setLevel(java.util.logging.Level.OFF);
 		      LOGSNAME.put(filename, logger);
 		 }
 		 
