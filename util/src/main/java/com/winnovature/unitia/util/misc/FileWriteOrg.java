@@ -121,7 +121,7 @@ private static String MODE="";
 		      String filename="/logs/"+MODE+"/apps/"+name+".log";
 		   
 		      Logger logger= getLogger(filename);
-		      logger.log(Level.INFO, ToJsonString.toString(logmap));
+		      logger.info( ToJsonString.toString(logmap));
 
 		      
 }
@@ -145,12 +145,14 @@ private static String MODE="";
 				e.printStackTrace();
 			} 
 		      logger.addHandler(fh);
+		      logger.setLevel(java.util.logging.Level.INFO);
 		      SimpleFormatter formatter = new SimpleFormatter();  
 		      fh.setFormatter(formatter);
 		      
 				logger.setUseParentHandlers(false);
 				LogManager.getLogManager().reset();
 				Logger globalLogger = Logger.getLogger(java.util.logging.Logger.GLOBAL_LOGGER_NAME);
+				globalLogger.setLevel(java.util.logging.Level.OFF);
 		      LOGSNAME.put(filename, logger);
 		 }
 		 
