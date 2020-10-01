@@ -32,7 +32,30 @@ public class App extends AbstractHandler
         response.setStatus(HttpServletResponse.SC_OK);
 
         String uri=request.getRequestURI();
-        if(uri.startsWith("/send")){
+        if(uri.startsWith("/sendjson")){
+        	
+        Map<String,Object> msgmap= new HashMap<String,Object>();
+
+		RequestProcessor processor = new RequestProcessor();
+		Bean.setDefaultValues(msgmap);
+        Map<String, Object> logmap = new HashMap<String,Object>();
+		String responsestring=processor.processRequest(request,msgmap, logmap);
+		logmap.put("module", "http receiver");
+		if(responsestring.indexOf("100")>-1){
+			logmap.put("logname", "httpinterface");
+
+		}else{
+			logmap.put("logname", "httperrorresponse");
+
+		}
+		logmap.put("link", "send");
+		logmap.put("responsestring", responsestring);
+
+		logmap.putAll(msgmap);
+		new FileWrite().write(logmap);
+        response.getWriter().println(responsestring);
+
+        }else if(uri.startsWith("/send")){
         	
         Map<String,Object> msgmap= new HashMap<String,Object>();
 

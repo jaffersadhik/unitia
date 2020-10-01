@@ -39,6 +39,7 @@ public class RequestProcessor
 			try{
 		String[] splittedMnumber = null;
 		
+			msgmap.put(MapKeys.INTERFACE_TYPE, "qs");
 			msgmap.put(MapKeys.PROTOCOL, "http");
 			this.logmap=logmap;
 			this.msgmap=msgmap;
@@ -187,7 +188,7 @@ public class RequestProcessor
 				
 			
 					
-					int mobileFlag = new Utility().mobileValidation(msgmap);
+				int mobileFlag = new Utility().mobileValidation(msgmap);
 					if(mobileFlag !=0) 
 						return getRejectedResponse(mobileFlag);
 				
@@ -227,7 +228,7 @@ public class RequestProcessor
 	}
 	
 	
-	private void replaceSpace(Map<String, Object> msgmap2) {
+	public void replaceSpace(Map<String, Object> msgmap2) {
 		
 		
 		try {
@@ -244,7 +245,7 @@ public class RequestProcessor
 		}
 	}
 
-	private String getRejectedResponse(int statusId)
+	public String getRejectedResponse(int statusId)
 	{
 	
 		Map status=new HashMap();
@@ -273,7 +274,7 @@ public class RequestProcessor
 	}
 
 	
-	private String getSystemErrorResponse(Exception e)
+	public String getSystemErrorResponse(Exception e)
 	{
 		Map status=new HashMap();
 		status.put("ackid", msgmap.get(MapKeys.ACKID));

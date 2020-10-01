@@ -32,6 +32,8 @@ public class SubmitSmValidator {
 
 			Bean.setDefaultValues(msgmap);
 			msgmap.put(MapKeys.PROTOCOL, "smpp");
+			msgmap.put(MapKeys.INTERFACE_TYPE, "smpp");
+
     		submitResponse.setMessageId(msgmap.get(MapKeys.ACKID).toString());
 	    		
 	    	String strDestAddr = request.getDestAddress().getAddress();

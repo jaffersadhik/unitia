@@ -348,6 +348,7 @@ public class Select {
 				data.put(MapKeys.SCHEDULE_TIME, resultset.getString("execution_date"));
 				data.put(MapKeys.PARAM1, resultset.getString("campaign_activity_id"));
 				data.put(MapKeys.PROTOCOL, "http");
+				data.put(MapKeys.INTERFACE_TYPE, "ui");
 
 				
 				

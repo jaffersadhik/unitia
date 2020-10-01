@@ -258,5 +258,6 @@ public interface MapKeys {
 
 	public static String INSERT_TYPE = "inserttype";
 
+	public static String INTERFACE_TYPE = "interfacetype";
 
 }

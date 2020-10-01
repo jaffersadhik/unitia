@@ -101,15 +101,20 @@ public class Utility
 				if("1".equals(sehedule_yn)) {
 					
 					status = hdtc.isValidScheduleTime(msgmap);
-					if("EXCEPTION".equalsIgnoreCase(status))
+					if("EXCEPTION".equalsIgnoreCase(status)){
 						flag = MessageStatus.SCHEDULETIME_PARSE_ERROR;
-					else if ("CURRENT".equalsIgnoreCase(status))
+						msgmap.put(MapKeys.SCHEDULE_TIME, "");
+					}else if ("CURRENT".equalsIgnoreCase(status))
 					{
 						msgmap.put(MapKeys.SCHEDULE_TIME, "");
 					}else if ("INVALID".equalsIgnoreCase(status)) 						
-						flag = MessageStatus.INVALID_SCHEDULE_TIME;					
+						flag = MessageStatus.INVALID_SCHEDULE_TIME;	
+					msgmap.put(MapKeys.SCHEDULE_TIME, "");
+
 				} else {
 					flag = MessageStatus.MSG_REJECTED_SCHEDULE_OPTION_DISABLE;	
+					msgmap.put(MapKeys.SCHEDULE_TIME, "");
+
 				}
 			}else{
 				msgmap.put(MapKeys.SCHEDULE_TIME, "");
@@ -129,6 +134,8 @@ public class Utility
 		} catch (Exception e) {
 
 			flag = MessageStatus.SCHEDULETIME_PARSE_ERROR;
+			msgmap.put(MapKeys.SCHEDULE_TIME, "");
+
 		}
 		return flag;
 	}

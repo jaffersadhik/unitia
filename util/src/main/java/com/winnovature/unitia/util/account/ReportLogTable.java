@@ -73,6 +73,7 @@ public class ReportLogTable {
 		 sb.append("templateid varchar(30),");
 		 sb.append("entityid varchar(30),");
 		 sb.append("dlttype varchar(30),");
+		 sb.append("interfacetype varchar(10),");
 		 sb.append("carrier_stime_org datetime");
 
 		 sb.append(")");

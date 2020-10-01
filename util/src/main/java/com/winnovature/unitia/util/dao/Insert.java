@@ -76,6 +76,80 @@ public class Insert {
 	
 	
 	
+	public boolean insert(List<Map<String,Object>> requestlist) {
+		
+		
+		String	tablename="schedulepool";
+		
+		if(!Table.getInstance().isAvailableTable(tablename)){
+			
+			Table.getInstance().addTable(tablename);
+		}
+		Connection connection=null;
+		PreparedStatement statement=null;
+
+		try {
+		
+				
+				connection=QueueDBConnection.getInstance().getConnection();
+					
+				connection.setAutoCommit(false);
+				
+				statement=connection.prepareStatement(getQuery(tablename));
+
+			for(int i=0,max=requestlist.size();i<max;i++){
+				
+				Map<String,Object> requestObject=requestlist.get(i);
+			
+			statement.setString(1, requestObject.get(MapKeys.MSGID).toString());
+			statement.setString(2, requestObject.get(MapKeys.USERNAME).toString());
+			String scheduletime=(String)requestObject.get(MapKeys.SCHEDULE_TIME);
+			if(scheduletime==null||scheduletime.trim().length()<1){
+				scheduletime="0";
+			}
+			statement.setString(3, scheduletime);
+			statement.setString(4, "0");
+			
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            
+            oos.writeObject(requestObject);
+            
+            byte[] Bytes = bos.toByteArray();
+
+			statement.setBytes(5, Bytes);
+			
+			statement.addBatch();
+			}
+			
+			statement.executeBatch();
+			
+			connection.commit();
+			
+			return true;
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+
+		
+			if(connection !=null){
+				try{
+				connection.rollback();
+				}catch(Exception e1){}
+			}
+		}finally {
+			
+			Close.close(statement);
+			Close.close(connection);
+
+			
+		}
+		
+		return false;
+	}
+
 
 	
 	
