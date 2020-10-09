@@ -384,6 +384,14 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		     if(status.startsWith("online")){
 		    	 data.put("status","up");
 		     }else{
+		    	 
+		    	 for(int i=0;i<4;i++){
+		    	 try{
+		    		 st.nextToken();
+		    	 }catch(Exception e1){
+		    		 
+		    	 }
+		    	 }
 		    	 continue;
 		     }
 		 
