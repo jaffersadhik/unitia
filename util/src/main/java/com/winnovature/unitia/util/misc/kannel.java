@@ -222,6 +222,8 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 
 		     if(status.startsWith("online")){
 		    	 data.put("status","up");
+		     }else{
+		    	 continue;
 		     }
 		     
 		     String failed=st.nextToken();
