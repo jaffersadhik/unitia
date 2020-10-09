@@ -122,7 +122,6 @@ public class RedisReceiver extends Thread {
 				return;
 			}
 			
-			System.out.println(new Date()+" untilPersist : "+datalist.size());
 			
 			if(new ReportDAO().insert("reportlog_delivery",datalist)){
 			

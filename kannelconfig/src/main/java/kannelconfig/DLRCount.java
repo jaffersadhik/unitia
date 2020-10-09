@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class DLRCount {
 			String kannelid=itr.next().toString();
 			Properties prop=map.get(kannelid);
 			
-			Map<String,String> result=getDLRCount(KannelStoreDBConnection.getInstance(kannelid, prop).getConnection());
+			Map<String,String> result=getDLRCount(KannelStoreDBConnection.getInstance(kannelid, prop).getConnection(),prop.getProperty("mysql_tablename"));
 			
 			
 			insertQueueintoDB(result);
@@ -62,7 +63,7 @@ public class DLRCount {
 		
 	}
 
-	private Map<String, String> getDLRCount(Connection connection) {
+	private Map<String, String> getDLRCount(Connection connection,String tablename) {
 		
 		PreparedStatement statement=null;
 		ResultSet resultset=null;
@@ -71,7 +72,7 @@ public class DLRCount {
 		
 		try{
 			connection=KannelDBConnection.getInstance().getConnection();
-			statement=connection.prepareStatement(SQL);
+			statement=connection.prepareStatement(getQuery(SQL,tablename));
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
@@ -90,6 +91,11 @@ public class DLRCount {
 	
 	
 	
+
+private String getQuery(String sQL2, String tablename) {
+		String param[]={tablename};
+		return MessageFormat.format(sQL2, param);
+	}
 
 public void insertQueueMaxintoDB() {
 		
