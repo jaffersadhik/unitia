@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
@@ -22,6 +23,25 @@ public class Kannel {
 	
 	public Map<String, Properties> getKannelmap() {
 		return kannelmap;
+	}
+	
+	public Map<String, Properties> getKannelMysqlmap() {
+		
+		Map<String, Properties> result=new HashMap<String,Properties>();
+		Iterator itr=kannelmap.keySet().iterator();
+		
+		while(itr.hasNext()){
+			
+			Properties prop=kannelmap.get(itr.next());
+			
+			if(!result.containsKey(prop.get("url"))){
+				
+				result.put(prop.get("url").toString(), prop);
+			}
+			
+		}
+		
+		return result;
 	}
 
 	public void reload() {
@@ -54,7 +74,7 @@ public class Kannel {
 				prop.put("kannel_status", "http://"+kannel_host+":"+status_port+"/status.xml");
 				prop.put("username", mysql_username);
 				prop.put("password", mysql_password);
-				prop.put("url", "jdbc:mysql://"+mysql_schema+":"+mysql_port+"/"+mysql_schema+"?useLegacyDatetimeCode=false&serverTimezone=Asia/Kolkata&useSSL=false");
+				prop.put("url", "jdbc:mysql://"+mysql_host+":"+mysql_port+"/"+mysql_schema+"?useLegacyDatetimeCode=false&serverTimezone=Asia/Kolkata&useSSL=false");
 				prop.put("kannel_host", kannel_host);
 				prop.put("sendsms_port", sendsms_port);
 				prop.put("status_port", status_port);

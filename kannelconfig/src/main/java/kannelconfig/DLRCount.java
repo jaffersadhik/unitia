@@ -41,7 +41,7 @@ public class DLRCount {
 	
 	public void doProcess() throws SQLException{
 		
-		Map<String,Properties> map=com.winnovature.unitia.util.db.Kannel.getInstance().getKannelmap();
+		Map<String,Properties> map=com.winnovature.unitia.util.db.Kannel.getInstance().getKannelMysqlmap();
 		
 		Iterator itr=map.keySet().iterator();
 		
