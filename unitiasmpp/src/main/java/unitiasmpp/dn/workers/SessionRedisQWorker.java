@@ -106,7 +106,7 @@ public class SessionRedisQWorker extends Thread {
 		
 		try {	
 				
-			if(status==null||aDn!=null)
+			if(status==null&&aDn!=null)
 				aDn.remove("STATUS");
 			else if (status.equals(0))
 				aDn.put("STATUS","SUCCESS");
