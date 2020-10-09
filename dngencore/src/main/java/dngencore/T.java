@@ -17,6 +17,8 @@ public class T  extends Thread{
 				QueueTon.getInstance().checkQueueAvailablity();
 				Refresh.getInsatnce().reload();
 				RedisQueueConnectionPool.getInstance().reload();
+				com.winnovature.unitia.util.db.Kannel.getInstance().reload();
+				com.winnovature.unitia.util.misc.kannel.reload();
 				gotosleep();
 
 			}catch(Exception e){
