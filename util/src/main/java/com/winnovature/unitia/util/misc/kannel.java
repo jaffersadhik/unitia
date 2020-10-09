@@ -385,7 +385,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		    	 data.put("status","up");
 		     }else{
 		    	 
-		    	 for(int i=0;i<4;i++){
+		    	 for(int j=0;j<4;j++){
 		    	 try{
 		    		 st.nextToken();
 		    	 }catch(Exception e1){
