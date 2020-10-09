@@ -36,7 +36,7 @@ public class TableAvailability {
 		}
 
 
-	private static final String DLR = "CREATE TABLE dlr_unitia (smsc varchar(40) DEFAULT NULL,ts varchar(65) DEFAULT NULL,destination varchar(40) DEFAULT NULL,source varchar(40) DEFAULT NULL,service varchar(40) DEFAULT NULL,url text,mask int(10) DEFAULT NULL,status int(10) DEFAULT NULL,boxc varchar(40) DEFAULT NULL,itime timestamp default CURRENT_TIMESTAMP ,KEY dlr_smsc_index (smsc),KEY dlr_ts_index (ts)) ENGINE=InnoDB DEFAULT CHARSET=utf8";
+	private static final String DLR = "CREATE TABLE dlr_unitia (smsc varchar(40) DEFAULT NULL,ts varchar(65) DEFAULT NULL,destination varchar(40) DEFAULT NULL,source varchar(40) DEFAULT NULL,service varchar(40) DEFAULT NULL,url text,mask int(10) DEFAULT NULL,status int(10) DEFAULT NULL,boxc varchar(40) DEFAULT NULL,itime timestamp default CURRENT_TIMESTAMP ,KEY dlr_itime_index (itime),KEY dlr_smsc_index (smsc),KEY dlr_ts_index (ts)) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 	private static final String KANNEL_CONFIG = "CREATE TABLE kannel_config (smscid varchar(40) PRIMARY KEY,ip varchar(1000) NOT NULL,port decimal(10,0),username varchar(40) NOT NULL,password varchar(40) NOT NULL,sessioncount decimal(2,0) default 1,kannelid varchar(50) default 'kannel1',routeclass varchar(1),max_queue decimal(6,0) default '500',itime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
