@@ -385,7 +385,6 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		     }
 		 
 		     st.nextToken();
-		     st.nextToken();
 		     
 		     String received=st.nextToken();
 		     
@@ -397,8 +396,6 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		     }catch(Exception e){
 		    	 
 		     }
-		     
-		     st.nextToken();
 		     		     
 		     String sent=st.nextToken();
 		     
