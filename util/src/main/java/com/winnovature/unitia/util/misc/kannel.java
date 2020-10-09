@@ -324,6 +324,9 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	     return result;
 	}
 	
+	
+	
+	
 	public static Map<String,Map<String,String>> getStatusV2(String url) throws Exception{
 		
 		
@@ -362,7 +365,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		     System.out.println("#####################################################");
 
 	    	 System.out.println(++i);
-		     
+		    
 		     System.out.println(st.nextToken());
 		     String smscid=st.nextToken();
 		     
@@ -384,9 +387,9 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		    	 continue;
 		     }
 		 
-		     st.nextToken();
-		     
 		     String received=st.nextToken();
+		     received=received.substring(1);
+		     
 		     
 		     try{
 		    	 
@@ -396,9 +399,8 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		     }catch(Exception e){
 		    	 
 		     }
-		     		     
 		     String sent=st.nextToken();
-		     
+		     sent=sent.substring(0, sent.length()-1);
 		     try{
 		    	 
 		    	 int iF=Integer.parseInt(sent);
@@ -407,9 +409,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		     }catch(Exception e){
 		    	 
 		     }
-		     st.nextToken();
-		     
-	     String failed=st.nextToken();
+		       String failed=st.nextToken();
 	     
 	     try{
 	    	 
