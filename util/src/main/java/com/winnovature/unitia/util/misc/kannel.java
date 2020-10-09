@@ -55,9 +55,9 @@ public class kannel {
 			
 		
 	}
-	public static void reload() throws Exception{
+	public static void reload() {
 		
-
+try{
 		Map<String,Properties> mapprop=Kannel.getInstance().getKannelmap();
 		
 		Iterator itr=mapprop.keySet().iterator();
@@ -65,15 +65,27 @@ public class kannel {
 		Map<String,Map<String,String>> result=new HashMap<String,Map<String,String>>();
 		while(itr.hasNext()){
 			Properties prop=mapprop.get(itr.next());
-			
-			result.putAll( getStatus(prop.getProperty("kannel_status")));
+			String version=getVersion(prop.getProperty("kannel_status"));
+			if(version.indexOf("1.5.0")>-1){
+				
+				result.putAll( getStatusV2(prop.getProperty("kannel_status")));
+
+			}else{
+				
+				result.putAll( getStatusV1(prop.getProperty("kannel_status")));
+
+			}
 		}
 		
 
 		smscqueue=result;
 		insertQueueintoDB();
 		System.out.println(result);
-	}
+
+}catch(Exception e){
+	e.printStackTrace();
+}
+}
 	
 	
 public static void insertQueueintoDB() {
@@ -166,7 +178,13 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	}
 
 
-	public static Map<String,Map<String,String>> getStatus(String url) throws Exception{
+	private static String getVersion(String url) throws Exception {
+
+		 String xmlString = getStringXML(url);
+	        
+		return xmlString.substring(xmlString.indexOf("<version>")+9, xmlString.indexOf("</version>")).split(" ")[3];
+	}
+	public static Map<String,Map<String,String>> getStatusV1(String url) throws Exception{
 		
 		
 		  HashMap<String, String> values = new HashMap<String, String>();
@@ -306,6 +324,124 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	     return result;
 	}
 	
+	public static Map<String,Map<String,String>> getStatusV2(String url) throws Exception{
+		
+		
+		  HashMap<String, String> values = new HashMap<String, String>();
+	        String xmlString = getStringXML(url);
+	        xmlString= xmlString.replaceAll("online ", "online_");
+	        Document xml = convertStringToDocument(xmlString);
+	        Node user = xml.getFirstChild();
+	        NodeList childs = user.getChildNodes();
+	        Node child;
+	        for (int i = 0; i < childs.getLength(); i++) {
+	            child = childs.item(i);
+	             values.put(child.getNodeName(), child.getTextContent());
+	        }
+
+		
+	     Iterator itr=values.keySet().iterator();
+	     
+	     while(itr.hasNext()){
+	    	 
+	 		System.out.println(itr.next());
+
+	     }
+	     
+	 		System.out.println(values.get("smscs"));
+
+	     StringTokenizer st=new StringTokenizer(values.get("smscs"),"\t");
+	     
+	     Map<String,Map<String,String>> result=new HashMap<String,Map<String,String>>();
+	     
+	     System.out.println(st.nextToken());
+	     
+	     int i=0;
+	     while(st.hasMoreTokens()){
+
+		     System.out.println("#####################################################");
+
+	    	 System.out.println(++i);
+		     
+		     System.out.println(st.nextToken());
+		     String smscid=st.nextToken();
+		     
+		     Map<String,String> data=result.get(smscid);
+		     
+		     if(data==null){
+		    	 
+		    	 data=getMap();
+		    	 
+		    	 result.put(smscid, data);
+		    	 
+		     }
+		     System.out.println(st.nextToken());
+		     String status=st.nextToken();
+
+		     if(status.startsWith("online")){
+		    	 data.put("status","up");
+		     }else{
+		    	 continue;
+		     }
+		 
+		     st.nextToken();
+		     st.nextToken();
+		     
+		     String received=st.nextToken();
+		     
+		     try{
+		    	 
+		    	 int iF=Integer.parseInt(received);
+		    	 iF=iF+Integer.parseInt(data.get("received"));
+		    	 data.put("received", ""+iF);
+		     }catch(Exception e){
+		    	 
+		     }
+		     
+		     st.nextToken();
+		     		     
+		     String sent=st.nextToken();
+		     
+		     try{
+		    	 
+		    	 int iF=Integer.parseInt(sent);
+		    	 iF=iF+Integer.parseInt(data.get("sent"));
+		    	 data.put("sent", ""+iF);
+		     }catch(Exception e){
+		    	 
+		     }
+		     st.nextToken();
+		     
+	     String failed=st.nextToken();
+	     
+	     try{
+	    	 
+	    	 int iF=Integer.parseInt(failed);
+	    	 iF=iF+Integer.parseInt(data.get("failed"));
+	    	 data.put("failed", ""+iF);
+	     }catch(Exception e){
+	    	 
+	     }
+	     
+	     
+	     String queued=st.nextToken();
+	     
+	     try{
+	    	 
+	    	 int iF=Integer.parseInt(queued);
+	    	 iF=iF+Integer.parseInt(data.get("queued"));
+	    	 data.put("queued", ""+iF);
+	     }catch(Exception e){
+	    	 
+	     }
+	    
+	     
+		     System.out.println("#####################################################");
+		     
+	     }
+	     
+	     return result;
+	}
 	
 	private static Map<String, String> getMap() {
 
