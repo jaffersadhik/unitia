@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import com.winnovature.unitia.util.account.Route;
+import com.winnovature.unitia.util.misc.kannel;
 
 
 
@@ -700,6 +701,8 @@ public class TableExsists {
 				String smscid=resultset.getString("smscid");
 				String groupname=resultset.getString("groupname");
 
+				String auto_reroute=resultset.getString("auto_reroute");
+				
 				if(groupname!=null&&smscid!=null) {
 					
 					List<String> smscidlist=routegroup.get(groupname.trim());
@@ -709,8 +712,15 @@ public class TableExsists {
 						smscidlist=new ArrayList<String>();
 						routegroup.put(groupname.trim(), smscidlist);
 					}
-					
+					if(auto_reroute.equals("1")){
+				
+						if(!kannel.isQueued(smscid)){
+							smscidlist.add(smscid);	
+						}
+					}else{
 					smscidlist.add(smscid);	
+				
+					}
 				}
 			}
 		}catch(Exception e) {

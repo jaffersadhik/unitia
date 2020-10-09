@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.winnovature.unitia.util.db.Close;
+import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.KannelDBConnection;
+import com.winnovature.unitia.util.misc.SMSCMaxQueue;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 public class T  extends Thread{
@@ -57,6 +59,10 @@ public class T  extends Thread{
 				RedisQueueConnectionPool.getInstance().reload();
 
 				RedisQueueConnectionPool.getInstance().print();
+				
+				Kannel.getInstance().reload();
+				SMSCMaxQueue.getInstance().reload();
+				com.winnovature.unitia.util.misc.kannel.reload();
 				
 				gotosleep();
 

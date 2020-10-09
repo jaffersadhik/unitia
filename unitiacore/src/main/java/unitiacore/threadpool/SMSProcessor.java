@@ -238,6 +238,29 @@ public class SMSProcessor {
 	public void doRetryProcess(Map<String, Object> msgmap)  throws Exception{
 		this.msgmap=msgmap;
 		String attemptcount=(String)msgmap.get(MapKeys.ATTEMPT_COUNT);
+		
+		if(msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.INVALID_ROUTE_GROUP)){
+			
+						
+			RouteProcessor route=new RouteProcessor(msgmap);
+			route.setIsfurtherprocess(true);
+			route.doRouteGroupAvailable();
+			route.doSMSCIDAvailable();
+			route.doKannelAvailable();
+			
+			SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
+			processor.doOptin();
+			processor.doOptout();
+			processor.doDuplicate();
+			processor.doDNDCheck();
+			processor.doFeatureCodeIndentification();
+			processor.doDNMessage();
+			processor.doConcate();
+			processor.setCredit();
+			processor.submitKannel();
+			processor.sentToNextLevel();
+	
+		}else{
 		int attempt=0;
 		if(attemptcount!=null){
 			
@@ -284,7 +307,7 @@ public class SMSProcessor {
 		}
 		
 		sentToNextLevel();
-
+		}
 
 	}
 
@@ -348,7 +371,7 @@ public class SMSProcessor {
 
 	public void sentToNextLevel() throws Exception {
 		
-		if(msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)){
+		if(msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)||msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.INVALID_ROUTE_GROUP)){
 			
 			Map<String,Object> logmap=new HashMap<String,Object>();
 			logmap.putAll(msgmap);
@@ -459,7 +482,7 @@ public class SMSProcessor {
 			
 			}else{
 
-	
+				msgmap.put(MapKeys.KANNEL_POPTIME, ""+System.currentTimeMillis());
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.KANNEL_RESPONSE_FAILED);
 
 			}
@@ -498,7 +521,7 @@ public class SMSProcessor {
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.KANNEL_SUBMIT_SUCCESS);
 		
 			}else{
-			
+				msgmap.put(MapKeys.KANNEL_POPTIME, ""+System.currentTimeMillis());
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.KANNEL_RESPONSE_FAILED);
 
 			}

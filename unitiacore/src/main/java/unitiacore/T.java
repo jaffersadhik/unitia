@@ -5,7 +5,9 @@ import java.util.Map;
 
 import com.winnovature.unitia.util.account.Refresh;
 import com.winnovature.unitia.util.account.Route;
+import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.misc.FileWrite;
+import com.winnovature.unitia.util.misc.SMSCMaxQueue;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 import unitiacore.threadpool.DomesticCredit;
@@ -25,6 +27,11 @@ public class T  extends Thread{
 				DomesticCredit.getInstance().reload();
 				RedisQueueConnectionPool.getInstance().reload();
 				QueueTon.getInstance().checkQueueAvailablity();
+
+				Kannel.getInstance().reload();
+				SMSCMaxQueue.getInstance().reload();
+				com.winnovature.unitia.util.misc.kannel.reload();
+				
 				
 				App.printThreadStatus();
 				

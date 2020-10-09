@@ -1,33 +1,40 @@
 package com.winnovature.unitia.util.db;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.dbcp.BasicDataSourceFactory;
 
-import com.winnovature.unitia.util.misc.Prop;
-
 public class KannelStoreDBConnection {
 
+	static Map<String,KannelStoreDBConnection> map=new HashMap<String,KannelStoreDBConnection>();
 
 	private BasicDataSource datasource = null;
 
 	Properties prop=null;
 	
-	public KannelStoreDBConnection(Properties prop) {
+	private KannelStoreDBConnection(Properties prop) {
 
 		this.prop=prop;
-
-		createDataSource();
 	
+		createDataSource();
 	}
 
 
 
+	public static KannelStoreDBConnection getInstance(String kannelid,Properties prop){
+		
+		if(!map.containsKey(kannelid)){
+			
+			map.put(kannelid, new KannelStoreDBConnection(prop));
+		}
+		
+		return map.get(kannelid);
+	}
 
 	
 	private void createDataSource() {

@@ -2,6 +2,7 @@ package com.winnovature.unitia.util.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -19,9 +20,85 @@ public class Kannel {
 		reload();
 	}
 	
-	private void reload() {
+	public Map<String, Properties> getKannelmap() {
+		return kannelmap;
+	}
+
+	public void reload() {
+
+		String sql="select kannelid,kannel_host,sendsms_port,status_port,mysql_host,mysql_port,mysql_username,mysql_password,mysql_schema,mysql_tablename from  kannel_instance";
+
+		Connection connection = null;
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String,Properties> kannelprop=new HashMap<String,Properties>();
+		try {
+			connection = RouteDBConnection.getInstance().getConnection();
+			statement=connection.prepareStatement(sql);	
+			resultset=statement.executeQuery();
+			
+			while(resultset.next()){
+				
+				Properties prop=getProperties();
+				String kannelid=resultset.getString("kannelid");
+				String kannel_host=resultset.getString("kannel_host");
+				String sendsms_port=resultset.getString("sendsms_port");
+				String status_port=resultset.getString("status_port");
+				String mysql_host=resultset.getString("mysql_host");
+				String mysql_port=resultset.getString("mysql_port");
+				String mysql_username=resultset.getString("mysql_username");
+				String mysql_password=resultset.getString("mysql_password");
+				String mysql_schema=resultset.getString("mysql_schema");
+				String mysql_tablename=resultset.getString("mysql_tablename");
+				prop.put("kannelid", kannelid);
+				prop.put("kannel_status", "http://"+kannel_host+":"+status_port+"/status.xml");
+				prop.put("username", mysql_username);
+				prop.put("password", mysql_password);
+				prop.put("url", "jdbc:mysql://"+mysql_schema+":"+mysql_port+"/"+mysql_schema+"?useLegacyDatetimeCode=false&serverTimezone=Asia/Kolkata&useSSL=false");
+				prop.put("kannel_host", kannel_host);
+				prop.put("sendsms_port", sendsms_port);
+				prop.put("status_port", status_port);
+				prop.put("mysql_host", mysql_host);
+				prop.put("mysql_port", mysql_port);
+				prop.put("mysql_username", mysql_username);
+				prop.put("mysql_password", mysql_password);
+				prop.put("mysql_schema", mysql_schema);
+				prop.put("mysql_tablename", mysql_tablename);
+
+				kannelprop.put(kannelid, prop);
+			}
+
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			Close.close(connection);
+		}
+
+
+		this.kannelmap=kannelprop;
+	}
+
+	private Properties getProperties() {
 		
-		
+		Properties prop=new Properties();
+		prop.put("driverClassName", "com.mysql.jdbc.Driver");
+		prop.put("maxIdle", "2");
+		prop.put("minIdle", "1");
+		prop.put("initialSize", "1");
+		prop.put("minEvictableIdleTimeMillis", "50000");
+		prop.put("timeBetweenEvictionRunsMillis", "1000");
+		prop.put("numTestsPerEviction", "-1");
+		prop.put("MaxWaitMillis", "3000");
+		prop.put("poolPreparedStatements", "true");
+		prop.put("maxTotal", "2");
+
+	
+
+		return prop;
 	}
 
 	public static Kannel getInstance(){

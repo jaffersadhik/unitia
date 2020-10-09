@@ -28,11 +28,11 @@ public class SQLQuery {
 
 	
 
-	public static final String CREATE_SMSCID_TABLE = "create table kannel(smscid varchar(50) primary key,ip varchar(100) default 'unitia.dngen.ip',port numeric(6),routeclass varchar(1) default '4')";
+	public static final String CREATE_SMSCID_TABLE = "create table kannel(smscid varchar(50) primary key,ip varchar(100) default 'unitia.dngen.ip',port numeric(6),routeclass varchar(1) default '4',max_queue decimal(6,0) default '500')";
 	
 	public static final String INSERT_SMSCID_TABLE = "insert into kannel(smscid,ip,port,routeclass) values(?,?,?,?)";
 
-	public static final String CREATE_ROUTEGROUP_TABLE = "create table routegroup(groupname varchar(50) ,smscid varchar(50),routeclass varchar(1),mode varchar(45) default 'production')";
+	public static final String CREATE_ROUTEGROUP_TABLE = "create table routegroup(groupname varchar(50) ,smscid varchar(50),routeclass varchar(1),mode varchar(45) default 'production',auto_reroute varchar(1) default '0')";
 
 	public static final String INSERT_ROUTEGROUP_TABLE = "insert into routegroup(groupname ,smscid ) values(?,?)";
 
@@ -64,7 +64,7 @@ public class SQLQuery {
 
 	public static final String SELECT_KANNEL_TABLE = "select smscid,ip,port,routeclass from kannel";
 
-	public static final String SELECT_ROUTEGROUP_TABLE = "select groupname,smscid from routegroup";
+	public static final String SELECT_ROUTEGROUP_TABLE = "select groupname,smscid,auto_reroute from routegroup";
 
 	public static final String SELECT_ROUTE_TABLE = "select routegroup_trans,routegroup_promo,superadmin,admin,username,operator,circle from route";
 

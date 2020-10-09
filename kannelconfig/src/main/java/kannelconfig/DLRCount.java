@@ -3,13 +3,18 @@ package kannelconfig;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.KannelDBConnection;
+import com.winnovature.unitia.util.db.KannelStoreDBConnection;
+
+import unitiaroute.Kannel;
 
 public class DLRCount {
 
@@ -32,20 +37,33 @@ public class DLRCount {
 			
 
 		}
-	static String SQL="select smsc,count(*) cnt from dlr_unitia group by smsc";
+	static String SQL="select smsc,count(*) cnt from {0} group by smsc";
 	
-	public void doProcess(){
+	public void doProcess() throws SQLException{
 		
-		Map<String,String> result=getDLRCount();
+		Map<String,Properties> map=com.winnovature.unitia.util.db.Kannel.getInstance().getKannelmap();
 		
-		insertQueueintoDB(result);
-		setQueueMaxCountMap(result);
-		insertQueueMaxintoDB();
+		Iterator itr=map.keySet().iterator();
+		
+		while(itr.hasNext()){
+			
+			String kannelid=itr.next().toString();
+			Properties prop=map.get(kannelid);
+			
+			Map<String,String> result=getDLRCount(KannelStoreDBConnection.getInstance(kannelid, prop).getConnection());
+			
+			
+			insertQueueintoDB(result);
+			setQueueMaxCountMap(result);
+			insertQueueMaxintoDB();
+			
+		}
+		
+		
 	}
 
-	private Map<String, String> getDLRCount() {
+	private Map<String, String> getDLRCount(Connection connection) {
 		
-		Connection connection=null;
 		PreparedStatement statement=null;
 		ResultSet resultset=null;
 		

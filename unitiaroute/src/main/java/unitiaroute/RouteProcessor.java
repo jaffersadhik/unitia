@@ -28,6 +28,11 @@ public class RouteProcessor {
 	}
 	
 	
+	public void setIsfurtherprocess(boolean isfurtherprocess) {
+		this.isfurtherprocess = isfurtherprocess;
+	}
+
+
 	public void doCountryCodeCheck() throws Exception{
 		
 		if(isfurtherprocess){
@@ -463,7 +468,7 @@ public class RouteProcessor {
 		}
 		
 		isfurtherprocess =false;
-		
+		msgmap.put(MapKeys.KANNEL_POPTIME, ""+System.currentTimeMillis());
 		msgmap.put(MapKeys.STATUSID, ""+MessageStatus.INVALID_ROUTE_GROUP);
 		}
 
