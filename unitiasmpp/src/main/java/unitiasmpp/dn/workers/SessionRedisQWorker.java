@@ -3,6 +3,7 @@ package unitiasmpp.dn.workers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.cloudhopper.smpp.pdu.PduResponse;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.redis.QueueSender;
@@ -61,13 +62,32 @@ public class SessionRedisQWorker extends Thread {
 				CustomerRedisHBData.INST.heartBeat(getName(),systemId);
 						try {
 								if (handler.getSession().isBound()) {
-									boolean flag =worker.sendMessage(handler.getSession(), aDn);
+									DNTempBean bean=send(aDn, handler);
+									if(bean.getFuture()==null){
 										
+										writeResponse(bean.getDnMap(),null);
+										
+									}else if(bean.getFuture().isDone()){
+										
+										PduResponse response=bean.getFuture().getResponse();
+										
+										if(response!=null) {								
+											writeResponse(bean.getDnMap(),response.getCommandStatus());	
+											bean.getEventHandler().setInUse(false);
+										} else {
+											response=bean.getFuture().getResponse();
+											
+											if(response==null) {
+												writeResponse(bean.getDnMap(),null);
+												
+											} else {
+												writeResponse(bean.getDnMap(),response.getCommandStatus());
+												bean.getEventHandler().setInUse(false);
+											}
+										}
+										
+									}
 									
-									if(flag)
-										writeResponse(aDn,0);								
-									else
-										writeResponse(aDn,null);
 								} else {
 									writeResponse(aDn,null);
 								}
@@ -141,5 +161,20 @@ public class SessionRedisQWorker extends Thread {
 			
 			exp.printStackTrace();
 		}
+	}
+	
+	
+	
+	private DNTempBean send(Map aDn,SessionEventHandler sessionHandler) {
+
+		aDn.remove("DNRTS");
+		aDn.remove("DNSTS");
+
+		DNTempBean tempBean = new DNTempBean();
+		tempBean.setEventHandler(sessionHandler);
+		tempBean.setDnMap(aDn);
+		tempBean.setFuture(worker.sendMessage(sessionHandler.getSession(), aDn));
+		
+		return tempBean;
 	}
 }

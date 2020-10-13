@@ -35,6 +35,10 @@ public class DNWorker
 		
 		this.systemId=systemId;
 	}
+	
+	
+	
+	/*
 
 	public boolean sendMessage(SmppServerSession session,Map _deliverSMObj) 
 	{
@@ -97,7 +101,53 @@ public class DNWorker
 		return status;
 	}
 	
+	*/
 	
+	
+	
+	public WindowFuture<Integer,PduRequest,PduResponse> sendMessage(SmppServerSession session,Map _deliverSMObj) 
+	{
+		
+		WindowFuture<Integer,PduRequest,PduResponse> afuture=null;
+
+		try {
+			String dnMsg = "";	
+			String msg = "";
+			Byte esm=4;
+			dnMsg=getDnMessage(esm,_deliverSMObj);
+			
+			DeliverSm request=getDeliverSmRequest(esm,dnMsg,_deliverSMObj);
+		
+			try {
+				
+				_deliverSMObj.put("DNSTS", new Timestamp(System.currentTimeMillis()));
+			
+				afuture=session.sendRequestPdu(request, 250, true);
+				
+					
+				//afuture.await();
+				
+				//DeliverSmResp resp=(DeliverSmResp)afuture.getResponse();
+			//	_deliverSMObj.put("DNRTS", new Timestamp(System.currentTimeMillis()));
+/*				if(resp!=null && resp.getCommandStatus()==0) {
+					status=true;
+					if(logger.isDebugEnabled())
+						logger.debug("afuture.isSuccess()="+afuture.isSuccess()+"\nresponse="+afuture.getResponse());					
+				} else {					
+					logger.warn("failed status="+(resp!=null?resp.getCommandStatus():"null status response"));
+				}*/
+			} catch (Exception e) {
+				
+			}
+		} catch(Exception e1) {                
+			
+		}
+
+
+		return afuture;
+	}
+	
+
 	private DeliverSm getDeliverSmRequest(byte esm,String dnmsg,Map<String,String> _deliverSMObj)
 					throws SmppInvalidArgumentException {
 		
