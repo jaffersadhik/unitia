@@ -274,7 +274,7 @@ public class App
     	sb.append("username = root").append("\n");		
     	sb.append("password = kannel").append("\n");		
       	sb.append("database = mysql").append("\n");		
-      	sb.append("max-connections = 35").append("\n");		
+      	sb.append("max-connections = 200").append("\n");		
      	
     	sb.append("\n");
     	sb.append("\n");
