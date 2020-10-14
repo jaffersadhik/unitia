@@ -3,6 +3,7 @@ package unitiasmpp.dn.workers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.cloudhopper.smpp.SmppConstants;
 import com.cloudhopper.smpp.pdu.PduResponse;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
@@ -63,16 +64,35 @@ public class SessionRedisQWorker extends Thread {
 						try {
 								if (handler.getSession().isBound()) {
 									DNTempBean bean=send(aDn, handler);
+									
 									if(bean.getFuture()==null){
 										
 										writeResponse(bean.getDnMap(),null);
 										
-									}else if(bean.getFuture().isDone()){
+									}else {
+										
+									while(!bean.getFuture().isDone()){
+										
+										try{
+											Thread.sleep(1L);
+												
+										}catch(Exception e){
+											
+										}
+									}
 										
 										PduResponse response=bean.getFuture().getResponse();
 										
-										if(response!=null) {								
-											writeResponse(bean.getDnMap(),response.getCommandStatus());	
+										if(response!=null) {			
+											if(response.getCommandStatus()==SmppConstants.STATUS_OK){
+												
+												writeResponse(bean.getDnMap(),0);	
+
+												
+											}else{
+												
+												writeResponse(bean.getDnMap(),response.getCommandStatus());	
+											}
 											bean.getEventHandler().setInUse(false);
 										} else {
 											response=bean.getFuture().getResponse();
@@ -136,6 +156,7 @@ public class SessionRedisQWorker extends Thread {
 				aDn.put("STATUS","FAILED");
 			
 			String msg_status=(String)aDn.get("STATUS");
+			aDn.put(MapKeys.DNPOSTSTATUS, msg_status);
 			Map<String,Object> logmap=new HashMap<String,Object>();
 			logmap.putAll(aDn);
 			
