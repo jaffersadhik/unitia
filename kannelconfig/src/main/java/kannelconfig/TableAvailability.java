@@ -94,12 +94,13 @@ public class TableAvailability {
 					
 
 			Map<String,Properties> connprop=Kannel.getInstance().getKannelMysqlmap();
+			System.out.println("table creation connprop: \n "+connprop);
+
 			Iterator itr=connprop.keySet().iterator();
 			
 			while(itr.hasNext()){
 				String key=itr.next().toString();
 				Properties prop=connprop.get(key);
-				
 				Connection conn=KannelStoreDBConnection.getInstance(key, prop).getConnection();
 				dlravailability(conn);
 				
