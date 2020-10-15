@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
+import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.Carrier;
 import com.winnovature.unitia.util.misc.FileWrite;
@@ -124,7 +126,7 @@ public class App
     	sb.append(getCoreConfig());
     	sb.append(getSMSBoxConfig());
     	sb.append(getUserConfig());
-    	sb.append(getMysqlConfig());
+    	sb.append(getMysqlConfig(kannelid));
     	sb.append(getTableConfig());
     	sb.append(getTLVConfig());
 
@@ -261,19 +263,21 @@ public class App
 	
 		
 	}
-	private static String getMysqlConfig() {
+	private static String getMysqlConfig(String kannelid) {
 		
 		StringBuffer sb=new StringBuffer();
+    	
+		Properties prop=Kannel.getInstance().getKannelmap().get(kannelid);
     	
 		sb.append("\n");
     	sb.append("\n");
     	
     	sb.append("group = mysql-connection").append("\n");	
     	sb.append("id = mytestdlr").append("\n");		
-    	sb.append("host = unitiadb").append("\n");		
-    	sb.append("username = root").append("\n");		
-    	sb.append("password = kannel").append("\n");		
-      	sb.append("database = mysql").append("\n");		
+    	sb.append("host = "+prop.getProperty("mysql_host")+"").append("\n");		
+    	sb.append("username = "+prop.getProperty("mysql_username")+"").append("\n");		
+    	sb.append("password = "+prop.getProperty("mysql_password")+"").append("\n");		
+      	sb.append("database = "+prop.getProperty("mysql_schema")+"").append("\n");		
       	sb.append("max-connections = 200").append("\n");		
      	
     	sb.append("\n");

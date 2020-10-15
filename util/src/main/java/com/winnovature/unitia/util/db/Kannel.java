@@ -145,7 +145,7 @@ public class Kannel {
 
 				if(table.create(connection, create_sql, false)){
 					
-					String insert_sql="insert into kannel_instance(kannelid,kannel_host,sendsms_port,status_port,mysql_host,mysql_port,mysql_username,mysql_password,mysql_schema,mysql_tablename) values('kannel1','kannel1','13012','13000','unitiadb','3306','root','kannel','mysql','dlr_unitia') ";
+					String insert_sql="insert into kannel_instance(kannelid,kannel_host,sendsms_port,status_port,mysql_host,mysql_port,mysql_username,mysql_password,mysql_schema,mysql_tablename) values('kannel1','kannel1','13012','13000','kannel1db','3306','root','kannel','mysql','dlr_unitia') ";
 					
 					insert(connection,insert_sql);
 				}

@@ -5,11 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import com.winnovature.unitia.util.db.Close;
+import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.KannelDBConnection;
+import com.winnovature.unitia.util.db.KannelStoreDBConnection;
 import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 
@@ -84,9 +88,35 @@ public class TableAvailability {
 
 	private void dlravailability() {
 		
-		Connection connection = null;
+		
 		try {
-			connection = KannelDBConnection.getInstance().getConnection();
+			dlravailability( KannelDBConnection.getInstance().getConnection());
+					
+
+			Map<String,Properties> connprop=Kannel.getInstance().getKannelMysqlmap();
+			Iterator itr=connprop.keySet().iterator();
+			
+			while(itr.hasNext()){
+				String key=itr.next().toString();
+				Properties prop=connprop.get(key);
+				
+				Connection conn=KannelStoreDBConnection.getInstance(key, prop).getConnection();
+				dlravailability(conn);
+				
+			}
+
+		} catch (Exception e) {
+
+		
+		} finally {
+		}
+
+	
+	}
+
+	private void dlravailability(Connection connection) {
+		
+		try {
 			TableExsists table = new TableExsists();
 			if(!table.isExsists(connection, "dlr_unitia")){
 				
@@ -110,8 +140,6 @@ public class TableAvailability {
 
 	
 	}
-
-	
 	public static TableAvailability instance()
 	{
 		if(pushAccount == null){
