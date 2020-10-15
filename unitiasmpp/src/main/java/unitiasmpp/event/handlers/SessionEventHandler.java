@@ -1,3 +1,4 @@
+
 package unitiasmpp.event.handlers;
 
 import java.util.Date;
@@ -106,7 +107,9 @@ public class SessionEventHandler implements SmppSessionHandler {
 	@Override
 	public PduResponse firePduRequestReceived(PduRequest pduRequest) {
 
+				
 		PduResponse response = pduRequest.createResponse();
+	
 		int commandId = pduRequest.getCommandId();
 		
 		switch(commandId) {

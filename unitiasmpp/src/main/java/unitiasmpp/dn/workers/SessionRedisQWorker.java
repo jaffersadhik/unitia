@@ -63,6 +63,9 @@ public class SessionRedisQWorker extends Thread {
 				CustomerRedisHBData.INST.heartBeat(getName(),systemId);
 						try {
 								if (handler.getSession().isBound()) {
+									
+									sleep(aDn);
+									
 									DNTempBean bean=send(aDn, handler);
 									
 									if(bean.getFuture()==null){
@@ -133,6 +136,31 @@ public class SessionRedisQWorker extends Thread {
 				SessionManager.getInstance().getDnWorkerMap().remove(systemId);
 			}
 		}
+	}
+
+	private void sleep(Map<String, Object> aDn) {
+		
+		try{
+		String rtsString=aDn.get(MapKeys.RTIME).toString();
+		
+		long rtsL=Long.parseLong(rtsString);
+		
+		long diff=System.currentTimeMillis()-rtsL;
+		if(diff<0){
+			
+			return;
+		}else if(diff>2000){
+			
+			return;
+		}else{
+			
+			Thread.sleep(diff);
+		}
+		}catch(Exception e){
+			
+		}
+		
+		
 	}
 
 	private void gotosleep() {

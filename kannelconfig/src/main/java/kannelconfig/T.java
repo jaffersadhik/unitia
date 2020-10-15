@@ -62,7 +62,6 @@ public class T  extends Thread{
 				
 				Kannel.getInstance().reload();
 				SMSCMaxQueue.getInstance().reload();
-				com.winnovature.unitia.util.misc.kannel.reload();
 				
 				gotosleep();
 

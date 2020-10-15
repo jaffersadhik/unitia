@@ -91,6 +91,14 @@
     <version>1.2.2</version>
 </dependency>
 
+<dependency>
+  <groupId>com.fasterxml.uuid</groupId>
+  <artifactId>java-uuid-generator</artifactId>
+  <version>4.0</version>
+</dependency>
+
+
+
 <!-- https://mvnrepository.com/artifact/commons-configuration/commons-configuration -->
 <dependency>
     <groupId>commons-configuration</groupId>
