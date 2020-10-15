@@ -46,7 +46,7 @@ public class Kannel {
 
 	public void reload() {
 
-		String sql="select kannelid,kannel_host,sendsms_port,status_port,mysql_host,mysql_port,mysql_username,mysql_password,mysql_schema,mysql_tablename from  kannel_instance";
+		String sql="select kannelid,kannel_host,sendsms_port,status_port,mysql_host,mysql_port,mysql_username,mysql_password,mysql_schema,mysql_tablename,sqlbox from  kannel_instance";
 
 		Connection connection = null;
 		PreparedStatement statement=null;
@@ -70,7 +70,10 @@ public class Kannel {
 				String mysql_password=resultset.getString("mysql_password");
 				String mysql_schema=resultset.getString("mysql_schema");
 				String mysql_tablename=resultset.getString("mysql_tablename");
+				String sqlbox=resultset.getString("sqlbox");
+
 				prop.put("kannelid", kannelid);
+				prop.put("sqlbox", sqlbox);
 				prop.put("kannel_status", "http://"+kannel_host+":"+status_port+"/status.xml");
 				prop.put("username", mysql_username);
 				prop.put("password", mysql_password);
@@ -141,7 +144,7 @@ public class Kannel {
 			if(!table.isExsists(connection, "kannel_instance")){
 				
 
-				String create_sql="create table kannel_instance(kannelid varchar(50) primary key,kannel_host varchar(100),sendsms_port varchar(10),status_port varchar(10),mysql_host  varchar(100),mysql_port varchar(10),mysql_username varchar(50),mysql_password varchar(50),mysql_schema varchar(50),mysql_tablename varchar(50))";
+				String create_sql="create table kannel_instance(kannelid varchar(50) primary key,kannel_host varchar(100),sendsms_port varchar(10),status_port varchar(10),mysql_host  varchar(100),mysql_port varchar(10),mysql_username varchar(50),mysql_password varchar(50),mysql_schema varchar(50),mysql_tablename varchar(50),sqlbox varchar(1) default '0')";
 
 				if(table.create(connection, create_sql, false)){
 					

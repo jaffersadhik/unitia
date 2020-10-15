@@ -54,14 +54,12 @@ public class T  extends Thread{
 
 				tableCountCheck();
 				
-				new DLRCount().doProcess();
+			
 
 				RedisQueueConnectionPool.getInstance().reload();
 
 				RedisQueueConnectionPool.getInstance().print();
 				
-				Kannel.getInstance().reload();
-				SMSCMaxQueue.getInstance().reload();
 				
 				gotosleep();
 

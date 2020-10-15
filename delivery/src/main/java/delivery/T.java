@@ -7,6 +7,7 @@ import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.reader.QueueTon;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
+
 public class T  extends Thread{
 
 
@@ -19,6 +20,11 @@ public class T  extends Thread{
 				RedisQueueConnectionPool.getInstance().reload();
 				QueueTon.getInstance().checkQueueAvailablity();
 				RedisReceiver.GRACESTOP=ConfigParams.getInstance().getProperty(ConfigKey.GRACE_STOP).equals("1");
+				
+				com.winnovature.unitia.util.db.Kannel.getInstance().reload();
+				com.winnovature.unitia.util.misc.kannel.reload();
+				DLRCount.getInstance().doProcess();
+				PollerStartup.updateUsers();
 				gotosleep();
 					
 			}catch(Exception e){

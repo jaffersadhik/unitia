@@ -92,6 +92,8 @@ public class RedisReceiver extends Thread {
 			
 		}
 
+	
+	
 	private void stats(long start, long end, String redisid2, String poolname2, int size) {
 		
 		Map<String,Object> logmap1=new HashMap<String,Object>();
