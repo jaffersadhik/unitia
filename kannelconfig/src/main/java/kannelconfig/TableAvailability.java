@@ -39,6 +39,7 @@ public class TableAvailability {
 
 		}
 
+	private static final String DLR_RESP = "CREATE TABLE dlr_unitia_resp (smsc varchar(40) DEFAULT NULL,ts varchar(65) DEFAULT NULL,url text,mask int(10) DEFAULT NULL,itime timestamp default CURRENT_TIMESTAMP ,KEY dlrresp_itime_index (itime),KEY dlrresp_smsc_index (smsc),KEY dlrresp_ts_index (ts)) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
 	private static final String DLR = "CREATE TABLE dlr_unitia (smsc varchar(40) DEFAULT NULL,ts varchar(65) DEFAULT NULL,destination varchar(40) DEFAULT NULL,source varchar(40) DEFAULT NULL,service varchar(40) DEFAULT NULL,url text,mask int(10) DEFAULT NULL,status int(10) DEFAULT NULL,boxc varchar(40) DEFAULT NULL,itime timestamp default CURRENT_TIMESTAMP ,KEY dlr_itime_index (itime),KEY dlr_smsc_index (smsc),KEY dlr_ts_index (ts)) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
@@ -126,7 +127,13 @@ public class TableAvailability {
 					}
 			}
 			
-			
+			if(!table.isExsists(connection, "dlr_unitia_resp")){
+				
+				if (table.create(connection, DLR_RESP, false)) {
+
+				}
+		}
+		
 		
 
 		} catch (Exception e) {

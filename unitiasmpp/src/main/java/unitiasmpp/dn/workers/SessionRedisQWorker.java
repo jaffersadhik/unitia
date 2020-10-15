@@ -64,7 +64,6 @@ public class SessionRedisQWorker extends Thread {
 						try {
 								if (handler.getSession().isBound()) {
 									
-									sleep(aDn);
 									
 									DNTempBean bean=send(aDn, handler);
 									
@@ -137,32 +136,6 @@ public class SessionRedisQWorker extends Thread {
 			}
 		}
 	}
-
-	private void sleep(Map<String, Object> aDn) {
-		
-		try{
-		String rtsString=aDn.get(MapKeys.RTIME).toString();
-		
-		long rtsL=Long.parseLong(rtsString);
-		
-		long diff=System.currentTimeMillis()-rtsL;
-		if(diff<0){
-			
-			return;
-		}else if(diff>2000){
-			
-			return;
-		}else{
-			
-			Thread.sleep(diff);
-		}
-		}catch(Exception e){
-			
-		}
-		
-		
-	}
-
 	private void gotosleep() {
 		try {
 			Thread.sleep(100);
