@@ -1473,9 +1473,9 @@ public class SMSProcessor {
 				SYSTEMID,//11
 				DR,//12
 				STATUSCD,//13
-				URLEncoder.encode(msgmap.get(MapKeys.OPERATOR).toString(),"UTF-8"),//14
-				URLEncoder.encode(msgmap.get(MapKeys.CIRCLE).toString(),"UTF-8"),//15
-				URLEncoder.encode(msgmap.get(MapKeys.COUNTRYCODE).toString(),"UTF-8"),//16
+				URLEncoder.encode(msgmap.get(MapKeys.OPERATOR)==null?"0":msgmap.get(MapKeys.OPERATOR).toString(),"UTF-8"),//14
+				URLEncoder.encode(msgmap.get(MapKeys.CIRCLE)==null?"0":msgmap.get(MapKeys.CIRCLE).toString(),"UTF-8"),//15
+				URLEncoder.encode(msgmap.get(MapKeys.COUNTRYCODE)==null?"0":msgmap.get(MapKeys.COUNTRYCODE).toString(),"UTF-8"),//16
 				URLEncoder.encode(msgmap.get(MapKeys.PROTOCOL).toString(),"UTF-8"),//17
 				URLEncoder.encode(msgmap.get(MapKeys.MSGTYPE).toString(),"UTF-8"),//18
 				URLEncoder.encode(msgmap.get(MapKeys.FEATURECODE).toString(),"UTF-8"),//19
@@ -1538,9 +1538,9 @@ public void setDLRURL(Map<String,Object> splitmap)  throws Exception{
 				SYSTEMID,//11
 				DR,//12
 				STATUSCD,//13
-				URLEncoder.encode(msgmap.get(MapKeys.OPERATOR).toString(),"UTF-8"),//14
-				URLEncoder.encode(msgmap.get(MapKeys.CIRCLE).toString(),"UTF-8"),//15
-				URLEncoder.encode(msgmap.get(MapKeys.COUNTRYCODE).toString(),"UTF-8"),//16
+				URLEncoder.encode(msgmap.get(MapKeys.OPERATOR)==null?"":msgmap.get(MapKeys.OPERATOR).toString(),"UTF-8"),//14
+				URLEncoder.encode(msgmap.get(MapKeys.CIRCLE)==null?"":msgmap.get(MapKeys.CIRCLE).toString(),"UTF-8"),//15
+				URLEncoder.encode(msgmap.get(MapKeys.COUNTRYCODE)==null?"":msgmap.get(MapKeys.COUNTRYCODE).toString(),"UTF-8"),//16
 				URLEncoder.encode(msgmap.get(MapKeys.PROTOCOL).toString(),"UTF-8"),//17
 				URLEncoder.encode(msgmap.get(MapKeys.MSGTYPE).toString(),"UTF-8"),//18
 				URLEncoder.encode(msgmap.get(MapKeys.FEATURECODE).toString(),"UTF-8"),//19
