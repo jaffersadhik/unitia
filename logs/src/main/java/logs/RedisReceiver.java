@@ -1,24 +1,11 @@
-package kannelconfig;
+package logs;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.winnovature.unitia.util.db.ReportDAO;
-import com.winnovature.unitia.util.misc.ConfigKey;
-import com.winnovature.unitia.util.misc.ConfigParams;
-import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.FileWriteOrg;
-import com.winnovature.unitia.util.misc.MapKeys;
-import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.redis.RedisReader;
 
 public class RedisReceiver extends Thread {
@@ -117,7 +104,7 @@ public class RedisReceiver extends Thread {
 		logmap1.put("logname", "logwritetotaltime");
 
 
-        new FileWrite().write(logmap1);
+		new FileWriteOrg().write(logmap1);
 		
 	}
 	private void untilPersist(List<Map<String, Object>> datalist) {
@@ -135,7 +122,7 @@ public class RedisReceiver extends Thread {
 		
 		try{
 
-			Thread.sleep(50L);
+			Thread.sleep(10L);
 		}catch(Exception e){
 			
 		}

@@ -81,6 +81,9 @@ public class App {
 		}else if(module.equals("kannelconfig")){
 			
 			kannelconfig.App.doProcess();
+		}else if(module.equals("logs")){
+			
+			logs.App.doProcess();
 		}
 		
 		

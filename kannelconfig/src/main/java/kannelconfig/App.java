@@ -13,8 +13,6 @@ import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.Carrier;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.Prop;
-import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
-import com.winnovature.unitia.util.redis.RedisQueuePool;
 
 public class App 
 {
@@ -36,37 +34,12 @@ public class App
 		
 		createKannelConfigurationFile();
 		
-    	new T().start();
+    //	new T().start();
     	
-    
-    	start("logspool");
 	}
     
     
 
-	private static void start(String poolname) {
-		
-	
-		for(int i=0;i<5;i++){
-			Map<String, RedisQueuePool> map=RedisQueueConnectionPool.getInstance().getPoolMap();
-
-			Iterator itr=map.keySet().iterator();
-			
-			while(itr.hasNext()){
-				
-				String redisid=itr.next().toString();
-				String logstring="poolname :"+poolname+" RedisReceiver startted for "+redisid;
-				System.out.println(logstring);
-		
-			new RedisReceiver(poolname,redisid).start();
-
-
-
-		}
-		
-		}
-		
-	}
     
 
     private static void checkQueueTableAvailable() {
