@@ -8,11 +8,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.db.CampaignDBConnection;
 import com.winnovature.unitia.util.db.Close;
+import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.FileWrite;
 
@@ -88,6 +90,15 @@ public class PollerStartup {
 				continue;
 			}
 			
+			Properties prop=Kannel.getInstance().getKannelmap().get(kannelid);
+			
+			if(prop.get("sqlbox").toString().equals("0")){
+				
+				logmap.put("status","sqlbox disabled ,skip the start poller ");
+				new FileWrite().write(logmap);
+
+				continue;
+			}
 			
 			logmap.put("status","the start poller ");
 			new FileWrite().write(logmap);

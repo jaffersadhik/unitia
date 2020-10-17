@@ -24,7 +24,7 @@ public class T  extends Thread{
 				com.winnovature.unitia.util.db.Kannel.getInstance().reload();
 				com.winnovature.unitia.util.misc.kannel.reload();
 				DLRCount.getInstance().doProcess();
-			//	PollerStartup.updateUsers();
+				PollerStartup.updateUsers();
 				gotosleep();
 					
 			}catch(Exception e){
