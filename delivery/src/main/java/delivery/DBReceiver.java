@@ -84,7 +84,7 @@ public class DBReceiver extends Thread {
 				new FileWrite().write(logmap);
 			}else{
 				logmap.put("status ","no records available stop the poller");
-				logmap.put("dbprop ",Kannel.getInstance().getKannelmap().get(kannelid));
+				logmap.put("dbprop ",Kannel.getInstance().getKannelmap().get(kannelid).toString());
 
 				new FileWrite().write(logmap);
 				PollerStartup.getInstance(kannelid,smscid).runninguser.remove(key);

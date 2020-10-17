@@ -102,11 +102,11 @@ public class PollerStartup {
 			
 			logmap.put("status","the start poller ");
 			new FileWrite().write(logmap);
-			PollerStartup.getInstance(kannelid, smscid).runninguser.add(key);
 
 			new DBReceiver(kannelid, smscid).start();
 		
-		
+			PollerStartup.getInstance(kannelid, smscid).runninguser.add(key);
+
 			
 			}
 		}
