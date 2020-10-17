@@ -52,14 +52,8 @@ public class QueueSender {
 		}
 		if(redisid!=null){
 			
-			if(queuename.startsWith("smppdn_")){
-			
-				redisid=RedisQueueConnectionPool.getInstance().getRedisId(redisid,queuename,isRetry);
-
-			}
-			if(redisid!=null){
+		
 				result=new RedisWrite().lpushtoQueue(RedisQueueConnectionPool.getInstance().getPool(redisid,queuename),MODE+queuename , requestObject) ;
-			}
 		}
 		
 		if(!result) {
