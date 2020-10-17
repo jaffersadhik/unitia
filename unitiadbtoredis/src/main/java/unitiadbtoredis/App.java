@@ -26,6 +26,8 @@ public class App
     	start("smppdn");
     	start("httpdn");
     	start("logspool");
+    	start("appspool");
+    	start("submissionpool");
 
     	new T().start();
     	
