@@ -36,7 +36,7 @@ public class DLRCount {
 			
 
 		}
-	static String SQL="select smsc,count(*) cnt from {0} group by smsc";
+	static String SQL="select a.smsc smsc,count(*) cnt from dlr_unitia a,dlr_unitia_resp b where a.smsc=b.smsc and a.ts=b.ts  group by smsc";
 	
 	private static DLRCount obj=null;
 
