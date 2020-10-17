@@ -43,7 +43,7 @@ public class DBReceiver extends Thread {
 		
 		while(true){
 			
-		
+			try{
 			Map<String,Object> logmap=new HashMap<String,Object>();
 
 			logmap.put("username","sys");
@@ -92,7 +92,12 @@ public class DBReceiver extends Thread {
 				return;
 			}
 			
-			
+			}catch(Exception e){
+				
+				e.printStackTrace();
+				
+				gotosleep();
+			}
 		}
 	}
 	
