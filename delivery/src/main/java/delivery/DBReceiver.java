@@ -38,6 +38,7 @@ public class DBReceiver extends Thread {
 	
 		this.smscid=smscid;
 			
+		System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " started");
 	}
 	public void run(){
 		
@@ -55,6 +56,9 @@ public class DBReceiver extends Thread {
 			
 				
 			long start=System.currentTimeMillis();
+			
+			System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " fetching record");
+
 			List<Map<String,Object>> data=getData(logmap);
 			
 			if(data!=null&&data.size()>0){
@@ -63,30 +67,42 @@ public class DBReceiver extends Thread {
 			
 				logmap.put("record count ",""+data.size());
 				
-				
+				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " fetching record count "+data.size());
+
 				long start1=System.currentTimeMillis();
 
 				List<Map<String,Object>> result=getPersistResult(data);
+			
+				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " insert record count "+result.size());
+
 				
 				updateMap(result);
 				
+				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " after update record count "+result.size());
+
 				untilPersist(result);
 				
-					end=System.currentTimeMillis();
+				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " after insert record count "+result.size());
+
 					
 						
-				start1=System.currentTimeMillis();
 				deleteUntilSuccess(data,logmap);
-				end=System.currentTimeMillis();
-				end=System.currentTimeMillis();
+				
+				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " after delete record count "+data.size());
+
+				
 				logmap.put("status ","cycle completed");
 
 				new FileWrite().write(logmap);
 			}else{
 				logmap.put("status ","no records available stop the poller");
+			
 				logmap.put("dbprop ",Kannel.getInstance().getKannelmap().get(kannelid).toString());
+				
+				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " no record avilable");
 
 				new FileWrite().write(logmap);
+				
 				PollerStartup.getInstance(kannelid,smscid).runninguser.remove(key);
 				
 				return;

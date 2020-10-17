@@ -1,9 +1,5 @@
 package delivery;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,9 +7,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import com.winnovature.unitia.util.account.PushAccount;
-import com.winnovature.unitia.util.db.CampaignDBConnection;
-import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.FileWrite;
@@ -120,37 +113,6 @@ public class PollerStartup {
 	private boolean isRunningUser(String kannelid,String smscid) {
 		String key=kannelid+"~"+smscid;
 		return runninguser.contains(key);
-	}
-	private static Set<String> getAvailableUser(String tablename) {
-		
-		Set<String> availableuser=new HashSet<String>();
-
-		Connection connection=null;
-		PreparedStatement statement=null;
-		ResultSet resultset=null;
-		
-		try{
-			
-			connection=CampaignDBConnection.getInstance().getConnection();
-			statement=connection.prepareStatement("select distinct username from uiq_campaign."+tablename);
-			resultset=statement.executeQuery();
-			
-			while(resultset.next()){
-				
-				availableuser.add(resultset.getString("username").toLowerCase());
-			}
-		}catch(Exception e){
-			
-			e.printStackTrace();
-		}finally{
-			
-			Close.close(resultset);
-			Close.close(statement);
-			Close.close(connection);
-		}
-		
-		return availableuser;
-		
 	}
 
 }
