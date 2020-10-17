@@ -201,9 +201,17 @@ public class App
 	private static String getSMSCConfig(Map<String, String> data) {
 
 
+		String isTrx=data.get("is_trx");
+		
+		if(isTrx==null){
+			
+			isTrx="1";
+		}
 		
 		StringBuffer sb=new StringBuffer();
     	
+		if(isTrx.equals("1")){
+	
 		sb.append("\n");
     	sb.append("\n");
     	
@@ -228,7 +236,62 @@ public class App
       	
     	sb.append("\n");
     	sb.append("\n");
-    	
+		}else{
+
+			
+			sb.append("\n");
+	    	sb.append("\n");
+	    	
+	    	sb.append("group = smsc").append("\n");	
+	    	sb.append("smsc = smpp").append("\n");		
+	    	sb.append("smsc-id = "+data.get("smscid")+"").append("\n");		
+	    	sb.append("allowed-smsc-id = "+data.get("smscid")+"").append("\n");	
+	    	sb.append("host = "+data.get("ip")+"").append("\n");		
+	    	sb.append("port="+data.get("port")+"").append("\n");
+	    	sb.append("receive-port= 0").append("\n");		
+	      	sb.append("system-type =\"\"").append("\n");		
+	      	sb.append("enquire-link-interval=20").append("\n");		
+	    	sb.append("source-addr-ton=5").append("\n");		
+	      	sb.append("source-addr-npi=0").append("\n");		
+	      	sb.append("dest-addr-ton=1").append("\n");		
+	     	sb.append("dest-addr-npi=0").append("\n");		
+	      	sb.append("alt-charset = utf-8").append("\n");		
+	      	sb.append("smsc-username =\""+data.get("username")+"\"").append("\n");		
+	      	sb.append("smsc-password =\""+data.get("password")+"\"").append("\n");		
+	    	sb.append("log-file = \"/var/log/kannel/"+data.get("smscid")+".log\"").append("\n");		
+
+	      	
+	    	sb.append("\n");
+	    	sb.append("\n");
+
+	    	
+	    	
+			sb.append("\n");
+	    	sb.append("\n");
+	    	
+	    	sb.append("group = smsc").append("\n");	
+	    	sb.append("smsc = smpp").append("\n");		
+	    	sb.append("smsc-id = "+data.get("smscid")+"").append("\n");		
+	    	sb.append("allowed-smsc-id = "+data.get("smscid")+"").append("\n");	
+	    	sb.append("host = "+data.get("ip")+"").append("\n");		
+	    	sb.append("port= 0 ").append("\n");
+	    	sb.append("receive-port="+data.get("port")+"").append("\n");		
+	      	sb.append("system-type =\"\"").append("\n");		
+	      	sb.append("enquire-link-interval=20").append("\n");		
+	    	sb.append("source-addr-ton=5").append("\n");		
+	      	sb.append("source-addr-npi=0").append("\n");		
+	      	sb.append("dest-addr-ton=1").append("\n");		
+	     	sb.append("dest-addr-npi=0").append("\n");		
+	      	sb.append("alt-charset = utf-8").append("\n");		
+	      	sb.append("smsc-username =\""+data.get("username")+"\"").append("\n");		
+	      	sb.append("smsc-password =\""+data.get("password")+"\"").append("\n");		
+	    	sb.append("log-file = \"/var/log/kannel/"+data.get("smscid")+".log\"").append("\n");		
+
+	      	
+	    	sb.append("\n");
+	    	sb.append("\n");
+
+		}
     	return sb.toString();
 	
 		

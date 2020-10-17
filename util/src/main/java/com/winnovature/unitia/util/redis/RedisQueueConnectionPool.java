@@ -73,7 +73,7 @@ public class RedisQueueConnectionPool {
 	
 	public String getRedisId(String redisid,String queuename, boolean isRetry) {
 
-		if(redisqueuemap.get(redisid).isAvailableQueue(queuename, isRetry)){
+		if(!redisqueuemap.get(redisid).isAvailableQueue(queuename, isRetry)){
 			
 			return redisid;
 		}
