@@ -80,7 +80,6 @@ try{
 
 		smscqueue=result;
 		insertQueueintoDB();
-		System.out.println(result);
 
 }catch(Exception e){
 	e.printStackTrace();

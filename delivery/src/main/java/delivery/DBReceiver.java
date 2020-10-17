@@ -257,7 +257,6 @@ private void updateMap(List<Map<String, Object>> datalist) {
 			statement1 = connection.prepareStatement(sql1);
 			statement2 = connection.prepareStatement(sql2);
 
-			statement1.setString(1, smscid);
 
 
 			for (int i=0,max=data.size();i<max;i++) {
