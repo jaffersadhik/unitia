@@ -28,6 +28,7 @@ public class T  extends Thread{
 	
 	static{
 
+		TABLES.add("appspool");
 		TABLES.add("dngenpool");
 		TABLES.add("submissionpool");
 		TABLES.add("smppdn");

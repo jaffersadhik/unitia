@@ -462,7 +462,12 @@ public class SMSProcessor {
 
 		if(isfurtherprocess){
 			
-			String kannelresponse=connectKannel(splitupmsg.get(MapKeys.KANNEL_URL).toString());
+			String kannelresponse="sent.";
+			
+			if(!(msgmap.get(MapKeys.SMSCID).toString().equals("apps")||msgmap.get(MapKeys.SMSCID).toString().equals("reapps"))){
+				
+				kannelresponse=connectKannel(splitupmsg.get(MapKeys.KANNEL_URL).toString());
+			}
 		
 			msgmap.put("kannelresponse", kannelresponse);
 
@@ -506,7 +511,13 @@ public class SMSProcessor {
 	public void connectKannelURL() throws Exception{
 
 		if(isfurtherprocess){
-			String kannelresponse=connectKannel(msgmap.get(MapKeys.KANNEL_URL).toString());
+			
+			String kannelresponse="sent.";
+			
+			if(!(msgmap.get(MapKeys.SMSCID).toString().equals("apps")||msgmap.get(MapKeys.SMSCID).toString().equals("reapps"))){
+				
+				kannelresponse=connectKannel(msgmap.get(MapKeys.KANNEL_URL).toString());
+			}
 			msgmap.put("kannelresponse", kannelresponse);
 			
 			if(kannelresponse==null){	
@@ -1040,8 +1051,20 @@ public class SMSProcessor {
 
 	private void doBilling(Map<String,Object> logmap)  throws Exception {
 	
+			String queuename="submissionpool";
 			
-			if(new QueueSender().sendL("submissionpool", msgmap, false, logmap)){
+			String smscid="";
+			
+			if(msgmap.get(MapKeys.SMSCID)!=null){
+				
+				smscid=msgmap.get(MapKeys.SMSCID).toString();
+			}
+			
+			if(smscid.equals("apps")||smscid.equals("reapps")){
+				
+				queuename="appspool";
+			}
+			if(new QueueSender().sendL(queuename, msgmap, false, logmap)){
 				
 				logmap.put("sms processor status", "Message Sent to billing Queue Successfully");
 			
