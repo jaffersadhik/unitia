@@ -117,7 +117,7 @@ public class Kannel {
 		prop.put("numTestsPerEviction", "-1");
 		prop.put("MaxWaitMillis", "3000");
 		prop.put("poolPreparedStatements", "true");
-		prop.put("maxTotal", "2");
+		prop.put("maxTotal", "20");
 
 	
 
