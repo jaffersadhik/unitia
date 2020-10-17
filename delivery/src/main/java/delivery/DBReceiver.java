@@ -5,26 +5,19 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import com.winnovature.unitia.util.dao.Select;
-import com.winnovature.unitia.util.db.CampaignDBConnection;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.KannelStoreDBConnection;
 import com.winnovature.unitia.util.db.ReportDAO;
-import com.winnovature.unitia.util.dngen.ErrorCodeType;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.processor.DNProcessor;
-import com.winnovature.unitia.util.redis.QueueSender;
-import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 
 
@@ -75,6 +68,8 @@ public class DBReceiver extends Thread {
 
 				List<Map<String,Object>> result=getPersistResult(data);
 				
+				updateMap(result);
+				
 				untilPersist(result);
 				
 					end=System.currentTimeMillis();
@@ -101,7 +96,21 @@ public class DBReceiver extends Thread {
 	}
 	
 	
-	
+
+private void updateMap(List<Map<String, Object>> datalist) {
+		
+		
+		for(int i=0,max=datalist.size();i<max;i++){
+			
+			Map<String, Object> data=datalist.get(i);
+			
+			new DNProcessor(data,new HashMap()).doProcess();
+			
+		
+		}
+		
+		
+	}
 	private void untilPersist(List<Map<String, Object>> datalist) {
 
 
