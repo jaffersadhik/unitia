@@ -12,7 +12,6 @@ import java.util.Properties;
 
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
-import com.winnovature.unitia.util.db.KannelDBConnection;
 import com.winnovature.unitia.util.db.KannelStoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 
@@ -118,7 +117,6 @@ public class DLRCount {
 		Map<String,String> result=new HashMap<String,String>();
 		
 		try{
-			connection=KannelDBConnection.getInstance().getConnection();
 			statement=connection.prepareStatement(getQuery(SQL,tablename));
 			resultset=statement.executeQuery();
 			while(resultset.next()){
