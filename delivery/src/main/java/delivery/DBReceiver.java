@@ -163,7 +163,7 @@ private void updateMap(List<Map<String, Object>> datalist) {
 			try {
 
 				connection = KannelStoreDBConnection.getInstance(kannelid, Kannel.getInstance().getKannelmap().get(kannelid)).getConnection();
-				String sql=" select a.smsc smsc,a.url r,b.url dlr,b.mask status from dlr_unitia a,dlr_unitia_resp b where a.smsc=b.smsc and a.ts=b.ts and a.smsc=? limit 500";
+				String sql=" select a.smsc smsc,a.ts ts,a.url r,b.url dlr,b.mask status from dlr_unitia a,dlr_unitia_resp b where a.smsc=b.smsc and a.ts=b.ts and a.smsc=? limit 500";
 				
 				logmap.put("sql", sql);
 				
