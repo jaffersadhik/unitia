@@ -57,10 +57,7 @@ public class DBReceiver extends Thread {
 	}
 	public void run(){
 		
-		if(poolname.equals("dndelaypool")){
-			
-			return;
-		}
+		
 	if(!Table.getInstance().isAvailableTable(poolname)){
 			
 			Table.getInstance().addTable(poolname);

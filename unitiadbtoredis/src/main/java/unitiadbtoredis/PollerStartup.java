@@ -107,7 +107,7 @@ public class PollerStartup {
 			
 			
 
-			if(PushAccount.instance().getPushAccount(username)!=null){
+			if(PushAccount.instance().getPushAccount(username)!=null||username.equals("sys")){
 				
 				logmap.put("status","the start poller ");
 				new FileWrite().write(logmap);
