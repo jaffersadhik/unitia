@@ -14,6 +14,7 @@ import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.KannelDBConnection;
 import com.winnovature.unitia.util.db.KannelStoreDBConnection;
+import com.winnovature.unitia.util.db.TableExsists;
 
 
 public class DLRCount {
@@ -44,7 +45,7 @@ public class DLRCount {
 
 	private DLRCount(){
 		
-		
+		checkQueueTableAvailable();
 	}
 	
 	
@@ -64,6 +65,29 @@ public class DLRCount {
 		return obj;
 	}
 	
+	
+	private void checkQueueTableAvailable() {
+		Connection connection=null;
+		
+		try{
+			connection=CoreDBConnection.getInstance().getConnection();
+			TableExsists table=new TableExsists();
+			
+			if(!table.isExsists(connection, "queue_count_dlr")){
+				
+				table.create(connection, "create table queue_count_dlr(queuename varchar(50),count numeric(10,0),updatetime numeric(13,0),mode varchar(25) default 'production',kannelid varchar(25) default 'kannel1'  )", false);
+			}
+			
+			
+			
+		}catch(Exception e){
+			 e.printStackTrace();
+		}finally{
+		
+			Close.close(connection);
+		}
+		
+	}
 	public void doProcess() throws SQLException{
 		
 		Map<String,Properties> map=com.winnovature.unitia.util.db.Kannel.getInstance().getKannelmap();

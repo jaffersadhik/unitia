@@ -83,7 +83,7 @@ public class PollerStartup {
 				logmap.put("logname", "sqlboxdnpoller");
 
 				String key=kannelid+"~"+smscid;
-			if(instance.get(key).isRunningUser(kannelid,smscid)){
+			if(PollerStartup.getInstance(kannelid, smscid).isRunningUser(kannelid,smscid)){
 				logmap.put("status","poller already running ,skip the start poller ");
 				new FileWrite().write(logmap);
 
