@@ -204,26 +204,25 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	     
 	     while(itr.hasNext()){
 	    	 
-	 		System.out.println(itr.next());
+	 		itr.next();
 
 	     }
 	     
-	 		System.out.println(values.get("smscs"));
+	 		values.get("smscs");
 
 	     StringTokenizer st=new StringTokenizer(values.get("smscs"),"\t");
 	     
 	     Map<String,Map<String,String>> result=new HashMap<String,Map<String,String>>();
 	     
-	     System.out.println(st.nextToken());
+	     st.nextToken();
 	     
 	     int i=0;
 	     while(st.hasMoreTokens()){
 
-		     System.out.println("#####################################################");
-
-	    	 System.out.println(++i);
 		     
-		     System.out.println(st.nextToken());
+	    	 ++i;
+		     
+		     st.nextToken();
 		     String smscid=st.nextToken();
 		     
 		     Map<String,String> data=result.get(smscid);
@@ -235,7 +234,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		    	 result.put(smscid, data);
 		    	 
 		     }
-		     System.out.println(st.nextToken());
+		     st.nextToken();
 		     String status=st.nextToken();
 
 		     if(status.startsWith("online")){
@@ -266,7 +265,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		     }catch(Exception e){
 		    	 
 		     }
-		     System.out.println(st.nextToken());
+		     st.nextToken();
 		     String sent=st.nextToken();
 		     
 		     try{
@@ -277,7 +276,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		     }catch(Exception e){
 		    	 
 		     }
-		     System.out.println(st.nextToken());
+		     st.nextToken();
 		     
 		     String senttps=st.nextToken();
 		     
@@ -300,7 +299,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		    	 
 		     }
 		     
-		     System.out.println(st.nextToken());
+		     st.nextToken();
 		 	
 		    
 		     String receicvedtps=st.nextToken();
@@ -314,10 +313,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		     }catch(Exception e){
 		    	 
 		     }
-	     System.out.println(st.nextToken());
-
-	     
-		     System.out.println("#####################################################");
+	     st.nextToken();
 		     
 	     }
 	     
@@ -347,26 +343,23 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	     
 	     while(itr.hasNext()){
 	    	 
-	 		System.out.println(itr.next());
+	 		itr.next();
 
 	     }
 	     
-	 		System.out.println(values.get("smscs"));
+	 		values.get("smscs");
 
 	     StringTokenizer st=new StringTokenizer(values.get("smscs"),"\t");
 	     
 	     Map<String,Map<String,String>> result=new HashMap<String,Map<String,String>>();
 	     
-	     System.out.println(st.nextToken());
+	     st.nextToken();
 	     
 	     int i=0;
 	     while(st.hasMoreTokens()){
-
-		     System.out.println("#####################################################");
-
-	    	 System.out.println(++i);
+	    	 ++i;
 		    
-		     System.out.println(st.nextToken());
+		     st.nextToken();
 		     String smscid=st.nextToken();
 		     
 		     Map<String,String> data=result.get(smscid);
@@ -378,7 +371,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		    	 result.put(smscid, data);
 		    	 
 		     }
-		     System.out.println(st.nextToken());
+		     st.nextToken();
 		     String status=st.nextToken();
 
 		     if(status.startsWith("online")){
@@ -440,9 +433,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	    	 
 	     }
 	    
-	     
-		     System.out.println("#####################################################");
-		     
+	         
 	     }
 	     
 	     return result;
