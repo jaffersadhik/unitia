@@ -258,6 +258,7 @@ public class App
 	      	sb.append("alt-charset = utf-8").append("\n");		
 	      	sb.append("smsc-username =\""+data.get("username")+"\"").append("\n");		
 	      	sb.append("smsc-password =\""+data.get("password")+"\"").append("\n");		
+	      	sb.append("transceiver-mode=false").append("\n");		
 	    	sb.append("log-file = \"/var/log/kannel/"+data.get("smscid")+".log\"").append("\n");		
 
 	      	
@@ -285,7 +286,8 @@ public class App
 	      	sb.append("alt-charset = utf-8").append("\n");		
 	      	sb.append("smsc-username =\""+data.get("username")+"\"").append("\n");		
 	      	sb.append("smsc-password =\""+data.get("password")+"\"").append("\n");		
-	    	sb.append("log-file = \"/var/log/kannel/"+data.get("smscid")+".log\"").append("\n");		
+	      	sb.append("transceiver-mode=false").append("\n");		
+	      	sb.append("log-file = \"/var/log/kannel/"+data.get("smscid")+".log\"").append("\n");		
 
 	      	
 	    	sb.append("\n");
