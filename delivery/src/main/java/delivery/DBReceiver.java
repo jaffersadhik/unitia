@@ -298,7 +298,7 @@ private void updateMap(List<Map<String, Object>> datalist) {
 			
 			connection.commit();
 			
-			return false;
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
