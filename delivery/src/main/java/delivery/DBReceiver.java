@@ -38,7 +38,6 @@ public class DBReceiver extends Thread {
 	
 		this.smscid=smscid;
 			
-		System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " started");
 	}
 	public void run(){
 		
@@ -57,7 +56,6 @@ public class DBReceiver extends Thread {
 				
 			long start=System.currentTimeMillis();
 			
-			System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " fetching record");
 
 			List<Map<String,Object>> data=getData(logmap);
 			
@@ -67,29 +65,19 @@ public class DBReceiver extends Thread {
 			
 				logmap.put("record count ",""+data.size());
 				
-				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " fetching record count "+data.size());
 
 				long start1=System.currentTimeMillis();
 
 				List<Map<String,Object>> result=getPersistResult(data);
 			
-				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " insert record count "+result.size());
 
 				
 				updateMap(result);
 				
-				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " after update record count "+result.size());
 
 				untilPersist(result);
 				
-				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " after insert record count "+result.size());
-
-					
-						
 				deleteUntilSuccess(data,logmap);
-				
-				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " after delete record count "+data.size());
-
 				
 				logmap.put("status ","cycle completed");
 
@@ -99,7 +87,6 @@ public class DBReceiver extends Thread {
 			
 				logmap.put("dbprop ",Kannel.getInstance().getKannelmap().get(kannelid).toString());
 				
-				System.out.println("kannelid : "+kannelid+" smscid : "+smscid+ " no record avilable");
 
 				new FileWrite().write(logmap);
 				
