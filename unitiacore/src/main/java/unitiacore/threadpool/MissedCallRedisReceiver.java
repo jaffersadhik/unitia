@@ -83,11 +83,12 @@ public class MissedCallRedisReceiver extends  Thread {
 
 					msgmap.put(MapKeys.SENDERID_ORG, smsdata.get("senderid"));
 
-					msgmap.put(MapKeys.MSGID, ACKIdGenerator.getAckId());
+					String ackid=ACKIdGenerator.getAckId();
+					msgmap.put(MapKeys.ACKID,ackid );
 
-					msgmap.put(MapKeys.ACKID, ACKIdGenerator.getAckId());
+					msgmap.put(MapKeys.MSGID, ackid);
 					
-					data.put(MapKeys.PARAM1, msgmap.get(MapKeys.ACKID));
+					data.put(MapKeys.PARAM1,ackid);
 
 					msgmap.put(MapKeys.FULLMSG, smsdata.get("sms"));
 					
