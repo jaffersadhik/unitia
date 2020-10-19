@@ -1697,6 +1697,19 @@ public Map<String, Map<String, String>> getRoute(Connection connection) {
 					circle=Route.NULL;
 				}
 				
+				if(groupname_trans==null||groupname_trans.trim().length()<1) {
+					groupname_trans=Route.NULL;
+					
+					continue;
+				}
+				
+				
+				if(groupname_promo==null||groupname_promo.trim().length()<1) {
+					groupname_promo=Route.NULL;
+					
+					continue;
+				}
+				
 				 Map<String, String> data=new HashMap<String, String>();
 				 data.put(Route.ROUTE_TRANS,groupname_trans.trim());
 				 data.put(Route.ROUTE_PROMO,groupname_promo.trim());
