@@ -20,14 +20,14 @@ public class App
     	new T().start();
     	
     	
+    	start1("appspool");
 
-    	start("dnreceiverpool");
-    	start("appspool");
-
+    	start2("dnreceiverpool");
+    	
 
      }
 
-	private static void start(String poolname) {
+	private static void start1(String poolname) {
 		
 		
 		
@@ -53,7 +53,13 @@ public class App
 		
 		}
 
+	}    
 
+
+
+	private static void start2(String poolname) {
+		
+		
 		for(int i=0;i<5;i++){
 			
 
@@ -75,5 +81,6 @@ public class App
 		
 		}
 	}    
+
 }
 
