@@ -113,6 +113,7 @@ public class App extends AbstractHandler
     	
 		Map<String, Object> logmap = new HashMap<String,Object>();
 
+		logmap.put("username", "sys");
 		logmap.put("module", "http receiver");
 		logmap.put("logname", "unknowncntext");
 		logmap.put("link", "unknowncntext");
