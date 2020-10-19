@@ -9,6 +9,7 @@ import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.Prop;
 
+import unitiacore.threadpool.MissedCallRedisReceiver;
 import unitiacore.threadpool.RedisReceiver;
 
 public class App 
@@ -29,6 +30,8 @@ public class App
     	log.log("unitiacore.App.doProcess() memory refresh thread started");
 
     
+     	start("missedcallpool");
+
     	
      	start("kannelretrypool");
     	log.log("unitiacore.App.doProcess() kannelretrypool thread started");
@@ -65,7 +68,14 @@ public class App
 					pollerlist.add(obj);
 				}
 			
+		}else if(poolname.equals("missedcallpool")){
+			
+			
+			MissedCallRedisReceiver obj=new MissedCallRedisReceiver(1,poolname,redisid);
+			obj.start();
+
 		}else{
+		
 			for(int i=0;i<2;i++){
 		
 				RedisReceiver obj=new RedisReceiver(i,poolname,redisid);

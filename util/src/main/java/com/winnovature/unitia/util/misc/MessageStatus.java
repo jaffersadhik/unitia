@@ -53,6 +53,8 @@ public class MessageStatus {
 	public static final int INTL_DELIVERY_DISABLED = 134;
 	public static final int  PROMO_DELIVERY_DISBALED=135;
 	public static final int KANNEL_RESPONSE_FAILED = 136;
+	public static final int VMN_USERNAME_MAPPING_MISSING = 137;
+
 	
 	private static Map<String,String> status=new HashMap<String,String>();
 	
@@ -106,6 +108,7 @@ public class MessageStatus {
 		status.put(""+MessageStatus.INTL_DELIVERY_DISABLED, "Message Rejected due to International Delivery disbaled For this Account");
 		status.put(""+MessageStatus.PROMO_DELIVERY_DISBALED, "Message Rejected due to Promo Delivery disbaled For this Account");
 		status.put(""+MessageStatus.KANNEL_RESPONSE_FAILED, "Message Rejected due to Invalid Response from Kannel");
+		status.put(""+MessageStatus.VMN_USERNAME_MAPPING_MISSING, "Missed Call Received But VMN Username Mapping Missing");
 
 	}
 

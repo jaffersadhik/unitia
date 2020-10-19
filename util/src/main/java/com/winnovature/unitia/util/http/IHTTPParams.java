@@ -2,6 +2,15 @@ package com.winnovature.unitia.util.http;
 
 public interface IHTTPParams
 {
+	
+	public final String VMN="vmn";
+	
+	public final String TIMESTAMP="timestamp";
+	
+	public final String CIRCLE="circle";
+
+	public final String OPERATOR="operator";
+
 	/**
 	 * Pin
 	 */

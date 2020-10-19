@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.winnovature.unitia.util.account.MissedCallForward;
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.connect.OnewayHTTPSURLConnector;
 import com.winnovature.unitia.util.misc.ErrorMessage;
@@ -33,12 +34,36 @@ public class DNHttpPost
 
 	public void doProcess()
     {
+		
+		
+		String attempttype=null;
+		
+		if(msgmap.get(MapKeys.ATTEMPT_TYPE)!=null){
+			attempttype=msgmap.get(MapKeys.ATTEMPT_TYPE).toString();
+		}
+		if(attempttype!=null&&attempttype.equals("9")){
+			
+			String url=MissedCallForward.getInstance().getUrl(msgmap.get(MapKeys.PARAM2).toString());
+			
+			 connect(url,attempttype);
+
+		}else{
+			
 		String url=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DLR_POST_URL);
     
+		 connect(url,attempttype);
+		 
+		}
+    }
+    
+    private void connect(String url, String attempttype) {
 		
+
 		long start=System.currentTimeMillis();
 		
 		String response="";
+		
+		
 				
 				if(url.startsWith("https")){
 					
@@ -46,7 +71,7 @@ public class DNHttpPost
 					
 					try {
 						
-						response=connector.connectPostMethod(url, getURLParamsMap());
+						response=connector.connectPostMethod(url, getURLParamsMap(attempttype));
 					} catch (Exception e) {
 						response=ErrorMessage.getMessage(e);
 					}
@@ -55,7 +80,7 @@ public class DNHttpPost
 					if(!url.endsWith("?")){
 						url+="?";
 					}
-					url+=getURLParams();
+					url+=getURLParams(attempttype);
 
 					response=deliverThroughURL(url);
 				}
@@ -85,9 +110,10 @@ public class DNHttpPost
 		
         new FileWrite().write(logmap);
 
-    }
-    
-    private void sendToQ(Map<String, Object> msgmap, Map<String, Object> logmap) {
+		
+	}
+
+	private void sendToQ(Map<String, Object> msgmap, Map<String, Object> logmap) {
     	
 		
 		new QueueSender().sendL("dnpostpool", msgmap, false,logmap);
@@ -98,25 +124,39 @@ public class DNHttpPost
 	}
 
     
-	private HashMap getURLParamsMap() {
+	private HashMap getURLParamsMap(String attempttype) {
 		
     	SimpleDateFormat sdf=new SimpleDateFormat(DATE_FORMAT);
     	HashMap<String,String> data=new HashMap<String,String> ();
     	data.put("username", URLEncoder.encode(msgmap.get(MapKeys.USERNAME).toString()));
     	data.put("rtime", sdf.format(new Date(Long.parseLong(msgmap.get(MapKeys.RTIME).toString()))));
+    	
+    	if(msgmap.get(MapKeys.CARRIER_DONETIME)!=null){
     	data.put("ctime", sdf.format(new Date(Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME).toString()))));
-
+    	}
+    	if(msgmap.get(MapKeys.STATUSID)!=null){
     	data.put("statusid", URLEncoder.encode(msgmap.get(MapKeys.STATUSID).toString()));
-
-    	data.put("operator", URLEncoder.encode(msgmap.get(MapKeys.OPERATOR).toString()));
-    	data.put("circle", URLEncoder.encode(msgmap.get(MapKeys.CIRCLE).toString()));
     	data.put("status", URLEncoder.encode(MessageStatus.getInstance().getState(msgmap.get(MapKeys.STATUSID).toString())));
 
+    	}
+    	data.put("operator", URLEncoder.encode(msgmap.get(MapKeys.OPERATOR).toString()));
+    	data.put("circle", URLEncoder.encode(msgmap.get(MapKeys.CIRCLE).toString()));
+    	
+    	
+    	if(msgmap.get(MapKeys.SENDERID_ORG)!=null){
     	data.put("from", URLEncoder.encode(msgmap.get(MapKeys.SENDERID_ORG).toString()));
+    	}
+    	if(msgmap.get(MapKeys.MOBILE)!=null){
     	data.put("to", URLEncoder.encode(msgmap.get(MapKeys.MOBILE).toString()));
+    	}
     	data.put("ackid", URLEncoder.encode(msgmap.get(MapKeys.ACKID).toString()));
+    	
+    	if(attempttype==null || !attempttype.equals("9")){
     	data.put("totalsmscount", URLEncoder.encode(msgmap.get(MapKeys.TOTAL_MSG_COUNT)==null?"0":msgmap.get(MapKeys.TOTAL_MSG_COUNT).toString()));
     	data.put("usedcredit",URLEncoder.encode(msgmap.get(MapKeys.CREDIT)==null?"0":msgmap.get(MapKeys.CREDIT).toString()));
+
+    	}
+    	
     	
     	if(msgmap.get(MapKeys.PARAM1)!=null){
     	
@@ -145,24 +185,44 @@ public class DNHttpPost
     	return data;
     }
 
-	private String getURLParams() {
+	private String getURLParams(String attempttype) {
 		
     	SimpleDateFormat sdf=new SimpleDateFormat(DATE_FORMAT);
     	StringBuffer sb=new StringBuffer();
     	
     	sb.append("username=").append(URLEncoder.encode(msgmap.get(MapKeys.USERNAME).toString())).append("&");
     	sb.append("rtime=").append(sdf.format(new Date(Long.parseLong(msgmap.get(MapKeys.RTIME).toString())))).append("&");
+    	
+    	if(msgmap.get(MapKeys.CARRIER_DONETIME)!=null){
     	sb.append("ctime=").append(sdf.format(new Date(Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME).toString())))).append("&");
+    	}
+    	
+    	if(msgmap.get(MapKeys.STATUSID)!=null){
+
     	sb.append("statusid=").append(URLEncoder.encode(msgmap.get(MapKeys.STATUSID).toString())).append("&");
+    	sb.append("status=").append(URLEncoder.encode(MessageStatus.getInstance().getState(msgmap.get(MapKeys.STATUSID).toString()))).append("&");
+    	
+    	}
     	sb.append("operator=").append(URLEncoder.encode(msgmap.get(MapKeys.OPERATOR).toString())).append("&");
     	sb.append("circle=").append(URLEncoder.encode(msgmap.get(MapKeys.CIRCLE).toString())).append("&");
-    	sb.append("status=").append(URLEncoder.encode(MessageStatus.getInstance().getState(msgmap.get(MapKeys.STATUSID).toString()))).append("&");
+    	
+    	if(msgmap.get(MapKeys.SENDERID_ORG)!=null){
+
     	sb.append("from=").append(URLEncoder.encode(msgmap.get(MapKeys.SENDERID_ORG).toString())).append("&");
+    	}
+    	
+    	
     	sb.append("to=").append(URLEncoder.encode(msgmap.get(MapKeys.MOBILE).toString())).append("&");
     	sb.append("ackid=").append(URLEncoder.encode(msgmap.get(MapKeys.ACKID).toString())).append("&");
+    	
+    	if(attempttype==null || !attempttype.equals("9")){
+
     	sb.append("totalsmscount=").append(URLEncoder.encode(msgmap.get(MapKeys.TOTAL_MSG_COUNT)==null?"0":msgmap.get(MapKeys.TOTAL_MSG_COUNT).toString())).append("&");
     	sb.append("usedcredit=").append(URLEncoder.encode(msgmap.get(MapKeys.CREDIT)==null?"0":msgmap.get(MapKeys.CREDIT).toString())).append("&");
 
+    	}
+    	
+    	
     	if(msgmap.get(MapKeys.PARAM1)!=null){
     	
         	sb.append("param1=").append(URLEncoder.encode(msgmap.get(MapKeys.PARAM1).toString())).append("&");
