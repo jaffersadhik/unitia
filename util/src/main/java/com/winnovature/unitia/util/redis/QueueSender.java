@@ -1,11 +1,8 @@
 package com.winnovature.unitia.util.redis;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.winnovature.unitia.util.dao.Insert;
-import com.winnovature.unitia.util.misc.FileWrite;
-import com.winnovature.unitia.util.misc.MapKeys;
 
 public class QueueSender {
 

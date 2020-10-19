@@ -47,7 +47,6 @@ public class MissedCallProcessor
 			this.logmap=logmap;
 			this.msgmap=msgmap;
 		
-			boolean isEmail = false;
 			//RequestObject requestObj	=	null;
 			String param2		=	request.getParameter(IHTTPParams.VMN);
 			String operator		=	request.getParameter(IHTTPParams.OPERATOR);
@@ -63,6 +62,12 @@ public class MissedCallProcessor
 			if(custIP==null){
 				custIP="";
 			}
+			
+			
+			msgmap.put(MapKeys.OPERATOR, operator);
+			msgmap.put(MapKeys.CIRCLE, circle);
+
+			msgmap.put(MapKeys.PARAM2, param2);
 			msgmap.put(MapKeys.CUSTOMERIP, custIP);
 			msgmap.put(MapKeys.MOBILE, mnumber);
 			msgmap.put(MapKeys.ATTEMPT_TYPE, "9");
@@ -82,7 +87,7 @@ public class MissedCallProcessor
 					
 					
 			
-				if(new QueueSender().sendL("missedcallpool", msgmap, false,logmap)){
+				if(!new QueueSender().sendL("missedcallpool", msgmap, false,logmap)){
 				
 				return getRejectedResponse(MessageStatus.SENT_TO_QUEUE_FAILED);
 				}
