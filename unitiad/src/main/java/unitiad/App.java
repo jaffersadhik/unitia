@@ -84,6 +84,9 @@ public class App {
 		}else if(module.equals("logs")){
 			
 			logs.App.doProcess();
+		}else if(module.equals("dnsql")){
+			
+			dnsql.App.doProcess();
 		}
 		
 		

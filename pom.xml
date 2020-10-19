@@ -32,6 +32,7 @@
   	<module>unitiad</module>
 
   	<module>logs</module>
+  	<module>dnsql</module>
     </modules>
   <dependencies>
   

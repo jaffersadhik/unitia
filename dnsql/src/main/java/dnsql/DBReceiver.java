@@ -1,4 +1,4 @@
-package delivery;
+package dnsql;
 
 import java.net.MalformedURLException;
 import java.net.URL;

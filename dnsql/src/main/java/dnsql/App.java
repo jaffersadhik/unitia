@@ -1,4 +1,4 @@
-package delivery;
+package dnsql;
 
 
 import java.util.Iterator;
@@ -20,18 +20,18 @@ public class App
     	new T().start();
     	
     	
+    	start1("appspool");
 
-    	start2("dnreceiverpool");
     	
 
      }
 
-
-
-	private static void start2(String poolname) {
+	private static void start1(String poolname) {
 		
 		
-		for(int i=0;i<5;i++){
+		
+
+		for(int i=0;i<1;i++){
 			
 
 			Map<String, RedisQueuePool> map=RedisQueueConnectionPool.getInstance().getPoolMap();
@@ -45,13 +45,17 @@ public class App
 				System.out.println(logstring);
 		
 			Log.log(logstring);
-			new RedisReceiver(poolname,redisid).start();
+			new AppsReceiver(poolname,redisid).start();
 
 			
 			}
 		
 		}
+
 	}    
+
+
+
 
 }
 
