@@ -28,6 +28,7 @@ public class App
     	start("logspool");
     	start("appspool");
     	start("submissionpool");
+    	start("missedcallpool");
 
     	new T().start();
     	

@@ -40,6 +40,8 @@ public class MissedCallProcessor
 		
 			try{
 				
+			msgmap.put(MapKeys.USERNAME, "sys");
+
 			msgmap.put(MapKeys.INTERFACE_TYPE, "missedcall");
 			msgmap.put(MapKeys.PROTOCOL, "http");
 			this.logmap=logmap;
