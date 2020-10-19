@@ -100,14 +100,42 @@ public class DLRCount {
 			
 			Map<String,String> result=getDLRCount(KannelStoreDBConnection.getInstance(kannelid, prop).getConnection(),prop.getProperty("mysql_tablename"));
 			
+			Map<String,String> emptymap=getEmptyMap(kannelid);
 			
-			insertQueueintoDB(kannelid,result);
+			emptymap.putAll(result);
+			insertQueueintoDB(kannelid,emptymap);
 		
 			kannelmap.put(kannelid, result);
 		}
 		
 		
 	}
+
+	private Map<String, String> getEmptyMap(String kannelid) {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String,String> result=new HashMap<String,String>();
+		try{
+			connection =CoreDBConnection.getInstance().getConnection();
+			statement=connection.prepareStatement("select queuename from queue_count_dlr where kannelid=?");
+			statement.setString(1, kannelid);
+			resultset=statement.executeQuery();
+			
+			while(resultset.next()){
+				
+				result.put(resultset.getString("queuename"), "0");
+			}
+		}catch(Exception e){
+			
+		}finally{
+			Close.close(resultset);
+			Close.close(statement);
+			Close.close(connection);
+		}
+		return result;
+	}
+
 
 	private Map<String, String> getDLRCount(Connection connection,String tablename) {
 		

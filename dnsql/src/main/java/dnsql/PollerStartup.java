@@ -70,11 +70,25 @@ public class PollerStartup {
 				Map<String,Object> logmap=new HashMap<String,Object>();
 
 				String smscid=itr1.next().toString();
+				String count=smscidmap.get(smscid).toString();
+				int size=0;
+				try{
+					size=Integer.parseInt(count);
+				}catch(Exception e){
+					
+				}
 				logmap.put("username","sys");
 				logmap.put("kannelid",kannelid);
 				logmap.put("smscid",smscid);
 				logmap.put("logname", "sqlboxdnpoller");
 
+				if(size<1){
+					logmap.put("status","0 queue size ,skip the start poller ");
+					new FileWrite().write(logmap);
+
+					continue;
+
+				}
 				String key=kannelid+"~"+smscid;
 			if(PollerStartup.getInstance(kannelid, smscid).isRunningUser(kannelid,smscid)){
 				logmap.put("status","poller already running ,skip the start poller ");
