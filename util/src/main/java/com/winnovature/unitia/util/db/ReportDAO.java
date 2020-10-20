@@ -213,7 +213,12 @@ public class ReportDAO {
 					statement.setString(44, (String) msgmap.get(MapKeys.CARRIER_LATENCY));
 
 					statement.setString(45, (String)msgmap.get(MapKeys.PLATFORM_LATENCY));
-					statement.setString(46, (String)msgmap.get(MapKeys.STATUSID));
+					if(msgmap.get(MapKeys.STATUSID)!=null){
+					statement.setString(46, msgmap.get(MapKeys.STATUSID).toString());
+					}else{
+						statement.setString(46, null);
+
+					}
 					statement.setString(47, (String)msgmap.get(MapKeys.STATUSID_ORG));
 
 					
