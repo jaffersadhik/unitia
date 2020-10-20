@@ -45,12 +45,16 @@ public class DNHttpPost
 			
 			String url=MissedCallForward.getInstance().getUrl(msgmap.get(MapKeys.PARAM2).toString());
 			
+			msgmap.put("clinet_url", url);
 			 connect(url,attempttype);
 
 		}else{
 			
 		String url=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DLR_POST_URL);
     
+
+		msgmap.put("clinet_url", url);
+		
 		 connect(url,attempttype);
 		 
 		}

@@ -1,7 +1,10 @@
 package unitiadnhttppost;
 
 
+import com.winnovature.unitia.util.account.MissedCallForward;
+import com.winnovature.unitia.util.account.MissedCallSMS;
 import com.winnovature.unitia.util.account.Refresh;
+import com.winnovature.unitia.util.account.VMNAccount;
 
 public class T  extends Thread{
 
@@ -15,6 +18,9 @@ public class T  extends Thread{
 				
 				Refresh.getInsatnce().reload();
 				
+				VMNAccount.getInstance().reload();
+				MissedCallForward.getInstance().reload();
+				MissedCallSMS.getInstance().reload();
 				gotosleep();
 
 			}catch(Exception e){
