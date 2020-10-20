@@ -64,6 +64,10 @@ public class MissedCallProcessor
 			}
 			
 			
+			if(param2!=null&&param2.trim().length()==10){
+				
+				param2="91"+param2.trim();
+			}
 			msgmap.put(MapKeys.OPERATOR, operator);
 			msgmap.put(MapKeys.CIRCLE, circle);
 

@@ -3,8 +3,11 @@ package unitiacore;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.winnovature.unitia.util.account.MissedCallForward;
+import com.winnovature.unitia.util.account.MissedCallSMS;
 import com.winnovature.unitia.util.account.Refresh;
 import com.winnovature.unitia.util.account.Route;
+import com.winnovature.unitia.util.account.VMNAccount;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.SMSCMaxQueue;
@@ -31,7 +34,9 @@ public class T  extends Thread{
 				Kannel.getInstance().reload();
 				SMSCMaxQueue.getInstance().reload();
 				com.winnovature.unitia.util.misc.kannel.reload();
-				
+				MissedCallSMS.getInstance().reload();
+				VMNAccount.getInstance().reload();
+				MissedCallForward.getInstance().reload();
 				
 				App.printThreadStatus();
 				

@@ -26,7 +26,7 @@ public class MissedCallForward {
 		reload();
 	}
 	
-	private void reload() {
+	public void reload() {
 		
 		Connection connection = null;
 		PreparedStatement statement = null;
