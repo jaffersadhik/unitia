@@ -207,7 +207,9 @@ public class ReportDAO {
 					statement.setString(39, (String)msgmap.get(MapKeys.CARRIER_MSGID));
 
 					statement.setString(40, (String)msgmap.get(MapKeys.CARRIER_SYSTEMID));
-					statement.setString(41, (String)msgmap.get(MapKeys.CARRIER_DR));
+//					statement.setString(41, (String)msgmap.get(MapKeys.CARRIER_DR));
+					statement.setString(41, null);
+
 					statement.setString(42, (String)msgmap.get(MapKeys.SMS_LATENCY));
 					statement.setString(43, (String)msgmap.get(MapKeys.SMS_LATENCY_ORG));
 					statement.setString(44, (String) msgmap.get(MapKeys.CARRIER_LATENCY));
