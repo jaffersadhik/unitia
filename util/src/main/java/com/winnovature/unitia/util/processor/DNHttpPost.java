@@ -103,7 +103,7 @@ public class DNHttpPost
 					try {
 						if(url.indexOf("?")>0){
 							
-							url=url.substring(0,url.indexOf("?"));
+							url=url.substring(0,url.indexOf("?"))+"?";
 							msgmap.put("client_actual_url", url);
 						}
 						HashMap reqmap1=getURLParamsMap(attempttype) ;
@@ -116,7 +116,7 @@ public class DNHttpPost
 					
 					if(url.indexOf("?")>0){
 						
-						url=url.substring(0,url.indexOf("?"));
+						url=url.substring(0,url.indexOf("?"))+"?";
 						msgmap.put("client_actual_url", url);
 
 					}
