@@ -177,8 +177,14 @@ public class OnewayHTTPSURLConnector {
 				
 				throw e;
 			} finally {
+				try{
 				httpPost.releaseConnection();
-			}
+
+				
+				}catch(Exception e1){
+					
+				}
+				}
 			return response;		
 	}
 	

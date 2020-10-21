@@ -104,10 +104,11 @@ public class DNHttpPost
 						if(url.indexOf("?")>0){
 							
 							url=url.substring(0,url.indexOf("?"));
+							msgmap.put("client_actual_url", url);
 						}
-						HashMap reqmap=getURLParamsMap(attempttype) ;
-						reqmap.putAll(extraparam);
-						response=connector.connectPostMethod(url,reqmap);
+						HashMap reqmap1=getURLParamsMap(attempttype) ;
+						reqmap1.putAll(extraparam);
+						response=connector.connectPostMethod(url,reqmap1);
 					} catch (Exception e) {
 						response=ErrorMessage.getMessage(e);
 					}
@@ -116,6 +117,8 @@ public class DNHttpPost
 					if(url.indexOf("?")>0){
 						
 						url=url.substring(0,url.indexOf("?"));
+						msgmap.put("client_actual_url", url);
+
 					}
 					url+=getURLParams(attempttype,extraparam);
 
