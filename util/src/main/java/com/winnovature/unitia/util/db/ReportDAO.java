@@ -241,19 +241,15 @@ public class ReportDAO {
 			statement.executeBatch();
 			connection.commit();
 			return true;
-		}catch(SQLException e){
-			if(e.getNextException()!=null){
-			System.err.println(e.getNextException().getMessage());
-			}
-			if(e instanceof java.sql.BatchUpdateException){
-				
-				
-			}
-			e.printStackTrace();
+		}catch(Exception e){
 			
-			}catch(Exception e){
-		
+			
 			e.printStackTrace();
+			try{
+				connection.rollback();
+			}catch(Exception e1){
+				
+			}
 			
 		}finally{
 			

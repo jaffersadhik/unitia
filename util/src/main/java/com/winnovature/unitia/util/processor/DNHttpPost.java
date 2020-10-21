@@ -4,12 +4,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import com.winnovature.unitia.util.account.MissedCallForward;
 import com.winnovature.unitia.util.account.PushAccount;
@@ -45,22 +48,46 @@ public class DNHttpPost
 			
 			String url=MissedCallForward.getInstance().getUrl(msgmap.get(MapKeys.PARAM2).toString());
 			
+			Map<String,String> extraparam=getExtraParam(url);
 			msgmap.put("clinet_url", url);
-			 connect(url,attempttype);
+			 connect(url,attempttype,extraparam);
 
 		}else{
 			
 		String url=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DLR_POST_URL);
     
+		Map<String,String> extraparam=getExtraParam(url);
+
 
 		msgmap.put("clinet_url", url);
 		
-		 connect(url,attempttype);
+		 connect(url,attempttype,extraparam);
 		 
 		}
     }
     
-    private void connect(String url, String attempttype) {
+    private Map<String, String> getExtraParam(String urls) {
+		
+    	   URL url=null;
+			try {
+				url = new URL(urls);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			 Map<String,String> reqmap=null;
+			if(url!=null){
+				
+				reqmap= getRequestParam(url.getQuery());
+
+			}else{
+				reqmap=new HashMap<String,String>();
+				
+			}
+    	
+		return reqmap;
+	}
+
+	private void connect(String url, String attempttype, Map extraparam) {
 		
 
 		long start=System.currentTimeMillis();
@@ -74,17 +101,23 @@ public class DNHttpPost
 					OnewayHTTPSURLConnector connector=new OnewayHTTPSURLConnector();
 					
 					try {
-						
-						response=connector.connectPostMethod(url, getURLParamsMap(attempttype));
+						if(url.indexOf("?")>0){
+							
+							url=url.substring(0,url.indexOf("?"));
+						}
+						HashMap reqmap=getURLParamsMap(attempttype) ;
+						reqmap.putAll(extraparam);
+						response=connector.connectPostMethod(url,reqmap);
 					} catch (Exception e) {
 						response=ErrorMessage.getMessage(e);
 					}
 				}else{
 					
-					if(!url.endsWith("?")){
-						url+="?";
+					if(url.indexOf("?")>0){
+						
+						url=url.substring(0,url.indexOf("?"));
 					}
-					url+=getURLParams(attempttype);
+					url+=getURLParams(attempttype,extraparam);
 
 					response=deliverThroughURL(url);
 				}
@@ -117,6 +150,29 @@ public class DNHttpPost
 		
 	}
 
+	
+	public Map getRequestParam(final String queryString)
+    {
+        final StringTokenizer st = new StringTokenizer(queryString, "&");
+        final HashMap reqParam = new HashMap();
+        while (st.hasMoreTokens())
+        {
+            final StringTokenizer st2 = new StringTokenizer(st.nextToken(), "=");
+            String key = "";
+            String value = "";
+            if (st2.hasMoreTokens())
+            {
+                key = st2.nextToken();
+                if (st2.hasMoreTokens())
+                {
+                    value = st2.nextToken();
+                }
+            }
+            reqParam.put(key, value);
+        }
+        return reqParam;
+    }
+	
 	private void sendToQ(Map<String, Object> msgmap, Map<String, Object> logmap) {
     	
 		
@@ -189,7 +245,7 @@ public class DNHttpPost
     	return data;
     }
 
-	private String getURLParams(String attempttype) {
+	private String getURLParams(String attempttype, Map extraparam) {
 		
     	SimpleDateFormat sdf=new SimpleDateFormat(DATE_FORMAT);
     	StringBuffer sb=new StringBuffer();
@@ -251,6 +307,14 @@ public class DNHttpPost
 
     	}
     	
+    	Iterator itr=extraparam.keySet().iterator();
+    	while(itr.hasNext()){
+    		
+    		String key=itr.next().toString();
+    		String value=extraparam.get(key).toString();
+        	sb.append("key=").append(value).append("&");
+
+    	}
     	return sb.toString();
     }
 
