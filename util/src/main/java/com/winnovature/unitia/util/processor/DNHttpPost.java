@@ -64,6 +64,7 @@ public class DNHttpPost
     
 		Map<String,String> extraparam=getExtraParam(url);
 
+		System.out.println("url : "+url);
 
 		msgmap.put("clinet_url", url);
 		
@@ -128,7 +129,10 @@ public class DNHttpPost
 					}
 					url+=getURLParams(attempttype,extraparam);
 
+					System.out.println("url : "+url);
 					response=deliverThroughURL(url);
+					System.out.println("response : "+response);
+
 				}
 				
 				
