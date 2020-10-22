@@ -256,6 +256,8 @@ public class DNProcessor
 		
      Map<String,String> accountinfo=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString());
     	
+		System.out.println("sendtoClientDnQueue() "+msgmap.get(MapKeys.USERNAME).toString()+" dlr post yn"+accountinfo.get(MapKeys.DLR_POST_YN));
+
     	if(accountinfo.get(MapKeys.DLR_POST_YN)!=null&&accountinfo.get(MapKeys.DLR_POST_YN).equals("1")){
     		
     		String protocol=msgmap.get(MapKeys.PROTOCOL).toString();
