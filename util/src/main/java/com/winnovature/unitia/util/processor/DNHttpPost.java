@@ -49,10 +49,14 @@ public class DNHttpPost
 			
 			attempttype="0";
 		}
+		
+		System.out.println("attempttype : "+attempttype);
+
 		if(attempttype!=null&&attempttype.equals("9")){
 			
 			String url=MissedCallForward.getInstance().getUrl(msgmap.get(MapKeys.PARAM2).toString());
-			
+			System.out.println("url : "+url);
+
 			Map<String,String> extraparam=getExtraParam(url);
 			msgmap.put("clinet_url", url);
 			 connect(url,attempttype,extraparam);
