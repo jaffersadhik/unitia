@@ -229,6 +229,8 @@ public class DNHttpPost
     	data.put("from", URLEncoder.encode(msgmap.get(MapKeys.SENDERID_ORG).toString()));
     	}
     	if(msgmap.get(MapKeys.MOBILE)!=null){
+        	data.put("phone", URLEncoder.encode(msgmap.get(MapKeys.MOBILE).toString()));
+
     	data.put("to", URLEncoder.encode(msgmap.get(MapKeys.MOBILE).toString()));
     	}
     	data.put("ackid", URLEncoder.encode(msgmap.get(MapKeys.ACKID).toString()));
