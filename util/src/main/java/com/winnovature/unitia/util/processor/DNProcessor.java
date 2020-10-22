@@ -255,12 +255,15 @@ public class DNProcessor
 	private void sendtoClientDnQueue() {
 		
      Map<String,String> accountinfo=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString());
-    	
-		System.out.println("sendtoClientDnQueue() "+msgmap.get(MapKeys.USERNAME).toString()+" dlr post yn"+accountinfo.get(MapKeys.DLR_POST_YN));
+		
+     	String protocol=msgmap.get(MapKeys.PROTOCOL).toString();
 
+		System.out.println("sendtoClientDnQueue() "+msgmap.get(MapKeys.USERNAME).toString()+" dlr post yn"+accountinfo.get(MapKeys.DLR_POST_YN)+" protocol : "+protocol);
+
+		msgmap.put(MapKeys.DLR_POST_YN, accountinfo.get(MapKeys.DLR_POST_YN));
+		
     	if(accountinfo.get(MapKeys.DLR_POST_YN)!=null&&accountinfo.get(MapKeys.DLR_POST_YN).equals("1")){
     		
-    		String protocol=msgmap.get(MapKeys.PROTOCOL).toString();
     		
     		if(protocol!=null){
     			
@@ -271,6 +274,8 @@ public class DNProcessor
 
     			}else if(protocol.equalsIgnoreCase("http")){
     				
+    				System.out.println("sendtoClientDnQueue() send to httpdn");
+
     				new QueueSender().sendL("httpdn", msgmap, false,logmap);
     				logmap.put("httpdn status", "send to httpdn redis queue");
     			}
