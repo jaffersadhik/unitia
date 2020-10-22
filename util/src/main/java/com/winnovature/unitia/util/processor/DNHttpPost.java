@@ -66,9 +66,10 @@ public class DNHttpPost
 			
 		String url=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DLR_POST_URL);
     
+		System.out.println("url : "+url);
+
 		Map<String,String> extraparam=getExtraParam(url);
 
-		System.out.println("url : "+url);
 
 		msgmap.put("clinet_url", url);
 		
@@ -79,6 +80,10 @@ public class DNHttpPost
     
     private Map<String, String> getExtraParam(String urls) {
 		
+    		if(!(urls.indexOf("?")>0)){
+    			
+    			return new HashMap<String,String>();
+    		}
     	   URL url=null;
 			try {
 				url = new URL(urls);
@@ -88,8 +93,14 @@ public class DNHttpPost
 			 Map<String,String> reqmap=null;
 			if(url!=null){
 				
+				String qs=url.getQuery();
+				if(qs!=null){
 				reqmap= getRequestParam(url.getQuery());
+				}else{
 
+					reqmap=new HashMap<String,String>();
+					
+				}
 			}else{
 				reqmap=new HashMap<String,String>();
 				
