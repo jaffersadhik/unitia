@@ -42,7 +42,12 @@ public class DNHttpPost
 		String attempttype=null;
 		
 		if(msgmap.get(MapKeys.ATTEMPT_TYPE)!=null){
+			
 			attempttype=msgmap.get(MapKeys.ATTEMPT_TYPE).toString();
+			
+		}else{
+			
+			attempttype="0";
 		}
 		if(attempttype!=null&&attempttype.equals("9")){
 			
@@ -52,8 +57,8 @@ public class DNHttpPost
 			msgmap.put("clinet_url", url);
 			 connect(url,attempttype,extraparam);
 
-			 return;
-		}
+			 
+		}else{
 			
 		String url=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DLR_POST_URL);
     
@@ -63,7 +68,7 @@ public class DNHttpPost
 		msgmap.put("clinet_url", url);
 		
 		 connect(url,attempttype,extraparam);
-		 
+		}
 		
     }
     
@@ -348,7 +353,7 @@ public class DNHttpPost
         catch (Exception e)
         {
              e.printStackTrace();
-             urlResponse=ErrorMessage.getMessage(e);
+             urlResponse+=ErrorMessage.getMessage(e);
         }
         finally
         {
@@ -357,14 +362,11 @@ public class DNHttpPost
                 reader.close();
             }
             catch (Exception ex)
-            {}
+            {             urlResponse+=ErrorMessage.getMessage(ex);
+
+            }
         }
-        try
-        {
-            reader.close();
-        }
-        catch (Exception ex2)
-        {}
+       
         
         return urlResponse;
     }
