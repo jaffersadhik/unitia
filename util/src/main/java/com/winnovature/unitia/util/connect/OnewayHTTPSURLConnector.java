@@ -149,10 +149,11 @@ public class OnewayHTTPSURLConnector {
 			
 			ProtocolSocketFactory	sslSocketFactory	=	new SSLProtocolSocketFactory(); 
 		
+			
 			Protocol myHTTPS = new Protocol( "https", sslSocketFactory , port );
 
 			Protocol.registerProtocol( "https", myHTTPS );
-
+			
 			HttpClient httpclient = new HttpClient();
 
 			httpPost = new PostMethod(urlString);
@@ -164,7 +165,6 @@ public class OnewayHTTPSURLConnector {
 					httpPost.addParameter(param, (String)params.get(param));
 				}
 			}
-			
 			httpclient.executeMethod(httpPost);
 			if(logger.isDebugEnabled())
 			logger.info(className+ "[connectPostMethod(String urlString, String data)] Status Line:  " +httpPost.getStatusLine());
@@ -182,7 +182,14 @@ public class OnewayHTTPSURLConnector {
 
 				
 				}catch(Exception e1){
-					
+					try{
+						
+						httpPost.abort();
+
+						
+					}catch(Exception e3){
+						
+					}
 				}
 				}
 			return response;		

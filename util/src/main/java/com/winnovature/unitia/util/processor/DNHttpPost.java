@@ -52,7 +52,8 @@ public class DNHttpPost
 			msgmap.put("clinet_url", url);
 			 connect(url,attempttype,extraparam);
 
-		}else{
+			 return;
+		}
 			
 		String url=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DLR_POST_URL);
     
@@ -63,7 +64,7 @@ public class DNHttpPost
 		
 		 connect(url,attempttype,extraparam);
 		 
-		}
+		
     }
     
     private Map<String, String> getExtraParam(String urls) {
