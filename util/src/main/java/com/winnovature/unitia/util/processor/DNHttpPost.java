@@ -63,8 +63,7 @@ public class DNHttpPost
 		}else{
 			
 		String url=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DLR_POST_URL);
-    
-
+ 
 		Map<String,String> extraparam=getExtraParam(url);
 
 
