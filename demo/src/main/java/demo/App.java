@@ -63,18 +63,33 @@ public class App extends AbstractHandler
 
 	public static void main(String[] args) throws Exception
     {
-    	
     	list.add(new Processor("msg1"));
 
     	list.add(new Processor("msg2"));
     	
     	list.add(new Processor("msg3"));
     	
+    	if(args==null||args.length==0){
         Server server = new Server(8080);
         server.setHandler(new App());
 
         server.start();
         server.join();
+        
+    	}else if(args[0].equals("msg1")){
+    		new Processor(args[0]);
+    	}else if(args[0].equals("msg2")){
+    		new Processor(args[0]);
+    	}else if(args[0].equals("msg3")){
+    		new Processor(args[0]);
+    	}else{
+    	
+    		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg1");
+    		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg2");
+    		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg3");
+    	}
+        
+        
     }
     
 
