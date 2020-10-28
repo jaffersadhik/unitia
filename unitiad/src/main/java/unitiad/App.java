@@ -87,6 +87,9 @@ public class App {
 		}else if(module.equals("dnsql")){
 			
 			dnsql.App.main(args);
+		}else if(module.equals("demo")){
+			
+			demo.App.main(args);
 		}
 		
 		
