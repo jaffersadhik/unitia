@@ -5,16 +5,16 @@
     <artifactId>unitia</artifactId>
     <version>1.0</version>
   </parent>
-  <artifactId>dnsql</artifactId>
-        <dependencies>
+  <artifactId>smppclient</artifactId>
+    <dependencies>
+  		<dependency>
+			<groupId>com.cloudhopper</groupId>
+			<artifactId>ch-smpp</artifactId>
+			<version>5.0.6</version>
+		</dependency>
   <dependency>
     <groupId>winovature</groupId>
     <artifactId>util</artifactId>
-    <version>1.0</version>
-</dependency>
- <dependency>
-    <groupId>winovature</groupId>
-    <artifactId>unitiaroute</artifactId>
     <version>1.0</version>
 </dependency>
   </dependencies>

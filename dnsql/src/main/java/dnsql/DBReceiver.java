@@ -11,13 +11,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.KannelStoreDBConnection;
 import com.winnovature.unitia.util.db.ReportDAO;
+import com.winnovature.unitia.util.misc.FeatureCode;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.processor.DNProcessor;
+import com.winnovature.unitia.util.redis.QueueSender;
+
+import unitiaroute.ReRouting;
 
 
 
@@ -79,6 +84,8 @@ public class DBReceiver extends Thread {
 				
 				deleteUntilSuccess(data,logmap);
 				
+				doDNRetryForAll(result);
+				
 				logmap.put("status ","cycle completed");
 
 				new FileWrite().write(logmap);
@@ -106,6 +113,14 @@ public class DBReceiver extends Thread {
 	
 	
 
+private void doDNRetryForAll(List<Map<String, Object>> result) {
+		
+	for(int i=0,max=result.size();i<max;i++){
+		
+		doDNRetry(result.get(i), new HashMap<String,Object>());
+	}
+		
+	}
 private void updateMap(List<Map<String, Object>> datalist) {
 		
 		
@@ -162,6 +177,35 @@ private void updateMap(List<Map<String, Object>> datalist) {
 		result.add(msgmap);
 		}
 		return result;
+	}
+	
+	private void doDNRetry(Map<String, Object> msgmap1,Map<String,Object> logmap) {
+		
+		if(msgmap1.get(MapKeys.ATTEMPT_TYPE).toString().equals("0") && PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN).equals("1")){
+			
+			Map<String,Object> msgmap=new HashMap(msgmap1);
+			
+			
+			String smscid=ReRouting.getInstance().getReRouteSmscid(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SMSCID_ORG).toString());
+
+			msgmap.put(MapKeys.SMSCID_ORG, smscid);
+
+			msgmap.put(MapKeys.SMSCID, smscid);
+
+			if(isFailureErrorCode(msgmap)&&FeatureCode.isDNRetry(msgmap.get(MapKeys.FEATURECODE).toString())&&smscid!=null){
+			
+				new QueueSender().sendL("dnretrypool", msgmap, false,logmap);
+
+			}
+		}
+		
+	}
+	
+	
+	private boolean isFailureErrorCode(Map<String, Object> msgmap) {
+
+		return (msgmap.get(MapKeys.CARRIER_ERR)!=null && !msgmap.get(MapKeys.CARRIER_ERR).toString().equals("000"));
+	
 	}
 	private List<Map<String, Object>> getData(Map<String, Object> logmap) {
 

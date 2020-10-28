@@ -33,6 +33,7 @@
 
   	<module>logs</module>
   	<module>dnsql</module>
+  	<module>smppclient</module>
     </modules>
   <dependencies>
   
