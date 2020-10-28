@@ -113,7 +113,7 @@ public class Session extends Thread{
 		Map<String,Object> data=null;
 
 		
-			data=reader.getData(smscid,redisid);
+		//	data=reader.getData(smscid,redisid);
 
 			
 		
