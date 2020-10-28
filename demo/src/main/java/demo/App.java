@@ -75,22 +75,24 @@ public class App extends AbstractHandler
 
         server.start();
         server.join();
-        
+        startprocessor();
     	}else if(args[0].equals("msg1")){
     		new Processor(args[0]);
     	}else if(args[0].equals("msg2")){
     		new Processor(args[0]);
     	}else if(args[0].equals("msg3")){
     		new Processor(args[0]);
-    	}else{
-    	
-    		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg1");
-    		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg2");
-    		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg3");
     	}
         
         
     }
+	private static void startprocessor() throws IOException {
+		
+		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg1");
+		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg2");
+		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg3");
+		
+	}
     
 
 }
