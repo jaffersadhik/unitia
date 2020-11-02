@@ -21,6 +21,7 @@ import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 import dnsql.DLRCount;
 import dnsql.PollerStartup;
 import dnsql.TableCount;
+import unitiaroute.ReRouting;
 
 
 
@@ -121,6 +122,7 @@ public class T  extends Thread{
 				
 				tableCountCheck();
 				
+				ReRouting.getInstance().reload();
 				RedisQueueConnectionPool.getInstance().print();
 
 				QueueTon.getInstance().checkQueueAvailablity();
