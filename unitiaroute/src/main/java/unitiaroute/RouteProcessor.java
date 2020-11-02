@@ -123,6 +123,11 @@ public class RouteProcessor {
 			
 			if(mobile.trim().length()==12){
 				
+				msgmap.put(MapKeys.OPERATOR, " ");
+				msgmap.put(MapKeys.CIRCLE, " ");
+	            msgmap.put(MapKeys.OPERATOR_NAME," ");
+	            msgmap.put(MapKeys.CIRCLE_NAME, " ");
+	
 				return;
 			}
 			msgmap.put(MapKeys.STATUSID, ""+MessageStatus.MOBILE_SERIES_NOT_REGISTERED_NP);
