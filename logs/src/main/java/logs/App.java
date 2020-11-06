@@ -15,6 +15,9 @@ public class App
 	
     public static void doProcess() 
     {
+    	
+		System.out.println("doProcess()");
+
     	start("logspool");
 	}
     
@@ -22,9 +25,13 @@ public class App
 
 	private static void start(String poolname) {
 		
+		System.out.println("start");
+
 	
 		for(int i=0;i<5;i++){
 			Map<String, RedisQueuePool> map=RedisQueueConnectionPool.getInstance().getPoolMap();
+
+			System.out.println("map : "+map);
 
 			Iterator itr=map.keySet().iterator();
 			

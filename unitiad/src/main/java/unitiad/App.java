@@ -82,7 +82,7 @@ public class App {
 			
 			kannelconfig.App.doProcess();
 		}else if(module.equals("logs")){
-			
+			System.out.println("inside selected logs");
 			logs.App.doProcess();
 		}else if(module.equals("dnsql")){
 			
