@@ -61,6 +61,10 @@ public class App extends AbstractHandler
         	
         	doProcessMissedCalls(request,response);
 
+        }else if(uri.equals("/mo")){
+        	
+        	doProcessMO(request,response);
+
         }else{
         	
         	doProcessUnknownContext(request,response);
@@ -69,7 +73,36 @@ public class App extends AbstractHandler
         baseRequest.setHandled(true);
     }
 
-    private void doProcessMissedCalls(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void doProcessMO(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+
+    	
+        Map<String,Object> msgmap= new HashMap<String,Object>();
+
+		ShortCodeProcessor processor = new ShortCodeProcessor();
+		Bean.setDefaultValues(msgmap);
+        Map<String, Object> logmap = new HashMap<String,Object>();
+		String responsestring=processor.processRequest(request,msgmap, logmap);
+		logmap.put("module", "http receiver");
+		if(responsestring.indexOf("100")>-1){
+			logmap.put("logname", "shortcode");
+
+		}else{
+			logmap.put("logname", "shortcodeerrorresponse");
+
+		}
+		logmap.put("link", "mo");
+		logmap.put("responsestring", responsestring);
+
+		logmap.putAll(msgmap);
+		new FileWrite().write(logmap);
+        response.getWriter().println(responsestring);
+
+		
+		
+	}
+
+	private void doProcessMissedCalls(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
     	
 

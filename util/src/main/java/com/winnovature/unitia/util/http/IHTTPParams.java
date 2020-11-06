@@ -3,6 +3,8 @@ package com.winnovature.unitia.util.http;
 public interface IHTTPParams
 {
 	
+	public final String SHORTCODE="shortcode";
+	
 	public final String VMN="vmn";
 	
 	public final String TIMESTAMP="timestamp";
@@ -153,6 +155,8 @@ public interface IHTTPParams
 	public final String PARAM3 = "param3";
 
 	public final String PARAM4 = "param4";
+
+	public final String CONTENT = "content";
 
 	/**
 	 * Usage		: Parameter from carrier, holds mobile no. 

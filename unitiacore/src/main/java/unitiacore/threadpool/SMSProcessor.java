@@ -481,7 +481,7 @@ public class SMSProcessor {
 			
 				kannelresponse=kannelresponse.toLowerCase();
 			
-			if(kannelresponse.startsWith("sent")||kannelresponse.startsWith("0: accepted for delivery")){
+			if(kannelresponse.startsWith("sent")||kannelresponse.startsWith("0: accepted for delivery")||kannelresponse.startsWith("3: queued for later delivery")){
 							
 				splitupmsg.put(MapKeys.STATUSID, ""+MessageStatus.KANNEL_SUBMIT_SUCCESS);
 			
@@ -527,7 +527,7 @@ public class SMSProcessor {
 			
 				kannelresponse=kannelresponse.toLowerCase();
 			
-			if(kannelresponse.startsWith("sent")||kannelresponse.startsWith("0: accepted for delivery")){
+			if(kannelresponse.startsWith("sent")||kannelresponse.startsWith("0: accepted for delivery")|| kannelresponse.startsWith("3: queued for later delivery")){
 			
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.KANNEL_SUBMIT_SUCCESS);
 		
