@@ -254,7 +254,7 @@ public class ReportDAO {
 					try{
 						logmap.put("module", "inserterror");
 						logmap.put("logname", "inserterror");
-						logmap.put("logname", ErrorMessage.getMessage(e));
+						logmap.put("error", ErrorMessage.getMessage(e));
 
 						new FileWrite().write(logmap);
 					}catch(Exception e1){
