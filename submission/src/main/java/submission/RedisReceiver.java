@@ -156,6 +156,8 @@ private void log(List<Map<String, Object>> datalist) {
 		logmap.put("module", "submission");
 		logmap.put("logname", "submission");
 		logmap.putAll(datalist.get(i));
+        new FileWrite().write(logmap);
+
 	}
 		
 	}

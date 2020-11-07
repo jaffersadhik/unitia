@@ -5,13 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.account.ReportLogTable;
 import com.winnovature.unitia.util.misc.Convertor;
+import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.FeatureCode;
+import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 
@@ -62,6 +65,7 @@ public class ReportDAO {
 		Connection connection =null;
 		PreparedStatement statement=null;
 		
+		Map<String, Object> logmap=null;
 		try{
 		
 			String sql=getSQL("billing."+tablename);
@@ -80,7 +84,7 @@ public class ReportDAO {
 			for(int i=0;i<datalist.size();i++){
 				
 				Map<String,Object> msgmap=datalist.get(i);
-				
+				logmap=msgmap;
 
 				statement.setString(1,(String) msgmap.get(MapKeys.ACKID));
 			
@@ -245,6 +249,19 @@ public class ReportDAO {
 			
 			
 			e.printStackTrace();
+			
+		     
+					try{
+						logmap.put("module", "inserterror");
+						logmap.put("logname", "inserterror");
+						logmap.put("logname", ErrorMessage.getMessage(e));
+
+						new FileWrite().write(logmap);
+					}catch(Exception e1){
+						
+					}
+			
+	        
 			try{
 				connection.rollback();
 			}catch(Exception e1){
