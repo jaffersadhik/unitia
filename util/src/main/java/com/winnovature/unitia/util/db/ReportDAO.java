@@ -179,7 +179,7 @@ public class ReportDAO {
 				statement.setString(26, (String)msgmap.get(MapKeys.PARAM2));
 				statement.setString(27, (String)msgmap.get(MapKeys.PARAM3));
 				statement.setString(28, (String)msgmap.get(MapKeys.PARAM4));
-				statement.setString(29, PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.AUTH_ID).toString());
+				statement.setString(29, (String) PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.AUTH_ID));
 				statement.setString(30, (String)msgmap.get(MapKeys.ATTEMPT_TYPE));
 				statement.setString(31, (String)msgmap.get(MapKeys.ALLOWED_PATTERN_ID));
 
