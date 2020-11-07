@@ -12,7 +12,7 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class VMNAccount {
 
-	private static final String SQL = "create table users_shortcode(serviceid INT PRIMARY KEY AUTO_INCREMENT,username varchar(16),shortcode decimal(15,0),message_pattern varchar(100),unique key(shortcode,message_pattern))";
+	private static final String SQL = "create table users_vmn(id INT PRIMARY KEY AUTO_INCREMENT,username varchar(16),vmn decimal(15,0) unique key)";
 
 	private static VMNAccount obj=null;
 	
@@ -34,7 +34,7 @@ public class VMNAccount {
 		Map<String,String> temp=new HashMap<String,String>();
 		try {
 			connection = CoreDBConnection.getInstance().getConnection();
-			statement=connection.prepareStatement("select * from users_shortcode");
+			statement=connection.prepareStatement("select * from users_vmn");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
@@ -70,11 +70,11 @@ public class VMNAccount {
 		try {
 			connection = CoreDBConnection.getInstance().getConnection();
 			TableExsists table = new TableExsists();
-			if(!table.isExsists(connection, "users_shortcode")){
+			if(!table.isExsists(connection, "users_vmn")){
 				
 					if (table.create(connection, SQL, false)) {
 
-						table.create(connection, "insert into users_shortcode(username,shortcode,message_pattern) values('unitia','56767','test test.*')", false);
+						table.create(connection, "insert into users_vmn(username,vmn) values('unitia','919487660738')", false);
 					}
 			
 			}
