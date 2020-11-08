@@ -36,7 +36,7 @@ public class ShortCodeAccount {
 		Map<String,List<Map<String,String>>> temp=new HashMap<String,List<Map<String,String>>>();
 		try {
 			connection = CoreDBConnection.getInstance().getConnection();
-			statement=connection.prepareStatement("select username,shortcode,message_pattern,post_yn,post_url,sms_send_yn,sms_content,lpad(length(message_pattern),5,'0') o  from users_shortcode order by o desc");
+			statement=connection.prepareStatement("select username,shortcode,message_pattern,post_yn,post_url,sms_send_yn,sms_content,senderid,lpad(length(message_pattern),5,'0') o  from users_shortcode order by o desc");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
