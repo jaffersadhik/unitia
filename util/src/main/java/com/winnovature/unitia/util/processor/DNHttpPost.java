@@ -14,6 +14,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.xml.crypto.Data;
+
 import com.winnovature.unitia.util.account.MissedCallForward;
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.connect.OnewayHTTPSURLConnector;
@@ -59,6 +61,18 @@ public class DNHttpPost
 			msgmap.put("clinet_url", url);
 			 connect(url,attempttype,extraparam);
 
+			 
+		}else if(attempttype!=null&&attempttype.equals("8")){
+			
+			try{
+			String url=msgmap.get("post_url").toString();
+
+			Map<String,String> extraparam=getExtraParam(url);
+			msgmap.put("clinet_url", url);
+			 connect(url,attempttype,extraparam);
+			}catch(Exception e){
+				
+			}
 			 
 		}else{
 			
@@ -266,6 +280,12 @@ public class DNHttpPost
 
     	}
     	
+    	
+    	if(msgmap.get(MapKeys.FULLMSG)!=null&&msgmap.get(MapKeys.FULLMSG).toString().trim().length()>0){
+    		
+        	data.put("content",URLEncoder.encode(msgmap.get(MapKeys.FULLMSG).toString()));
+
+    	}
     	return data;
     }
 
@@ -328,6 +348,13 @@ public class DNHttpPost
     	if(msgmap.get(MapKeys.PARAM4)!=null){
         	
         	sb.append("param4=").append(URLEncoder.encode(msgmap.get(MapKeys.PARAM4).toString())).append("&");
+
+    	}
+    	
+    	
+    	if(msgmap.get(MapKeys.FULLMSG)!=null&&msgmap.get(MapKeys.FULLMSG).toString().trim().length()>0){
+    		
+        	sb.append("content").append(URLEncoder.encode(msgmap.get(MapKeys.FULLMSG).toString())).append("&");
 
     	}
     	

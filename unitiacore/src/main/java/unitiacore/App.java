@@ -11,6 +11,7 @@ import com.winnovature.unitia.util.misc.Prop;
 
 import unitiacore.threadpool.MissedCallRedisReceiver;
 import unitiacore.threadpool.RedisReceiver;
+import unitiacore.threadpool.ShortCodeRedisReceiver;
 
 public class App 
 {
@@ -29,7 +30,8 @@ public class App
     	
     	log.log("unitiacore.App.doProcess() memory refresh thread started");
 
-    
+     	start("shortcodepool");
+
      	start("missedcallpool");
 
     	
@@ -72,6 +74,12 @@ public class App
 			
 			
 			MissedCallRedisReceiver obj=new MissedCallRedisReceiver(1,poolname,redisid);
+			obj.start();
+
+		}else if(poolname.equals("shortcodepool")){
+			
+			
+			ShortCodeRedisReceiver obj=new ShortCodeRedisReceiver(1,poolname,redisid);
 			obj.start();
 
 		}else{

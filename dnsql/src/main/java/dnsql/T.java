@@ -33,6 +33,7 @@ public class T  extends Thread{
 	
 	static{
 
+		TABLES.add("shortcodepool");
 		TABLES.add("missedcallpool");
 		TABLES.add("appspool");
 		TABLES.add("dngenpool");

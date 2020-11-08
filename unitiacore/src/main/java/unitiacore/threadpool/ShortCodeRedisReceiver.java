@@ -3,12 +3,14 @@ package unitiacore.threadpool;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import com.winnovature.unitia.util.account.MissedCallForward;
 import com.winnovature.unitia.util.account.MissedCallSMS;
 import com.winnovature.unitia.util.account.PushAccount;
-import com.winnovature.unitia.util.account.VMNAccount;
+import com.winnovature.unitia.util.account.ShortCodeAccount;
 import com.winnovature.unitia.util.misc.ACKIdGenerator;
 import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.FileWrite;
@@ -57,69 +59,75 @@ public class ShortCodeRedisReceiver extends  Thread {
 				data.put("tname", tname);
 				data.put(MapKeys.INSERT_TYPE, "submit");
 				
-				String username=VMNAccount.getInstance().getUsername(data.get(MapKeys.PARAM2).toString());
+				List<Map<String,String>> datalist=ShortCodeAccount.getInstance().getData(data.get(MapKeys.PARAM2).toString());
 	
-				if(username==null||PushAccount.instance().getPushAccount(username)==null){
+				if(datalist==null){
 					
-					data.put(MapKeys.STATUSID, ""+MessageStatus.VMN_USERNAME_MAPPING_MISSING);
-					
-					new QueueSender().sendL("submissionpool", data, false, new HashMap<String,Object>());
-					
+					log(data,"shortcode not configured");
 					continue;
 				}
 				
-				data.put(MapKeys.USERNAME, username);
+				if(findKeyWord(data,datalist)){
 				
-				Map<String,String> smsdata=MissedCallSMS.getInstance().getSMS(data.get(MapKeys.PARAM2).toString());
 				
-				if(smsdata!=null){
 					
 
 					Map<String,Object> msgmap=new HashMap<String,Object>();
 					
 					msgmap.putAll(data);
 					
-					msgmap.put(MapKeys.SENDERID,smsdata.get("senderid"));
+					msgmap.put(MapKeys.SENDERID,data.get("senderid"));
 
-					msgmap.put(MapKeys.SENDERID_ORG, smsdata.get("senderid"));
+					msgmap.put(MapKeys.SENDERID_ORG, data.get("senderid"));
 
 					String ackid=ACKIdGenerator.getAckId();
 					msgmap.put(MapKeys.ACKID,ackid );
 
 					msgmap.put(MapKeys.MSGID, ackid);
 					
-					String mnumber = new com.winnovature.unitia.util.misc.Utility().prefix91(username, msgmap.get(MapKeys.MOBILE).toString() ); 
+					String mnumber = new com.winnovature.unitia.util.misc.Utility().prefix91(data.get("username").toString(), msgmap.get(MapKeys.MOBILE).toString() ); 
 					
 					msgmap.put(MapKeys.MOBILE,mnumber);
 
 					data.put(MapKeys.PARAM1,ackid);
 
-					msgmap.put(MapKeys.FULLMSG, smsdata.get("sms"));
+					msgmap.put(MapKeys.FULLMSG, msgmap.get("sms_content"));
 					
-					msgmap.put(MapKeys.MESSAGE, smsdata.get("sms"));
+					msgmap.put(MapKeys.MESSAGE, msgmap.get("sms_content"));
 
-					msgmap.put(MapKeys.PARAM1, data.get(MapKeys.ACKID));
-					
 					setMsgType(msgmap);
 					
 					new SMSWorker("commonpool",msgmap).doOtp();
 				
-				}
+				
 				
 				
 				new QueueSender().sendL("submissionpool", data, false, new HashMap<String,Object>());
 
-				String forwardurl=MissedCallForward.getInstance().getUrl(data.get(MapKeys.PARAM2).toString());
 				
-				if(forwardurl!=null){
+				String post_yn=data.get("post_yn").toString();
+				
+				
+				if(post_yn.equals("1")){
 					
-					new QueueSender().sendL("httpdn", data, false, new HashMap<String,Object>());
+					String forwardurl=(String)data.get("post_url");
+					
+					if(forwardurl!=null&&forwardurl.trim().length()>0){
+				
+						new QueueSender().sendL("httpdn", data, false, new HashMap<String,Object>());
 
+					}
+					
 				}
 				
-				long end=System.currentTimeMillis();
 				
-				stats(poolname,redisid,start,end);
+			
+			
+				}else{
+					
+					log(data,"keyword/ message pattern  not configured");
+
+				}
 			}else{
 				
 				gotosleep();		
@@ -138,7 +146,43 @@ public class ShortCodeRedisReceiver extends  Thread {
 		}
 	
 	
-	  private static boolean isASCII(String word) throws UnsupportedEncodingException{
+	  private boolean findKeyWord(Map<String, Object> data, List<Map<String, String>> datalist) {
+		
+		  if(datalist!=null){
+			  
+			  for(int i=0,max=datalist.size();i<max;i++){
+			  
+				  Map<String,String> datamap=datalist.get(i);
+			  
+				  String pattern =datamap.get("message_pattern");
+				  
+				  try{
+					if(Pattern.compile(pattern, Pattern.CASE_INSENSITIVE).matcher(data.get(MapKeys.FULLMSG).toString()).matches())
+					{
+						data.putAll(datamap);
+						
+						return true;
+					}
+				  }catch(Exception e){
+					  
+				  }
+			  }
+		  }
+		return false;
+	}
+	private void log(Map<String, Object> data, String errormessage) {
+		
+			Map<String,Object> logmap=new HashMap<String,Object>();
+			
+			logmap.putAll(data);
+			logmap.put("module", "shortcode");
+			logmap.put("logname", "shortcodeerror");
+			logmap.put("errormessage", errormessage);
+
+	        new FileWrite().write(logmap);
+		
+	}
+	private static boolean isASCII(String word) throws UnsupportedEncodingException{
 		    for (char c: word.toCharArray()){
 		    	  
 		    	String encode=URLEncoder.encode(""+c,"UTF-16");

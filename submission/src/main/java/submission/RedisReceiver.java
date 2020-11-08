@@ -164,7 +164,7 @@ private void log(List<Map<String, Object>> datalist) {
 private void errorDNHandover(List<Map<String, Object>> datalist) {
 		
 		for(int i=0,max=datalist.size();i<max;i++){
-			
+			try{
 			Map<String, Object> data=datalist.get(i);
 			
 			if(data.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_SUCCESS)){
@@ -172,14 +172,14 @@ private void errorDNHandover(List<Map<String, Object>> datalist) {
 				continue;
 			}
 			
-			try {
+			
 				setDLRURL(data);
 				
 				deliverThroughURL(new URL(data.get(MapKeys.DLR_URL).toString()));
 				
 			} catch (Exception e) {
 				
-				e.printStackTrace();
+				
 			}
 		}
 		
