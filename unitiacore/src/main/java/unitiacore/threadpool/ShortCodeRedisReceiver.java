@@ -70,8 +70,13 @@ public class ShortCodeRedisReceiver extends  Thread {
 				if(findKeyWord(data,datalist)){
 				
 				
-					
+					String sms_yn=data.get("sms_send_yn").toString();
 
+					String sms=(String) data.get("sms_content");
+
+					if(sms_yn.equals("1")&&sms!=null&&sms.trim().length()>0){
+						
+					
 					Map<String,Object> msgmap=new HashMap<String,Object>();
 					
 					msgmap.putAll(data);
@@ -91,15 +96,15 @@ public class ShortCodeRedisReceiver extends  Thread {
 
 					data.put(MapKeys.PARAM1,ackid);
 
-					msgmap.put(MapKeys.FULLMSG, msgmap.get("sms_content"));
+					msgmap.put(MapKeys.FULLMSG,sms);
 					
-					msgmap.put(MapKeys.MESSAGE, msgmap.get("sms_content"));
+					msgmap.put(MapKeys.MESSAGE, sms);
 
 					setMsgType(msgmap);
 					
 					new SMSWorker("commonpool",msgmap).doOtp();
 				
-				
+					}
 				
 				
 				new QueueSender().sendL("submissionpool", data, false, new HashMap<String,Object>());

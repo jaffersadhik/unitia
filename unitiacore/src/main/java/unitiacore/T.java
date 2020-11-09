@@ -7,6 +7,7 @@ import com.winnovature.unitia.util.account.MissedCallForward;
 import com.winnovature.unitia.util.account.MissedCallSMS;
 import com.winnovature.unitia.util.account.Refresh;
 import com.winnovature.unitia.util.account.Route;
+import com.winnovature.unitia.util.account.ShortCodeAccount;
 import com.winnovature.unitia.util.account.VMNAccount;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.misc.FileWrite;
@@ -37,7 +38,7 @@ public class T  extends Thread{
 				MissedCallSMS.getInstance().reload();
 				VMNAccount.getInstance().reload();
 				MissedCallForward.getInstance().reload();
-				
+				ShortCodeAccount.getInstance().reload();
 				App.printThreadStatus();
 				
 				gotosleep();
