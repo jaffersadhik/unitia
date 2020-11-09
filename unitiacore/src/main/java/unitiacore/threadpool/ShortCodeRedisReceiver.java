@@ -98,12 +98,15 @@ public class ShortCodeRedisReceiver extends  Thread {
 
 					msgmap.put(MapKeys.FULLMSG,sms);
 					
+					msgmap.put(MapKeys.PARAM1, data.get(MapKeys.ACKID));
+					
 					msgmap.put(MapKeys.MESSAGE, sms);
 
 					setMsgType(msgmap);
 					
 					new SMSWorker("commonpool",msgmap).doOtp();
 				
+					logsms(msgmap);
 					}
 				
 				
@@ -152,7 +155,17 @@ public class ShortCodeRedisReceiver extends  Thread {
 		}
 	
 	
-	  private boolean findKeyWord(Map<String, Object> data, List<Map<String, String>> datalist) {
+	  private void logsms(Map<String, Object> msgmap) {
+		Map<String,Object> logmap=new HashMap<String,Object>();
+			
+			logmap.putAll(msgmap);
+			logmap.put("module", "shortcode");
+			logmap.put("logname", "shortcodesms");
+
+	        new FileWrite().write(logmap);
+		
+	}
+	private boolean findKeyWord(Map<String, Object> data, List<Map<String, String>> datalist) {
 		
 		  if(datalist!=null){
 			  
