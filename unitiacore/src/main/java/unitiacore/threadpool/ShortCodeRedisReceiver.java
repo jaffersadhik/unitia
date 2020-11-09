@@ -130,6 +130,7 @@ public class ShortCodeRedisReceiver extends  Thread {
 			
 				}else{
 					
+					data.put("available keywords", datalist.toString());
 					log(data,"keyword/ message pattern  not configured");
 
 				}
