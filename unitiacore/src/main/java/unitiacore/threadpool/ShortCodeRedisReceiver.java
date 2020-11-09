@@ -73,8 +73,10 @@ public class ShortCodeRedisReceiver extends  Thread {
 					String sms_yn=data.get("sms_send_yn").toString();
 
 					String sms=(String) data.get("sms_content");
+					
+					String username=(String)data.get("username");;
 
-					if(sms_yn.equals("1")&&sms!=null&&sms.trim().length()>0){
+					if(sms_yn.equals("1") && sms!=null && sms.trim().length()>0 && username!=null && PushAccount.instance().getPushAccount(username)!=null){
 						
 					
 					Map<String,Object> msgmap=new HashMap<String,Object>();
