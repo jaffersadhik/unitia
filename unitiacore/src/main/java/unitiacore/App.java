@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.FileWrite;
@@ -51,6 +52,15 @@ public class App
 
     	log.log("unitiacore.App.doProcess() dnretrypool thread started");
 
+    	if(Pattern.compile("(.*){0,}.*", Pattern.CASE_INSENSITIVE).matcher("test test").matches())
+		{
+			System.out.println("Template Mattched ok");
+		}else{
+			
+			System.out.println("no Template Mattched ");
+
+		}
+	
 
      }
 
