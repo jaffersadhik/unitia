@@ -252,6 +252,7 @@ public class RouteProcessor {
 				
 				}catch(Exception e){
 					
+					e.printStackTrace();
 				}
 			}
 			
