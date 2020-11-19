@@ -67,6 +67,7 @@ public class App extends AbstractHandler
    
         startprocessor();
         
+        new Th().start();
         
     }
 	private static void startprocessor() throws IOException {
