@@ -257,7 +257,8 @@ public class RouteProcessor {
 				RouterLog.routerlog(redisid, tname, "smspattern : "+spamPattern);
 
 				try{
-				if(Pattern.compile(spamPattern, Pattern.CASE_INSENSITIVE).matcher(fullmsg).matches())
+					boolean status=Pattern.compile(spamPattern, Pattern.CASE_INSENSITIVE).matcher(fullmsg).matches();
+				if(status)
 				{
 					msgmap.put(MapKeys.ROUTECLASS, "1");
 					msgmap.put(MapKeys.ALLOWED_PATTERN_ID, data.get("pattern_id"));
