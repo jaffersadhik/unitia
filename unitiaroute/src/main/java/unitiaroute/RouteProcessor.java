@@ -254,6 +254,8 @@ public class RouteProcessor {
 				Map<String,String> data=patternset.get(i);
 				String spamPattern=data.get("smspattern");
 			
+				RouterLog.routerlog(redisid, tname, "smspattern : "+spamPattern);
+
 				try{
 				if(Pattern.compile(spamPattern, Pattern.CASE_INSENSITIVE).matcher(fullmsg).matches())
 				{
@@ -277,6 +279,9 @@ public class RouteProcessor {
 		
 
 		String promorejectyn=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.PROMO_REJECT_YN);
+		RouterLog.routerlog(redisid, tname, "promorejectyn : "+promorejectyn);
+
+		
 		if(msgclass!=null&&msgclass.equals("1")&&promorejectyn!=null&&promorejectyn.equals("1")){
 			
 			msgmap.put(MapKeys.STATUSID, ""+MessageStatus.PROMO_DELIVERY_DISBALED);
