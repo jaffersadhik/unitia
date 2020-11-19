@@ -3,6 +3,7 @@ package unitiacore.threadpool;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 
@@ -117,6 +118,15 @@ try{
 	msgmap.put(MapKeys.ATTEMPT_TYPE, "0");
 	msgmap.put(MapKeys.TOTAL_MSG_COUNT,"1");
 
+	String username=(String)msgmap.get(MapKeys.USERNAME);
+	
+	if(username==null||PushAccount.instance().getPushAccount(username)==null){
+		
+		new FileWrite().logError("routerinvalidusername", msgmap, new Exception("Invalid Username"));
+		
+		return;
+		
+	}
 		RouteProcessor route=new RouteProcessor(msgmap);
 		
 		route.doCountryCodeCheck();
