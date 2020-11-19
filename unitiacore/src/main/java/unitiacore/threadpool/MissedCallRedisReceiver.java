@@ -102,7 +102,7 @@ public class MissedCallRedisReceiver extends  Thread {
 					
 					setMsgType(msgmap);
 					
-					new SMSWorker("commonpool",msgmap).doOtp();
+					new SMSWorker("commonpool",msgmap).doOtp(redisid,tname);
 				
 				}
 				

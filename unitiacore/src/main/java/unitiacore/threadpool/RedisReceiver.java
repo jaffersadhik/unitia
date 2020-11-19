@@ -51,7 +51,7 @@ public class RedisReceiver extends  Thread {
 	
 				if(poolname.equals("commonpool")){
 					
-					new SMSWorker(poolname,data).doOtp();
+					new SMSWorker(poolname,data).doOtp(redisid,tname);
 					
 					
 				}else if(poolname.equals("dngenpool")){
@@ -97,7 +97,7 @@ public class RedisReceiver extends  Thread {
 					
 				}else if(poolname.equals("otppool")){
 					
-					new SMSWorker(poolname,data).doOtp();
+					new SMSWorker(poolname,data).doOtp(redisid,tname);
 					
 				}
 				

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
+import com.winnovature.unitia.util.misc.RouterLog;
 
 import unitiaroute.RouteProcessor;
 
@@ -111,7 +112,7 @@ public class SMSWorker  {
 		processor.sentToNextLevel();
 	}
 	
-	public void doOtp(){
+	public void doOtp(String redisid, String tname){
 		
 try{
 	
@@ -128,31 +129,147 @@ try{
 		
 	}
 		RouteProcessor route=new RouteProcessor(msgmap);
-		
+		RouterLog.routerlog(redisid, tname, "start route.doCountryCodeCheck()");
 		route.doCountryCodeCheck();
+		RouterLog.routerlog(redisid, tname, "end route.doCountryCodeCheck()");
+
+		RouterLog.routerlog(redisid, tname, "start route.doNumberingPlan()");
+
 		route.doNumberingPlan();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doNumberingPlan()");
+
+		
+		RouterLog.routerlog(redisid, tname, "start route.doBlackListMobileNumber()");
+
 		route.doBlackListMobileNumber();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doBlackListMobileNumber()");
+
+		
+		RouterLog.routerlog(redisid, tname, "start route.doBlackListSenderid()");
+
 		route.doBlackListSenderid();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doBlackListSenderid()");
+
+		
+		RouterLog.routerlog(redisid, tname, "start route.doFilteringSMSPatternCheck()");
+
 		route.doFilteringSMSPatternCheck();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doFilteringSMSPatternCheck()");
+
+		
+		RouterLog.routerlog(redisid, tname, "start route.doBlackListSMSPattern()");
+
 		route.doBlackListSMSPattern();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doBlackListSMSPattern()");
+
+		RouterLog.routerlog(redisid, tname, "start route.doAllowedSMSPatternCheck()");
+
 		route.doAllowedSMSPatternCheck();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doAllowedSMSPatternCheck()");
+
+		RouterLog.routerlog(redisid, tname, "start route.doSenderCheck()");
+
 		route.doSenderCheck();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doSenderCheck()");
+
+		
+		RouterLog.routerlog(redisid, tname, "start route.doRouteGroupAvailable()");
+
 		route.doRouteGroupAvailable();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doRouteGroupAvailable()");
+
+		
+		RouterLog.routerlog(redisid, tname, "start route.doSMSCIDAvailable()");
+
 		route.doSMSCIDAvailable();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doSMSCIDAvailable()");
+
+		
+		RouterLog.routerlog(redisid, tname, "start route.doKannelAvailable()");
+
 		route.doKannelAvailable();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doKannelAvailable()");
+
+		
+		RouterLog.routerlog(redisid, tname, "start route.doEntityValidation()");
+
 		route.doEntityValidation();
 		
+		RouterLog.routerlog(redisid, tname, "end route.doEntityValidation()");
+
 		SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
+		
+		RouterLog.routerlog(redisid, tname, "start route.doOptin()");
+
 		processor.doOptin();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doOptin()");
+		
+		RouterLog.routerlog(redisid, tname, "start route.doOptout()");
+
 		processor.doOptout();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doOptout()");
+
+		RouterLog.routerlog(redisid, tname, "start route.doDuplicate()");
+
 		processor.doDuplicate();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doDuplicate()");
+
+		RouterLog.routerlog(redisid, tname, "start route.doDNDCheck()");
+
 		processor.doDNDCheck();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doDNDCheck()");
+
+		RouterLog.routerlog(redisid, tname, "start route.doFeatureCodeIndentification()");
+
 		processor.doFeatureCodeIndentification();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doFeatureCodeIndentification()");
+
+		RouterLog.routerlog(redisid, tname, "start route.doDNMessage()");
+
 		processor.doDNMessage();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doDNMessage()");
+
+		RouterLog.routerlog(redisid, tname, "start route.doConcate()");
+
 		processor.doConcate();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doConcate()");
+
+		RouterLog.routerlog(redisid, tname, "start route.setCredit()");
+
 		processor.setCredit();
+		
+		RouterLog.routerlog(redisid, tname, "end route.setCredit()");
+
+		RouterLog.routerlog(redisid, tname, "start route.submitKannel()");
+
 		processor.submitKannel();
+		
+		RouterLog.routerlog(redisid, tname, "end route.submitKannel()");
+
+		RouterLog.routerlog(redisid, tname, "start route.sentToNextLevel()");
+
+		
 		processor.sentToNextLevel();
+		
+		RouterLog.routerlog(redisid, tname, "end route.sentToNextLevel()");
+
 }catch(Exception e){
 	
 	new FileWrite().logError("SMSWorker", msgmap, e);
