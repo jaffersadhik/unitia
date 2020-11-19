@@ -65,7 +65,7 @@ public class SMSWorker  {
 		msgmap.put(MapKeys.ATTEMPT_TYPE, "0");
 		msgmap.put(MapKeys.TOTAL_MSG_COUNT,"1");
 
-			RouteProcessor route=new RouteProcessor(msgmap);
+			RouteProcessor route=new RouteProcessor(msgmap,"a","a");
 			
 			route.doCountryCodeCheck();
 			route.doNumberingPlan();
@@ -128,7 +128,7 @@ try{
 		return;
 		
 	}
-		RouteProcessor route=new RouteProcessor(msgmap);
+		RouteProcessor route=new RouteProcessor(msgmap,redisid,tname);
 		RouterLog.routerlog(redisid, tname, "start route.doCountryCodeCheck()");
 		route.doCountryCodeCheck();
 		RouterLog.routerlog(redisid, tname, "end route.doCountryCodeCheck()");

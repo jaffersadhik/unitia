@@ -14,16 +14,22 @@ import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.MessageType;
 import com.winnovature.unitia.util.misc.RoundRobinTon;
+import com.winnovature.unitia.util.misc.RouterLog;
 import com.winnovature.unitia.util.misc.ToJsonString;
 
 public class RouteProcessor {
 	
 	Map<String,Object> msgmap=null;
 	
+	String redisid=null;
+	String tname=null;
+	
 	private boolean isfurtherprocess=true;
 	
-	public RouteProcessor(Map<String,Object> msgmap){
-		
+	public RouteProcessor(Map<String,Object> msgmap, String redisid, String tname){
+	
+		this.redisid=redisid;
+		this.tname=tname;
 		this.msgmap=msgmap;
 	}
 	
@@ -198,6 +204,7 @@ public class RouteProcessor {
 
 		String msgclass=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.MSGCLASS);
 
+		RouterLog.routerlog(redisid, tname, "msgclass : "+msgclass);
 	
 		
 		if(isfurtherprocess){
@@ -211,6 +218,9 @@ public class RouteProcessor {
 			}
 
 			String templateid=(String)msgmap.get(MapKeys.TEMPLATEID);
+			
+			RouterLog.routerlog(redisid, tname, "templateid : "+templateid);
+
 			if(templateid!=null&&templateid.trim().length()>0){
 				
 				msgmap.put(MapKeys.DLT_TYPE, "customer");
@@ -221,6 +231,8 @@ public class RouteProcessor {
 			
 			String fullmsg=(String)msgmap.get(MapKeys.FULLMSG);
 			
+			RouterLog.routerlog(redisid, tname, "fullmsg : "+fullmsg);
+
 			try{
 				if(MessageType.isHexa( (String)msgmap.get(MapKeys.MSGTYPE))){
 					
@@ -231,6 +243,8 @@ public class RouteProcessor {
 			}
 			List<Map<String,String>>  patternset=SMSPatternAllowed.getInstance().getAllowedPaternSet(msgmap.get(MapKeys.USERNAME).toString());
 			
+			RouterLog.routerlog(redisid, tname, "patternset : "+patternset);
+
 			if(patternset!=null){
 			Iterator itr= patternset.iterator();
 			

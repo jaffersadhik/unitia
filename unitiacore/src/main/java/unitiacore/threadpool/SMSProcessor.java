@@ -242,7 +242,7 @@ public class SMSProcessor {
 		if(msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.INVALID_ROUTE_GROUP)){
 			
 						
-			RouteProcessor route=new RouteProcessor(msgmap);
+			RouteProcessor route=new RouteProcessor(msgmap,"c","c");
 			route.setIsfurtherprocess(true);
 			route.doRouteGroupAvailable();
 			route.doSMSCIDAvailable();
@@ -1607,7 +1607,7 @@ public void setDLRURL(Map<String,Object> splitmap)  throws Exception{
 			
 			this.msgmap=msgmap;
 			
-			RouteProcessor processor=new RouteProcessor(msgmap);
+			RouteProcessor processor=new RouteProcessor(msgmap,"b","b");
 			Map logmap=new HashMap<String,Object>();
 			
 			msgmap.put(MapKeys.FULLMSG,URLDecoder.decode(msgmap.get(MapKeys.FULLMSG).toString(),"UTF-8"));
