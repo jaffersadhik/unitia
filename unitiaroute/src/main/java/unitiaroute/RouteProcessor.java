@@ -262,6 +262,7 @@ public class RouteProcessor {
 					msgmap.put(MapKeys.ALLOWED_PATTERN_ID, data.get("pattern_id"));
 					msgmap.put(MapKeys.TEMPLATEID, data.get("pattern_id"));
 					msgmap.put(MapKeys.DLT_TYPE, "unitia");
+					RouterLog.routerlog(redisid, tname, "patternset : success");
 
 					return ;
 				}
