@@ -119,7 +119,7 @@ private static String MODE="";
 		
 	}
 	public void logError(String module,Map<String,Object> msgmap,Exception e) {
-		
+		try{
 		Map<String,Object> logmap=new HashMap<String,Object>();
 		logmap.put("module", module);
 		logmap.putAll(msgmap);
@@ -128,6 +128,10 @@ private static String MODE="";
 		logmap.put("Error Message",ErrorMessage.getMessage(e) );
 		logmap.put("logname","error");
 		write(logmap);
-		
+		}catch(Exception e1){
+			
+			e1.printStackTrace();
+			e.printStackTrace();
+		}
 	}
 }
