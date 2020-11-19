@@ -1210,6 +1210,18 @@ public class SMSProcessor {
 		}
 		}
 		
+		
+	if(msgmap.get(MapKeys.TEMPLATEID)!=null&&msgmap.get(MapKeys.ENTITYID)!=null){
+			
+			try{
+				kannelurl=kannelurl+"&meta-data=%3Fsmpp%3Fentityid%3D"+msgmap.get(MapKeys.ENTITYID).toString().trim()+"%26templateid%3D"+msgmap.get(MapKeys.TEMPLATEID).toString().trim();
+			
+				}catch(Exception e){
+					
+				}
+		}
+	
+		
 		String expiry=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.EXPIRY);
 		int expirtInt=0;
 		if(expiry!=null){
@@ -1306,7 +1318,7 @@ public class SMSProcessor {
 		if(msgmap.get(MapKeys.TEMPLATEID)!=null&&msgmap.get(MapKeys.ENTITYID)!=null){
 			
 			try{
-				kannelurl=kannelurl+"&meta-data=%3Fsmpp%3Fentityid%3D"+msgmap.get(MapKeys.ENTITYID).toString()+"%26templateid%3D"+msgmap.get(MapKeys.TEMPLATEID);
+				kannelurl=kannelurl+"&meta-data=%3Fsmpp%3Fentityid%3D"+msgmap.get(MapKeys.ENTITYID).toString().trim()+"%26templateid%3D"+msgmap.get(MapKeys.TEMPLATEID).toString().trim();
 			
 				}catch(Exception e){
 					

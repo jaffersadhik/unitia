@@ -151,6 +151,8 @@ public class RedisReceiver extends  Thread {
 	}
 	private void ping() {
 		
+		lastupdate=System.currentTimeMillis();
+		
 		Map<String,Object> logmap=new HashMap<String,Object>();
 		logmap.put("username", "sys");
 		logmap.put("logname", "routerping");
