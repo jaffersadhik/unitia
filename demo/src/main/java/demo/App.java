@@ -3,6 +3,7 @@ package demo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -63,34 +64,17 @@ public class App extends AbstractHandler
 
 	public static void main(String[] args) throws Exception
     {
-    	list.add(new Processor("msg1"));
-
-    	list.add(new Processor("msg2"));
-    	
-    	list.add(new Processor("msg3"));
-    	
-    	if(args==null||args.length==0){
-        Server server = new Server(8080);
-        server.setHandler(new App());
-
-        server.start();
-        server.join();
+   
         startprocessor();
-    	}else if(args[0].equals("msg1")){
-    		new Processor(args[0]);
-    	}else if(args[0].equals("msg2")){
-    		new Processor(args[0]);
-    	}else if(args[0].equals("msg3")){
-    		new Processor(args[0]);
-    	}
         
         
     }
 	private static void startprocessor() throws IOException {
 		
-		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg1");
-		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg2");
-		Runtime.getRuntime().exec("java -jar /unitiad.jar -Xms=180M -Xmx=180M msg3");
+		
+		boolean status=Pattern.compile(new SMSPatternAllowed().getPattern(), Pattern.CASE_INSENSITIVE).matcher("test \n test").matches();
+
+		System.out.println(status);
 		
 	}
     
