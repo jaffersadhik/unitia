@@ -364,6 +364,10 @@ public class DNProcessor
 
 		String smscid=msgmap.get(MapKeys.SMSCID_ORG).toString();
 		String carrier=Carrier.getInstance().getCarrier(smscid);
+		
+		if(carrier==null){
+			carrier="UNKNOWN";
+		}
 		String errorcode=msgmap.get(MapKeys.CARRIER_ERR).toString();
 		String statusid=MessageStatus.getInstance().getStatusid(carrier,errorcode);
 		String stat=msgmap.get(MapKeys.CARRIER_STAT).toString();
