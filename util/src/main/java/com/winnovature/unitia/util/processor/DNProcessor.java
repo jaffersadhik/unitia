@@ -366,12 +366,24 @@ public class DNProcessor
 		String carrier=Carrier.getInstance().getCarrier(smscid);
 		String errorcode=msgmap.get(MapKeys.CARRIER_ERR).toString();
 		String statusid=MessageStatus.getInstance().getStatusid(carrier,errorcode);
+		String stat=msgmap.get(MapKeys.CARRIER_STAT).toString();
 		
+		
+		if(stat.trim().length()>50){
+			
+			stat=stat.substring(0, 50);
+		}
+		
+		
+		if(errorcode.trim().length()>5){
+			
+			errorcode=errorcode.substring(0, 5);
+		}
 		if(statusid==null){
 			
 			TableExsists table=new TableExsists();
 			
-			table.insertMessageStatus(carrier.toUpperCase(),errorcode,msgmap.get(MapKeys.CARRIER_STAT).toString());
+			table.insertMessageStatus(carrier.toUpperCase(),errorcode,stat);
 			MessageStatus.getInstance().reload();
 			statusid=MessageStatus.getInstance().getStatusid(carrier,errorcode);
 		}

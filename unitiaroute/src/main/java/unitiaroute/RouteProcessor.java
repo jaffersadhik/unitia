@@ -256,7 +256,7 @@ public class RouteProcessor {
 			
 				RouterLog.routerlog(redisid, tname, "smspattern : "+spamPattern);
 
-				try{
+				
 					boolean status=Pattern.compile(spamPattern, Pattern.CASE_INSENSITIVE).matcher(fullmsg).matches();
 				if(status)
 				{
@@ -269,10 +269,7 @@ public class RouteProcessor {
 					return ;
 				}
 				
-				}catch(Exception e){
-					
-					e.printStackTrace();
-				}
+				
 			}
 			
 			}
