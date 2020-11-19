@@ -248,7 +248,6 @@ public class RouteProcessor {
 			RouterLog.routerlog(redisid, tname, "patternset : "+patternset);
 
 			if(patternset!=null){
-			Iterator itr= patternset.iterator();
 			
 			for(int i=0,max=patternset.size();i<max;i++){
 			
