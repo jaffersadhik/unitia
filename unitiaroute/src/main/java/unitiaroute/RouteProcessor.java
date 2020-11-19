@@ -204,6 +204,8 @@ public class RouteProcessor {
 
 		String msgclass=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.MSGCLASS);
 
+		RouterLog.routerlog(redisid, tname, "msgmap : "+msgmap.toString());
+
 		RouterLog.routerlog(redisid, tname, "msgclass : "+msgclass);
 	
 		
