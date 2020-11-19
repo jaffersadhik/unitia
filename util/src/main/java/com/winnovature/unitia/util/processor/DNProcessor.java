@@ -370,8 +370,12 @@ public class DNProcessor
 		}
 		String errorcode=msgmap.get(MapKeys.CARRIER_ERR).toString();
 		String statusid=MessageStatus.getInstance().getStatusid(carrier,errorcode);
-		String stat=msgmap.get(MapKeys.CARRIER_STAT).toString();
+		String stat=(String)msgmap.get(MapKeys.CARRIER_STAT);
 		
+		if(stat==null){
+		
+			stat="UNKNOWN";
+		}
 		
 		if(stat.trim().length()>50){
 			
