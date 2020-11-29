@@ -1,7 +1,5 @@
 package smppclient;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +7,7 @@ import java.util.Map;
 import com.cloudhopper.smpp.SmppBindType;
 import com.cloudhopper.smpp.SmppSessionConfiguration;
 
-public class Processor extends Process{
+public class Processor {
 	
 	private Map<String,String> data=null;
 	
@@ -36,7 +34,7 @@ public class Processor extends Process{
 			
 			for(int i=0,max=sessioncount;i<max;i++){
 				
-				sessionlist.add(new Session(config,data.get("mysqlid").toString(),data.get("smscid").toString(),(i+1)));
+				sessionlist.add(new Session(config,data.get("mysqlid").toString(),data.get("smscid").toString(),(i+1),data.get("mysqlid").toString()));
 			}
 			
 		}else{
@@ -48,9 +46,9 @@ public class Processor extends Process{
 
 			for(int i=0,max=sessioncount;i<max;i++){
 				
-				sessionlist.add(new Session(configTX,data.get("mysqlid").toString(),data.get("smscid").toString(),(i+1)));
+				sessionlist.add(new Session(configTX,data.get("mysqlid").toString(),data.get("smscid").toString(),(i+1),data.get("mysqlid").toString()));
 			
-				sessionlist.add(new Session(configRX,data.get("mysqlid").toString(),data.get("smscid").toString(),(i+1)));
+				sessionlist.add(new Session(configRX,data.get("mysqlid").toString(),data.get("smscid").toString(),(i+1),data.get("mysqlid").toString()));
 
 			}
 			
@@ -89,40 +87,5 @@ public class Processor extends Process{
 		return config;
 	}
 
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int exitValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public InputStream getErrorStream() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InputStream getInputStream() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public OutputStream getOutputStream() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int waitFor() throws InterruptedException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

@@ -37,6 +37,13 @@ public class App {
 			logmap.put("started", "router");
 
 			
+		}else if(module.equals("optin")){
+			
+			optin.App.doProcess();
+			
+			logmap.put("started", "optin");
+
+			
 		}else if(module.equals("dngen")){
 			
 			unitiadngen.App.main(args);

@@ -19,14 +19,17 @@ public class Handler implements SmppSessionHandler {
 	
 		private String systemid=null;
 		
+		private String kannelid=null;
+		
 		private long lastUpdateTime=System.currentTimeMillis();
 
 		
-		public Handler(String queuename,String smscid,String systemid){
+		public Handler(String queuename,String smscid,String systemid,String kannelid){
 			
 			this.queuename=queuename;
 			this.smscid=smscid;
 			this.systemid=systemid;
+			this.kannelid=kannelid;
 		}
 	
 	
@@ -97,7 +100,7 @@ public class Handler implements SmppSessionHandler {
 		
 		private void sendToQueue(String dn) {
 			
-			System.out.println(dn);
+			new DNSql().insertDN(kannelid, smscid, dn);
 			
 		}
 

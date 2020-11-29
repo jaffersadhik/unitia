@@ -1,4 +1,4 @@
-package com.winnovature.unitia.util.optout;
+package com.winnovature.unitia.util.optin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

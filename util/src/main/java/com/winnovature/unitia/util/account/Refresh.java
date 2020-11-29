@@ -6,7 +6,7 @@ import com.winnovature.unitia.util.misc.Carrier;
 import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.optin.OptinAccount;
-import com.winnovature.unitia.util.optout.OptoutAccount;
+import com.winnovature.unitia.util.optin.OptoutAccount;
 import com.winnovature.unitia.util.processor.DNSuccessMaskingProcessor;
 
 public class Refresh {

@@ -20,6 +20,11 @@
 </dependency>
  <dependency>
     <groupId>winovature</groupId>
+    <artifactId>optin</artifactId>
+    <version>1.0</version>
+</dependency>
+ <dependency>
+    <groupId>winovature</groupId>
     <artifactId>demo</artifactId>
     <version>1.0</version>
 </dependency>

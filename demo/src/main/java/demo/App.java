@@ -65,6 +65,8 @@ public class App extends AbstractHandler
 	public static void main(String[] args) throws Exception
     {
    
+        System.out.print("System.lineSeparator()" +System.lineSeparator() );
+
         startprocessor();
         
         new Th().start();

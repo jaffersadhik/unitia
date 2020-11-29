@@ -25,6 +25,8 @@ public class Session extends Thread{
 	
 	private String bindresponse=null;
 
+	private String kannelid=null;
+
 	private String smscid=null;
 	
 	private String queuename=null;
@@ -35,9 +37,11 @@ public class Session extends Thread{
 	
 	private String bindType=null;
 	
-	public Session(SmppSessionConfiguration config,String queuename,String smscid,int sessionid){
+	public Session(SmppSessionConfiguration config,String queuename,String smscid,int sessionid,String kannelid){
 	
 		this.bindType=config.getType().toString();
+		
+		this.kannelid=kannelid;
 		
 		this.sessionid=sessionid;
 		
@@ -47,7 +51,7 @@ public class Session extends Thread{
 		
 		this.queuename=queuename;
 		
-		this.handler	=new Handler(queuename, smscid, config.getSystemId());
+		this.handler	=new Handler(queuename, smscid, config.getSystemId(),kannelid);
 
 		this.start();
 			

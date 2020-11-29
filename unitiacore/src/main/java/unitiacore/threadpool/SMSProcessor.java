@@ -32,7 +32,7 @@ import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.MessageType;
 import com.winnovature.unitia.util.misc.SpecialCharacters;
 import com.winnovature.unitia.util.optin.OptinProcessor;
-import com.winnovature.unitia.util.optout.OptoutProcessor;
+import com.winnovature.unitia.util.optin.OptoutProcessor;
 import com.winnovature.unitia.util.redis.OtpMessageDNRegister;
 import com.winnovature.unitia.util.redis.QueueSender;
 

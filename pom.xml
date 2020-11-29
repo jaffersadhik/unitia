@@ -35,6 +35,7 @@
   	<module>dnsql</module>
   	<module>smppclient</module>
   	<module>demo</module>
+  	<module>optin</module>
     </modules>
   <dependencies>
   
