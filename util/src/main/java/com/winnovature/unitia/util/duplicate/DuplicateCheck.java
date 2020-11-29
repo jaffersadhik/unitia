@@ -1,9 +1,12 @@
-package com.winnovature.unitia.util.db;
+package com.winnovature.unitia.util.duplicate;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import com.winnovature.unitia.util.account.PushAccount;
+import com.winnovature.unitia.util.db.Close;
+import com.winnovature.unitia.util.db.DuplicateDBConnection;
+import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.MapKeys;
 
 public class DuplicateCheck {

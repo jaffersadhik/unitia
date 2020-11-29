@@ -1,7 +1,7 @@
 package unitiaroute;
 
 import com.winnovature.unitia.util.account.Route;
-import com.winnovature.unitia.util.db.DuplicateCheck;
+import com.winnovature.unitia.util.duplicate.DuplicateCheck;
 
 public class Refresh {
 

@@ -11,6 +11,8 @@ public class App
     	Prop.getInstance();
     	
     
+    	start("optin");
+    	start("optout");
 
     	start("dnreceiverpool");
     	start("dnpostpool");

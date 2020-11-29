@@ -44,6 +44,20 @@ public class App {
 			logmap.put("started", "optin");
 
 			
+		}else if(module.equals("optout")){
+			
+			optout.App.doProcess();
+			
+			logmap.put("started", "optout");
+
+			
+		}else if(module.equals("duplicate")){
+			
+			duplicate.App.doProcess();
+			
+			logmap.put("started", "duplicate");
+
+			
 		}else if(module.equals("dngen")){
 			
 			unitiadngen.App.main(args);

@@ -36,6 +36,8 @@
   	<module>smppclient</module>
   	<module>demo</module>
   	<module>optin</module>
+  	<module>optout</module>
+  	<module>duplicate</module>
     </modules>
   <dependencies>
   

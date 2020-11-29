@@ -11,7 +11,6 @@ import java.util.Set;
 
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.dao.Table;
-import com.winnovature.unitia.util.db.CampaignDBConnection;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.QueueDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;

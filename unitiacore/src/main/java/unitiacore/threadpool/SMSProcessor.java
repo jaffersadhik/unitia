@@ -17,9 +17,9 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import com.winnovature.unitia.util.account.PushAccount;
-import com.winnovature.unitia.util.db.DuplicateCheck;
 import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.dnd.DNDProcessoer;
+import com.winnovature.unitia.util.duplicate.DuplicateCheck;
 import com.winnovature.unitia.util.misc.ACKIdGenerator;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
