@@ -211,15 +211,22 @@ public class RouteProcessor {
 		
 		if(isfurtherprocess){
 
+			String templateid=(String)msgmap.get(MapKeys.TEMPLATEID);
+
 			if(msgclass!=null&&msgclass.equals("3")){
 				
 				msgmap.put(MapKeys.ROUTECLASS, "1");
 				
+				if(templateid!=null&&templateid.trim().length()>0){
+					
+					msgmap.put(MapKeys.DLT_TYPE, "customer");
+					msgmap.put(MapKeys.ROUTECLASS, "1");
+
+				}
 				return ;
 				
 			}
 
-			String templateid=(String)msgmap.get(MapKeys.TEMPLATEID);
 			
 			RouterLog.routerlog(redisid, tname, "templateid : "+templateid);
 
@@ -803,9 +810,17 @@ public class RouteProcessor {
 
 	public void doEntityValidation() {
 		
-		String dlttype=(String)msgmap.get(MapKeys.DLT_TYPE);
 		
-		if(dlttype!=null&&dlttype.equals("unitia")){
+			
+			msgmap.put(MapKeys.ENTITYID, Entity.getInstance().getEntity(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SENDERID).toString()));
+		
+	}
+	
+	public void dodefaultEntityValidation() {
+		
+		String entityid=(String)msgmap.get(MapKeys.ENTITYID);
+		
+		if(entityid==null&&entityid.trim().length()<1){
 			
 			msgmap.put(MapKeys.ENTITYID, Entity.getInstance().getEntity(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SENDERID).toString()));
 		}

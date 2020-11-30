@@ -206,6 +206,12 @@ try{
 		route.doEntityValidation();
 		
 		RouterLog.routerlog(redisid, tname, "end route.doEntityValidation()");
+		
+		RouterLog.routerlog(redisid, tname, "start route.dodefaultEntityValidation()");
+
+		route.dodefaultEntityValidation();
+		
+		RouterLog.routerlog(redisid, tname, "end route.dodefaultEntityValidation()");
 
 		SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
 		
