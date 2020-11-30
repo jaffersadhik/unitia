@@ -138,7 +138,7 @@ private static String MODE="";
 	
 	public static void routerlog(String redis,String tname,String logmessage){
 		
-		/*
+		
 
 	      // Creates a FileWriter
 	      String filename="/logs/"+MODE+"/apps/"+redis+"_"+tname+".log";
@@ -157,7 +157,7 @@ private static String MODE="";
 	   }catch(Exception e){
 		   e.printStackTrace();
 	   }
-		  */    
+		      
 }
 
 
