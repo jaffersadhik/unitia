@@ -821,9 +821,38 @@ public class RouteProcessor {
 		String entityid=(String)msgmap.get(MapKeys.ENTITYID);
 		
 		if(entityid==null&&entityid.trim().length()<1){
+		
+			Map<String,String> data=Entity.getInstance().getEntity(msgmap.get(MapKeys.USERNAME).toString());
 			
-			msgmap.put(MapKeys.ENTITYID, Entity.getInstance().getEntity(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SENDERID).toString()));
+			if(data!=null){
+				
+				msgmap.put(MapKeys.SENDERID, data.get("senderid"));
+				msgmap.put(MapKeys.ENTITYID, data.get("entityid"));
+
+	
+			}
 		}
 		
 	}
+
+
+	public void isDLT() {
+
+		if(isfurtherprocess){
+		
+			
+			String entityid=(String)msgmap.get(MapKeys.ENTITYID);
+			
+			if(entityid==null&&entityid.trim().length()<1){
+				
+				msgmap.put(MapKeys.FILTERING_PATTERN_ID, SMSPatternFiltering.getInstance().getPatternId(spamPattern));
+				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.NO_ENTITYID);
+
+				isfurtherprocess=false;
+		
+		}
+		
+	}
+	}
+	
 	}

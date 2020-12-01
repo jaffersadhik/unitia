@@ -16,12 +16,18 @@ public class Entity {
 
 	private static boolean isTableAvailable=false;
 
+	private static boolean isDefaultTableAvailable=false;
+
+	
 	private static Entity obj=null;
 	
 
 	private Map<String,Map<String,String>> whitelistedsenderid=new HashMap<String,Map<String,String>>();
 	
-	
+
+
+	private Map<String,Map<String,String>> defaultdlt=new HashMap<String,Map<String,String>>();
+
 	private Entity(){
 	
 		reload();
@@ -44,6 +50,8 @@ public class Entity {
 		Connection connection =null;
 		PreparedStatement statement=null;
 		ResultSet resultset=null;
+		PreparedStatement statement1=null;
+		ResultSet resultset1=null;
 		
 		try{
 			
@@ -65,6 +73,21 @@ public class Entity {
 				}
 			}
 			
+			if(!isDefaultTableAvailable){
+				
+				TableExsists table=new TableExsists();
+				
+				if(!table.isExsists(connection, "dlt_entity_default")){
+					
+					if(table.create(connection, " create table dlt_entity_default(id INT PRIMARY KEY AUTO_INCREMENT,username varchar(16) unique key,senderid varchar(15),entityid varchar(30))", false)){
+					
+						isDefaultTableAvailable=true;
+					}
+				}else{
+					
+					isDefaultTableAvailable=true;
+				}
+			}
 			statement =connection.prepareStatement("select username,senderid,entityid from dlt_entity");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
@@ -77,6 +100,20 @@ public class Entity {
 				}
 				senderidset.put(resultset.getString("senderid").toLowerCase(),resultset.getString("entityid").toLowerCase());
 			}
+			
+			statement1 =connection.prepareStatement("select username,senderid,entityid from dlt_entity_default");
+			resultset1=statement.executeQuery();
+			while(resultset.next()){
+				
+				Map<String,String> senderidset=whitelistedsenderid.get(resultset.getString("username").toLowerCase());	
+				if(senderidset==null){
+					
+					senderidset=new HashMap<String,String>();
+					whitelistedsenderid.put(resultset.getString("username").toLowerCase(), senderidset);
+				}
+				senderidset.put("senderid",resultset.getString("senderid"));
+				senderidset.put("entityid",resultset.getString("entityid"));
+			}
 		}catch(Exception e){
 			
 			e.printStackTrace();
@@ -84,6 +121,8 @@ public class Entity {
 			
 			Close.close(resultset);
 			Close.close(statement);
+			Close.close(resultset1);
+			Close.close(statement1);
 			Close.close(connection);
 		}
 		
@@ -102,6 +141,11 @@ public class Entity {
 			return whitelistedsenderid.get(username).get(senderid.toLowerCase());
 		}
 		return null;
+	}
+
+	public Map<String,String> getEntity(String username) {
+
+		return defaultdlt.get(username);
 	}
 	
 	

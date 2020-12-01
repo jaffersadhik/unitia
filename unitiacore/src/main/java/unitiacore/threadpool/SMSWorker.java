@@ -203,10 +203,21 @@ try{
 
 		route.doEntityValidation();
 		
-		RouterLog.routerlog(redisid, tname, "end route.doEntityValidation()");
+		RouterLog.routerlog(redisid, tname, "end route.dodefaultEntityValidation()");
 		
-		
+		RouterLog.routerlog(redisid, tname, "start route.dodefaultEntityValidation()");
 
+		route.dodefaultEntityValidation();
+		
+		RouterLog.routerlog(redisid, tname, "end route.doEntityValidation()");
+	
+
+		RouterLog.routerlog(redisid, tname, "start route.isDLT()");
+
+		route.isDLT();
+		
+		RouterLog.routerlog(redisid, tname, "end route.isDLT()");
+		
 		SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
 		
 	
