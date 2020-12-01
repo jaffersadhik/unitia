@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.dao.Select;
 import com.winnovature.unitia.util.dao.Table;
 import com.winnovature.unitia.util.misc.FileWrite;
+import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.redis.QueueSender;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
@@ -110,15 +112,48 @@ public class DBReceiver extends Thread {
 		}
 		
 	}
+	
+	
+	public String getQueueName(Map<String ,String > accountmap){
+		
+		
+
+		if(accountmap.get(MapKeys.OPTIN_TYPE).equals("1")){
+			
+			return "optin";
+			
+		}else if(accountmap.get(MapKeys.OPTIN_TYPE).equals("2")){
+			
+			return "optin";
+		}else if(!accountmap.get(MapKeys.DUPLICATE_TYPE).equals("0")){
+			
+			return "duplicate";
+		}else{
+		
+			return "commonpool";
+			
+		}
+	}
 	private void sendUntilSuccess(Map<String, Object> map) {
 		
 		Map<String,Object> logmap=new HashMap<String,Object>();
 		logmap.put("module", "dbtoredis");
 		logmap.put("logname", "dbtoredis_"+queuename);
 		logmap.putAll(map);
+		
+		String actualqueuename=queuename;
+		
+		if(poolname.equals("schedulepool")){
+		
+			Map<String,String> accountmap=PushAccount.instance().getPushAccount(map.get(MapKeys.USERNAME).toString());
+
+			actualqueuename=getQueueName(accountmap);
+		}
+		
 		while(true){
 			
-			if(queuesender.sendL( queuename, map, true, logmap)){
+			
+			if(queuesender.sendL( actualqueuename, map, true, logmap)){
 				
 				new FileWrite().write(logmap);
 

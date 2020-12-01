@@ -29,13 +29,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class OnewayHTTPSURLConnector {
-	/**
-	 * NGLogger instance.
-	 */
+	
 	Log logger = LogFactory.getLog(this.getClass());
-	/**
-	 * class name for logging
-	 */
+	
 	private static final String	className	=	"[OnewayHTTPSURLConnector] ";
 	
 	private String response	=	null;

@@ -80,9 +80,7 @@ public class SMSWorker  {
 			route.doKannelAvailable();
 			
 			SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
-			processor.doOptin();
-			processor.doOptout();
-			processor.doDuplicate();
+			
 			processor.doDNDCheck();
 			processor.doFeatureCodeIndentification();
 			processor.doDNMessage();
@@ -211,23 +209,7 @@ try{
 
 		SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
 		
-		RouterLog.routerlog(redisid, tname, "start route.doOptin()");
-
-		processor.doOptin();
-		
-		RouterLog.routerlog(redisid, tname, "end route.doOptin()");
-		
-		RouterLog.routerlog(redisid, tname, "start route.doOptout()");
-
-		processor.doOptout();
-		
-		RouterLog.routerlog(redisid, tname, "end route.doOptout()");
-
-		RouterLog.routerlog(redisid, tname, "start route.doDuplicate()");
-
-		processor.doDuplicate();
-		
-		RouterLog.routerlog(redisid, tname, "end route.doDuplicate()");
+	
 
 		RouterLog.routerlog(redisid, tname, "start route.doDNDCheck()");
 

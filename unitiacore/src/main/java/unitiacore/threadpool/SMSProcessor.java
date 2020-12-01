@@ -96,52 +96,7 @@ public class SMSProcessor {
 		
 	}
 
-		
-	public void doOptin() throws Exception{
-		
-		if(isfurtherprocess){
-			String username=msgmap.get(MapKeys.USERNAME).toString();
-			String mobile=msgmap.get(MapKeys.MOBILE).toString();
 			
-			if(PushAccount.instance().getPushAccount(username).get(MapKeys.OPTIN_TYPE).equals("1")){
-			if(new OptinProcessor().isOptin(username, mobile)){
-				
-				return ;
-			}else{
-				
-				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.MOBILE_NOT_REGISTERED_OPTIN);
-
-				isfurtherprocess=false;
-			}
-			
-			}
-		}
-		
-		return ;
-	}
-	
-	public void doOptout()  throws Exception{
-		
-		if(isfurtherprocess){
-			String username=msgmap.get(MapKeys.USERNAME).toString();
-			String mobile=msgmap.get(MapKeys.MOBILE).toString();
-			
-			if(PushAccount.instance().getPushAccount(username).get(MapKeys.OPTIN_TYPE).equals("2")){
-				if(new OptoutProcessor().isOptout(username, mobile)){
-
-				isfurtherprocess=false;
-				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.OPTOUT_MOBILE_NUMBER);
-
-				return ;
-				}
-			
-			}
-		}
-		
-		return ;
-	}
-	
-	
 	public void submitKannel()  throws Exception{
 		
 
@@ -249,9 +204,7 @@ public class SMSProcessor {
 			route.doKannelAvailable();
 			
 			SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
-			processor.doOptin();
-			processor.doOptout();
-			processor.doDuplicate();
+			
 			processor.doDNDCheck();
 			processor.doFeatureCodeIndentification();
 			processor.doDNMessage();
@@ -541,40 +494,7 @@ public class SMSProcessor {
 		}
 		}
 
-	public void doDuplicate(){
-
-		if(isfurtherprocess){
-			
-		
-			String duplicatetype=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DUPLICATE_TYPE);
-			
-			if(duplicatetype.equals("1")){
-				
-				if(new DuplicateCheck().isDuplicate(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.MOBILE).toString())){
-					
-					isfurtherprocess=false;
-					
-					msgmap.put(MapKeys.STATUSID, ""+MessageStatus.DUPLICATE_SMS);
-
-					return;
-					
-				}
-			}else if(duplicatetype.equals("2")){
-				
-				if(new DuplicateCheck().isDuplicate(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.MOBILE).toString(), msgmap.get(MapKeys.FULLMSG).toString())){
-					
-					isfurtherprocess=false;
-					
-					msgmap.put(MapKeys.STATUSID, ""+MessageStatus.DUPLICATE_SMS);
-
-					return;
-					
-				}
-			}
-		}
-
-	}
-	private boolean hasCredit() throws Exception {
+		private boolean hasCredit() throws Exception {
 
 		if(!msgmap.get(MapKeys.ATTEMPT_TYPE).toString().equals("0") || PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.BILLTYPE).equalsIgnoreCase("postpaid")){
 			

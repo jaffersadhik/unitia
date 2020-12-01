@@ -1,9 +1,5 @@
 package com.winnovature.unitia.util.connect;
-/**
- * 	@(#)HTTPURLConnector.java	1.0
- *
- * 	Copyright 2000-2008 Air2web India Pvt Ltd. All Rights Reserved.
- */
+
 
 import java.util.HashMap;
 import java.util.Iterator;
