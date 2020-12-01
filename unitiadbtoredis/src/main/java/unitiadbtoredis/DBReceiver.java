@@ -124,7 +124,7 @@ public class DBReceiver extends Thread {
 			
 		}else if(accountmap.get(MapKeys.OPTIN_TYPE).equals("2")){
 			
-			return "optin";
+			return "optout";
 		}else if(!accountmap.get(MapKeys.DUPLICATE_TYPE).equals("0")){
 			
 			return "duplicate";
