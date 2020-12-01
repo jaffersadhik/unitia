@@ -820,7 +820,7 @@ public class RouteProcessor {
 		
 		String entityid=(String)msgmap.get(MapKeys.ENTITYID);
 		
-		if(entityid==null&&entityid.trim().length()<1){
+		if(entityid==null||entityid.trim().length()<1){
 		
 			Map<String,String> data=Entity.getInstance().getEntity(msgmap.get(MapKeys.USERNAME).toString());
 			
@@ -843,7 +843,7 @@ public class RouteProcessor {
 			
 			String entityid=(String)msgmap.get(MapKeys.ENTITYID);
 			
-			if(entityid==null&&entityid.trim().length()<1){
+			if(entityid==null||entityid.trim().length()<1){
 				
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.NO_ENTITYID);
 
