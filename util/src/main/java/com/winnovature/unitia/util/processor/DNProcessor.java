@@ -403,7 +403,10 @@ public class DNProcessor
 	private void setLatencySlap() {
 
     	long rtime=Long.parseLong(msgmap.get(MapKeys.RTIME).toString())/1000;
-    	long ktime=Long.parseLong(msgmap.get(MapKeys.KTIME).toString())/1000;
+    	long ktime=System.currentTimeMillis();
+    	if(msgmap.get(MapKeys.KTIME)!=null){
+    		ktime=Long.parseLong(msgmap.get(MapKeys.KTIME).toString())/1000;
+    	}
     	long dtime=Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME).toString())/1000;
     	long dtime_org=Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME_ORG).toString())/1000;
     	long ctime=Long.parseLong(msgmap.get(MapKeys.CARRIER_SUBMITTIME_ORG).toString())/1000;
