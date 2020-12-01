@@ -845,7 +845,6 @@ public class RouteProcessor {
 			
 			if(entityid==null&&entityid.trim().length()<1){
 				
-				msgmap.put(MapKeys.FILTERING_PATTERN_ID, SMSPatternFiltering.getInstance().getPatternId(spamPattern));
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.NO_ENTITYID);
 
 				isfurtherprocess=false;
