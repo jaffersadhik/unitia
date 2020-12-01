@@ -46,6 +46,8 @@ public class Entity {
 	public void reload(){
 		
 		Map<String,Map<String,String>> whitelistedsenderid=new HashMap<String,Map<String,String>>();
+
+		Map<String,Map<String,String>> defaultdlt=new HashMap<String,Map<String,String>>();
 		
 		Connection connection =null;
 		PreparedStatement statement=null;
@@ -105,11 +107,11 @@ public class Entity {
 			resultset1=statement.executeQuery();
 			while(resultset.next()){
 				
-				Map<String,String> senderidset=whitelistedsenderid.get(resultset.getString("username").toLowerCase());	
+				Map<String,String> senderidset=defaultdlt.get(resultset.getString("username").toLowerCase());	
 				if(senderidset==null){
 					
 					senderidset=new HashMap<String,String>();
-					whitelistedsenderid.put(resultset.getString("username").toLowerCase(), senderidset);
+					defaultdlt.put(resultset.getString("username").toLowerCase(), senderidset);
 				}
 				senderidset.put("senderid",resultset.getString("senderid"));
 				senderidset.put("entityid",resultset.getString("entityid"));
@@ -129,7 +131,7 @@ public class Entity {
 		
 			
 			this.whitelistedsenderid=whitelistedsenderid;
-		
+			this.defaultdlt=defaultdlt;
 		
 	}
 	
