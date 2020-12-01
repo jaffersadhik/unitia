@@ -104,17 +104,17 @@ public class Entity {
 			}
 			
 			statement1 =connection.prepareStatement("select username,senderid,entityid from dlt_entity_default");
-			resultset1=statement.executeQuery();
-			while(resultset.next()){
+			resultset1=statement1.executeQuery();
+			while(resultset1.next()){
 				
-				Map<String,String> senderidset=defaultdlt.get(resultset.getString("username").toLowerCase());	
+				Map<String,String> senderidset=defaultdlt.get(resultset1.getString("username").toLowerCase());	
 				if(senderidset==null){
 					
 					senderidset=new HashMap<String,String>();
-					defaultdlt.put(resultset.getString("username").toLowerCase(), senderidset);
+					defaultdlt.put(resultset1.getString("username").toLowerCase(), senderidset);
 				}
-				senderidset.put("senderid",resultset.getString("senderid"));
-				senderidset.put("entityid",resultset.getString("entityid"));
+				senderidset.put("senderid",resultset1.getString("senderid"));
+				senderidset.put("entityid",resultset1.getString("entityid"));
 			}
 		}catch(Exception e){
 			

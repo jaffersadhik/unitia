@@ -16,6 +16,7 @@ import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 import unitiacore.threadpool.DomesticCredit;
 import unitiacore.threadpool.QueueTon;
+import unitiaroute.Entity;
 
 public class T  extends Thread{
 
@@ -40,7 +41,6 @@ public class T  extends Thread{
 				MissedCallForward.getInstance().reload();
 				ShortCodeAccount.getInstance().reload();
 				App.printThreadStatus();
-				
 				gotosleep();
 				
 				printrouteInfo();
