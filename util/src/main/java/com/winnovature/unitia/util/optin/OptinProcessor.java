@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.OptinDBConnection;
 
 public class OptinProcessor {
@@ -30,6 +31,9 @@ public class OptinProcessor {
 				
 			}finally{
 				
+				Close.close(resultset);
+				Close.close(statement);
+				Close.close(connection);
 			}
 			
 			return  false;
