@@ -44,16 +44,16 @@ try{
 
 		SMSProcessor processor=new SMSProcessor("optin",msgmap,true);
 		
-		RouterLog.routerlog(redisid, tname, "start route.doOptin()");
+		new RouterLog().routerlog(redisid, tname, "start route.doOptin()");
 
 		processor.doOptin();
 		
-		RouterLog.routerlog(redisid, tname, "start route.sentToNextLevel()");
+		new RouterLog().routerlog(redisid, tname, "start route.sentToNextLevel()");
 
 		
 		processor.sentToNextLevel();
 		
-		RouterLog.routerlog(redisid, tname, "end route.sentToNextLevel()");
+		new RouterLog().routerlog(redisid, tname, "end route.sentToNextLevel()");
 
 }catch(Exception e){
 	

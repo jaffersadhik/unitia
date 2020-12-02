@@ -44,16 +44,16 @@ try{
 
 		SMSProcessor processor=new SMSProcessor("duplicate",msgmap,true);
 		
-		RouterLog.routerlog(redisid, tname, "start route.duplicate()");
+		new RouterLog().routerlog(redisid, tname, "start route.duplicate()");
 
 		processor.doDuplicate();
 		
-		RouterLog.routerlog(redisid, tname, "start route.sentToNextLevel()");
+		new RouterLog().routerlog(redisid, tname, "start route.sentToNextLevel()");
 
 		
 		processor.sentToNextLevel();
 		
-		RouterLog.routerlog(redisid, tname, "end route.sentToNextLevel()");
+		new RouterLog().routerlog(redisid, tname, "end route.sentToNextLevel()");
 
 }catch(Exception e){
 	

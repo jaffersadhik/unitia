@@ -204,9 +204,9 @@ public class RouteProcessor {
 
 		String msgclass=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.MSGCLASS);
 
-		RouterLog.routerlog(redisid, tname, "msgmap : "+msgmap.toString());
+		new RouterLog().routerlog(redisid, tname, "msgmap : "+msgmap.toString());
 
-		RouterLog.routerlog(redisid, tname, "msgclass : "+msgclass);
+		new RouterLog().routerlog(redisid, tname, "msgclass : "+msgclass);
 	
 		
 		if(isfurtherprocess){
@@ -228,7 +228,7 @@ public class RouteProcessor {
 			}
 
 			
-			RouterLog.routerlog(redisid, tname, "templateid : "+templateid);
+			new RouterLog().routerlog(redisid, tname, "templateid : "+templateid);
 
 			if(templateid!=null&&templateid.trim().length()>0){
 				
@@ -240,7 +240,7 @@ public class RouteProcessor {
 			
 			String fullmsg=(String)msgmap.get(MapKeys.FULLMSG);
 			
-			RouterLog.routerlog(redisid, tname, "fullmsg : "+fullmsg);
+			new RouterLog().routerlog(redisid, tname, "fullmsg : "+fullmsg);
 
 			try{
 				if(MessageType.isHexa( (String)msgmap.get(MapKeys.MSGTYPE))){
@@ -252,7 +252,7 @@ public class RouteProcessor {
 			}
 			List<Map<String,String>>  patternset=SMSPatternAllowed.getInstance().getAllowedPaternSet(msgmap.get(MapKeys.USERNAME).toString());
 			
-			RouterLog.routerlog(redisid, tname, "patternset : "+patternset);
+			new RouterLog().routerlog(redisid, tname, "patternset : "+patternset);
 
 			if(patternset!=null){
 			
@@ -261,7 +261,7 @@ public class RouteProcessor {
 				Map<String,String> data=patternset.get(i);
 				String spamPattern=data.get("smspattern");
 			
-				RouterLog.routerlog(redisid, tname, "smspattern : "+spamPattern);
+				new RouterLog().routerlog(redisid, tname, "smspattern : "+spamPattern);
 
 				
 					boolean status=Pattern.compile(spamPattern, Pattern.CASE_INSENSITIVE).matcher(fullmsg).matches();
@@ -271,7 +271,7 @@ public class RouteProcessor {
 					msgmap.put(MapKeys.ALLOWED_PATTERN_ID, data.get("pattern_id"));
 					msgmap.put(MapKeys.TEMPLATEID, data.get("pattern_id"));
 					msgmap.put(MapKeys.DLT_TYPE, "unitia");
-					RouterLog.routerlog(redisid, tname, "patternset : success");
+					new RouterLog().routerlog(redisid, tname, "patternset : success");
 
 					return ;
 				}
@@ -284,7 +284,7 @@ public class RouteProcessor {
 		
 
 		String promorejectyn=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.PROMO_REJECT_YN);
-		RouterLog.routerlog(redisid, tname, "promorejectyn : "+promorejectyn);
+		new RouterLog().routerlog(redisid, tname, "promorejectyn : "+promorejectyn);
 
 		
 		if(msgclass!=null&&msgclass.equals("1")&&promorejectyn!=null&&promorejectyn.equals("1")){

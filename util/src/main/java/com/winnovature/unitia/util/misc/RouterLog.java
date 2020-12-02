@@ -136,7 +136,7 @@ private static String MODE="";
 		      
 }
 	
-	public static void routerlog(String redis,String tname,String logmessage){
+	public void routerlog(String redis,String tname,String logmessage){
 		
 		
 
