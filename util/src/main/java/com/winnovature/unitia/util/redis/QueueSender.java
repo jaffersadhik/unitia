@@ -49,7 +49,6 @@ public class QueueSender {
 			redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename,isRetry);
 		}
 		
-		new RouterLog().routerlog(queuename, "-name-", "redisid : "+redisid);
 
 		if(redisid!=null){
 			

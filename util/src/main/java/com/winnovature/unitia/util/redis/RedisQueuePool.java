@@ -566,7 +566,6 @@ public class RedisQueuePool {
 
 	public boolean isAvailableQueue(String queuename,boolean isRetry) {
 		
-		new RouterLog().routerlog(queuename, "-name-","isAvailableQueue : name : queue : "+ MODE+queuename);
 
 		if(isRetry){
 		

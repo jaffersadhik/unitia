@@ -13,6 +13,7 @@ public class App
     
     	start("optin");
     	start("optout");
+    	start("duplicate");
 
     	start("dnreceiverpool");
     	start("dnpostpool");
