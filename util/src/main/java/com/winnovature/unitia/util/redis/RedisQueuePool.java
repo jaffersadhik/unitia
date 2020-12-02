@@ -567,11 +567,11 @@ public class RedisQueuePool {
 		
 		if(isRetry){
 		
-			return !unavailableretryqueue.contains(MODE+queuename);
+			return unavailableretryqueue.contains(MODE+queuename);
 
 		}else{
 		
-			return !unavailablequeue.contains(MODE+queuename);
+			return unavailablequeue.contains(MODE+queuename);
 		}
 	}
 
