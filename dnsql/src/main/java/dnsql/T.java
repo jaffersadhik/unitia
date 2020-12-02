@@ -33,6 +33,9 @@ public class T  extends Thread{
 	
 	static{
 
+		TABLES.add("optin");
+		TABLES.add("optout");
+		TABLES.add("duplicate");
 		TABLES.add("shortcodepool");
 		TABLES.add("missedcallpool");
 		TABLES.add("appspool");
