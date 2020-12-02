@@ -3,6 +3,7 @@ package com.winnovature.unitia.util.redis;
 import java.util.Map;
 
 import com.winnovature.unitia.util.dao.Insert;
+import com.winnovature.unitia.util.misc.RouterLog;
 
 public class QueueSender {
 
@@ -47,6 +48,9 @@ public class QueueSender {
 			
 			redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename,isRetry);
 		}
+		
+		RouterLog.routerlog(queuename, "-name-", "redisid : "+redisid);
+
 		if(redisid!=null){
 			
 		
