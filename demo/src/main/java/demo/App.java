@@ -1,8 +1,6 @@
 package demo;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
@@ -13,13 +11,10 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
-import com.winnovature.unitia.util.misc.ToJsonString;
-
 
 public class App extends AbstractHandler
 {
 	
-	static List<Processor> list=new ArrayList<Processor>();
 	
     @Override
     public void handle(String target,
@@ -47,19 +42,9 @@ public class App extends AbstractHandler
 
     	
    
-        response.getWriter().println(getStatus());
+        response.getWriter().println("Allahu Akbar");
 
 		
-	}
-	
-	private String getStatus(){
-		
-		List<String> status=new ArrayList<String>();
-		for(int i=0;i<list.size();i++){
-		status.add(list.get(i).getStatus());
-		}
-		
-		return ToJsonString.toString(status);
 	}
 
 	public static void main(String[] args) throws Exception
@@ -67,10 +52,11 @@ public class App extends AbstractHandler
    
         System.out.print("System.lineSeparator()" +System.lineSeparator() );
 
-        startprocessor();
-        
-        new Th().start();
-        
+        Server server = new Server(8080);
+        server.setHandler(new App());
+
+        server.start();
+        server.join();
     }
 	private static void startprocessor() throws IOException {
 		
