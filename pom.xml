@@ -38,6 +38,15 @@
   	<module>optin</module>
   	<module>optout</module>
   	<module>duplicate</module>
+  	<module>blacklist</module>
+  	<module>numberingplan</module>
+  	<module>countrycode</module>
+  	<module>spamfilter</module>
+  	<module>templatecheck</module>
+  	<module>blacklistsenderid</module>
+  	<module>blacklistsms</module>
+  	<module>senderidcheck</module>
+  	<module>dnd</module>
     </modules>
   <dependencies>
   

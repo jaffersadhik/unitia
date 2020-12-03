@@ -1,6 +1,5 @@
 package unitiacore.threadpool;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.winnovature.unitia.util.account.PushAccount;
@@ -59,35 +58,7 @@ public class SMSWorker  {
 
 	
 	
-	public void doPremilinaryValidation() throws Exception{
-		
-
-		msgmap.put(MapKeys.ATTEMPT_TYPE, "0");
-		msgmap.put(MapKeys.TOTAL_MSG_COUNT,"1");
-
-			RouteProcessor route=new RouteProcessor(msgmap,"a","a");
-			
-			route.doCountryCodeCheck();
-			route.doNumberingPlan();
-			route.doBlackListMobileNumber();
-			route.doBlackListSenderid();
-			route.doFilteringSMSPatternCheck();
-			route.doBlackListSMSPattern();
-			route.doAllowedSMSPatternCheck();
-			route.doSenderCheck();
-			route.doRouteGroupAvailable();
-			route.doSMSCIDAvailable();
-			route.doKannelAvailable();
-			
-			SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
-			
-			processor.doDNDCheck();
-			processor.doFeatureCodeIndentification();
-			processor.doDNMessage();
-			processor.doConcate();
-			processor.setCredit();
-
-	}
+	public void doPremilinaryValidation() throws Exception{}
 	
 	public void doSubmitKannel() throws Exception{
 		
@@ -127,56 +98,7 @@ try{
 		
 	}
 		RouteProcessor route=new RouteProcessor(msgmap,redisid,tname);
-		new RouterLog().routerlog(redisid, tname, "start route.doCountryCodeCheck()");
-		route.doCountryCodeCheck();
-		new RouterLog().routerlog(redisid, tname, "end route.doCountryCodeCheck()");
-
-		new RouterLog().routerlog(redisid, tname, "start route.doNumberingPlan()");
-
-		route.doNumberingPlan();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doNumberingPlan()");
-
-		
-		new RouterLog().routerlog(redisid, tname, "start route.doBlackListMobileNumber()");
-
-		route.doBlackListMobileNumber();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doBlackListMobileNumber()");
-
-		
-		new RouterLog().routerlog(redisid, tname, "start route.doBlackListSenderid()");
-
-		route.doBlackListSenderid();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doBlackListSenderid()");
-
-		
-		new RouterLog().routerlog(redisid, tname, "start route.doFilteringSMSPatternCheck()");
-
-		route.doFilteringSMSPatternCheck();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doFilteringSMSPatternCheck()");
-
-		
-		new RouterLog().routerlog(redisid, tname, "start route.doBlackListSMSPattern()");
-
-		route.doBlackListSMSPattern();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doBlackListSMSPattern()");
-
-		new RouterLog().routerlog(redisid, tname, "start route.doAllowedSMSPatternCheck()");
-
-		route.doAllowedSMSPatternCheck();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doAllowedSMSPatternCheck()");
-
-		new RouterLog().routerlog(redisid, tname, "start route.doSenderCheck()");
-
-		route.doSenderCheck();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doSenderCheck()");
-
+	
 		
 		new RouterLog().routerlog(redisid, tname, "start route.doRouteGroupAvailable()");
 
@@ -222,11 +144,6 @@ try{
 		
 	
 
-		new RouterLog().routerlog(redisid, tname, "start route.doDNDCheck()");
-
-		processor.doDNDCheck();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doDNDCheck()");
 
 		new RouterLog().routerlog(redisid, tname, "start route.doFeatureCodeIndentification()");
 

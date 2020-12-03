@@ -75,26 +75,7 @@ public class SMSProcessor {
 		this.isfurtherprocess=isfurtherprocess;
 	}
 	
-	public void doDNDCheck() throws Exception{
-		
-		if(isfurtherprocess){
-		
-			String routeclass=msgmap.get(MapKeys.ROUTE_CLASS).toString();
-			if(routeclass.equals("2")){
-			if(new DNDProcessoer().isDND(msgmap.get(MapKeys.MOBILE).toString())){
-				
-				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.DND_REJECTED);
 
-				
-				isfurtherprocess=false;
-			}
-			}
-		}
-
-		return ;
-	
-		
-	}
 
 			
 	public void submitKannel()  throws Exception{
@@ -205,7 +186,6 @@ public class SMSProcessor {
 			
 			SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
 			
-			processor.doDNDCheck();
 			processor.doFeatureCodeIndentification();
 			processor.doDNMessage();
 			processor.doConcate();
@@ -1536,7 +1516,6 @@ public void setDLRURL(Map<String,Object> splitmap)  throws Exception{
 			msgmap.put(MapKeys.FULLMSG,URLDecoder.decode(msgmap.get(MapKeys.FULLMSG).toString(),"UTF-8"));
 
 			msgmap.put(MapKeys.ISDNRETRY, "Y");
-			processor.doSenderCheck();
 			processor.doKannelAvailable();
 			msgmap.put(MapKeys.ATTEMPT_TYPE, "2");
 
