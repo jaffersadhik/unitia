@@ -3,6 +3,7 @@ package dnsql;
 
 import com.winnovature.unitia.util.account.Refresh;
 import com.winnovature.unitia.util.queue.DLRQueue;
+import com.winnovature.unitia.util.queue.RedisQueue;
 import com.winnovature.unitia.util.reader.QueueTon;
 
 import unitiaroute.ReRouting;
@@ -24,7 +25,8 @@ public class T  extends Thread{
 			try{
 				Refresh.getInsatnce().reload();
 				
-				
+				RedisQueue.getInstance().reload();
+				DLRQueue.getInstance().reload();
 				ReRouting.getInstance().reload();
 
 				QueueTon.getInstance().checkQueueAvailablity();

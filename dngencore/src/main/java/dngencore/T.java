@@ -1,6 +1,7 @@
 package dngencore;
 
 import com.winnovature.unitia.util.account.Refresh;
+import com.winnovature.unitia.util.queue.RedisQueue;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 import unitiacore.threadpool.QueueTon;
@@ -14,6 +15,7 @@ public class T  extends Thread{
 		while(true){
 			
 			try{
+				RedisQueue.getInstance().reload();
 				QueueTon.getInstance().checkQueueAvailablity();
 				Refresh.getInsatnce().reload();
 				gotosleep();

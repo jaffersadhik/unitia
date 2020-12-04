@@ -5,6 +5,7 @@ import com.winnovature.unitia.util.account.MissedCallForward;
 import com.winnovature.unitia.util.account.MissedCallSMS;
 import com.winnovature.unitia.util.account.Refresh;
 import com.winnovature.unitia.util.account.VMNAccount;
+import com.winnovature.unitia.util.queue.RedisQueue;
 
 public class T  extends Thread{
 
@@ -17,7 +18,8 @@ public class T  extends Thread{
 			try{
 				
 				Refresh.getInsatnce().reload();
-				
+				RedisQueue.getInstance().reload();
+
 				VMNAccount.getInstance().reload();
 				MissedCallForward.getInstance().reload();
 				MissedCallSMS.getInstance().reload();

@@ -100,6 +100,13 @@ public class App {
 			logmap.put("started", "spamfilter");
 
 			
+		}else if(module.equals("queuecheck")){
+			
+			queuecheck.App.doProcess();
+			
+			logmap.put("started", "queuecheck");
+
+			
 		}else if(module.equals("senderidcheck")){
 			
 			senderidcheck.App.doProcess();

@@ -1,7 +1,7 @@
 package optin;
 
 import com.winnovature.unitia.util.account.Refresh;
-import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
+import com.winnovature.unitia.util.queue.RedisQueue;
 
 
 
@@ -16,8 +16,8 @@ public class T  extends Thread{
 			
 			try{
 				Refresh.getInsatnce().reload();
-				RedisQueueConnectionPool.getInstance().reload();
 
+				RedisQueue.getInstance().reload();
 				gotosleep();
 				
 

@@ -3,6 +3,7 @@ package dnpostdb;
 import com.winnovature.unitia.util.account.Refresh;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
+import com.winnovature.unitia.util.queue.RedisQueue;
 import com.winnovature.unitia.util.reader.QueueTon;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
@@ -15,6 +16,7 @@ public class T  extends Thread{
 		while(true){
 			
 			try{
+				RedisQueue.getInstance().reload();
 				Refresh.getInsatnce().reload();
 				QueueTon.getInstance().checkQueueAvailablity();
 				RedisReceiver.GRACESTOP=ConfigParams.getInstance().getProperty(ConfigKey.GRACE_STOP).equals("1");

@@ -1,6 +1,7 @@
 package unitiatablereader;
 
 import com.winnovature.unitia.util.account.Refresh;
+import com.winnovature.unitia.util.queue.RedisQueue;
 
 public class T  extends Thread{
 
@@ -11,7 +12,8 @@ public class T  extends Thread{
 			
 			try{
 				Refresh.getInsatnce().reload();
-				
+				RedisQueue.getInstance().reload();
+
 				PollerStartup.updateUsers();
 				
 				gotosleep();

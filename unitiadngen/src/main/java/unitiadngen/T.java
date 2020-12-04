@@ -1,6 +1,7 @@
 package unitiadngen;
 
 import com.winnovature.unitia.util.account.Refresh;
+import com.winnovature.unitia.util.queue.RedisQueue;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 public class T  extends Thread{
@@ -11,7 +12,7 @@ public class T  extends Thread{
 			
 			try{
 				Refresh.getInsatnce().reload();
-				RedisQueueConnectionPool.getInstance().reload();
+				RedisQueue.getInstance().reload();
 			
 				gotosleep();
 				

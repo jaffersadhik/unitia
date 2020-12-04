@@ -1,6 +1,7 @@
 package unitiadnreceiver;
 
 import com.winnovature.unitia.util.account.Refresh;
+import com.winnovature.unitia.util.queue.RedisQueue;
 import com.winnovature.unitia.util.redis.OtpMessageDNRegister;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
@@ -13,7 +14,7 @@ public class T  extends Thread{
 		while(true){
 			
 			try{
-				RedisQueueConnectionPool.getInstance().reload();
+				RedisQueue.getInstance().reload();
 
 				Refresh.getInsatnce().reload();
 				new OtpMessageDNRegister().removeOldAckid();

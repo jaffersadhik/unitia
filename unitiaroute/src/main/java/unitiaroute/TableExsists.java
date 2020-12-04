@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.SQLQuery;
@@ -534,7 +535,7 @@ public class TableExsists {
 		return routegroup;
 	
 	}
-/*
+
 	public Map<String, Map<String, String>> getRoute(Connection connection) {
 
 		PreparedStatement statement=null;
@@ -599,7 +600,7 @@ public class TableExsists {
 		return routegroup;
 	
 	}
-*/
+
 	public String getKannelIP(Connection connection) {
 
 
@@ -1276,6 +1277,54 @@ public Map<String, String> getCountrycode(Connection connection) {
  	return countrycodemap;
 }
 
+public Map<String, String> getIntlRoute(Connection connection) {
+
+	PreparedStatement statement=null;
+	ResultSet resultset=null;
+	Map<String, String> routegroup=new HashMap<String,String> ();
+	try {
+			
+			statement=connection.prepareStatement(SQLQuery.SELECT_INTL_ROUTE_TABLE);
+
+		resultset=statement.executeQuery();
+
+		while(resultset.next()) {
+			
+			String superadmin=resultset.getString("superadmin");
+			String admin=resultset.getString("admin");
+			String username=resultset.getString("username");
+			String groupname=resultset.getString("routegroup");
+            String countrycode= resultset.getString("countrycode");
+		
+            if(superadmin==null||superadmin.trim().length()<1) {
+				superadmin=Route.NULL;
+			}
+			
+			if(admin==null||admin.trim().length()<1) {
+				admin=Route.NULL;
+			}
+			
+			if(username==null||username.trim().length()<1) {
+				username=Route.NULL;
+			}
+			
+			if(countrycode==null||countrycode.trim().length()<1) {
+				countrycode=Route.NULL;
+			}
+			
+			
+			routegroup.put(Route.CONJUNCTION+superadmin.trim()+Route.CONJUNCTION+admin.trim()+Route.CONJUNCTION+username.trim()+Route.CONJUNCTION+countrycode.trim()+Route.CONJUNCTION,groupname.trim());
+		}
+	}catch(Exception e) {
+		e.printStackTrace();
+		Close.close(statement);
+		Close.close(resultset);
+		return null;
+	}
+	
+	return routegroup;
+
+}
 
 public void insertMessageStatus(Connection connection, String statusid, String statusdescription, String smscid,
 		String stat, String err) {

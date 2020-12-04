@@ -6,6 +6,7 @@ import com.winnovature.unitia.util.account.Refresh;
 import com.winnovature.unitia.util.account.ShortCodeAccount;
 import com.winnovature.unitia.util.account.VMNAccount;
 import com.winnovature.unitia.util.misc.SMSCMaxQueue;
+import com.winnovature.unitia.util.queue.RedisQueue;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 import unitiacore.threadpool.DomesticCredit;
@@ -23,7 +24,7 @@ public class T  extends Thread{
 				Refresh.getInsatnce().reload();
 				unitiaroute.Refresh.getInsatnce().reload();
 				DomesticCredit.getInstance().reload();
-				RedisQueueConnectionPool.getInstance().reload();
+				RedisQueue.getInstance().reload();
 				QueueTon.getInstance().checkQueueAvailablity();
 
 				SMSCMaxQueue.getInstance().reload();
