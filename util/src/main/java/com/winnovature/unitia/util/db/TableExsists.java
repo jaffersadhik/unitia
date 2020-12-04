@@ -14,9 +14,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import com.winnovature.unitia.util.account.Route;
-import com.winnovature.unitia.util.misc.kannel;
-
 
 
 
@@ -685,56 +682,6 @@ public class TableExsists {
 
 
 	
-	public Map<String, List<String>> getRouteGroup(Connection connection) {
-
-		PreparedStatement statement=null;
-		ResultSet resultset=null;
-		Map<String, List<String>> routegroup=new HashMap<String,List<String>> ();
-		try {
-				
-				statement=connection.prepareStatement(SQLQuery.SELECT_ROUTEGROUP_TABLE);
-
-			resultset=statement.executeQuery();
-
-			while(resultset.next()) {
-				
-				String smscid=resultset.getString("smscid");
-				String groupname=resultset.getString("groupname");
-
-				String auto_reroute=resultset.getString("auto_reroute");
-				
-				if(groupname!=null&&smscid!=null) {
-					
-					List<String> smscidlist=routegroup.get(groupname.trim());
-					
-					if(smscidlist==null) {
-						
-						smscidlist=new ArrayList<String>();
-						routegroup.put(groupname.trim(), smscidlist);
-					}
-					if(auto_reroute.equals("1")){
-				
-						if(!kannel.isQueued(smscid)){
-							smscidlist.add(smscid);	
-						}
-					}else{
-					smscidlist.add(smscid);	
-				
-					}
-				}
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			Close.close(statement);
-			Close.close(resultset);
-			return null;
-		}
-		
-		return routegroup;
-	
-	}
-
-
 	public String getKannelIP(Connection connection) {
 
 
@@ -1649,83 +1596,6 @@ public void createLockTable(Connection connection, String username) {
 	
 }
 
-public Map<String, Map<String, String>> getRoute(Connection connection) {
-
-		PreparedStatement statement=null;
-		ResultSet resultset=null;
-		Map<String,  Map<String, String>> routegroup=new HashMap<String, Map<String, String>> ();
-		try {
-				
-				statement=connection.prepareStatement(SQLQuery.SELECT_ROUTE_TABLE);
-
-			resultset=statement.executeQuery();
-
-			while(resultset.next()) {
-				
-				String superadmin=resultset.getString("superadmin");
-				String admin=resultset.getString("admin");
-				String username=resultset.getString("username");
-				String groupname_trans=resultset.getString("routegroup_trans");
-				String groupname_promo=resultset.getString("routegroup_promo");
-
-				String operator= resultset.getString("operator");
-                String circle= resultset.getString("circle");
-			
-                if(superadmin==null||superadmin.trim().length()<1) {
-					superadmin=Route.NULL;
-				}
-				
-                superadmin=superadmin.toLowerCase();
-                
-				if(admin==null||admin.trim().length()<1) {
-					admin=Route.NULL;
-				}
-				
-				admin=admin.toLowerCase();
-				
-				if(username==null||username.trim().length()<1) {
-					username=Route.NULL;
-				}
-				
-				username=username.toLowerCase();
-				
-				if(operator==null||operator.trim().length()<1) {
-					operator=Route.NULL;
-				}
-				
-				if(circle==null||circle.trim().length()<1) {
-					circle=Route.NULL;
-				}
-				
-				if(groupname_trans==null||groupname_trans.trim().length()<1) {
-					groupname_trans=Route.NULL;
-					
-					continue;
-				}
-				
-				
-				if(groupname_promo==null||groupname_promo.trim().length()<1) {
-					groupname_promo=Route.NULL;
-					
-					continue;
-				}
-				
-				 Map<String, String> data=new HashMap<String, String>();
-				 data.put(Route.ROUTE_TRANS,groupname_trans.trim());
-				 data.put(Route.ROUTE_PROMO,groupname_promo.trim());
-
-				routegroup.put(Route.CONJUNCTION+superadmin.trim()+Route.CONJUNCTION+admin.trim()+Route.CONJUNCTION+username.trim()+Route.CONJUNCTION+operator.trim()+Route.CONJUNCTION+circle.trim()+Route.CONJUNCTION,data);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			Close.close(statement);
-			Close.close(resultset);
-			return null;
-		}
-		
-		return routegroup;
-	
-	}
 
 
 }

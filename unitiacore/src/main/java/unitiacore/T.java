@@ -1,22 +1,15 @@
 package unitiacore;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.winnovature.unitia.util.account.MissedCallForward;
 import com.winnovature.unitia.util.account.MissedCallSMS;
 import com.winnovature.unitia.util.account.Refresh;
-import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.account.ShortCodeAccount;
 import com.winnovature.unitia.util.account.VMNAccount;
-import com.winnovature.unitia.util.db.Kannel;
-import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.SMSCMaxQueue;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 import unitiacore.threadpool.DomesticCredit;
 import unitiacore.threadpool.QueueTon;
-import unitiaroute.Entity;
 
 public class T  extends Thread{
 
@@ -33,9 +26,7 @@ public class T  extends Thread{
 				RedisQueueConnectionPool.getInstance().reload();
 				QueueTon.getInstance().checkQueueAvailablity();
 
-				Kannel.getInstance().reload();
 				SMSCMaxQueue.getInstance().reload();
-				com.winnovature.unitia.util.misc.kannel.reload();
 				MissedCallSMS.getInstance().reload();
 				VMNAccount.getInstance().reload();
 				MissedCallForward.getInstance().reload();
@@ -43,7 +34,6 @@ public class T  extends Thread{
 				App.printThreadStatus();
 				gotosleep();
 				
-				printrouteInfo();
 
 			}catch(Exception e){
 				
@@ -52,15 +42,6 @@ public class T  extends Thread{
 		}
 	}
 
-	private void printrouteInfo() {
-		
-		Map<String,Object> logmap=new HashMap<String,Object>();
-		logmap.put("username", "sys");
-		logmap.put("logname", "routeinfo");
-		logmap.putAll(Route.getInstance().getRoute());
-		new FileWrite().write(logmap);
-		
-	}
 
 	private void gotosleep() {
 

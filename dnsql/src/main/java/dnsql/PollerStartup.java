@@ -10,6 +10,7 @@ import java.util.Set;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.FileWrite;
+import com.winnovature.unitia.util.queue.DLRQueue;
 
 public class PollerStartup {
 
@@ -52,7 +53,7 @@ public class PollerStartup {
 		try{
 			
 		
-			Map<String,Map<String,String>> kannelmap=DLRCount.getInstance().getKannelmap();
+			Map<String,Map<String,String>> kannelmap=DLRQueue.getInstance().getKannelmap();
 			
 			
 		Iterator itr=kannelmap.keySet().iterator();

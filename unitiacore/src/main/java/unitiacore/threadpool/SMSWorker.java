@@ -100,13 +100,6 @@ try{
 		RouteProcessor route=new RouteProcessor(msgmap,redisid,tname);
 	
 		
-		new RouterLog().routerlog(redisid, tname, "start route.doRouteGroupAvailable()");
-
-		route.doRouteGroupAvailable();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doRouteGroupAvailable()");
-
-		
 		new RouterLog().routerlog(redisid, tname, "start route.doSMSCIDAvailable()");
 
 		route.doSMSCIDAvailable();
@@ -120,36 +113,12 @@ try{
 		
 		new RouterLog().routerlog(redisid, tname, "end route.doKannelAvailable()");
 
-		
-		new RouterLog().routerlog(redisid, tname, "start route.doEntityValidation()");
-
-		route.doEntityValidation();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.dodefaultEntityValidation()");
-		
-		new RouterLog().routerlog(redisid, tname, "start route.dodefaultEntityValidation()");
-
-		route.dodefaultEntityValidation();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doEntityValidation()");
-	
-
-		new RouterLog().routerlog(redisid, tname, "start route.isDLT()");
-
-		route.isDLT();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.isDLT()");
-		
+			
 		SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
 		
 	
 
 
-		new RouterLog().routerlog(redisid, tname, "start route.doFeatureCodeIndentification()");
-
-		processor.doFeatureCodeIndentification();
-		
-		new RouterLog().routerlog(redisid, tname, "end route.doFeatureCodeIndentification()");
 
 		new RouterLog().routerlog(redisid, tname, "start route.doDNMessage()");
 

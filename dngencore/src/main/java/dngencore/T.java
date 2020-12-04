@@ -16,7 +16,6 @@ public class T  extends Thread{
 			try{
 				QueueTon.getInstance().checkQueueAvailablity();
 				Refresh.getInsatnce().reload();
-				RedisQueueConnectionPool.getInstance().reload();
 				gotosleep();
 
 			}catch(Exception e){

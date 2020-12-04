@@ -1,4 +1,4 @@
-package com.winnovature.unitia.util.misc;
+package queuecheck;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -25,8 +25,9 @@ import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.TableExsists;
+import com.winnovature.unitia.util.misc.SMSCMaxQueue;
 
-public class kannel {
+public class kannelQueue {
 
 	static Map<String,Map<String,String>> smscqueue=new HashMap<String,Map<String,String>>();
 	

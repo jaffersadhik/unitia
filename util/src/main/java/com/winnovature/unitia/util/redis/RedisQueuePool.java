@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
@@ -18,7 +17,7 @@ import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.misc.Prop;
-import com.winnovature.unitia.util.misc.RouterLog;
+import com.winnovature.unitia.util.queue.RedisQueue;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -567,14 +566,7 @@ public class RedisQueuePool {
 	public boolean isAvailableQueue(String queuename,boolean isRetry) {
 		
 
-		if(isRetry){
-		
-			return !unavailableretryqueue.contains(MODE+queuename);
-
-		}else{
-		
-			return !unavailablequeue.contains(MODE+queuename);
-		}
+			return !RedisQueue.getInstance().isQueued(redisid, queuename, isRetry);
 	}
 
 	

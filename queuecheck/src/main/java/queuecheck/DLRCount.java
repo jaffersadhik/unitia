@@ -1,4 +1,4 @@
-package dnsql;
+package queuecheck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

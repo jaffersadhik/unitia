@@ -3,17 +3,14 @@ package com.winnovature.unitia.util.test;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.winnovature.unitia.util.account.PushAccount;
-import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
-import com.winnovature.unitia.util.misc.ACKIdGenerator;
 import com.winnovature.unitia.util.misc.TestcaseUserName;
 import com.winnovature.unitia.util.misc.WinDate;
 
@@ -115,7 +112,6 @@ public class Account {
 		WinDate date=new WinDate();
 		String ackid=date.getTime();
 		int i=0;
-		Route.getInstance();
 		insert(connection,"insert into users(username,password,smpp_maxbind,admin_id,msgclass,dlr_post_yn,dlr_post_url) values('unitia','unitia','10',"+adminid+",'1','1','http://dngen1:8080/api/clientdn?ackid={0}&statusid={1}')");
 		insert(connection,"insert into users(username,password,smpp_maxbind,admin_id,msgclass,dlr_post_yn,dlr_post_url) values('testuser','testuser','10',"+adminid+",'1','1','http://dngen1:8080/api/clientdn?ackid={0}&statusid={1}')");
 		Connection conn=null;

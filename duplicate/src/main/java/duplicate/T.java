@@ -1,6 +1,7 @@
 package duplicate;
 
 import com.winnovature.unitia.util.account.Refresh;
+import com.winnovature.unitia.util.duplicate.DuplicateCheck;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 
@@ -16,7 +17,7 @@ public class T  extends Thread{
 			
 			try{
 				Refresh.getInsatnce().reload();
-				RedisQueueConnectionPool.getInstance().reload();
+				new DuplicateCheck().flushDuplicate();
 
 				gotosleep();
 				

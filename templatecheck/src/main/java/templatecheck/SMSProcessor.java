@@ -146,12 +146,11 @@ public class SMSProcessor {
 	
 		if(isfurtherprocess){
 			
-			String duplicatetype=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DUPLICATE_TYPE);
-			
-			if(duplicatetype.equals("1")){
-				sendTOCommonPool("duplicate",logmap);
+			String routeclass=msgmap.get(MapKeys.ROUTE_CLASS).toString();
+			if(routeclass.equals("2")){
+				sendTOCommonPool("dnd",logmap);
 			}else{
-				sendTOCommonPool("commonpool",logmap);
+				sendTOCommonPool("dlt",logmap);
 
 			}
 			

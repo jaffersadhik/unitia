@@ -47,6 +47,9 @@
   	<module>blacklistsms</module>
   	<module>senderidcheck</module>
   	<module>dnd</module>
+  	<module>dlt</module>
+  	<module>routegroup</module>
+  	<module>queuecheck</module>
     </modules>
   <dependencies>
   

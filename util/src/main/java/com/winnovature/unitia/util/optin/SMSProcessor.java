@@ -111,7 +111,7 @@ public class SMSProcessor {
 			if(duplicatetype.equals("1")){
 				sendTOCommonPool("duplicate",logmap);
 			}else{
-				sendTOCommonPool("commonpool",logmap);
+				sendTOCommonPool("countrycode",logmap);
 
 			}
 			

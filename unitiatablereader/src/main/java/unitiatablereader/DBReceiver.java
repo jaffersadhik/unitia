@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.dao.Select;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
@@ -37,6 +38,31 @@ public class DBReceiver extends Thread {
 		queuename="commonpool";
 			
 	}
+	
+	
+	
+public String getQueueName(Map<String ,String > accountmap){
+		
+		
+
+		if(accountmap.get(MapKeys.OPTIN_TYPE).equals("1")){
+			
+			return "optin";
+			
+		}else if(accountmap.get(MapKeys.OPTIN_TYPE).equals("2")){
+			
+			return "optout";
+		}else if(!accountmap.get(MapKeys.DUPLICATE_TYPE).equals("0")){
+			
+			return "duplicate";
+		}else{
+		
+			return "countrycode";
+			
+		}
+	}
+
+
 	public void run(){
 		
 		while(true){
@@ -136,7 +162,7 @@ public class DBReceiver extends Thread {
 		
 			if(isNumber(map)){
 			
-				if(queuesender.sendL( queuename, map, true, logmap)){
+				if(queuesender.sendL( getQueueName(PushAccount.instance().getPushAccount(map.get(MapKeys.USERNAME).toString())), map, true, logmap)){
 				
 				break;
 				}

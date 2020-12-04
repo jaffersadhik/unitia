@@ -17,7 +17,6 @@ public class T  extends Thread{
 			
 			try{
 				PushAccount.instance().reload();
-				RedisQueueConnectionPool.getInstance().reload();
 				SMSPatternBlackList.getInstance().reload();
 
 				gotosleep();

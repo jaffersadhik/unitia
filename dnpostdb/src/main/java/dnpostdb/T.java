@@ -16,7 +16,6 @@ public class T  extends Thread{
 			
 			try{
 				Refresh.getInsatnce().reload();
-				RedisQueueConnectionPool.getInstance().reload();
 				QueueTon.getInstance().checkQueueAvailablity();
 				RedisReceiver.GRACESTOP=ConfigParams.getInstance().getProperty(ConfigKey.GRACE_STOP).equals("1");
 				

@@ -180,13 +180,11 @@ public class SMSProcessor {
 						
 			RouteProcessor route=new RouteProcessor(msgmap,"c","c");
 			route.setIsfurtherprocess(true);
-			route.doRouteGroupAvailable();
 			route.doSMSCIDAvailable();
 			route.doKannelAvailable();
 			
 			SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
 			
-			processor.doFeatureCodeIndentification();
 			processor.doDNMessage();
 			processor.doConcate();
 			processor.setCredit();
@@ -804,106 +802,6 @@ public class SMSProcessor {
 		return splitlength;
 	}
 
-
-	public void doFeatureCodeIndentification()  throws Exception{
-
-		if(isfurtherprocess){
-
-			if(msgmap.get(MapKeys.FEATURECODE)==null){
-				
-				String msgtype=msgmap.get(MapKeys.MSGTYPE).toString();
-				
-				if(msgtype.equals(MessageType.EM)||msgtype.equals(MessageType.PEM)||msgtype.equals(MessageType.EF)){
-					
-					if(isSplitRequired()){
-						
-						if(msgtype.equals(MessageType.EM)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.EMC);
-
-						}else if(msgtype.equals(MessageType.PEM)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.PEMC);
-
-							
-						}else if(msgtype.equals(MessageType.EF)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.EFC);
-
-							
-						}
-
-					}else{
-						
-						if(msgtype.equals(MessageType.EM)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.EMS);
-
-						}else if(msgtype.equals(MessageType.PEM)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.PEMS);
-
-							
-						}else if(msgtype.equals(MessageType.EF)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.EFS);
-
-							
-						}
-					}
-				}else{
-			
-					int messagelength=msgmap.get(MapKeys.FULLMSG).toString().length();
-					
-					if(messagelength>280){
-						
-						if(msgtype.equals(MessageType.UM)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.UMC);
-							
-						}else if(msgtype.equals(MessageType.UF)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.UFC);
-
-						}else if(msgtype.equals(MessageType.PUM)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.PUMC);
-						}else if(msgtype.equals(MessageType.BM)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.BMC);
-						}
-					}else{
-						
-						if(msgtype.equals(MessageType.UM)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.UMS);
-							
-						}else if(msgtype.equals(MessageType.UF)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.UFS);
-
-						}else if(msgtype.equals(MessageType.PUM)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.PUMS);
-						}else if(msgtype.equals(MessageType.BM)){
-							
-							msgmap.put(MapKeys.FEATURECODE, FeatureCode.BMS);
-						}
-					}
-				}
-				
-				if(msgmap.get(MapKeys.FEATURECODE)==null){
-					
-					msgmap.put(MapKeys.STATUSID, ""+MessageStatus.UNEBALE_TO_PREDICT_FEATURECODE);
-				
-					isfurtherprocess=false;
-				}
-			}
-					
-					
-		}
-		return ;
-	}
 	
 	public void doDNMessage()  throws Exception{
 		
@@ -995,33 +893,6 @@ public class SMSProcessor {
 	
 	
 }
-
-	private boolean isSplitRequired()  throws Exception
-	{
-		int msgLength = msgmap.get(MapKeys.FULLMSG).toString().length();
-		int noSplChar = 0;
-		
-		char strChar[] = msgmap.get(MapKeys.FULLMSG).toString().toCharArray();
-		List splCharList = SpecialCharacters.instance().getSplCharacters();
-		
-		for(int i=0; i < strChar.length; i++)
-		{
-			if(splCharList.contains(""+strChar[i]))
-			{
-				noSplChar++;
-			}
-		}
-		
-	
-		int totLength = (msgLength + noSplChar);
-		
-		
-		if(totLength > 160)
-			return true;
-		else
-			return false;
-		
-	}
 
 	private synchronized  String get8BitRunningHexaSequence()  throws Exception
 	{

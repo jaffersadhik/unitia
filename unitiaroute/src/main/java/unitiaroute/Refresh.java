@@ -1,8 +1,5 @@
 package unitiaroute;
 
-import com.winnovature.unitia.util.account.Route;
-import com.winnovature.unitia.util.duplicate.DuplicateCheck;
-
 public class Refresh {
 
 	private static Refresh obj=null;
@@ -24,16 +21,9 @@ public class Refresh {
 	
 	public void reload(){
 		
-		new DuplicateCheck().flushDuplicate();
 		Kannel.getInstance().reload();
-		MobileRouting.getInstance().reload();
 		ReRouting.getInstance().reload();
-		RouteGroup.getInstance().reload();
-		Route.getInstance().reload();
-		InternationalRoute.getInstance().reload();
 		SenderidSwapScheduling.getInstance().reload();
-		SenderidRouting.getInstance().reload();
-		Entity.getInstance().reload();
 
 	}
 	

@@ -6,10 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.winnovature.unitia.util.db.Close;
-import com.winnovature.unitia.util.db.CoreDBConnection;
-import com.winnovature.unitia.util.db.RouteDBConnection;
-import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.SQLQuery;
 import com.winnovature.unitia.util.db.TableExsists;
 
@@ -25,30 +21,8 @@ public class RouteGroup
     
     private RouteGroup()
     {
-       addMaster();
     }
     
-	private void addMaster() {
-		
-		Connection connection =null;
-		try {
-			connection=RouteDBConnection.getInstance().getConnection();
-			TableExsists table=new TableExsists();
-			if(!table.isExsists(connection, "routegroup")) {
-			addMaster(connection,table);
-			}
-			
-			loadData(connection, table);
-		}catch(Exception e) {
-			
-			e.printStackTrace();
-			
-		}finally {
-			
-			Close.close(connection);
-		}
-		
-	}
 
 	private void addMaster(Connection connection,TableExsists table) {
 
@@ -66,44 +40,9 @@ public class RouteGroup
 		}
 	}
 
-	private void loadData(Connection connection,TableExsists table) {
-
-		reloadRouteGroup(connection,table);
-    
-
-	}
 	
-	private void reloadRouteGroup(Connection connection, TableExsists table) {
-
-		Map<String, List<String>> temp_routegroup=table.getRouteGroup(connection);
-		if(temp_routegroup!=null) {
-			routegroup =temp_routegroup;
-		}
-		
-	}
 
 
-	public void reload() {
-	
-		Connection connection=null;
-		
-		try {
-			connection=RouteDBConnection.getInstance().getConnection();
-			TableExsists table=new TableExsists();
-			if(routegroup.isEmpty()) {
-				
-				addMaster(connection, table);
-			}
-			loadData(connection,table);
-		}catch(Exception e) {
-			
-		}finally {
-			
-			Close.close(connection);
-		}
-				
-				
-	}
 	public static RouteGroup getInstance() {
         
         if (obj == null)

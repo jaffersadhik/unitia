@@ -1,15 +1,22 @@
-package dnsql;
+package queuecheck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
+import com.winnovature.unitia.util.db.KannelDBConnection;
+import com.winnovature.unitia.util.misc.TempTable;
 
 public class TableCount {
+
+	static String SQL_COUNT ="select count(*) cnt from {0}";
 
 	private static Map<String,String> queuemaxCount=new HashMap<String,String>();
 	
@@ -31,7 +38,80 @@ public class TableCount {
 
 	}
 	
+	private static TableCount object=new TableCount();
 	
+	private TableCount(){
+		
+	}
+	
+	public static TableCount getInstance(){
+		
+		if(object==null){
+			
+			object=new TableCount();
+		}
+		
+		return object;
+	}
+	
+	
+	public  void tableCountCheck() {
+		
+		Map<String,String> result=new HashMap<String,String>();
+		
+		Connection connection=null;
+		
+		try{
+			connection=KannelDBConnection.getInstance().getConnection();
+			List<String> TABLES=TempTable.getQueueTableName();
+			for(int i=0,max=TABLES.size();i<max;i++){
+		
+				String tablename=TABLES.get(i);
+				
+				result.put(tablename, getCount(connection,tablename));
+			}
+			 TableCount tablecount=new TableCount() ;
+			 tablecount.insertQueueintoDB(result);
+			 tablecount.setQueueMaxCountMap(result);
+			 tablecount.insertQueueMaxintoDB();
+		}catch(Exception e){
+			
+		}finally{
+			
+			Close.close(connection);
+		}
+		
+	}
+	
+
+
+	private String getSQL(String tablename) {
+		String param[]={tablename};
+		return MessageFormat.format(SQL_COUNT,param );
+	}
+	
+	private  String getCount(Connection connection, String tablename) {
+		
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		String result="0";
+		try{
+			statement=connection.prepareStatement(getSQL(tablename));
+			resultset=statement.executeQuery();
+			
+			if(resultset.next()){
+				result=resultset.getString("cnt");
+			}
+		}catch(Exception e){
+			
+		}finally{
+			
+			Close.close(resultset);
+			Close.close(statement);
+		}
+		return result;
+	}
+
 public void insertQueueMaxintoDB() {
 		
 

@@ -23,7 +23,6 @@ public class T  extends Thread{
 			
 			try{
 				Refresh.getInsatnce().reload();
-				RedisQueueConnectionPool.getInstance().reload();
 				RedisReceiver.GRACESTOP=ConfigParams.getInstance().getProperty(ConfigKey.GRACE_STOP).equals("1");
 				gotosleep();
 					

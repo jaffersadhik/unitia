@@ -82,6 +82,12 @@ public class RedisQueueConnectionPool {
 
 	public void reload() {
 		
+	
+		
+	}
+	
+	public void reloadnew() {
+		
 		for(int i=0,max=redisqueuelist.size();i<max;i++){
 			
 			redisqueuelist.get(i).reload();

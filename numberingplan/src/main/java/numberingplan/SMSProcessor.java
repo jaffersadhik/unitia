@@ -102,15 +102,9 @@ public class SMSProcessor {
 		logmap.put("logname", logname);
 	
 		if(isfurtherprocess){
-			
-			String duplicatetype=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DUPLICATE_TYPE);
-			
-			if(duplicatetype.equals("1")){
-				sendTOCommonPool("duplicate",logmap);
-			}else{
-				sendTOCommonPool("commonpool",logmap);
+		
+				sendTOCommonPool("blacklistmobile",logmap);
 
-			}
 			
 		}else{
 

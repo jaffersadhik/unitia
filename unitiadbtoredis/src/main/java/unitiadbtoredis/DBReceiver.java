@@ -130,7 +130,7 @@ public class DBReceiver extends Thread {
 			return "duplicate";
 		}else{
 		
-			return "commonpool";
+			return "countrycode";
 			
 		}
 	}
