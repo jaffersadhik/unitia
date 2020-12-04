@@ -70,7 +70,7 @@ public class SMSProcessor {
 		if(isfurtherprocess){
 			
 
-				sendTOCommonPool("templatecheck",logmap);
+				sendTOCommonPool("dlt",logmap);
 
 			
 		}else{

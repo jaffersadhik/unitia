@@ -41,7 +41,7 @@ try{
 	}
 		
 
-		SMSProcessor processor=new SMSProcessor("blacklist",msgmap,true);
+		SMSProcessor processor=new SMSProcessor("spamfilter",msgmap,true);
 		
 		new RouterLog().routerlog(redisid, tname, "start route.doOptin()");
 

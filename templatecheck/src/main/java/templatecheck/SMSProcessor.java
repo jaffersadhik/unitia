@@ -150,7 +150,7 @@ public class SMSProcessor {
 			if(routeclass.equals("2")){
 				sendTOCommonPool("dnd",logmap);
 			}else{
-				sendTOCommonPool("dlt",logmap);
+				sendTOCommonPool("senderidcheck",logmap);
 
 			}
 			
