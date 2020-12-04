@@ -58,6 +58,83 @@ public class App {
 			logmap.put("started", "duplicate");
 
 			
+		}else if(module.equals("countrycode")){
+			
+			countrycode.App.doProcess();
+			
+			logmap.put("started", "countrycode");
+
+			
+		}else if(module.equals("numberingplan")){
+			
+			numberingplan.App.doProcess();
+			
+			logmap.put("started", "numberingplan");
+
+			
+		}else if(module.equals("blacklistmobile")){
+			
+			blacklist.App.doProcess();
+			
+			logmap.put("started", "blacklistmobile");
+
+			
+		}else if(module.equals("blacklistsms")){
+			
+			blacklistsms.App.doProcess();
+			
+			logmap.put("started", "blacklistsms");
+
+			
+		}else if(module.equals("blacklistsenderid")){
+			
+			blacklistsenderid.App.doProcess();
+			
+			logmap.put("started", "blacklistsenderid");
+
+			
+		}else if(module.equals("spamfilter")){
+			
+			spamfilter.App.doProcess();
+			
+			logmap.put("started", "spamfilter");
+
+			
+		}else if(module.equals("senderidcheck")){
+			
+			senderidcheck.App.doProcess();
+			
+			logmap.put("started", "senderidcheck");
+
+			
+		}else if(module.equals("templatecheck")){
+			
+			templatecheck.App.doProcess();
+			
+			logmap.put("started", "templatecheck");
+
+			
+		}else if(module.equals("dnd")){
+			
+			dnd.App.doProcess();
+			
+			logmap.put("started", "dnd");
+
+			
+		}else if(module.equals("dlt")){
+			
+			dlt.App.doProcess();
+			
+			logmap.put("started", "dlt");
+
+			
+		}else if(module.equals("routegroup")){
+			
+			routegroup.App.doProcess();
+			
+			logmap.put("started", "routegroup");
+
+			
 		}else if(module.equals("dngen")){
 			
 			unitiadngen.App.main(args);
