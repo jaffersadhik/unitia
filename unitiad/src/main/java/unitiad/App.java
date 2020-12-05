@@ -65,6 +65,13 @@ public class App {
 			logmap.put("started", "countrycode");
 
 			
+		}else if(module.equals("processor")){
+			
+			processor.App.doProcess();
+			
+			logmap.put("started", "processor");
+
+			
 		}else if(module.equals("numberingplan")){
 			
 			numberingplan.App.doProcess();
