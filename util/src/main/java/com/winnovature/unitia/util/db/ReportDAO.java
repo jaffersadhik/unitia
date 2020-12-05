@@ -68,7 +68,7 @@ public class ReportDAO {
 		StringBuffer sb=new StringBuffer();
 		
 		sb.append("insert into {0}");
-		sb.append("(ackid,msgid,username,rtime,order,nextlevel)");
+		sb.append("(ackid,msgid,username,rtime,priorityorder,nextlevel)");
 		
 		sb.append("values(?,?,?,?,?,?)");
 		

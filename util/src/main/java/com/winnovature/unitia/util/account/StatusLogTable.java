@@ -30,8 +30,8 @@ public class StatusLogTable {
 		 sb.append("itime datetime default CURRENT_TIMESTAMP,");
 		 sb.append("rtime datetime,");
 		 sb.append("customerip varchar(50),");
-		 sb.append("order numeric(2,0),");
-		 sb.append("nextlevel varchar(50)");
+		 sb.append("priorityorder numeric(2,0),");
+		 sb.append("nextlevel varchar(50))");
 			
 		 sb.append(")");
 
