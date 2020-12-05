@@ -90,6 +90,11 @@
 </dependency>
  <dependency>
     <groupId>winovature</groupId>
+    <artifactId>statuslog</artifactId>
+    <version>1.0</version>
+</dependency>
+ <dependency>
+    <groupId>winovature</groupId>
     <artifactId>queuecheck</artifactId>
     <version>1.0</version>
 </dependency>

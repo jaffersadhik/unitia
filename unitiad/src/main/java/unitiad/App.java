@@ -162,6 +162,10 @@ public class App {
 			
 			submission.App.main(args);
 			
+		}else if(module.equals("statuslog")){
+			
+			statuslog.App.main(args);
+			
 		}else if(module.equals("delivery")){
 			
 			delivery.App.main(args);
