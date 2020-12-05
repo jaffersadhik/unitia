@@ -30,8 +30,9 @@ static{
 	NON_LOGNAME.add("senderidcheck");
 	NON_LOGNAME.add("templatecheck");
 	NON_LOGNAME.add("dnd");
-	
-	
+	NON_LOGNAME.add("totaltime");
+	NON_LOGNAME.add("logwritetotaltime");
+	NON_LOGNAME.add("redisreadtime");
 	NON_LOGNAME.add("dlt");
 	NON_LOGNAME.add("routegroup");
 }
