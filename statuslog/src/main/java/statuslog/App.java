@@ -3,6 +3,7 @@ package statuslog;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.winnovature.unitia.util.account.StatusLogTable;
 import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.misc.Prop;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
@@ -14,9 +15,10 @@ public class App
     public static void main(String[] args) throws Exception
     {
     	Prop.getInstance();
-    	
+    	StatusLogTable.getInstance().reload();
     	new T().start();
 
+    	
     	start("statuslog");
     
      }
