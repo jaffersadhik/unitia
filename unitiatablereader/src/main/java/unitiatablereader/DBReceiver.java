@@ -57,7 +57,7 @@ public String getQueueName(Map<String ,String > accountmap){
 			return "duplicate";
 		}else{
 		
-			return "countrycode";
+			return "processor";
 			
 		}
 	}

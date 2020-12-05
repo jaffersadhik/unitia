@@ -33,7 +33,7 @@ public class Utility
 			return "duplicate";
 		}else{
 		
-			return "countrycode";
+			return "processor";
 			
 		}
 	}

@@ -69,14 +69,14 @@ public class QueueSender {
 
 		}
 		
-		
+		/*
 		if(!(queuename.indexOf("logspool")>-1)&&!(queuename.indexOf("smppdn")>-1)&&!(queuename.indexOf("httpdn")>-1)&&!(queuename.indexOf("dnpostpool")>-1)&&!(queuename.indexOf("statuslog")>-1)){
 			
 			requestObject.put("nextlevel", queuename);
 			
 			sendL("statuslog", requestObject, false, new HashMap<String,Object>());
 		}
-
+*/
 		long end=System.currentTimeMillis();
 		
 

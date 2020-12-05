@@ -53,6 +53,7 @@ static{
 
 	}
 	public void write(Map<String,Object> logmap){
+		/*
 		
 		try{	
 			logmap.put(MapKeys.MSGID, ACKIdGenerator.getAckId());
@@ -67,6 +68,10 @@ static{
 			
 			e.printStackTrace();
 		}
+		*/
+		
+		new FileWriteOrg().write(logmap);
+
 	}
 
 	

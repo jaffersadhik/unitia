@@ -51,6 +51,7 @@
   	<module>routegroup</module>
   	<module>queuecheck</module>
   	<module>statuslog</module>
+  	<module>processor</module>
     </modules>
   <dependencies>
   

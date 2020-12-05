@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>winovature</groupId>
+    <artifactId>unitia</artifactId>
+    <version>1.0</version>
+  </parent>
+  <artifactId>processor</artifactId>
+  
+  <dependencies>
+
+    <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>util</artifactId>
+    <version>1.0</version>
+</dependency>
+
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>countrycode</artifactId>
+    <version>1.0</version>
+</dependency>
+
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>numberingplan</artifactId>
+    <version>1.0</version>
+</dependency>
+
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>blacklist</artifactId>
+    <version>1.0</version>
+</dependency>
+   
+    <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>blacklistsms</artifactId>
+    <version>1.0</version>
+</dependency>
+
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>blacklistsenderid</artifactId>
+    <version>1.0</version>
+</dependency>
+
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>spamfilter</artifactId>
+    <version>1.0</version>
+</dependency>
+
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>templatecheck</artifactId>
+    <version>1.0</version>
+</dependency>
+
+
+
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>senderidcheck</artifactId>
+    <version>1.0</version>
+</dependency>
+
+
+
+
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>dlt</artifactId>
+    <version>1.0</version>
+</dependency>
+
+
+
+
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>routegroup</artifactId>
+    <version>1.0</version>
+</dependency>
+
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>util</artifactId>
+    <version>1.0</version>
+</dependency>
+ 
+  </dependencies>
+</project>
