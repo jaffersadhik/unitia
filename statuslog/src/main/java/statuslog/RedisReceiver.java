@@ -16,6 +16,7 @@ import com.winnovature.unitia.util.db.ReportDAO;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.misc.FileWrite;
+import com.winnovature.unitia.util.misc.FileWriteOrg;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.redis.QueueSender;
@@ -118,7 +119,7 @@ public class RedisReceiver extends Thread {
 	}
 	private void untilPersist(List<Map<String, Object>> datalist) {
 
-
+/*
 		if(datalist==null || datalist.size()<1){
 			
 			return;
@@ -134,7 +135,13 @@ public class RedisReceiver extends Thread {
 				gotosleep();
 			}
 		}
-			
+	*/
+
+
+		for(int i=0;i<datalist.size();i++){
+			new FileWriteOrg().write(datalist.get(i));
+		}
+
 		
 	}
 	
