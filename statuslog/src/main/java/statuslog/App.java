@@ -76,11 +76,11 @@ private static String getSQL() {
 	 sb.append("itime datetime default CURRENT_TIMESTAMP,");
 	 sb.append("rtime datetime,");
 	 sb.append("customerip varchar(50),");
-	 sb.append("order numeric(2,0),");
-	 sb.append("nextlevel varchar(50)");
-		
+	 sb.append("priorityorder varchar(2),");
+	 sb.append("nextlevel varchar(50)");		
 	 sb.append(")");
 
+	 System.out.print(sb.toString());
 	 return sb.toString();
 }
 

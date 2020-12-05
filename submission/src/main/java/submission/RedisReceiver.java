@@ -68,6 +68,8 @@ public class RedisReceiver extends Thread {
 
 					errorDNHandover(datalist);
 					
+					sendtoStatusQueue(datalist);
+
 
 					datalist=new ArrayList<Map<String,Object>>();
 					
