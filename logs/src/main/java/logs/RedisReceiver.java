@@ -104,7 +104,7 @@ public class RedisReceiver extends Thread {
 		logmap1.put("logname", "logwritetotaltime");
 
 
-		new FileWriteOrg().write(logmap1);
+		//new FileWriteOrg().write(logmap1);
 		
 	}
 	private void untilPersist(List<Map<String, Object>> datalist) {

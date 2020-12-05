@@ -329,7 +329,7 @@ public boolean insertStatus(String tablename,List<Map<String, Object>> datalist)
 				statement.setString(2, (String)msgmap.get(MapKeys.MSGID));
 				statement.setString(3,(String) msgmap.get(MapKeys.USERNAME));
 				statement.setTimestamp(4,new Timestamp(Long.parseLong(msgmap.get(MapKeys.RTIME).toString())));
-				statement.setString(5, (String)msgmap.get("STATUS_ORDER"));
+				statement.setInt(5,Integer.parseInt((String)msgmap.get("STATUS_ORDER")));
 
 				statement.setString(6, (String)msgmap.get("nextlevel"));
 				statement.addBatch();
