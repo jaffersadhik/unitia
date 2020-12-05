@@ -1,9 +1,12 @@
 package statuslog;
 
+import java.sql.Connection;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.winnovature.unitia.util.account.StatusLogTable;
+import com.winnovature.unitia.util.db.Close;
+import com.winnovature.unitia.util.db.StatusLogDBConnection;
+import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.misc.Prop;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
@@ -15,13 +18,71 @@ public class App
     public static void main(String[] args) throws Exception
     {
     	Prop.getInstance();
-    	StatusLogTable.getInstance().reload();
+    	
+    	reload();
     	new T().start();
 
+    	
     	
     	start("statuslog");
     
      }
+    
+    
+    
+public static void reload(){
+		
+		Connection connection=null;
+		
+		try{
+			
+		
+			connection=StatusLogDBConnection.getInstance().getConnection();
+			
+		
+			
+			
+				
+				TableExsists table=new TableExsists();
+				
+				if(!table.isExsists(connection, "reportlog_status")){
+				
+					if(table.create(connection, getSQL(), false)){
+						
+						
+					}
+				}
+				
+			
+		}
+		
+		catch(Exception e){
+			
+			e.printStackTrace();
+		}finally{
+			
+			Close.close(connection);
+		}
+	}
+
+
+private static String getSQL() {
+	 StringBuffer sb=new StringBuffer();
+	 
+	 sb.append("create table reportlog_status(");
+	 sb.append("ackid varchar(40),");
+	 sb.append("msgid varchar(40),");
+	 sb.append("username varchar(16),");
+	 sb.append("itime datetime default CURRENT_TIMESTAMP,");
+	 sb.append("rtime datetime,");
+	 sb.append("customerip varchar(50),");
+	 sb.append("order numberic(2,0),");
+	 sb.append("nextlevel varchar(50)");
+		
+	 sb.append(")");
+
+	 return sb.toString();
+}
 
 	private static void start(String poolname) {
 		

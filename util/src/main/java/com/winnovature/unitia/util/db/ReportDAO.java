@@ -26,7 +26,7 @@ public class ReportDAO {
 		
 		StringBuffer sb=new StringBuffer();
 		
-		sb.append("insert into {0}");
+		sb.append("insert into reportlog_status");
 		sb.append("(");
 		sb.append("ackid,msgid,username,senderid,");
 		sb.append("senderid_org,mobile,fullmessage,operator,circle,");
@@ -68,14 +68,10 @@ public class ReportDAO {
 		StringBuffer sb=new StringBuffer();
 		
 		sb.append("insert into {0}");
-		sb.append("(");
-		sb.append("ackid,msgid,username,");
-		sb.append("rtime,");
-		sb.append("order,nextlevel)");
-		sb.append("values(");
-		sb.append("?,?,?,");
-		sb.append("?,");
-		sb.append("?,?)");
+		sb.append("(ackid,msgid,username,rtime,order,nextlevel)");
+		
+		sb.append("values(?,?,?,?,?,?)");
+		
 		SQLSTATUS=sb.toString();
 
 	}
