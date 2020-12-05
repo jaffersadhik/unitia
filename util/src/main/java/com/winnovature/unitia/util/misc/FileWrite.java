@@ -35,6 +35,7 @@ static{
 	NON_LOGNAME.add("redisreadtime");
 	NON_LOGNAME.add("dlt");
 	NON_LOGNAME.add("routegroup");
+	NON_LOGNAME.add("submission");
 }
 	static {
 		

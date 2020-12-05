@@ -26,7 +26,7 @@ public class ReportDAO {
 		
 		StringBuffer sb=new StringBuffer();
 		
-		sb.append("insert into reportlog_status");
+		sb.append("insert into {0}");
 		sb.append("(");
 		sb.append("ackid,msgid,username,senderid,");
 		sb.append("senderid_org,mobile,fullmessage,operator,circle,");
@@ -67,7 +67,7 @@ public class ReportDAO {
 		
 		StringBuffer sb=new StringBuffer();
 		
-		sb.append("insert into {0}");
+		sb.append("insert into reportlog_status");
 		sb.append("(ackid,msgid,username,rtime,priorityorder,nextlevel)");
 		
 		sb.append("values(?,?,?,?,?,?)");
