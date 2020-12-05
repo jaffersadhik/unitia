@@ -2,9 +2,10 @@ package com.winnovature.unitia.util.misc;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.redis.QueueSender;
@@ -12,7 +13,28 @@ import com.winnovature.unitia.util.redis.QueueSender;
 public class FileWrite {
 
 private static String MODE="";
+private static Set<String> NON_LOGNAME=new HashSet<String>();
+
+static{
 	
+	NON_LOGNAME.add("optin");
+	NON_LOGNAME.add("optout");
+	NON_LOGNAME.add("duplicate");
+	NON_LOGNAME.add("countrycode");
+	NON_LOGNAME.add("numberingplan");
+	NON_LOGNAME.add("blacklistmobile");
+	
+	NON_LOGNAME.add("blacklistsms");
+	NON_LOGNAME.add("blacklistsenderid");
+	NON_LOGNAME.add("spamfilter");
+	NON_LOGNAME.add("senderidcheck");
+	NON_LOGNAME.add("templatecheck");
+	NON_LOGNAME.add("dnd");
+	
+	
+	NON_LOGNAME.add("dlt");
+	NON_LOGNAME.add("routegroup");
+}
 	static {
 		
 		String mode=System.getenv("mode");
@@ -32,8 +54,12 @@ private static String MODE="";
 		
 		try{	
 			logmap.put(MapKeys.MSGID, ACKIdGenerator.getAckId());
-			new QueueSender().sendL("logspool", logmap, false, logmap);
 			
+			String logname=(String)logmap.get("logname");
+
+			if(logname==null||!NON_LOGNAME.contains(logname)){
+			new QueueSender().sendL("logspool", logmap, false, logmap);
+			}
 					
 		}catch(Exception e){
 			

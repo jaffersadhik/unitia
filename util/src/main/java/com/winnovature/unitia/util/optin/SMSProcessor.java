@@ -29,7 +29,7 @@ public class SMSProcessor {
 	
 		
 	public void doOptin() throws Exception{
-		
+		msgmap.put("STATUS_ORDER", "2");
 		if(isfurtherprocess){
 			String username=msgmap.get(MapKeys.USERNAME).toString();
 			String mobile=msgmap.get(MapKeys.MOBILE).toString();
@@ -54,7 +54,8 @@ public class SMSProcessor {
 	}
 	
 	public void doOptout()  throws Exception{
-		
+		msgmap.put("STATUS_ORDER", "2");
+
 		if(isfurtherprocess){
 			String username=msgmap.get(MapKeys.USERNAME).toString();
 			String mobile=msgmap.get(MapKeys.MOBILE).toString();

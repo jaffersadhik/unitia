@@ -209,7 +209,7 @@ public class MissedCallProcessor
 				}
 			
 				if(flag == 0) {
-					
+					msgmap.put("STATUS_ORDER", "1");
 					if(!new Utility().sendQueue(dtoobj,logmap)){
 						
 						return MessageStatus.SENT_TO_QUEUE_FAILED;

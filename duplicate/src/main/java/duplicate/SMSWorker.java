@@ -30,6 +30,7 @@ try{
 	
 	msgmap.put(MapKeys.ATTEMPT_TYPE, "0");
 	msgmap.put(MapKeys.TOTAL_MSG_COUNT,"1");
+	msgmap.put("STATUS_ORDER", "3");
 
 	String username=(String)msgmap.get(MapKeys.USERNAME);
 	

@@ -1,9 +1,9 @@
 package com.winnovature.unitia.util.redis;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.winnovature.unitia.util.dao.Insert;
-import com.winnovature.unitia.util.misc.RouterLog;
 
 public class QueueSender {
 
@@ -69,6 +69,13 @@ public class QueueSender {
 
 		}
 		
+		
+		if(!(queuename.indexOf("logspool")>-1)&&!(queuename.indexOf("smppdn")>-1)&&!(queuename.indexOf("httpdn")>-1)&&!(queuename.indexOf("dnpostpool")>-1)&&!(queuename.indexOf("statuslog")>-1)){
+			
+			requestObject.put("nextlevel", queuename);
+			
+			sendL("statuslog", requestObject, false, new HashMap<String,Object>());
+		}
 
 		long end=System.currentTimeMillis();
 		

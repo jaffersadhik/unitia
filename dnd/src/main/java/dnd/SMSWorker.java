@@ -27,6 +27,7 @@ public class SMSWorker  {
 		
 try{
 	
+	msgmap.put("STATUS_ORDER", "9");
 
 	String username=(String)msgmap.get(MapKeys.USERNAME);
 	

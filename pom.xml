@@ -50,6 +50,7 @@
   	<module>dlt</module>
   	<module>routegroup</module>
   	<module>queuecheck</module>
+  	<module>statuslog</module>
     </modules>
   <dependencies>
   

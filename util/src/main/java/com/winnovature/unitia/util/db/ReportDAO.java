@@ -2,15 +2,14 @@ package com.winnovature.unitia.util.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.account.ReportLogTable;
+import com.winnovature.unitia.util.account.StatusLogTable;
 import com.winnovature.unitia.util.misc.Convertor;
 import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.FeatureCode;
@@ -21,7 +20,8 @@ import com.winnovature.unitia.util.misc.MessageStatus;
 public class ReportDAO {
 
 	private static String SQL="";
-	
+	private static String SQLSTATUS="";
+
 	static{
 		
 		StringBuffer sb=new StringBuffer();
@@ -60,6 +60,26 @@ public class ReportDAO {
 		SQL=sb.toString();
 
 	}
+
+	
+
+	static{
+		
+		StringBuffer sb=new StringBuffer();
+		
+		sb.append("insert into {0}");
+		sb.append("(");
+		sb.append("ackid,msgid,username,");
+		sb.append("rtime,");
+		sb.append("order,nextlevel)");
+		sb.append("values(");
+		sb.append("?,?,?,");
+		sb.append("?,");
+		sb.append("?,?)");
+		SQLSTATUS=sb.toString();
+
+	}
+
 	public boolean insert(String tablename,List<Map<String, Object>> datalist) {
 		
 		Connection connection =null;
@@ -276,6 +296,86 @@ public class ReportDAO {
 		
 		return false;
 	}
+
+	
+public boolean insertStatus(String tablename,List<Map<String, Object>> datalist) {
+		
+		Connection connection =null;
+		PreparedStatement statement=null;
+		
+		Map<String, Object> logmap=null;
+		try{
+		
+			String sql=getSQLStatus("mysql."+tablename);
+			
+			if(!StatusLogTable.getInstance().isVailableTable(tablename)){
+			
+				StatusLogTable.getInstance().reload();
+			}
+			
+			connection= StatusLogDBConnection.getInstance().getConnection();
+			
+			connection.setAutoCommit(false);
+			
+			statement= connection.prepareStatement(sql);
+			
+			for(int i=0;i<datalist.size();i++){
+				
+				Map<String,Object> msgmap=datalist.get(i);
+				logmap=msgmap;
+
+				statement.setString(1,(String) msgmap.get(MapKeys.ACKID));
+			
+				statement.setString(2, (String)msgmap.get(MapKeys.MSGID));
+				statement.setString(3,(String) msgmap.get(MapKeys.USERNAME));
+				statement.setTimestamp(4,new Timestamp(Long.parseLong(msgmap.get(MapKeys.RTIME).toString())));
+				statement.setString(5, (String)msgmap.get("STATUS_ORDER"));
+
+				statement.setString(6, (String)msgmap.get("nextlevel"));
+				statement.addBatch();
+			}
+			statement.executeBatch();
+			connection.commit();
+			return true;
+		}catch(Exception e){
+			
+			
+			e.printStackTrace();
+			
+		     
+					try{
+						logmap.put("module", "inserterror");
+						logmap.put("logname", "inserterror");
+						logmap.put("error", ErrorMessage.getMessage(e));
+
+						new FileWrite().write(logmap);
+					}catch(Exception e1){
+						
+					}
+			
+	        
+			try{
+				connection.rollback();
+			}catch(Exception e1){
+				
+			}
+			
+		}finally{
+			
+			Close.close(statement);
+			Close.close(connection);
+		}
+		
+		return false;
+	}
+
+	
+	private String getSQLStatus(String tablename) {
+		String param[]={tablename};
+		return MessageFormat.format(SQLSTATUS, param);
+}
+
+
 	private String getSQL(String tablename) {
 
 		String param[]={tablename};

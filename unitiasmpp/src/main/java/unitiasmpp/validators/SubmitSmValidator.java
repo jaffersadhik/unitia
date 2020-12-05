@@ -100,7 +100,7 @@ public class SubmitSmValidator {
 					try
 					{
 						boolean pushed=false;
-						
+						msgmap.put("STATUS_ORDER", "1");
 						pushed = new Utility().sendQueue(msgmap,logmap);
 						
 						

@@ -84,7 +84,8 @@ public class SMSWorker  {
 	public void doOtp(String redisid, String tname){
 		
 try{
-	
+	msgmap.put("STATUS_ORDER", "14");
+
 	msgmap.put(MapKeys.ATTEMPT_TYPE, "0");
 	msgmap.put(MapKeys.TOTAL_MSG_COUNT,"1");
 

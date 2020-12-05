@@ -26,7 +26,8 @@ public class SMSWorker  {
 	public void doOtp(String redisid, String tname){
 		
 try{
-	
+	msgmap.put("STATUS_ORDER", "12");
+
 
 	String username=(String)msgmap.get(MapKeys.USERNAME);
 	

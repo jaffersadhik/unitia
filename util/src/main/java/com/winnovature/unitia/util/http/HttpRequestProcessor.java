@@ -175,6 +175,7 @@ public class HttpRequestProcessor
 						return getRejectedResponse(sbFlag);
 				}
 			
+				msgmap.put("STATUS_ORDER", "1");
 				if(!new Utility().sendQueue(msgmap,logmap)){
 				
 				return getRejectedResponse(MessageStatus.SENT_TO_QUEUE_FAILED);
@@ -255,7 +256,7 @@ public class HttpRequestProcessor
 				}
 			
 				if(flag == 0) {
-					
+					msgmap.put("STATUS_ORDER", "1");
 					if(!new Utility().sendQueue(msgmap,logmap)){
 						
 						return MessageStatus.SENT_TO_QUEUE_FAILED;

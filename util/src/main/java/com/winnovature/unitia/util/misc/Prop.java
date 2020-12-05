@@ -558,6 +558,32 @@ public Properties getRedisQueue2Prop() {
 		}
 		
 		return result;
+	}
+
+
+	public Properties getStatusLogDBProp() {
+
+		
+		String fileName="statuslogdb.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/billingdb.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	
 	}	
 	
 	

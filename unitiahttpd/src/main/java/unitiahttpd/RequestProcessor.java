@@ -206,7 +206,7 @@ public class RequestProcessor
 					if(sbFlag !=0) 
 						return getRejectedResponse(sbFlag);
 				}
-			
+				msgmap.put("STATUS_ORDER", "1");
 				if(!new Utility().sendQueue(msgmap,logmap)){
 				
 				return getRejectedResponse(MessageStatus.SENT_TO_QUEUE_FAILED);
@@ -325,7 +325,7 @@ public class RequestProcessor
 				}
 			
 				if(flag == 0) {
-					
+					msgmap.put("STATUS_ORDER", "1");
 					if(!new Utility().sendQueue(dtoobj,logmap)){
 						
 						return MessageStatus.SENT_TO_QUEUE_FAILED;

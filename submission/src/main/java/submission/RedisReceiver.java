@@ -18,6 +18,7 @@ import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
+import com.winnovature.unitia.util.redis.QueueSender;
 import com.winnovature.unitia.util.redis.RedisReader;
 
 public class RedisReceiver extends Thread {
@@ -86,6 +87,7 @@ public class RedisReceiver extends Thread {
 
 					errorDNHandover(datalist);;
 					
+					sendtoStatusQueue(datalist);
 
 					datalist=new ArrayList<Map<String,Object>>();
 				}
@@ -146,6 +148,27 @@ public class RedisReceiver extends Thread {
 	}
 	
 	
+	private void sendtoStatusQueue(List<Map<String, Object>> datalist) {
+
+
+		if(datalist==null || datalist.size()<1){
+			
+			return;
+		}
+		
+		
+		for(int i=0;i<datalist.size();i++){
+			 
+			Map<String, Object> msgmap=datalist.get(i);
+			msgmap.put("nextlevel", "final");
+
+			msgmap.put("STATUS_ORDER", "15");
+			new QueueSender().sendL("statuslog", msgmap, false, new HashMap<String,Object>());
+			
+		}
+			
+		
+	}
 	
 private void log(List<Map<String, Object>> datalist) {
 		
