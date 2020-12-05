@@ -58,7 +58,7 @@ public class RedisReceiver extends Thread {
 				datalist.add(msgmap);
 				
 				long diff=System.currentTimeMillis()-start;
-				if((datalist.size()>100 || diff > 350)&&datalist.size()!=0){
+				if((datalist.size()>25000 || diff > 2000)&&datalist.size()!=0){
 					start=System.currentTimeMillis();
 					
 					untilPersist(datalist);
@@ -74,7 +74,7 @@ public class RedisReceiver extends Thread {
 				
 
 				long diff=System.currentTimeMillis()-start;
-				if((datalist.size()>100 || diff > 350)&&datalist.size()!=0){
+				if((datalist.size()>25000 || diff > 2000)&&datalist.size()!=0){
 					start=System.currentTimeMillis();
 					
 					untilPersist(datalist);
