@@ -7,7 +7,7 @@ import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
-import com.winnovature.unitia.util.redis.QueueSender;
+import com.winnovature.unitia.util.redisinterface.QueueSender;
 
 public class SMSProcessor {
 	
@@ -89,7 +89,7 @@ public class SMSProcessor {
 		if(isfurtherprocess){
 			
 		
-				sendTOCommonPool("countrycode",logmap);
+				sendTOCommonPool("duplicate",logmap);
 
 			
 		}else{

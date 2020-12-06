@@ -1,4 +1,4 @@
-package unitiacore.threadpool;
+package processor;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -17,7 +17,8 @@ import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.redis.QueueSender;
-import com.winnovature.unitia.util.redis.RedisReader;
+import com.winnovature.unitia.util.redisinterface.RedisReader;
+
 
 
 public class ShortCodeRedisReceiver extends  Thread {

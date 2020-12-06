@@ -1,0 +1,7 @@
+db=1
+ip=redisinterfacequeue6
+password=
+port=6379
+maxpool=100
+maxwait=60
+timeout=60

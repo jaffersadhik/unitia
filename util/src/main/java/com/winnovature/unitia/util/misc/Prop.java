@@ -584,6 +584,162 @@ public Properties getRedisQueue2Prop() {
 		
 		return result;
 	
+	}
+
+
+	public Properties getRedisInterfaceQueue1Prop() {
+
+		
+		String fileName="redisinterfacequeue1.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	
+	}
+
+
+	public Properties getRedisInterfaceQueue2Prop() {
+
+		
+		String fileName="redisinterfacequeue2.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	
+	}
+
+
+	public Properties getRedisInterfaceQueue3Prop() {
+
+		
+		String fileName="redisinterfacequeue3.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	
+	}
+
+
+	public Properties getRedisInterfaceQueue4Prop() {
+
+		
+		String fileName="redisinterfacequeue4.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	
+	}
+
+
+	public Properties getRedisInterfaceQueue5Prop() {
+
+		
+		String fileName="redisinterfacequeue5.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	
+	}
+
+
+	public Properties getRedisInterfaceQueue6Prop() {
+
+		
+		String fileName="redisinterfacequeue6.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	
 	}	
 	
 	

@@ -110,9 +110,9 @@ public class SMSProcessor {
 			String duplicatetype=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.DUPLICATE_TYPE);
 			
 			if(duplicatetype.equals("1")){
-				sendTOCommonPool("duplicate",logmap);
+				sendTOCommonPoolInterface("duplicate",logmap);
 			}else{
-				sendTOCommonPool("countrycode",logmap);
+				sendTOCommonPool("processor",logmap);
 
 			}
 			
@@ -139,6 +139,21 @@ public class SMSProcessor {
 
 
 	
+	private void sendTOCommonPoolInterface(String queuename, Map<String, Object> logmap) {
+
+	
+		
+		if(new com.winnovature.unitia.util.redisinterface.QueueSender().sendL(queuename, msgmap, false, logmap)){
+			
+			logmap.put("sms processor status", "Message Sent to "+queuename+" Queue Successfully");
+		
+		}else{
+			
+			logmap.put("sms processor status", "Message Sent to "+queuename+" Queue Failed message will be loss");
+
+		}
+		
+	}
 	private void doBilling(Map<String,Object> logmap)  throws Exception {
 	
 			String queuename="submissionpool";

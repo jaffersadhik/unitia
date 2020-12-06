@@ -105,7 +105,7 @@ public class AppsReceiver extends Thread {
 
 	
 	private void sendtoStatusQueue(List<Map<String, Object>> datalist) {
-
+/*
 
 		if(datalist==null || datalist.size()<1){
 			
@@ -122,7 +122,8 @@ public class AppsReceiver extends Thread {
 			new QueueSender().sendL("statuslog", msgmap, false, new HashMap<String,Object>());
 			
 		}
-			
+		
+			*/
 		
 	}
 	

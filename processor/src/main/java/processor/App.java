@@ -11,6 +11,7 @@ import com.winnovature.unitia.util.misc.Prop;
 import com.winnovature.unitia.util.misc.RedisInstance;
 
 
+
 public class App 
 {
  
@@ -29,6 +30,8 @@ public class App
     	log.log("unitiacore.App.doProcess() memory refresh thread started");
 
      	start("processor");
+     	start("missedcallpool");
+     	start("shortcodepool");
 
     	log.log("unitiacore.App.doProcess() dnretrypool thread started");
 	
@@ -42,9 +45,29 @@ public class App
     	
 
 
-		List<String> redisidlist=RedisInstance.getInstance().getRedisInstanceList();
+		List<String> redisidlist=RedisInstance.getInstance().getRedisInstanceListInterface();
 
 	
+		if(poolname.equals("missedcallpool")){
+			
+
+			for(int j=0;j<redisidlist.size();j++){
+				String redisid=redisidlist.get(j);
+
+			MissedCallRedisReceiver obj=new MissedCallRedisReceiver(1,poolname,redisid);
+			obj.start();
+			}
+
+		}else if(poolname.equals("shortcodepool")){
+
+			for(int j=0;j<redisidlist.size();j++){
+				String redisid=redisidlist.get(j);
+
+			ShortCodeRedisReceiver obj=new ShortCodeRedisReceiver(1,poolname,redisid);
+			obj.start();
+
+			}
+		}else{
 		for(int j=0;j<redisidlist.size();j++){
 		
 			String redisid=redisidlist.get(j);
@@ -57,7 +80,7 @@ public class App
 				pollerlist.add(obj);
 			}
 		}
-		
+		}
 		}catch(Exception e){
 		
 		log.log("unitiacore.App.start() err : "+ErrorMessage.getMessage(e));
