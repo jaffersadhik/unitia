@@ -112,7 +112,7 @@ public class RedisQueue {
 		}
 		
 		
-		String count=map.get(queuename);
+		String count=map.get(MODE+"_"+queuename);
 		
 		logmap.put(queuename + " queue size", count);
 
