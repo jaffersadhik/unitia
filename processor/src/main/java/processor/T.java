@@ -2,6 +2,7 @@ package processor;
 
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.db.kannelQueue;
+import com.winnovature.unitia.util.queue.RedisQueue;
 
 import blacklist.MobileBlackList;
 import blacklistsenderid.SenderidBlackList;
@@ -30,6 +31,7 @@ public class T  extends Thread{
 		while(true){
 			
 			try{
+				RedisQueue.getInstance().reload();
 				PushAccount.instance().reload();
 				Countrycode.getInstance().reload();
 				NumberingPlan.getInstance().reload();

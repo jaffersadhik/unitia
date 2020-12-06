@@ -26,6 +26,7 @@ public class T  extends Thread{
 				DomesticCredit.getInstance().reload();
 				RedisQueue.getInstance().reload();
 				QueueTon.getInstance().checkQueueAvailablity();
+				RedisQueue.getInstance().reload();
 
 				SMSCMaxQueue.getInstance().reload();
 				MissedCallSMS.getInstance().reload();

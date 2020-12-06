@@ -98,18 +98,24 @@ public class RedisQueue {
 		return kannelmap;
 	}
 
-	public boolean isQueued(String redisid,String queuename,boolean isRetry){
+	public boolean isQueued(String redisid,String queuename,boolean isRetry,Map<String,Object> logmap){
 	
+		logmap.put("nextlevelqueuename", queuename);
+		logmap.put("redisid", redisid);
 		Map<String,String> map=redisqueuemap.get(redisid);
 		
 		if(map==null){
 			
+			logmap.put("redisid failed","queue not captured for the redisid");
+
 			return false;
 		}
 		
 		
 		String count=map.get(queuename);
 		
+		logmap.put(queuename + " queue size", count);
+
 		int size=0;
 		
 		try{
@@ -122,12 +128,28 @@ public class RedisQueue {
 		
 		if(queuename.startsWith("smpp")){
 			
-			if(size>100){
+			
+			if(isRetry){
 				
-				return true;
+				if(size>1000){
+							
+					return true;
+				}else{
+					
+					return false;
+					
+				}
 			}else{
 				
-				return false;
+				
+				if(size>100){
+					
+					return true;
+					
+				}else{
+					
+					return false;
+				}
 			}
 		}else{
 			

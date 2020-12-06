@@ -39,13 +39,13 @@ public class QueueSender {
 		if(queuename.equals("otppool")||queuename.equals("kannelretrypool")||queuename.equals("otpretrypool")||queuename.equals("dnretrypool")||queuename.startsWith("smppdn_")){
 			
 			redisid="redisqueue1";
-			if(!RedisQueueConnectionPool.getInstance().isAvilable(redisid, queuename, isRetry)){
+			if(!RedisQueueConnectionPool.getInstance().isAvilable(redisid, queuename, isRetry,logmap)){
 				
 				redisid=null;
 			}
 		}else{
 			
-			redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename,isRetry);
+			redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename,isRetry,logmap);
 		}
 		
 

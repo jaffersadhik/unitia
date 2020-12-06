@@ -563,10 +563,10 @@ public class RedisQueuePool {
 
 
 
-	public boolean isAvailableQueue(String queuename,boolean isRetry) {
+	public boolean isAvailableQueue(String queuename,boolean isRetry,Map<String,Object> logmap) {
 		
 
-			return !RedisQueue.getInstance().isQueued(redisid, queuename, isRetry);
+			return !RedisQueue.getInstance().isQueued(redisid, queuename, isRetry,logmap);
 	}
 
 	
