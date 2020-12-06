@@ -1,9 +1,5 @@
 package queuecheck;
 
-import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
-
-
-
 
 public class TRedisQueue  extends Thread{
 
@@ -14,7 +10,10 @@ public class TRedisQueue  extends Thread{
 		while(true){
 			
 			try{
-				RedisQueueConnectionPool.getInstance().reloadnew();
+				
+				com.winnovature.unitia.util.redisinterface.RedisQueueConnectionPool.getInstance().reloadnew();
+
+				com.winnovature.unitia.util.redis.RedisQueueConnectionPool.getInstance().reloadnew();
 				gotosleep();
 			}catch(Exception e){
 				
