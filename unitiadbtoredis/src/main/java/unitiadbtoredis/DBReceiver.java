@@ -27,6 +27,9 @@ public class DBReceiver extends Thread {
 	
 	QueueSender queuesender=new QueueSender();
 	
+	com.winnovature.unitia.util.redisinterface.QueueSender queuesenderinterface=new com.winnovature.unitia.util.redisinterface.QueueSender();
+
+	
 	Select select=new Select();
 	
 	FileWrite log=new FileWrite();
@@ -66,7 +69,18 @@ public class DBReceiver extends Thread {
 	}
 		while(!GRACESTOP){
 			
-			String redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename, true,new HashMap<String,Object>());
+			
+	    	
+	    	String redisid=null;
+	    	if(poolname.equals("optin")||poolname.equals("optout")||poolname.equals("duplicate")||poolname.equals("processor")){
+	    		
+	    		redisid=com.winnovature.unitia.util.redisinterface.RedisQueueConnectionPool.getInstance().getRedisId(queuename, true,new HashMap<String,Object>());
+
+	    	}else{
+	    		
+	    		redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename, true,new HashMap<String,Object>());
+
+	    	}
 			
 			if(redisid!=null){
 				
@@ -153,12 +167,24 @@ public class DBReceiver extends Thread {
 		while(true){
 			
 			
-			if(queuesender.sendL( actualqueuename, map, true, logmap)){
-				
-				new FileWrite().write(logmap);
+			if(actualqueuename.equals("optin")||actualqueuename.equals("optout")||actualqueuename.equals("duplicate")||actualqueuename.equals("processor")){
+				if(queuesenderinterface.sendL( actualqueuename, map, true, logmap)){
+			
+					new FileWrite().write(logmap);
 
-				return;
-			}
+					return;
+				}
+		
+	    	}else{
+	    		
+	    		if(queuesender.sendL( actualqueuename, map, true, logmap)){
+					
+					new FileWrite().write(logmap);
+
+					return;
+				}
+				
+	    	}
 			
 			gotosleep();
 		}
