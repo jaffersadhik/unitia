@@ -42,7 +42,7 @@ public class App
     	
 
 
-		List<String> redisidlist=RedisInstance.getInstance().getRedisInstanceList();
+		List<String> redisidlist=RedisInstance.getInstance().getRedisInstanceListInterface();
 
 	
 		for(int j=0;j<redisidlist.size();j++){
