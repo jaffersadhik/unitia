@@ -67,7 +67,7 @@ public String getQueueName(Map<String ,String > accountmap){
 		
 		while(true){
 			
-			String redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename, true);
+			String redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename, true,new HashMap<String,Object>());
 		
 			Map<String,Object> logmap=new HashMap<String,Object>();
 

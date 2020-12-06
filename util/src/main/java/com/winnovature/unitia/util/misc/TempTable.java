@@ -33,6 +33,7 @@ public class TempTable {
 	
 	static{
 
+		TABLES.add("processor");
 		TABLES.add("optin");
 		TABLES.add("optout");
 		TABLES.add("duplicate");

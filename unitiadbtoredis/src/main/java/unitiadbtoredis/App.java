@@ -14,6 +14,7 @@ public class App
     	start("optin");
     	start("optout");
     	start("duplicate");
+    	start("processor");
 
     	start("dnreceiverpool");
     	start("dnpostpool");
@@ -23,12 +24,10 @@ public class App
     	start("commonpool");
     	start("otppool");
     	start("otpretrypool");
-    	start("dngenpool");
     	start("clientdnpool");
     	start("dnretrypool");
     	start("smppdn");
     	start("httpdn");
-    	start("logspool");
     	start("appspool");
     	start("submissionpool");
     	start("missedcallpool");
