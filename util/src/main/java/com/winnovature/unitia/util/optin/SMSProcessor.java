@@ -112,7 +112,7 @@ public class SMSProcessor {
 			if(duplicatetype.equals("1")){
 				sendTOCommonPoolInterface("duplicate",logmap);
 			}else{
-				sendTOCommonPool("processor",logmap);
+				sendTOCommonPoolInterface("processor",logmap);
 
 			}
 			
