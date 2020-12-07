@@ -7,7 +7,7 @@ import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
-import com.winnovature.unitia.util.redisinterface.QueueSender;
+import com.winnovature.unitia.util.redis.QueueSender;
 
 public class SMSProcessor {
 	

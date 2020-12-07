@@ -11,7 +11,6 @@ public class TRedisQueue  extends Thread{
 			
 			try{
 				
-				com.winnovature.unitia.util.redisinterface.RedisQueueConnectionPool.getInstance().reloadnew();
 
 				com.winnovature.unitia.util.redis.RedisQueueConnectionPool.getInstance().reloadnew();
 				gotosleep();

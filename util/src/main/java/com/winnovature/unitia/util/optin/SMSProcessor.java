@@ -143,7 +143,7 @@ public class SMSProcessor {
 
 	
 		
-		if(new com.winnovature.unitia.util.redisinterface.QueueSender().sendL(queuename, msgmap, false, logmap)){
+		if(new QueueSender().sendL(queuename, msgmap, false, logmap)){
 			
 			logmap.put("sms processor status", "Message Sent to "+queuename+" Queue Successfully");
 		

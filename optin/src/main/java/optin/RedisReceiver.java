@@ -7,7 +7,7 @@ import com.winnovature.unitia.util.misc.ACKIdGenerator;
 import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
-import com.winnovature.unitia.util.redisinterface.RedisReader;
+import com.winnovature.unitia.util.redis.RedisReader;
 
 public class RedisReceiver extends  Thread {
 

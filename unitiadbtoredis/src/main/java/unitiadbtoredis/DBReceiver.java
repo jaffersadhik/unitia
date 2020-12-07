@@ -27,7 +27,6 @@ public class DBReceiver extends Thread {
 	
 	QueueSender queuesender=new QueueSender();
 	
-	com.winnovature.unitia.util.redisinterface.QueueSender queuesenderinterface=new com.winnovature.unitia.util.redisinterface.QueueSender();
 
 	
 	Select select=new Select();
@@ -74,7 +73,7 @@ public class DBReceiver extends Thread {
 	    	String redisid=null;
 	    	if(poolname.equals("optin")||poolname.equals("optout")||poolname.equals("duplicate")||poolname.equals("processor")){
 	    		
-	    		redisid=com.winnovature.unitia.util.redisinterface.RedisQueueConnectionPool.getInstance().getRedisId(queuename, true,new HashMap<String,Object>());
+	    		redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename, true,new HashMap<String,Object>());
 
 	    	}else{
 	    		
@@ -168,7 +167,7 @@ public class DBReceiver extends Thread {
 			
 			
 			if(actualqueuename.equals("optin")||actualqueuename.equals("optout")||actualqueuename.equals("duplicate")||actualqueuename.equals("processor")){
-				if(queuesenderinterface.sendL( actualqueuename, map, true, logmap)){
+				if(queuesender.sendL( actualqueuename, map, true, logmap)){
 			
 					new FileWrite().write(logmap);
 

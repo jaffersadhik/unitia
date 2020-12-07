@@ -13,7 +13,6 @@ import com.winnovature.unitia.util.dngen.ErrorCodeType;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.processor.DNProcessor;
-import com.winnovature.unitia.util.redis.QueueSender;
 import com.winnovature.unitia.util.redis.RedisReader;
 
 public class AppsReceiver extends Thread {

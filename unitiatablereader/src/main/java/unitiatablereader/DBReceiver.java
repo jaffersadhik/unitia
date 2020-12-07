@@ -9,8 +9,8 @@ import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.dao.Select;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
-import com.winnovature.unitia.util.redisinterface.QueueSender;
-import com.winnovature.unitia.util.redisinterface.RedisQueueConnectionPool;
+import com.winnovature.unitia.util.redis.QueueSender;
+import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
 
 

@@ -15,7 +15,7 @@ import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.redis.QueueSender;
-import com.winnovature.unitia.util.redisinterface.RedisReader;
+import com.winnovature.unitia.util.redis.RedisReader;
 
 
 
