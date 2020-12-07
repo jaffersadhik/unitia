@@ -45,7 +45,7 @@ public class App
     	
 
 
-		List<String> redisidlist=RedisInstance.getInstance().getRedisInstanceListInterface();
+		List<String> redisidlist=RedisInstance.getInstance().getRedisInstanceList();
 
 	
 		if(poolname.equals("missedcallpool")){
