@@ -61,7 +61,7 @@ public Map<String,Object> getData(String queuename,String redisid){
         catch (Exception e)
         {
 
-        	System.err.println(new Date()+" \t "+ErrorMessage.getMessage(e));
+        	System.err.println(new Date()+" \t "+ErrorMessage.getMessage(e)+" queuename : "+queuename+" redisid: "+redisid);
         	
         	try {
 				Thread.sleep(1000L);

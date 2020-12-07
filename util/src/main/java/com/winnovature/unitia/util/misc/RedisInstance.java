@@ -47,15 +47,6 @@ public class RedisInstance {
 				}
 			}
 			
-			
-			if(!table.isExsists(connection, "instance_redis_interface")){
-				
-				if(table.create(connection, "create table instance_redis_interface(redisid varchar(100) primary key)", false)){
-			
-				insertinterfaceredis(connection);
-				}
-			}
-			
 		}catch(Exception e){
 			
 		}finally{
@@ -65,35 +56,6 @@ public class RedisInstance {
 		
 	}
 
-	private void insertinterfaceredis(Connection connection) {
-
-
-		PreparedStatement statement=null;
-		try{
-			
-			connection.setAutoCommit(false);
-			statement=connection.prepareStatement("insert into instance_redis_interface(redisid) values(?)");
-			
-			
-			for(int i=1;i<2;i++){
-				statement.setString(1, "redisinterfacequeue"+(i));
-				
-				statement.addBatch();
-			}
-			
-			statement.executeBatch();
-			connection.commit();
-			
-		}catch(Exception e){
-			
-			e.printStackTrace();
-		}finally{
-			
-			Close.close(statement);
-		}
-	
-		
-	}
 
 	private void insert(Connection connection) {
 
@@ -151,32 +113,6 @@ public class RedisInstance {
 	}
 
 	
-	public List<String> getRedisInstanceListInterface(){
-		
-		Connection connection =null;
-		PreparedStatement statement=null;
-		ResultSet resultset=null;
-		List<String> result=new ArrayList();
-		try{
 
-			connection= CoreDBConnection.getInstance().getConnection();
-			statement=connection.prepareStatement("select redisid from instance_redis_interface");
-			resultset=statement.executeQuery();
-			
-			while(resultset.next()){
-				
-				result.add(resultset.getString("redisid"));
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			
-			Close.close(resultset);
-			Close.close(statement);
-			Close.close(connection);
-		}
-		return result;
-	}
-	
 
 }
