@@ -62,8 +62,11 @@ public class Account {
 		
 		PushAccount.instance().getPushAccount();
 		
+		System.out.print("Test Account Creation");
 		if(SUPERADMIN_ID==-1){
 			
+			System.out.print("Test Account Creation SUPERADMIN_ID = "+SUPERADMIN_ID);
+
 			setSuperAdmin();
 		}
 		
@@ -80,9 +83,19 @@ public class Account {
 			
 			if(!table.isExsists(connection, "test_superadmin")){
 				
+				System.out.print(" test_superadmin not Exsist");
 				table.create(connection, TEST_SUPERADMIN_SQL, false);
+				
+				System.out.print(" exec : "+TEST_SUPERADMIN_SQL);
+
 				table.create(connection, TEST_ADMIN_SQL, false);
+				
+				System.out.print(" exec : "+TEST_SUPERADMIN_SQL);
+
 				table.create(connection, TEST_USERS_SQL, false);
+
+				System.out.print(" exec : "+TEST_USERS_SQL);
+
 				WinDate date=new WinDate();
 
 				String ackid=date.getTime();
@@ -268,5 +281,10 @@ public class Account {
 		return obj;
 	}
 	
+	
+	public void reload(){
+		
+		init();
+	}
 }
 

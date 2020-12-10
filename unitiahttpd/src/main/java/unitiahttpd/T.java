@@ -14,7 +14,7 @@ public class T  extends Thread{
 				
 				Refresh.getInsatnce().reload();
 			
-				Account.getInstance();
+				Account.getInstance().reload();
 				
 				RedisQueue.getInstance().reload();
 			
