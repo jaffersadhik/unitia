@@ -179,7 +179,7 @@ public class Account {
 				return resultset.getInt("admin_id");
 			}
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}finally{
 			
 			Close.close(resultset);
@@ -203,7 +203,7 @@ public class Account {
 				return resultset.getInt("superadmin_id");
 			}
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}finally{
 			
 			Close.close(resultset);
@@ -226,7 +226,7 @@ public class Account {
 			statement.execute();
 			
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}finally{
 			
 			Close.close(statement);
@@ -248,7 +248,7 @@ public class Account {
 			statement.execute();
 			
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}finally{
 			
 			Close.close(statement);
