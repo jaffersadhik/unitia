@@ -12,9 +12,9 @@ public class T  extends Thread{
 			
 			try{
 				
-				Refresh.getInsatnce().reload();
-			
 				Account.getInstance().reload();
+
+				Refresh.getInsatnce().reload();
 				
 				RedisQueue.getInstance().reload();
 			

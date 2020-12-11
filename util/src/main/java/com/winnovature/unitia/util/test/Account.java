@@ -60,7 +60,6 @@ public class Account {
 
 	private void init() {
 		
-		PushAccount.instance().getPushAccount();
 		
 		System.out.print("Test Account Creation");
 		if(SUPERADMIN_ID==-1){

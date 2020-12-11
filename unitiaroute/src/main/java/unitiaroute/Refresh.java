@@ -24,6 +24,7 @@ public class Refresh {
 		Kannel.getInstance().reload();
 		ReRouting.getInstance().reload();
 		SenderidSwapScheduling.getInstance().reload();
+		RouteGroup.getInstance().reload();
 
 	}
 	
