@@ -2,6 +2,7 @@ package dnsql;
 
 
 import com.winnovature.unitia.util.account.Refresh;
+import com.winnovature.unitia.util.misc.RouterLog;
 import com.winnovature.unitia.util.queue.DLRQueue;
 import com.winnovature.unitia.util.queue.RedisQueue;
 import com.winnovature.unitia.util.reader.QueueTon;
@@ -23,6 +24,7 @@ public class T  extends Thread{
 		while(true){
 			
 			try{
+				new RouterLog().routerlog("dnsql", "thread", "execute Thread");
 				Refresh.getInsatnce().reload();
 				
 				RedisQueue.getInstance().reload();

@@ -10,6 +10,7 @@ import java.util.Set;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.FileWrite;
+import com.winnovature.unitia.util.misc.RouterLog;
 import com.winnovature.unitia.util.queue.DLRQueue;
 
 public class PollerStartup {
@@ -52,10 +53,13 @@ public class PollerStartup {
 		TableExsists table=new TableExsists();
 		try{
 			
+			new RouterLog().routerlog("dnsql", "thread", "updateUsers");
+
 		
 			Map<String,Map<String,String>> kannelmap=DLRQueue.getInstance().getKannelmap();
 			
-			
+			new RouterLog().routerlog("dnsql", "thread", "kannelmap : "+kannelmap);
+
 		Iterator itr=kannelmap.keySet().iterator();
 		
 		while(itr.hasNext()){
