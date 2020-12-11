@@ -1,0 +1,6 @@
+templatecheck\App.class
+templatecheck\T.class
+templatecheck\SMSWorker.class
+templatecheck\SMSPatternAllowed.class
+templatecheck\RedisReceiver.class
+templatecheck\SMSProcessor.class

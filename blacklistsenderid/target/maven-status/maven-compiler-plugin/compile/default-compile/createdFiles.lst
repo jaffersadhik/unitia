@@ -1,0 +1,6 @@
+blacklistsenderid\App.class
+blacklistsenderid\SenderidBlackList.class
+blacklistsenderid\SMSProcessor.class
+blacklistsenderid\T.class
+blacklistsenderid\RedisReceiver.class
+blacklistsenderid\SMSWorker.class

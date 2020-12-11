@@ -1,0 +1,6 @@
+blacklist\App.class
+blacklist\T.class
+blacklist\MobileBlackList.class
+blacklist\SMSWorker.class
+blacklist\RedisReceiver.class
+blacklist\SMSProcessor.class

@@ -1,0 +1,8 @@
+senderidcheck\App.class
+senderidcheck\RedisReceiver.class
+senderidcheck\T.class
+senderidcheck\InternationalSenderidSwapping.class
+senderidcheck\SMSProcessor.class
+senderidcheck\SMSWorker.class
+senderidcheck\SenderidSwapping.class
+senderidcheck\WhiteListedSenderid.class

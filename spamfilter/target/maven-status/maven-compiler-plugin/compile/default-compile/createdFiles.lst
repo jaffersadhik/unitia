@@ -1,0 +1,6 @@
+spamfilter\SMSProcessor.class
+spamfilter\SMSWorker.class
+spamfilter\App.class
+spamfilter\T.class
+spamfilter\RedisReceiver.class
+spamfilter\SMSPatternFiltering.class

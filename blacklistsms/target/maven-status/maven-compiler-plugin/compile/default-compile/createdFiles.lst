@@ -1,0 +1,6 @@
+blacklistsms\App.class
+blacklistsms\SMSWorker.class
+blacklistsms\SMSProcessor.class
+blacklistsms\RedisReceiver.class
+blacklistsms\T.class
+blacklistsms\SMSPatternBlackList.class
