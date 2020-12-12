@@ -66,6 +66,8 @@ public class AppsReceiver extends Thread {
 					
 					stats(start,System.currentTimeMillis(),redisid,poolname,datalist.size());
 
+					sendtoStatusQueue(datalist);
+					
 					datalist=new ArrayList<Map<String,Object>>();
 				}
 				
@@ -83,6 +85,8 @@ public class AppsReceiver extends Thread {
 					
 					stats(start,System.currentTimeMillis(),redisid,poolname,datalist.size());
 
+					sendtoStatusQueue(datalist);
+
 					datalist=new ArrayList<Map<String,Object>>();
 				}
 				
@@ -98,6 +102,29 @@ public class AppsReceiver extends Thread {
 			
 		}
 
+	
+	private void sendtoStatusQueue(List<Map<String, Object>> datalist) {
+/*
+
+		if(datalist==null || datalist.size()<1){
+			
+			return;
+		}
+		
+		
+		for(int i=0;i<datalist.size();i++){
+			 
+			Map<String, Object> msgmap=datalist.get(i);
+			msgmap.put("nextlevel", "final");
+
+			msgmap.put("STATUS_ORDER", "15");
+			new QueueSender().sendL("statuslog", msgmap, false, new HashMap<String,Object>());
+			
+		}
+		
+			*/
+		
+	}
 	
 	
 	 private void setDNValue(Map<String, Object> msgmap) {
