@@ -1,9 +1,0 @@
-queuecheck\TKannelSMSCID.class
-queuecheck\TableCount.class
-queuecheck\TUsers.class
-queuecheck\TRedisQueue.class
-queuecheck\App.class
-queuecheck\TMysqlQueue.class
-queuecheck\kannelQueue.class
-queuecheck\TKannelDN.class
-queuecheck\DLRCount.class

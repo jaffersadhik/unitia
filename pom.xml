@@ -37,7 +37,9 @@
   	<module>demo</module>
   	<module>optin</module>
   	<module>optout</module>
+  	
   	<module>duplicate</module>
+  	<module>queuecheck</module>
     </modules>
   <dependencies>
   

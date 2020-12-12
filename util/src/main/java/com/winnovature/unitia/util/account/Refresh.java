@@ -32,7 +32,6 @@ public class Refresh {
 		
 		PushAccount.instance().reload();
 		Carrier.getInstance().reload();
-		BillingTableRouting.getInstance().reload();
 		OptinAccount.getInstance().reload();
 		OptoutAccount.getInstance().reload();
 		new DNDProcessoer().isDND("919487660738");

@@ -24,6 +24,8 @@ public class Refresh {
 	
 	public void reload(){
 		
+		
+		SMSPatternAllowed.getInstance().reload();
 		new DuplicateCheck().flushDuplicate();
 		Countrycode.getInstance().reload();
 		Kannel.getInstance().reload();
@@ -41,7 +43,7 @@ public class Refresh {
 		SenderidSwapping.getInstance().reload();
 		SenderidBlackList.getInstance().reload();
 		SMSPatternBlackList.getInstance().reload();
-		SMSPatternAllowed.getInstance().reload();
+		
 		SMSPatternFiltering.getInstance().reload();
 		WhiteListedSenderid.getInstance().reload();
 		Entity.getInstance().reload();

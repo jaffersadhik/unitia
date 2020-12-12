@@ -111,6 +111,9 @@ public class App {
 		}else if(module.equals("demo")){
 			
 			demo.App.main(args);
+		}else if(module.equals("queuecheck")){
+			System.out.println("inside selected logs");
+			queuecheck.App.doProcess();
 		}
 		
 		
