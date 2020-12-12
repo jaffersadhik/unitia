@@ -6,4 +6,18 @@
     <version>1.0</version>
   </parent>
   <artifactId>queuecheck</artifactId>
+  
+  <dependencies>
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>util</artifactId>
+    <version>1.0</version>
+</dependency>
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>unitiaroute</artifactId>
+    <version>1.0</version>
+</dependency>
+ 
+  </dependencies>
 </project>
