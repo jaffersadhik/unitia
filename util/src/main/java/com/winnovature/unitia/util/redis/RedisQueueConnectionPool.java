@@ -8,6 +8,7 @@ import java.util.Map;
 import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.misc.RedisInstance;
 import com.winnovature.unitia.util.misc.RoundRobinTon;
+import com.winnovature.unitia.util.queue.RedisQueue;
 
 import redis.clients.jedis.JedisPool;
 
@@ -81,7 +82,8 @@ public class RedisQueueConnectionPool {
 	}
 
 	public void reload() {
-		
+	
+		RedisQueue.getInstance().reload();
 	}
 
 	public String getRedisIdForReader(String queuename) {
