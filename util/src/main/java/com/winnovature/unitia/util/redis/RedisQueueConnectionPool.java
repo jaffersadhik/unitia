@@ -82,11 +82,6 @@ public class RedisQueueConnectionPool {
 
 	public void reload() {
 		
-		for(int i=0,max=redisqueuelist.size();i<max;i++){
-			
-			redisqueuelist.get(i).reload();
-		}
-		
 	}
 
 	public String getRedisIdForReader(String queuename) {
@@ -121,5 +116,16 @@ public class RedisQueueConnectionPool {
 			
 			redisqueuelist.get(i).print();
 		}
+	}
+
+	public void reloadnew() {
+		
+
+		
+		for(int i=0,max=redisqueuelist.size();i<max;i++){
+			
+			redisqueuelist.get(i).reload();
+		}
+		
 	}
 }
