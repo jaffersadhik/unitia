@@ -19,6 +19,7 @@ import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.Log;
 import com.winnovature.unitia.util.misc.Prop;
 import com.winnovature.unitia.util.misc.RouterLog;
+import com.winnovature.unitia.util.queue.RedisQueue;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -564,17 +565,12 @@ public class RedisQueuePool {
 
 
 
-	public boolean isAvailableQueue(String queuename,boolean isRetry) {
+	public boolean isAvailableQueue(String redisid,String queuename,boolean isRetry,Map<String,Object> logmap) {
 		
 
-		if(isRetry){
-		
-			return !unavailableretryqueue.contains(MODE+queuename);
+		return !RedisQueue.getInstance().isQueued(redisid, queuename, isRetry, logmap);
 
-		}else{
 		
-			return !unavailablequeue.contains(MODE+queuename);
-		}
 	}
 
 	

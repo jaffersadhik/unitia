@@ -54,15 +54,15 @@ public class RedisQueueConnectionPool {
 		return redisqueuemap.get(redisid).getPool();
 	}
 
-	public  boolean isAvilable(String redisid,String queuename,boolean isRetry){
+	public  boolean isAvilable(String redisid,String queuename,boolean isRetry,Map<String,Object> logmap){
 		
-		return redisqueuemap.get(redisid).isAvailableQueue(queuename, isRetry);
+		return redisqueuemap.get(redisid).isAvailableQueue(redisid,queuename, isRetry,logmap);
 	}
 	
-	public String getRedisId(String queuename, boolean isRetry) {
+	public String getRedisId(String queuename, boolean isRetry,Map<String,Object> logmap) {
 		int pointer=RoundRobinTon.getInstance().getCurrentIndex("redisqueuepoint"+queuename+"avilability", redisqueuelist.size());
-		
-		if(redisqueuelist.get(pointer).isAvailableQueue(queuename, isRetry)){
+		String redisid=redisqueuelist.get(pointer).getRedisId();
+		if(redisqueuelist.get(pointer).isAvailableQueue(redisid,queuename, isRetry,logmap)){
 			
 			return redisqueuelist.get(pointer).getRedisId();
 		}
@@ -72,9 +72,9 @@ public class RedisQueueConnectionPool {
 	
 	
 	
-	public String getRedisId(String redisid,String queuename, boolean isRetry) {
+	public String getRedisId(String redisid,String queuename, boolean isRetry,Map<String,Object> logmap) {
 
-		if(!redisqueuemap.get(redisid).isAvailableQueue(queuename, isRetry)){
+		if(!redisqueuemap.get(redisid).isAvailableQueue(redisid,queuename, isRetry,logmap)){
 			
 			return redisid;
 		}
