@@ -66,7 +66,7 @@ public class DBReceiver extends Thread {
 	}
 		while(!GRACESTOP){
 			
-			String redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename, true);
+			String redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename, true,new HashMap<String,Object>());
 			
 			if(redisid!=null){
 				
