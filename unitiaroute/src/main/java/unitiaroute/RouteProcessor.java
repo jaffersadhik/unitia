@@ -109,6 +109,8 @@ public class RouteProcessor {
 				
 				return ;
 			}
+			if(mobile.trim().length()==12){
+				
 			for(int i=7;i>5;i--) {
 				
 				String series =mobile.substring(2, i);
@@ -123,7 +125,9 @@ public class RouteProcessor {
 		            msgmap.put(MapKeys.CIRCLE_NAME, NumberingPlan.getInstance().getCircleName(npinfo.get(MapKeys.CIRCLE)));
 		
 					
+
 					return ;
+					}
 				}
 			}
 			
@@ -651,7 +655,7 @@ public class RouteProcessor {
 				
 				String key=getKey(operator,circle,msgmap.get(MapKeys.SENDERID).toString(),logic);
 				
-				routegroup=SenderidRouting.getInstance().getRouteGroup(key, msgmap.get(MapKeys.SENDERID).toString());
+				routegroup=SenderidRouting.getInstance().getRouteGroup(key);
 				
 				if(routegroup!=null&&routegroup.trim().length()>0) {
 					

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
@@ -14,7 +15,7 @@ public class SenderidRouting {
 
 	private static SenderidRouting obj=null;
 	
-	private Map<String,Map<String,String>> senderidrouting=new HashMap<String,Map<String,String>>();
+	private Map<String,String> senderidrouting=new HashMap<String,String>();
 	
 	private boolean isTableAvailable=false;
 	
@@ -35,7 +36,7 @@ public class SenderidRouting {
 	
 	public void reload(){
 		
-		Map<String,Map<String,String>> senderidrouting=new HashMap<String,Map<String,String>>();
+		Map<String,String> senderidrouting=new HashMap<String,String>();
 		
 		Connection connection =null;
 		PreparedStatement statement=null;
@@ -68,22 +69,21 @@ public class SenderidRouting {
 			
 				String operator =resultset.getString("operator");
 				String circle =resultset.getString("circle");
-				if(operator==null){
-					operator="";
+				String senderid =resultset.getString("senderid");
+				String routegroup =resultset.getString("routegroup");
+
+				if(operator==null||operator.trim().length()<1){
+					operator=Route.NULL;
 				}
-				if(circle==null){
-					circle="";
+				if(circle==null||circle.trim().length()<1){
+					circle=Route.NULL;
 				}
 				
-				String key=operator.trim()+"~"+circle.trim();
+				String key=Route.CONJUNCTION+operator+Route.CONJUNCTION+circle+Route.CONJUNCTION+senderid+Route.CONJUNCTION;
 				
-				Map<String,String> map=senderidrouting.get(key);
+				senderidrouting.put(key,routegroup);
 				
-				if(map==null){
-					
-					map=new HashMap<String,String>();
-				}
-				map.put(resultset.getString("senderid"), resultset.getString("routegroup"));
+				
 			}
 		}catch(Exception e){
 			
@@ -100,14 +100,10 @@ public class SenderidRouting {
 	}
 	
 	
-	public String getRouteGroup(String key,String senderid){
+	public String getRouteGroup(String key){
 		
-		if(senderidrouting.containsKey(senderid)){
-			return senderidrouting.get(key).get(senderid);
-	
-		}
-		
-		return null;
+			return senderidrouting.get(key);
+
 	}
 	
 	

@@ -9,7 +9,7 @@ public class ACKIdGenerator {
 
     public static synchronized String getAckId() {
         
-		return UUID.randomUUID().toString();
+		return java.util.UUID.randomUUID().toString();
         
     }
     
