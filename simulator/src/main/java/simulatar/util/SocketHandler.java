@@ -1,4 +1,5 @@
-package unitiasmpp.util;
+
+package simulatar.util;
 
 //java imports
 import java.io.BufferedReader;
@@ -11,8 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import unitiasmpp.manager.SessionManager;
-import unitiasmpp.manager.util.SessionRoundRobin;
+import simulatar.manager.SessionManager;
+import simulatar.manager.util.SessionRoundRobin;
 
 public class SocketHandler extends Thread 	{
 	

@@ -30,6 +30,12 @@ public class App {
 			
 			logmap.put("started", "smpp");
 			
+		}else if(module.equals("simulator")){
+			
+			simulatar.server.App.doProcess();
+			
+			logmap.put("started", "simulator");
+			
 		}else if(module.equals("router")){
 			
 			unitiacore.App.doProcess();
