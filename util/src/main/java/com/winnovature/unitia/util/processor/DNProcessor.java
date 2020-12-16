@@ -258,7 +258,6 @@ public class DNProcessor
 		
      	String protocol=msgmap.get(MapKeys.PROTOCOL).toString();
 
-		System.out.println("sendtoClientDnQueue() "+msgmap.get(MapKeys.USERNAME).toString()+" dlr post yn"+accountinfo.get(MapKeys.DLR_POST_YN)+" protocol : "+protocol);
 
 		msgmap.put(MapKeys.DLR_POST_YN, accountinfo.get(MapKeys.DLR_POST_YN));
 		
@@ -274,7 +273,6 @@ public class DNProcessor
 
     			}else if(protocol.equalsIgnoreCase("http")){
     				
-    				System.out.println("sendtoClientDnQueue() send to httpdn");
 
     				new QueueSender().sendL("httpdn", msgmap, false,logmap);
     				logmap.put("httpdn status", "send to httpdn redis queue");
