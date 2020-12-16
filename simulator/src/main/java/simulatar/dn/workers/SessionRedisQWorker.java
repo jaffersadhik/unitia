@@ -59,7 +59,7 @@ public class SessionRedisQWorker extends Thread {
 			Map<String, Object> aDn = null;
 			
 			try {
-				List<Map<String,Object>> dnlist=QueueMap.getInstance().getMesssages();
+				List<Map<String,Object>> dnlist=QueueMap.getInstance().getMesssages(systemId);
 				if(dnlist!=null&&dnlist.size()>0){
 					
 				for(int i=0;i<dnlist.size();i++){
@@ -171,7 +171,7 @@ public class SessionRedisQWorker extends Thread {
 			
 			}else{
 				
-				QueueMap.getInstance().offer(aDn);
+				QueueMap.getInstance().offer(aDn.get(MapKeys.USERNAME).toString(),aDn);
 
 			}
 			

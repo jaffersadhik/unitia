@@ -94,7 +94,7 @@ public class SubmitSmValidator {
 					{
 						boolean pushed=false;
 						
-						 QueueMap.getInstance().offer(msgmap);
+						 QueueMap.getInstance().offer(msgmap.get(MapKeys.USERNAME).toString(),msgmap);
 						
 				
 						
