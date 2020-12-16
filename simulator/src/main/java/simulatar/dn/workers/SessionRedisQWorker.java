@@ -1,6 +1,7 @@
 package simulatar.dn.workers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.cloudhopper.smpp.SmppConstants;
@@ -12,6 +13,7 @@ import com.winnovature.unitia.util.redis.RedisReader;
 
 import simulatar.event.handlers.SessionEventHandler;
 import simulatar.manager.SessionManager;
+import simulatar.server.QueueMap;
 
 public class SessionRedisQWorker extends Thread {
 
@@ -57,9 +59,13 @@ public class SessionRedisQWorker extends Thread {
 			Map<String, Object> aDn = null;
 			
 			try {
+				List<Map<String,Object>> dnlist=QueueMap.getInstance().getMesssages();
+				if(dnlist!=null&&dnlist.size()>0){
+					
+				for(int i=0;i<dnlist.size();i++){
+					
 				
-				aDn = reader.getData("smppdn_"+systemId);
-				if(aDn!=null){
+				aDn = dnlist.get(i);
 				CustomerRedisHBData.INST.heartBeat(getName(),systemId);
 						try {
 								if (handler.getSession().isBound()) {
@@ -117,7 +123,7 @@ public class SessionRedisQWorker extends Thread {
 						} catch(Exception exp) {
 							writeResponse(aDn,null);
 						}
-					
+				}
 				}else{
 					
 					gotosleep();
@@ -162,22 +168,16 @@ public class SessionRedisQWorker extends Thread {
 			logmap.putAll(aDn);
 			
 			if(msg_status!=null&&msg_status.equals("SUCCESS")){
-			new QueueSender().sendL("dnpostpool",aDn, false,logmap);
-			logmap.put("smppdn_ status", "send to dnpostpool redis queue");
-
+			
 			}else{
 				
-				String queuename="smppdn_"+aDn.get(MapKeys.USERNAME).toString();
-				new QueueSender().sendL(queuename, aDn, false,logmap);
-				logmap.put("smppdn_ status", "send to "+queuename+" redis queue");
+				QueueMap.getInstance().offer(aDn);
 
 			}
 			
 			
-			logmap.put("logname", "smpp_dlr_post");
 			
-			new FileWrite().write(logmap);
-
+			
 			
 		} catch(Exception exp) {
 			

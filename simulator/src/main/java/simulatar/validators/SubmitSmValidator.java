@@ -62,7 +62,6 @@ public class SubmitSmValidator {
 
 	    		logmap.put("smpp status ", submitResponse.getCommandStatus()+" ");
 	    		
-	    		new FileWrite().write(logmap);
 	
 		}
 	
