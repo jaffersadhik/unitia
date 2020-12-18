@@ -312,7 +312,7 @@ public class App
     	
     	sb.append("group = mysql-connection").append("\n");	
     	sb.append("id = mytestdlr").append("\n");		
-    	sb.append("host = "+prop.getProperty("mysql_host")+"").append("\n");		
+    	sb.append("host = "+kannelid+"db").append("\n");		
     	sb.append("username = "+prop.getProperty("mysql_username")+"").append("\n");		
     	sb.append("password = "+prop.getProperty("mysql_password")+"").append("\n");		
       	sb.append("database = "+prop.getProperty("mysql_schema")+"").append("\n");		
