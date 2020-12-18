@@ -91,8 +91,6 @@ public class TableAvailability {
 		
 		
 		try {
-			dlravailability( KannelDBConnection.getInstance().getConnection());
-					
 
 			Map<String,Properties> connprop=Kannel.getInstance().getKannelMysqlmap();
 			System.out.println("table creation connprop: \n "+connprop);
@@ -119,6 +117,7 @@ public class TableAvailability {
 	private void dlravailability(Connection connection) {
 		
 		try {
+			if(connection!=null && !connection.isClosed()){
 			TableExsists table = new TableExsists();
 			if(!table.isExsists(connection, "dlr_unitia")){
 				
@@ -133,6 +132,7 @@ public class TableAvailability {
 
 				}
 		}
+			}
 		
 		
 
