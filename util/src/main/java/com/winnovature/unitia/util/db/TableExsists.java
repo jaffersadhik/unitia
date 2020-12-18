@@ -524,20 +524,20 @@ public class TableExsists {
 		
 		try {
 				
-				statement=connection.prepareStatement("select smscid,kannelid,routeclass from kannel_config");
+				statement=connection.prepareStatement("select smscid,routeclass,sendsms_port,kannel_host from kannel_config a,kannel_instance b where a.kannelid=b.kannelid");
 
 			resultset=statement.executeQuery();
 
 			while(resultset.next()) {
 				
 				String smscid=resultset.getString("smscid");
-				String kannelid=resultset.getString("kannelid");
+				String kannelid=resultset.getString("kannel_host");
 				String routeclass=resultset.getString("routeclass");
-
+				String sendsms_port=resultset.getString("sendsms_port");
 				
 
 					Map<String,String> data=new HashMap<String,String>();
-					data.put("kannel_port", "13013");
+					data.put("kannel_port", sendsms_port);
 					data.put("kannel_ip", kannelid);
 					data.put("routeclass", routeclass);
 
