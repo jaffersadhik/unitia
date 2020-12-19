@@ -560,6 +560,128 @@ public Properties getRedisQueue2Prop() {
 		return result;
 	}	
 	
+
+	public Properties getRQ2Prop() {
+
+		String fileName="rq2.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	}
+
+	
+
+
+	public Properties getRQ3Prop() {
+
+		String fileName="rq3.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	}
+
+
+	public Properties getRQ4Prop() {
+
+		
+		String fileName="rq4.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	
+	}
+
+
+	public Properties getRQ5Prop() {
+		
+		String fileName="rq5.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	}	
+	
+	public Properties getRQ6Prop() {
+		
+		String fileName="rq6.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
+	}	
 	
 
 }

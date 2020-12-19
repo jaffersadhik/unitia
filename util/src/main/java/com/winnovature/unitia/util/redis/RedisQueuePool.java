@@ -281,6 +281,21 @@ public class RedisQueuePool {
 		}else if(redisid.equals("redisqueue6")){
 			pool= new RedisPool().createJedisPool(Prop.getInstance().getRedisQueue6Prop());
 	
+		}else if(redisid.equals("rq2")){
+			pool= new RedisPool().createJedisPool(Prop.getInstance().getRQ2Prop());
+	
+		}else if(redisid.equals("rq3")){
+			pool= new RedisPool().createJedisPool(Prop.getInstance().getRQ3Prop());
+	
+		}else if(redisid.equals("rq4")){
+			pool= new RedisPool().createJedisPool(Prop.getInstance().getRQ4Prop());
+	
+		}else if(redisid.equals("rq5")){
+			pool= new RedisPool().createJedisPool(Prop.getInstance().getRQ5Prop());
+	
+		}else if(redisid.equals("rq6")){
+			pool= new RedisPool().createJedisPool(Prop.getInstance().getRQ6Prop());
+	
 		}
 		
 		Log.log("RedisQueuePool createPool pool "+pool);

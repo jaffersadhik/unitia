@@ -1,0 +1,7 @@
+db=1
+ip=rq2
+password=
+port=6380
+maxpool=20
+maxwait=60
+timeout=60
