@@ -14,7 +14,6 @@ import com.cloudhopper.smpp.pdu.SubmitSm;
 import com.cloudhopper.smpp.pdu.SubmitSmResp;
 import com.cloudhopper.smpp.type.RecoverablePduException;
 import com.cloudhopper.smpp.type.UnrecoverablePduException;
-import com.winnovature.unitia.util.redis.SmppBind;
 
 import simulatar.manager.SessionManager;
 import simulatar.validators.SubmitSmValidator;
@@ -101,7 +100,7 @@ public class SessionEventHandler implements SmppSessionHandler {
 	@Override
 	public void fireChannelUnexpectedlyClosed() {
 
-		SmppBind.getInstance().getBindCount(systemId, -1);
+//		SmppBind.getInstance().getBindCount(systemId, -1);
 	}
 
 	@Override

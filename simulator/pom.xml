@@ -12,11 +12,7 @@
 			<artifactId>ch-smpp</artifactId>
 			<version>5.0.6</version>
 		</dependency>
-  <dependency>
-    <groupId>winovature</groupId>
-    <artifactId>util</artifactId>
-    <version>1.0</version>
-</dependency>
+ 
 
 
 

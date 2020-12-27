@@ -12,8 +12,6 @@ import com.cloudhopper.commons.util.HexUtil;
 import com.cloudhopper.smpp.pdu.SubmitSm;
 import com.cloudhopper.smpp.pdu.SubmitSmResp;
 import com.cloudhopper.smpp.tlv.TlvConvertException;
-import com.winnovature.unitia.util.misc.MapKeys;
-import com.winnovature.unitia.util.misc.MessageType;
 
 public class SubmitObject implements Serializable	{
 
@@ -55,7 +53,7 @@ public class SubmitObject implements Serializable	{
 		if(dataCoding != null){
 			checkMsgType(dataCoding);
 		}else{
-			msgType=com.winnovature.unitia.util.misc.MessageType.EM;
+			msgType=MessageType.EM;
 		}			
 
 		setMessage();				

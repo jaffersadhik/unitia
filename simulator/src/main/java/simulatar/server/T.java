@@ -1,10 +1,5 @@
 package simulatar.server;
 
-import com.winnovature.unitia.util.account.Refresh;
-import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
-import com.winnovature.unitia.util.redis.SmppBind;
-import com.winnovature.unitia.util.test.Account;
-
 public class T  extends Thread{
 
 	long start=System.currentTimeMillis();
@@ -15,15 +10,7 @@ public class T  extends Thread{
 			
 			try{
 			
-				Refresh.getInsatnce().reload();
-				
-				Account.getInstance();
-				
-				RedisQueueConnectionPool.getInstance().reload();
-			
-			
-				SmppBind.getInstance().print();
-				gotosleep();
+						gotosleep();
 
 			}catch(Exception e){
 				

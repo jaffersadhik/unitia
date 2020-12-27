@@ -8,10 +8,9 @@ import com.cloudhopper.smpp.SmppServerConfiguration;
 import com.cloudhopper.smpp.SmppServerHandler;
 import com.cloudhopper.smpp.impl.DefaultSmppServer;
 import com.cloudhopper.smpp.type.SmppChannelException;
-import com.winnovature.unitia.util.misc.FileWrite;
-import com.winnovature.unitia.util.misc.MapKeys;
 
 import simulatar.event.handlers.SmppSessionBindUnbindHandler;
+import simulatar.util.MapKeys;
 
 public class SmppServer {
 	
@@ -175,7 +174,6 @@ public class SmppServer {
 
 		System.out.println(logmap);
 
-		new FileWrite().write(logmap);
 		System.out.println("Server Started");
 	}
 

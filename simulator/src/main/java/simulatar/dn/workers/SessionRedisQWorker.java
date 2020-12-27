@@ -6,20 +6,16 @@ import java.util.Map;
 
 import com.cloudhopper.smpp.SmppConstants;
 import com.cloudhopper.smpp.pdu.PduResponse;
-import com.winnovature.unitia.util.misc.FileWrite;
-import com.winnovature.unitia.util.misc.MapKeys;
-import com.winnovature.unitia.util.redis.QueueSender;
-import com.winnovature.unitia.util.redis.RedisReader;
 
 import simulatar.event.handlers.SessionEventHandler;
 import simulatar.manager.SessionManager;
 import simulatar.server.QueueMap;
+import simulatar.util.MapKeys;
 
 public class SessionRedisQWorker extends Thread {
 
 
 	String systemId = null;
-	RedisReader reader=new RedisReader();
 	DNWorker worker;
 	boolean done = false;
 	SessionEventHandler handler=null;

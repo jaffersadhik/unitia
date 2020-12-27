@@ -8,12 +8,10 @@ import org.apache.commons.lang.StringUtils;
 import com.cloudhopper.smpp.SmppConstants;
 import com.cloudhopper.smpp.pdu.SubmitSm;
 import com.cloudhopper.smpp.pdu.SubmitSmResp;
-import com.winnovature.unitia.util.http.Utility;
-import com.winnovature.unitia.util.misc.Bean;
-import com.winnovature.unitia.util.misc.FileWrite;
-import com.winnovature.unitia.util.misc.MapKeys;
 
 import simulatar.server.QueueMap;
+import simulatar.util.Bean;
+import simulatar.util.MapKeys;
 import simulatar.util.SubmitObject;
 
 public class SubmitSmValidator {
@@ -79,9 +77,7 @@ public class SubmitSmValidator {
         		strDestAddr = StringUtils.stripStart(strDestAddr, "0");
         		
         
-        		
-        		strDestAddr = new com.winnovature.unitia.util.misc.Utility().prefix91(systemid, strDestAddr ); 
-
+        	
     		}
     		
     		return strDestAddr;
