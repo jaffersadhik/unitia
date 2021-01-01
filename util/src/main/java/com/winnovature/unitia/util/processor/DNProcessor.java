@@ -440,20 +440,23 @@ public class DNProcessor
     		dateformat="yyyyMMddHHmmss";
 
     	}else{
-    		
+    		/*
     		String year=drdate.substring(0,4);
     		
     		int yearInt=Integer.parseInt(year);
     		
-    		if(yearInt>2019){
+    		if(yearInt>2019&&yearInt<2099){
     			
         		dateformat="yyyyMMddHHmm";
 
     		}else{
     			
-        		dateformat="yyMMddHHmmss";
-
+        		
     		}
+    		*/
+    		
+    		dateformat="yyMMddHHmmss";
+
     	}
 		SimpleDateFormat sdf = new SimpleDateFormat(dateformat);
 		try {
