@@ -36,7 +36,8 @@ public class SenderidBlackList {
 	
 	public void reload(){
 		
-		Set<String> senderidset=null;
+		Set<String> senderidset=new HashSet<String>();
+
 		
 		Connection connection =null;
 		PreparedStatement statement=null;
@@ -66,17 +67,15 @@ public class SenderidBlackList {
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
-				if(senderidset==null){
-					
-					senderidset=new HashSet<String>();
-					
-				}
+			
 				
 				senderidset.add(resultset.getString("senderid"));
 			}
 		}catch(Exception e){
 			
 			e.printStackTrace();
+			
+			return;
 		}finally{
 			
 			Close.close(resultset);

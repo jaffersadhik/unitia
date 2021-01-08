@@ -49,16 +49,16 @@ public class FeatureCode {
 	static{
 		
 		kannelurlsuffix.put("EMS", "&coding=0");
-		kannelurlsuffix.put("EFS", "&coding=0&msgclass=0&alt-dcs=0");
+		kannelurlsuffix.put("EFS", "&coding=0&mclass=0");
 		kannelurlsuffix.put("UMS", "&coding=2&alt-dcs=1");
-		kannelurlsuffix.put("UFS", "&coding=2&alt-dcs=1&msgclass=0");
+		kannelurlsuffix.put("UFS", "&coding=2&alt-dcs=1&mclass=0");
 		kannelurlsuffix.put("BMS", "&coding=1&alt-dcs=1");
 		kannelurlsuffix.put("PEMS", "&coding=0&alt-dcs=0");
 		kannelurlsuffix.put("PUMS", "&coding=2&alt-dcs=1");
 		kannelurlsuffix.put("EMC", "&coding=0");
-		kannelurlsuffix.put("EFC", "&coding=0&msgclass=0&alt-dcs=0");
+		kannelurlsuffix.put("EFC", "&coding=0&mclass=0");
 		kannelurlsuffix.put("UMC", "&coding=2&alt-dcs=1");
-		kannelurlsuffix.put("UFC",  "&coding=2&alt-dcs=1&msgclass=0");
+		kannelurlsuffix.put("UFC",  "&coding=2&alt-dcs=1&mclass=0");
 		kannelurlsuffix.put("BMC", "&coding=1&alt-dcs=1");
 		kannelurlsuffix.put("PEMC", "&coding=0&alt-dcs=0");
 		kannelurlsuffix.put("PUMC", "&coding=2&alt-dcs=1");
