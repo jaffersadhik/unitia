@@ -346,6 +346,9 @@ public class RequestProcessor
 		
 	 private void setMsgType() throws UnsupportedEncodingException{
 		 
+		 
+		 
+			
 		 	String msg=msgmap.get(MapKeys.FULLMSG).toString();
 	    	
 	    	String [] msgarray=msg.split(" ");
@@ -357,13 +360,19 @@ public class RequestProcessor
 
 	    		if(msgarray[0].matches("-?[0-9a-fA-F]+")){
 	    			
-    	    		msgmap.put(MapKeys.MSGTYPE, "UM");
+	    			if(msgmap.get(MapKeys.MSGTYPE)==null||msgmap.get(MapKeys.MSGTYPE).toString().length()<1){
+    			    	
+        				msgmap.put(MapKeys.MSGTYPE, "UM");
+    		    	}
 	    		}else{
 	    			for(int i=0;i<msgarray.length;i++){
 	        			
 	        			if(!isASCII(msgarray[i])){
 	        				msgmap.put(MapKeys.FULLMSG,Util.toHexString(msg).replaceAll("u", "").replaceAll("\\\\", ""));
-		    	    		msgmap.put(MapKeys.MSGTYPE, "UM");
+	        				if(msgmap.get(MapKeys.MSGTYPE)==null||msgmap.get(MapKeys.MSGTYPE).toString().length()<1){
+	        			    	
+		        				msgmap.put(MapKeys.MSGTYPE, "UM");
+	        		    	}
 	        			}
 	        		}
 	    		}
@@ -373,8 +382,13 @@ public class RequestProcessor
 	    		for(int i=0;i<msgarray.length;i++){
 	    			
 	    			if(!isASCII(msgarray[i])){
+	    			
 	    				msgmap.put(MapKeys.FULLMSG,Util.toHexString(msg).replaceAll("u", "").replaceAll("\\\\", ""));
-	    	    		msgmap.put(MapKeys.MSGTYPE, "UM");
+	    				
+	    				if(msgmap.get(MapKeys.MSGTYPE)==null||msgmap.get(MapKeys.MSGTYPE).toString().length()<1){
+        			    	
+	        				msgmap.put(MapKeys.MSGTYPE, "UM");
+        		    	}
 	    			}
 	    		}
 	    	}
