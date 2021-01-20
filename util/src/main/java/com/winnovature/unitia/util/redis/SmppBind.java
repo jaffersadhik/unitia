@@ -59,7 +59,7 @@ public class SmppBind {
 		return Long.parseLong(sessioncount);
 	}
 	
-	public int getBindCount(String systemid){
+	public int getBindCount(String systemid,String bindType){
 
 		
 		Map<String,Object> data=session.get(systemid);
@@ -69,6 +69,8 @@ public class SmppBind {
 			data=new HashMap<String,Object>();
 			data.put("sessioncount", "0");
 			data.put("ipset", new HashSet());
+			data.put("bindType", new HashSet());
+
 			session.put(systemid, data);			
 		}
 		
@@ -87,7 +89,7 @@ public class SmppBind {
 		
 	}
 
-	public int getBindCount(String systemId, int increment, String host) {
+	public int getBindCount(String systemId, int increment, String host, String bindtype) {
 
 		
 		Map<String,Object> data=session.get(systemId);
@@ -97,13 +99,16 @@ public class SmppBind {
 			data=new HashMap<String,Object>();
 			data.put("sessioncount", "0");
 			data.put("ipset", new HashSet());
+			data.put("bindType", new HashSet());
+
 			session.put(systemId, data);			
 		}
 		
 		Set ipset=(Set)data.get("ipset");
-		
+		Set bindset=(Set)data.get("bindType");
+		bindset.add(bindtype);
 		ipset.add(host);
-		
+		data.put("bindType", bindset);
 		data.put("ipset",ipset);
 
 		String sessioncount=(String)data.get("sessioncount");

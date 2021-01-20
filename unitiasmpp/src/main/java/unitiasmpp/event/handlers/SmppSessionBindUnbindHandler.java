@@ -36,17 +36,23 @@ public class SmppSessionBindUnbindHandler implements SmppSessionHandlerInterface
 			
 			asessionHandler=new SessionEventHandler(systemId,session,session.getBindType(),sessionId.toString());
 			int bindTypeId=0;
-			if(session.getBindType().equals(SmppBindType.RECEIVER))
+			String bindTypestr="";
+			if(session.getBindType().equals(SmppBindType.RECEIVER)){
 				bindTypeId=SmppConstants.CMD_ID_BIND_RECEIVER;
-			else if(session.getBindType().equals(SmppBindType.TRANSMITTER))
+				bindTypestr="RX";
+			}
+			else if(session.getBindType().equals(SmppBindType.TRANSMITTER)){
 				bindTypeId=SmppConstants.CMD_ID_BIND_TRANSMITTER;
-			else
+				bindTypestr="TX";
+			}
+			else{
 				bindTypeId=SmppConstants.CMD_ID_BIND_TRANSCEIVER;
-			
+				bindTypestr="TRX";
+			}
 			int maxbind =  Integer.parseInt(PushAccount.instance().getPushAccount(systemId).get(MapKeys.SMPP_MAXBIND)); 
 			int maxConnectionSize=500;
 			
-			int currentbind=(int) SmppBind.getInstance().getBindCount(asessionHandler.getSystemId(),1,session.getConfiguration().getHost());
+			int currentbind=(int) SmppBind.getInstance().getBindCount(asessionHandler.getSystemId(),1,session.getConfiguration().getHost(),bindTypestr);
 
 			//max bind check
 			if(currentbind>maxbind) {				

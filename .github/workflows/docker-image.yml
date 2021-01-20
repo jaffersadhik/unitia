@@ -25,13 +25,13 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Build the Dockerfileunitiad image
-      run: docker build . --file Dockerfile --tag unitia:08jan2021
+      run: docker build . --file Dockerfile --tag unitia:20jan2021
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiadngen Image Tag 
-      run: docker tag unitia:08jan2021 registry-1.docker.io/winnovature/unitia:08jan2021
+      run: docker tag unitia:20jan2021 registry-1.docker.io/winnovature/unitia:20jan2021
     - uses: docker/build-push-action@v1
     - name: Docker Login 
       run: docker login registry-1.docker.io -u winnovature -p R3qErf%a1
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiadngen PushTag 
-      run: docker push registry-1.docker.io/winnovature/unitia:08jan2021
+      run: docker push registry-1.docker.io/winnovature/unitia:20jan2021

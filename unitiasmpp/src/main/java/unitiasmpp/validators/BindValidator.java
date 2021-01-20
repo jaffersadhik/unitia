@@ -24,6 +24,21 @@ public class BindValidator {
 		    	String password = bindRequest.getPassword();
     			logmap.put("username", systemId);
 
+    			String bindType="";
+    			
+    			if(SmppConstants.CMD_ID_BIND_TRANSCEIVER==bindRequest.getCommandId()){
+    				bindType="TRX";
+
+    			}else if(SmppConstants.CMD_ID_BIND_TRANSMITTER==bindRequest.getCommandId()){
+    			
+    				bindType="TR";
+
+
+    			}else if(SmppConstants.CMD_ID_BIND_RECEIVER==bindRequest.getCommandId()){
+    			
+    				bindType="RX";
+
+    			}
 	    		if(systemId == null || systemId.trim().length() == 0 || PushAccount.instance().getPushAccount(systemId)==null) {
 
 	    			logmap.put("status", "Invalid System ID : systemid is :"+systemId);
@@ -45,7 +60,7 @@ public class BindValidator {
 
 		    	}
 		    	int maxbind=Integer.parseInt(PushAccount.instance().getPushAccount(systemId).get(MapKeys.SMPP_MAXBIND));
-		    	int currentbind=SmppBind.getInstance().getBindCount(systemId);
+		    	int currentbind=SmppBind.getInstance().getBindCount(systemId,bindType);
 		    	try {
 			    		
 		    			if(maxbind<currentbind) {

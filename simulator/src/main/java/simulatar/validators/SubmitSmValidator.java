@@ -58,6 +58,14 @@ public class SubmitSmValidator {
 	    		
 				logmap.put("logname", "smpp_submit");
 
+				try{
+					
+					long rtime=Long.parseLong(msgmap.get(MapKeys.RTIME).toString());
+					logmap.put("timetaken in ms", ""+(System.currentTimeMillis()-rtime));
+
+				}catch(Exception e){
+					
+				}
 	    		logmap.put("smpp status ", submitResponse.getCommandStatus()+" ");
 	    		
 	
