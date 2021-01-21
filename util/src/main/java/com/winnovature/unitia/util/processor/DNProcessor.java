@@ -104,9 +104,11 @@ public class DNProcessor
         		difference=2;
         	}
   		   	Random r = new Random();
-  		   	
+  		   	try{
   		   	submittime=rtime+r.nextInt(difference);	
-  		   	
+  		   	}catch(Exception e){
+  		   	submittime=rtime;
+  		   	}
   		    msgmap.put(MapKeys.CARRIER_SUBMITTIME, ""+submittime);
   		   	
     	}
