@@ -38,6 +38,10 @@ public class RedisQueueConnectionPool {
 			redisqueuemap.put(queue1.getRedisId(), queue1);
 			
 		}
+		
+		RedisQueuePool queue1=new RedisQueuePool("redisqueue1");
+		redisqueuemap.put(queue1.getRedisId(), queue1);
+
 	}
 
 	public static RedisQueueConnectionPool getInstance(){

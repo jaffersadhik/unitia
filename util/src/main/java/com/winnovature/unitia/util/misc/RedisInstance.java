@@ -98,7 +98,9 @@ public class RedisInstance {
 			
 			while(resultset.next()){
 				
+			if(!resultset.getString("redisid").equalsIgnoreCase("redisqueue1")){
 				result.add(resultset.getString("redisid"));
+			}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
