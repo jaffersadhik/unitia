@@ -17,13 +17,8 @@ import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
 
 public class HTTPURLConnector {
-	/*
-	 * NGLogger instance.
-	 */
+	
 	Log logger = LogFactory.getLog(this.getClass());
-	/*
-	 * class name for logging
-	 */
 	private static final String	className	=	"[HTTPURLConnector] ";
 	
 	String response	=	null;

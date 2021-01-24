@@ -3,8 +3,10 @@ package com.winnovature.unitia.util.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -134,7 +136,32 @@ public class Kannel {
 		return obj;
 	}
 	
-	
+	public List<String> getKannelIdList(){
+		
+		Connection connection=null;
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		List<String> result=new ArrayList<String>();
+		try{
+			connection = RouteDBConnection.getInstance().getConnection();
+			statement=connection.prepareStatement("select distinct kannelid from kannel_instance");
+			resultset=statement.executeQuery();
+			while(resultset.next()){
+			
+				result.add(resultset.getString("kannelid"));
+				
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			Close.close(resultset);
+			Close.close(statement);
+			Close.close(connection);
+		}
+		
+		return result;
+	}
 	private void init(){
 		
 		Connection connection = null;

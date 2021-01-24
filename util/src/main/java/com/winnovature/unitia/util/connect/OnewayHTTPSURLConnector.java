@@ -226,7 +226,7 @@ public class OnewayHTTPSURLConnector {
 			KeyManagerFactory kmf;
 			KeyStore ks;
 			KeyManager[] km = null;
-			TrustManager[] myTM = new TrustManager[] { new A2WTrustManager()};
+			TrustManager[] myTM = new TrustManager[] { new WinTrustManager()};
 			SSLContext ctx = SSLContext.getInstance("TLS");
 			ctx.init(null, myTM, null);
 			factory = ctx.getSocketFactory();
@@ -640,7 +640,7 @@ public class OnewayHTTPSURLConnector {
 				KeyManagerFactory kmf;
 				KeyStore ks;
 				KeyManager[] km = null;
-				TrustManager[] myTM = new TrustManager[] { new A2WTrustManager()};
+				TrustManager[] myTM = new TrustManager[] { new WinTrustManager()};
 				SSLContext ctx = SSLContext.getInstance("TLS");
 				ctx.init(null, myTM, null);
 				factory = ctx.getSocketFactory();
@@ -860,16 +860,10 @@ public class OnewayHTTPSURLConnector {
 			}
 			return responseMapWithStatus;
 		}
-
-	/**
-	 * Inner class A2WTrustManager
-	 * 
-	 *
-	 */
-	class A2WTrustManager implements X509TrustManager{
+	class WinTrustManager implements X509TrustManager{
 		
 		X509TrustManager sunX509TrustManager;
-		A2WTrustManager() throws Exception
+		WinTrustManager() throws Exception
 		{
 		}
 		public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType)
@@ -882,7 +876,7 @@ public class OnewayHTTPSURLConnector {
 		public void checkClientTrusted(java.security.cert.X509Certificate a[], String str)
 		{
 		}
-	} //end A2WTrustManager
+	} 
 	
 	class URLConnectorTherad extends Thread
 	{

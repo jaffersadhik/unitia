@@ -1,5 +1,8 @@
 package unitiadbtoredis;
 
+import java.util.List;
+
+import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.misc.Prop;
 
 
@@ -34,6 +37,13 @@ public class App
     	start("missedcallpool");
     	start("shortcodepool");
 
+    	List<String> kannelidlist =Kannel.getInstance().getKannelIdList();
+    	
+    	for(int i=0;i<kannelidlist.size();i++){
+    		
+        	start(kannelidlist.get(i));
+
+    	}
     	new T().start();
     	
 

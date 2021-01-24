@@ -65,6 +65,12 @@ public class PollerStartup {
 		while(itr.hasNext()){
 			
 			String kannelid=itr.next().toString();
+			String confkannelid=System.getenv("kannelid");
+
+			if(!kannelid.equals(confkannelid)){
+				
+				continue;
+			}
 			
 			Map<String,String> smscidmap=kannelmap.get(kannelid);
 			
