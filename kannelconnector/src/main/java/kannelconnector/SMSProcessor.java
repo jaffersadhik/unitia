@@ -1,4 +1,4 @@
-package unitiacore.threadpool;
+package kannelconnector;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -121,7 +121,6 @@ public class SMSProcessor {
 	
 	private void doMultiPartSMS() throws Exception {
 
-		if(msgmap.get(MapKeys.KANNELID)==null){
 			
 		if(hasCredit()){
 			
@@ -133,11 +132,6 @@ public class SMSProcessor {
 
 		}
 		
-		}else{
-			
-			msgmap.put("nobill", "yes");
-
-		}
 
 		
 	}
@@ -177,7 +171,6 @@ public class SMSProcessor {
 	}
 	private void dosingleSMS() throws NumberFormatException, Exception {
 		
-		if(msgmap.get(MapKeys.KANNELID)==null){
 			
 		if(hasCredit()){
 			
@@ -197,130 +190,7 @@ public class SMSProcessor {
 
 		}
 
-		}else{
-			
-			msgmap.put("nobill", "yes");
-		}
-	}
-	public void doRetryProcess(Map<String, Object> msgmap)  throws Exception{
-		this.msgmap=msgmap;
-		String attemptcount=(String)msgmap.get(MapKeys.ATTEMPT_COUNT);
-		
-		if(msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.INVALID_ROUTE_GROUP)){
-			
-						
-			RouteProcessor route=new RouteProcessor(msgmap,"c","c");
-			route.setIsfurtherprocess(true);
-			route.doRouteGroupAvailable();
-			route.doSMSCIDAvailable();
-			route.doKannelAvailable();
-			
-			SMSProcessor processor=new SMSProcessor(msgmap,route.isIsfurtherprocess());
-			
-			processor.doDNDCheck();
-			processor.doFeatureCodeIndentification();
-			processor.doDNMessage();
-			processor.doConcate();
-			processor.setCredit();
-			processor.submitKannel();
-			processor.sentToNextLevel();
-	
-		}else{
-		int attempt=0;
-		if(attemptcount!=null){
-			
-			attempt=Integer.parseInt(attemptcount);
-		}
-		
-		attempt++;
-		
-		msgmap.put(MapKeys.ATTEMPT_COUNT, ""+attempt);
-		
-		if(attempt<8){
-			
-			long kannelpoptime=Long.parseLong(msgmap.get(MapKeys.KANNEL_POPTIME).toString());
-			while(true){
-				
-				if((System.currentTimeMillis()-kannelpoptime)>(1*60*1000)){
-					
-					break;
-				}
-				
-				gotosleep();
-			}
-
-			List<Map<String,Object>> msgmaplist=(List<Map<String,Object>>)msgmap.get(MapKeys.MSGLIST);
-			if(msgmaplist==null){
-				
-				dosingleSMS();
-				
-			}else{
-				
-				doSendMultiPart(msgmaplist);
-			}
-			
-		}else{
-			
-			msgmap.put(MapKeys.STATUSID,""+ MessageStatus.MAX_KANNEL_RETRY_EXCEEDED);
-			
-			if(msgmap.get(MapKeys.MSGLIST)!=null){
-				
-				new CreditProcessor().returnCredit(msgmap.get(MapKeys.USERNAME).toString(), Double.parseDouble(msgmap.get(MapKeys.CREDIT).toString()));
-
-			}
-			
-		}
-		
-		sentToNextLevel();
-		}
-
-	}
-
-
-	
-	public void doOTPRetryProcess(Map<String, Object> msgmap)  throws Exception{
-	
-		this.msgmap=msgmap;
-		long kannelpoptime=Long.parseLong(msgmap.get(MapKeys.OTPRETRY_POPUPTIME).toString());
-		
-		long otpdnwaittime=Long.parseLong(ConfigParams.getInstance().getProperty(ConfigKey.OTPDNWAITTIMEINMS));
-		
-		while(true){
-				
-				if((System.currentTimeMillis()-kannelpoptime)>otpdnwaittime){
-					
-					break;
-				}
-				
-				gotosleep();
-		}
-			
-		if(!new OtpMessageDNRegister().isRegister(msgmap.get(MapKeys.MSGID).toString())){
-		
-			msgmap.put(MapKeys.ATTEMPT_TYPE, "1");
-
-			msgmap.put(MapKeys.CREDIT, "0.00");
-
-			msgmap.put(MapKeys.MSGID, ACKIdGenerator.getAckId());
-
-			
-			List<Map<String,Object>> msgmaplist=(List<Map<String,Object>>)msgmap.get(MapKeys.MSGLIST);
-			if(msgmaplist==null){
-				
-				dosingleSMS();
-				
-			}else{
-				
-				doSendMultiPart(msgmaplist);
-			}
-						
-
-		}
-		
-		
-	}
-
-	
+	}	
 	
 	private void gotosleep() {
 		
@@ -518,79 +388,6 @@ public class SMSProcessor {
 		}
 	}
 
-	public void setCredit()  throws Exception {
-		
-		if(isfurtherprocess){
-			
-			String username=msgmap.get(MapKeys.USERNAME).toString();
-
-			String superadmin=PushAccount.instance().getPushAccount(username).get(MapKeys.SUPERADMIN).toString();
-			String admin=PushAccount.instance().getPushAccount(username).get(MapKeys.ADMIN).toString();
-			String countrycode=msgmap.get(MapKeys.COUNTRYCODE).toString();
-
-			String operator=(String)msgmap.get(MapKeys.OPERATOR);
-			String circle=(String)msgmap.get(MapKeys.CIRCLE);
-			
-			String credit=null;
-			
-			if(countrycode.equals("91")){
-			
-				
-			for(int logic=1;logic<17;logic++) {
-				
-				String key=getKey(superadmin,admin,username,operator,circle,logic);
-				
-				credit=DomesticCredit.getInstance().getCredit(key, msgmap.get(MapKeys.ROUTECLASS).toString());
-
-				
-				if(credit!=null&&credit.trim().length()>0) {
-					
-					break;
-					
-				}
-				
-			}
-			}else{
-				
-				for(int logic=1;logic<9;logic++) {
-					
-					String key=getKey(superadmin,admin,username,countrycode,logic);
-					
-					credit=InternationalCredit.getInstance().getCredit(key);
-
-					
-					if(credit!=null&&credit.trim().length()>0) {
-						
-						break;
-						
-					}					
-				}
-			}
-		
-			if(credit==null){
-				
-				credit="1.0";
-			}
-			
-			double msgcount=Double.parseDouble(msgmap.get(MapKeys.TOTAL_MSG_COUNT).toString());
-			
-			double totalcredit=msgcount*Double.parseDouble(credit);
-			
-			msgmap.put(MapKeys.CREDIT, ""+totalcredit);
-			
-			if(isfurtherprocess){
-			msgmap.put("isfurther", "y");
-			
-			}
-		}else{
-			
-			msgmap.put(MapKeys.CREDIT, "0");
-
-		}
-			return ;
-		
-
-	}
 
 	
 	private String getKey(String superadmin,String admin,String username, String operator, String circle, int logic) {
@@ -1003,13 +800,7 @@ public class SMSProcessor {
 				 return;
 			}
 			
-			
-			if(msgmap.get("nobill")!=null){
-				
-				queuename=msgmap.get(MapKeys.KANNELID).toString();
-
-			}
-			
+						
 			if(new QueueSender().sendL(queuename, msgmap, false, logmap)){
 				
 				logmap.put("sms processor status", "Message Sent to billing Queue Successfully");
@@ -1338,9 +1129,13 @@ public class SMSProcessor {
 	
 	public String connectKannel(String sUrl)  throws Exception{
 
+		String response = "";
+
+		boolean isRetry=true;
+		while(isRetry){
+			isRetry=false;
 		long start=System.currentTimeMillis();
 		
-		String response = "";
 
 		BufferedReader in = null;
 		try {
@@ -1399,6 +1194,9 @@ public class SMSProcessor {
 
 
             new FileWrite().write(logmap);
+            isRetry=true;
+            
+            gotoretrysleep();
 			
             response= null;
 		} finally {
@@ -1420,10 +1218,19 @@ public class SMSProcessor {
 			logmap.put("logname", "kannelresponsetime");
             new FileWrite().write(logmap);
 
+		}
             return response;
 	}
 
 	
+	private void gotoretrysleep() {
+		try{
+			Thread.sleep(250L);
+		}catch(Exception e ){
+			
+		}
+		
+	}
 	public void setDLRURL()  throws Exception{
 		
 		msgmap.put(MapKeys.KTIME, ""+System.currentTimeMillis());
@@ -1551,69 +1358,4 @@ public void setDLRURL(Map<String,Object> splitmap)  throws Exception{
 		
 	}
 
-	public void doDNRetryProcess(Map<String, Object> msgmap)  throws Exception{
-		
-			
-			this.msgmap=msgmap;
-			
-			RouteProcessor processor=new RouteProcessor(msgmap,"b","b");
-			Map logmap=new HashMap<String,Object>();
-			
-			msgmap.put(MapKeys.FULLMSG,URLDecoder.decode(msgmap.get(MapKeys.FULLMSG).toString(),"UTF-8"));
-
-			msgmap.put(MapKeys.ISDNRETRY, "Y");
-			processor.doSenderCheck();
-			processor.doKannelAvailable();
-			msgmap.put(MapKeys.ATTEMPT_TYPE, "2");
-
-			msgmap.put(MapKeys.MSGID, ACKIdGenerator.getAckId());
-			
-			if(processor.isIsfurtherprocess()){
-				
-			
-				doDNMessage();
-				doConcate();
-				
-				  String rollback=(String)PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.CREDIT_ROLLBACK_YN);
-			        if(rollback!=null && rollback.equals("1")){
-			        	isfurtherprocess=true;
-			        	setCredit();
-			        }else{
-						msgmap.put(MapKeys.CREDIT, "0.00");
-
-			        }
-			    
-							
-
-
-				List<Map<String,Object>> msgmaplist=(List<Map<String,Object>>)msgmap.get(MapKeys.MSGLIST);
-			
-				if(msgmaplist==null){
-					
-					dosingleSMS();
-					
-				}else{
-					
-					doSendMultiPart(msgmaplist);
-				}
-							
-		
-			
-				sentToNextLevel();
-
-			}else{
-			
-				logmap.put("status", "dnretry failed");
-			}
-			
-			
-			logmap.putAll(msgmap);
-			logmap.put("logname", "dnretry");
-
-			new FileWrite().write(logmap);
-		
-	
-		
-	}
-		
 }

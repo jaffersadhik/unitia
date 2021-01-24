@@ -168,6 +168,8 @@ public interface MapKeys {
 
 	public static String PLATFORM_LATENCY = "platform_latency";
 
+	public static String KANNELID = "kannelid";
+
 	public static String KANNEL_IP = "kannel_ip";
 
 	public static String KANNEL_PORT = "kannel_port";

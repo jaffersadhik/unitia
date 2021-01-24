@@ -572,6 +572,13 @@ public class RouteProcessor {
 				
 		
 		if(kannelinfo!=null) {
+			
+			String kannelid=kannelinfo.get(MapKeys.KANNELID);
+			
+			if(kannelid!=null&&kannelid.trim().length()>0){
+				msgmap.put(MapKeys.KANNELID, kannelinfo.get(MapKeys.KANNELID));
+	
+			}
 			msgmap.put(MapKeys.KANNEL_IP, kannelinfo.get(MapKeys.KANNEL_IP));
 			msgmap.put(MapKeys.KANNEL_PORT, kannelinfo.get(MapKeys.KANNEL_PORT));
 			if(route.equals("apps")||route.equals("reapps")){

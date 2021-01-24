@@ -41,6 +41,7 @@
   	<module>duplicate</module>
   	<module>queuecheck</module>
   	<module>simulator</module>
+  	<module>kannelconnector</module>
     </modules>
   <dependencies>
   
