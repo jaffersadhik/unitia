@@ -43,6 +43,13 @@ public class App {
 			logmap.put("started", "router");
 
 			
+		}else if(module.equals("kannelconnector")){
+			
+			kannelconnector.App.doProcess();
+			
+			logmap.put("started", "kannelconnector");
+
+			
 		}else if(module.equals("optin")){
 			
 			optin.App.doProcess();
