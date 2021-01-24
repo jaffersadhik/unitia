@@ -343,7 +343,7 @@ public class SMSProcessor {
 			queuename=msgmap.get(MapKeys.KANNELID).toString();
 
 		}
-		if(queuename.equals("submit")&&msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)||msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.INVALID_ROUTE_GROUP)){
+		if(queuename.equals("submit")&&(msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)||msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.INVALID_ROUTE_GROUP))){
 			
 			Map<String,Object> logmap=new HashMap<String,Object>();
 			logmap.putAll(msgmap);
