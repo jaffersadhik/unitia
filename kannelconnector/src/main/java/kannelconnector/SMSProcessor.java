@@ -211,7 +211,7 @@ public class SMSProcessor {
 			Map<String,Object> logmap=new HashMap<String,Object>();
 			logmap.putAll(msgmap);
 			logmap.put("module", "SMSProcessor");
-			logmap.put("logname", "router");
+			logmap.put("logname", "kannelconnector");
 
 			doRetry(logmap);
 			
@@ -227,7 +227,7 @@ public class SMSProcessor {
 				doOtpRetry(logmap);
 			}
 			
-			logmap.put("logname", "router");
+			logmap.put("logname", "kannelconnector");
 			doBilling(logmap);
 			
 			new FileWrite().write(logmap);

@@ -336,7 +336,14 @@ public class SMSProcessor {
 
 	public void sentToNextLevel() throws Exception {
 		
-		if(msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)||msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.INVALID_ROUTE_GROUP)){
+		String queuename="submit";
+		
+		if(msgmap.get("nobill")!=null){
+			
+			queuename=msgmap.get(MapKeys.KANNELID).toString();
+
+		}
+		if(queuename.equals("submit")&&msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)||msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.INVALID_ROUTE_GROUP)){
 			
 			Map<String,Object> logmap=new HashMap<String,Object>();
 			logmap.putAll(msgmap);
