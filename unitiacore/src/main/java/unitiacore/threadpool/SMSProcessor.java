@@ -360,7 +360,7 @@ public class SMSProcessor {
 			Map<String,Object> logmap=new HashMap<String,Object>();
 			logmap.putAll(msgmap);
 			logmap.put("module", "SMSProcessor");
-			if(msgmap.get(MapKeys.ISDNRETRY)==null){
+			if(queuename.equals("submit")&&msgmap.get(MapKeys.ISDNRETRY)==null){
 				doOtpRetry(logmap);
 			}
 			
