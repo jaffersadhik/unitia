@@ -135,7 +135,20 @@ public class SessionEventHandler implements SmppSessionHandler {
 				
 				Map<String,Object> logmap=new HashMap<String,Object>();
 				logmap.put("logname", "enqirelink_"+systemId);
-				logmap.put("time", new Date());
+	    		logmap.put("smpp status ", response.getCommandStatus()+" ");
+
+	    		new FileWrite().write(logmap);
+
+			} catch (Exception e) {
+			
+				response.setCommandStatus(SmppConstants.STATUS_SYSERR);
+			}
+			break;	
+		case SmppConstants.CMD_ID_UNBIND:
+			try {
+				
+				Map<String,Object> logmap=new HashMap<String,Object>();
+				logmap.put("logname", "unbind_"+systemId);
 	    		logmap.put("smpp status ", response.getCommandStatus()+" ");
 
 	    		new FileWrite().write(logmap);

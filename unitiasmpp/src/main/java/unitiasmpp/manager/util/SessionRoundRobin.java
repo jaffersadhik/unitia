@@ -2,8 +2,10 @@
 package unitiasmpp.manager.util;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.cloudhopper.smpp.SmppServerSession;
@@ -159,6 +161,14 @@ public class SessionRoundRobin {
 		
 		for(SessionEventHandler anHandler:unbindList) {
 			try{
+				
+				Map<String,Object> logmap=new HashMap<String,Object>();
+				
+				String systemId = anHandler.getSystemId();
+
+				logmap.put("logname", "expired_"+systemId);
+				new com.winnovature.unitia.util.misc.FileWrite().write(logmap);
+
 			anHandler.setExpired(true);
 			DefaultSmppSession session=(DefaultSmppSession)anHandler.getSession();
 			session.resetCounters();
