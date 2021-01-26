@@ -124,7 +124,4 @@ public class SubmitSmValidator {
 	
 		}
 
-		public void validateenquirelink(SubmitSm pduRequest, SubmitSmResp response, String systemId, String host) {}
-		
-	    
 }

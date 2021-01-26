@@ -158,11 +158,17 @@ public class SessionRoundRobin {
 		}		
 		
 		for(SessionEventHandler anHandler:unbindList) {
+			try{
 			anHandler.setExpired(true);
 			DefaultSmppSession session=(DefaultSmppSession)anHandler.getSession();
 			session.resetCounters();
 			anHandler.getSession().close();
 			anHandler.getSession().destroy();
+			anHandler.fireChannelUnexpectedlyClosed();
+			
+			}catch(Exception e){
+				
+			}
 		}		
 		
 		unboundCount=unbindList.size();
