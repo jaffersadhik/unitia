@@ -13,6 +13,7 @@ import com.cloudhopper.smpp.SmppSessionHandler;
 import com.cloudhopper.smpp.pdu.BaseBind;
 import com.cloudhopper.smpp.pdu.BaseBindResp;
 import com.cloudhopper.smpp.type.SmppProcessingException;
+import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.MapKeys;
 
 import unitiasmpp.validators.BindValidator;
@@ -79,6 +80,7 @@ public class DefaultSmppServerHandler implements SmppServerHandler, Serializable
 	
 	
 		}catch(Exception e){
+			logmap.put("error msg",ErrorMessage.getMessage(e));
 			new com.winnovature.unitia.util.misc.FileWrite().write(logmap);
 
 			 throw e;
