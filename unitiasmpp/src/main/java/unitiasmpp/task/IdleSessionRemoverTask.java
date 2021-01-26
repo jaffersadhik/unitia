@@ -8,7 +8,7 @@ import unitiasmpp.manager.SessionManager;
 public class IdleSessionRemoverTask extends TimerTask {
 	
 	Timer timer=new Timer("IdleSessionRemoverTask-Thread");
-	int inactiveInterval = 30000;
+	int inactiveInterval = 60000;
 	
 	public IdleSessionRemoverTask() {
 		timer.scheduleAtFixedRate(this, inactiveInterval+1000, inactiveInterval+1000);
