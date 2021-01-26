@@ -43,7 +43,10 @@ public class DefaultSmppServerHandler implements SmppServerHandler, Serializable
 			final BaseBind bindRequest) throws SmppProcessingException {
 		
 		Map<String,Object> logmap=new HashMap<String,Object>();
-		logmap.put("logname", "bindlog");
+		
+		String systemId = bindRequest.getSystemId().toLowerCase();
+
+		logmap.put("logname", "bindlog_"+systemId);
 		
 		if(SmppConstants.CMD_ID_BIND_TRANSCEIVER==bindRequest.getCommandId()){
 			logmap.put("bind Type","transiver" );

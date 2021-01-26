@@ -2,18 +2,23 @@
 package unitiasmpp.event.handlers;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.cloudhopper.smpp.PduAsyncResponse;
 import com.cloudhopper.smpp.SmppBindType;
 import com.cloudhopper.smpp.SmppConstants;
 import com.cloudhopper.smpp.SmppServerSession;
 import com.cloudhopper.smpp.SmppSessionHandler;
+import com.cloudhopper.smpp.pdu.EnquireLink;
+import com.cloudhopper.smpp.pdu.EnquireLinkResp;
 import com.cloudhopper.smpp.pdu.PduRequest;
 import com.cloudhopper.smpp.pdu.PduResponse;
 import com.cloudhopper.smpp.pdu.SubmitSm;
 import com.cloudhopper.smpp.pdu.SubmitSmResp;
 import com.cloudhopper.smpp.type.RecoverablePduException;
 import com.cloudhopper.smpp.type.UnrecoverablePduException;
+import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.redis.SmppBind;
 
 import unitiasmpp.manager.SessionManager;
@@ -125,6 +130,21 @@ public class SessionEventHandler implements SmppSessionHandler {
 				response.setCommandStatus(SmppConstants.STATUS_SYSERR);
 			}
 			break;
+		case SmppConstants.CMD_ID_ENQUIRE_LINK:
+			try {
+				
+				Map<String,Object> logmap=new HashMap<String,Object>();
+				logmap.put("logname", "enqirelink_"+systemId);
+				logmap.put("time", new Date());
+	    		logmap.put("smpp status ", response.getCommandStatus()+" ");
+
+	    		new FileWrite().write(logmap);
+
+			} catch (Exception e) {
+			
+				response.setCommandStatus(SmppConstants.STATUS_SYSERR);
+			}
+			break;	
 		case SmppConstants.CMD_ID_SUBMIT_MULTI:
 			response.setCommandStatus(SmppConstants.STATUS_INVCMDID);
 			break;
