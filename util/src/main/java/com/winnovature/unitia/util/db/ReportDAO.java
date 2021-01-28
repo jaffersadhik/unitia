@@ -111,8 +111,16 @@ public class ReportDAO {
 				}catch(Exception e){
 					
 				}
+				
+				
+				if("reportlog_delivery".equals(tablename)){
+					statement.setString(7, null);
+
+				}else{
+					statement.setString(7, fullmsg);
+
+				}
 			
-				statement.setString(7, fullmsg);
 				statement.setString(8, (String)msgmap.get(MapKeys.OPERATOR));
 				statement.setString(9, (String)msgmap.get(MapKeys.CIRCLE));
 
