@@ -54,6 +54,8 @@ public class QueueSender {
 
 			logmap1.put("username","sys");
 
+			logmap1.put("request", requestObject);
+			
 			logmap1.put("logname", queuename+"_receiver");
 
 			new FileWrite().write(logmap1);
