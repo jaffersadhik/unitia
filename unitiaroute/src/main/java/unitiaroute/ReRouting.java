@@ -11,6 +11,7 @@ import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
+import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 
 public class ReRouting {
@@ -101,7 +102,7 @@ public class ReRouting {
 					
 				}
 				
-				map.put(resultset.getString("smscid"),resultset.getString("reroute_smscid"));
+				map.put(resultset.getString("smscid").toLowerCase(),resultset.getString("reroute_smscid"));
 			}
 		}catch(Exception e){
 			
@@ -123,6 +124,16 @@ public class ReRouting {
 	public String getReRouteSmscid(String username,String smscid){
 		
 
+		Map<String,Object> logmap1=new HashMap<String,Object>();
+
+		logmap1.put("username","sys");
+
+		logmap1.put("logname", "rerouting_memory");
+		
+		logmap1.put("data", rerouting);
+		
+		new FileWrite().write(logmap1);
+
 		String admin=PushAccount.instance().getPushAccount(username).get(MapKeys.ADMIN);
 		String superadmin=PushAccount.instance().getPushAccount(username).get(MapKeys.SUPERADMIN);
 		Map<String,String> map=null;
@@ -143,7 +154,7 @@ public class ReRouting {
 			return null;
 		}
 		
-		return map.get(smscid);
+		return map.get(smscid.toLowerCase());
 	}
 
 	private String getKey(String superadmin, String admin, String username, int i) {

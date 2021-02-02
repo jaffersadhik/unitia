@@ -1,8 +1,10 @@
 package com.winnovature.unitia.util.redis;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.winnovature.unitia.util.dao.Insert;
+import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.RouterLog;
 
 public class QueueSender {
@@ -37,14 +39,27 @@ public class QueueSender {
 		
 		long start=System.currentTimeMillis();
 		
-		if(queuename.equals("otppool")||queuename.equals("kannelretrypool")||queuename.equals("otpretrypool")||queuename.equals("dnretrypool")||queuename.startsWith("smppdn_")){
+		if(queuename.startsWith("smppdn_")){
 			
 			redisid="redisqueue1";
 			if(!RedisQueueConnectionPool.getInstance().isAvilable(redisid, queuename, isRetry,logmap)){
 				
 				redisid=null;
 			}
+		}else if(queuename.equals("otppool")||queuename.equals("kannelretrypool")||queuename.equals("otpretrypool")||queuename.equals("dnretrypool")){
+			
+			redisid="redisqueue1";
+			
+			Map<String,Object> logmap1=new HashMap<String,Object>();
+
+			logmap1.put("username","sys");
+
+			logmap1.put("logname", queuename+"_receiver");
+
+			new FileWrite().write(logmap1);
+			
 		}else{
+		
 			
 			redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename,isRetry,logmap);
 		}
