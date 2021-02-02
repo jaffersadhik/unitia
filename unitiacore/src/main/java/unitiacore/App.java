@@ -75,11 +75,9 @@ public class App
 
 		if(poolname.equals("otppool") || poolname.equals("dnretrypool") || poolname.equals("kannelretrypool") || poolname.equals("otpretrypool") ){
 			
-				if(redisid.equals("redisqueue1")){
-					RedisReceiver obj=new RedisReceiver(1,poolname,redisid);
+					RedisReceiver obj=new RedisReceiver(1,poolname,"redisqueue1");
 					obj.start();
 					pollerlist.add(obj);
-				}
 			
 		}else if(poolname.equals("missedcallpool")){
 			
