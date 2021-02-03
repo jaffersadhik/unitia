@@ -90,15 +90,24 @@ public class ReportDAO {
 			
 				statement.setString(2, (String)msgmap.get(MapKeys.MSGID));
 				statement.setString(3,(String) msgmap.get(MapKeys.USERNAME));
+				String senderidorg=(String)msgmap.get(MapKeys.SENDERID_ORG);
 				
-				if( msgmap.get(MapKeys.SENDERID)==null){
-				statement.setString(4, (String) msgmap.get(MapKeys.SENDERID_ORG));
-				}else{
+				if(senderidorg!=null&&senderidorg.length()>15){
 					
-					statement.setString(4,(String) msgmap.get(MapKeys.SENDERID));
+					senderidorg=senderidorg.substring(0,15);
+				}
+				if( msgmap.get(MapKeys.SENDERID)==null){
+				statement.setString(4, senderidorg);
+				}else{
+					String senderid=(String)msgmap.get(MapKeys.SENDERID);
+					if(senderid!=null&&senderid.length()>15){
+						
+						senderid=senderid.substring(0,15);
+					}
+					statement.setString(4,senderid);
 
 				}
-				statement.setString(5, (String)msgmap.get(MapKeys.SENDERID_ORG));
+				statement.setString(5, senderidorg);
 				statement.setString(6, (String)msgmap.get(MapKeys.MOBILE));
 				
 				String fullmsg=(String)msgmap.get(MapKeys.FULLMSG);
