@@ -2,8 +2,10 @@ package demo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,6 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
-import com.winnovature.unitia.util.misc.ToJsonString;
 
 
 public class App extends AbstractHandler
@@ -38,48 +39,32 @@ public class App extends AbstractHandler
         
         if(uri.startsWith("/status")){
         	
-        	doProcessJson(request,response);
+        	StringBuffer sb=new StringBuffer();
         	
+        	  Map<String, String> map = new HashMap<String, String>();
+
+              Enumeration headerNames = request.getHeaderNames();
+              while (headerNames.hasMoreElements()) {
+                  String key = (String) headerNames.nextElement();
+                  String value = request.getHeader(key);
+                  map.put(key, value);
+              }
+              
+              response.getWriter().write(map.toString());
         }
     }
-	private void doProcessJson(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-
-    	
-   
-        response.getWriter().println(getStatus());
-
-		
-	}
 	
-	private String getStatus(){
-		
-		List<String> status=new ArrayList<String>();
-		for(int i=0;i<list.size();i++){
-		status.add(list.get(i).getStatus());
-		}
-		
-		return ToJsonString.toString(status);
-	}
+	
 
 	public static void main(String[] args) throws Exception
     {
-   
-        System.out.print("System.lineSeparator()" +System.lineSeparator() );
+		  Server server = new Server(8080);
+	        server.setHandler(new App());
 
-        startprocessor();
-        
-        new Th().start();
-        
+	        server.start();
+	        server.join();
     }
-	private static void startprocessor() throws IOException {
-		
-		
-		boolean status=Pattern.compile(new SMSPatternAllowed().getPattern(), Pattern.CASE_INSENSITIVE).matcher("test \n test").matches();
-
-		System.out.println(status);
-		
-	}
+	
     
 
 }
