@@ -22,6 +22,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.httpclient.protocol.SSLProtocolSocketFactory;
@@ -151,6 +152,10 @@ public class OnewayHTTPSURLConnector {
 			Protocol.registerProtocol( "https", myHTTPS );
 			
 			HttpClient httpclient = new HttpClient();
+			httpclient.getParams().setParameter(
+				    HttpMethodParams.USER_AGENT,
+				    "Unitia SMS gateway"
+				);
 
 			httpPost = new PostMethod(urlString);
 			
