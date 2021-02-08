@@ -566,7 +566,7 @@ public class RouteProcessor {
 		}else {
 		
 			msgmap.put(MapKeys.DN_IP, "dn");
-			msgmap.put(MapKeys.DN_PORT, "8080");
+			msgmap.put(MapKeys.DN_PORT, "8777");
 		
 		}
 				
