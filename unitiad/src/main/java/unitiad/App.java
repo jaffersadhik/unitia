@@ -123,7 +123,8 @@ public class App {
 			dnsql.App.main(args);
 		}else if(module.equals("demo")){
 			
-			new demo.App();
+			demo.App.main(args);
+
 			
 		}else if(module.equals("queuecheck")){
 			System.out.println("inside selected logs");
