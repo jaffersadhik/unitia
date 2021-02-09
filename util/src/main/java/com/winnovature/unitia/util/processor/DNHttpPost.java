@@ -165,7 +165,7 @@ public class DNHttpPost
 			response=response.substring(0, 499);
 		}
 		msgmap.put(MapKeys.DNPOSTSTATUS, response);
-		
+		msgmap.put("body", extraparam);
 		Map<String,Object> logmap=new HashMap<String,Object>();
 		
 		logmap.put("username", "sys");		
