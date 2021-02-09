@@ -140,6 +140,8 @@ public class DNHttpPost
 						}
 						HashMap reqmap1=getURLParamsMap(attempttype) ;
 						reqmap1.putAll(extraparam);
+						msgmap.put("body",reqmap1);
+
 						response=connector.connectPostMethod(url,reqmap1);
 					} catch (Exception e) {
 						response=ErrorMessage.getMessage(e);
@@ -165,7 +167,6 @@ public class DNHttpPost
 			response=response.substring(0, 499);
 		}
 		msgmap.put(MapKeys.DNPOSTSTATUS, response);
-		msgmap.put("body", extraparam);
 		Map<String,Object> logmap=new HashMap<String,Object>();
 		
 		logmap.put("username", "sys");		
