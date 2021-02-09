@@ -9,12 +9,14 @@ import java.util.regex.Pattern;
 
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.account.Route;
+import com.winnovature.unitia.util.misc.Carrier;
 import com.winnovature.unitia.util.misc.Convertor;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.MessageType;
 import com.winnovature.unitia.util.misc.RoundRobinTon;
 import com.winnovature.unitia.util.misc.RouterLog;
+import com.winnovature.unitia.util.misc.TeleMarketerId;
 import com.winnovature.unitia.util.misc.ToJsonString;
 
 public class RouteProcessor {
@@ -491,14 +493,19 @@ public class RouteProcessor {
 				String smscid=smscidlist.get(RoundRobinTon.getInstance().getCurrentIndex(key, smscidlist.size()));
 				msgmap.put(MapKeys.SMSCID,smscid);
 				msgmap.put(MapKeys.SMSCID_ORG,smscid);
-				
+				String carrier=Carrier.getInstance().getCarrier(smscid);
+				msgmap.put(MapKeys.CARRIER,carrier );
+				msgmap.put(MapKeys.TELEMARKETERID, TeleMarketerId.getInstance().getTeleMarketerId(carrier));
+
 			}else{
 			
 				String smscid=smscidlist.get(Integer.parseInt(pointer));
 				msgmap.put(MapKeys.SMSCID,smscid);
 				msgmap.put(MapKeys.SMSCID_ORG,smscid);
-				
-			}
+				String carrier=Carrier.getInstance().getCarrier(smscid);
+				msgmap.put(MapKeys.CARRIER,carrier );
+				msgmap.put(MapKeys.TELEMARKETERID, TeleMarketerId.getInstance().getTeleMarketerId(carrier));
+		}
 			return;
 			
 		}

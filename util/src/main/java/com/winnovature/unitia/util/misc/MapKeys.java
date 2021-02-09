@@ -126,6 +126,10 @@ public interface MapKeys {
 
 	public static String DR = "carrierdr";
 
+	public static String TELEMARKETERID = "telemarketerid";
+
+	public static String CARRIER = "carrier";
+
 	public static String CARRIER_MSGID = "carrier_msgid";
 
 	public static String CARRIER_SUBMITDATE = "carrier_submitdate";

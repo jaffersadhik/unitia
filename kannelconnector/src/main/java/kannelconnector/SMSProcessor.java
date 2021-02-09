@@ -21,6 +21,7 @@ import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.dnd.DNDProcessoer;
 import com.winnovature.unitia.util.duplicate.DuplicateCheck;
 import com.winnovature.unitia.util.misc.ACKIdGenerator;
+import com.winnovature.unitia.util.misc.Carrier;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
 import com.winnovature.unitia.util.misc.CreditProcessor;
@@ -31,6 +32,7 @@ import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.MessageType;
 import com.winnovature.unitia.util.misc.SpecialCharacters;
+import com.winnovature.unitia.util.misc.TeleMarketerId;
 import com.winnovature.unitia.util.optin.OptinProcessor;
 import com.winnovature.unitia.util.optin.OptoutProcessor;
 import com.winnovature.unitia.util.redis.OtpMessageDNRegister;
@@ -249,6 +251,9 @@ public class SMSProcessor {
 		 
 		 reroutemap.put(MapKeys.SMSCID_ORG, reroutesmscid);
 		 reroutemap.put(MapKeys.SMSCID, reroutesmscid);
+		 String carrier=Carrier.getInstance().getCarrier(reroutesmscid);
+			msgmap.put(MapKeys.CARRIER,carrier );
+			msgmap.put(MapKeys.TELEMARKETERID, TeleMarketerId.getInstance().getTeleMarketerId(carrier));
 
 		 int attempt=10;
 		 String attemptstr=(String)reroutemap.get(MapKeys.MSG_DELIVERY_ATTEMPT);
@@ -952,8 +957,8 @@ public class SMSProcessor {
 			
 			try{
 				String templateid=msgmap.get(MapKeys.TEMPLATEID)==null?"":msgmap.get(MapKeys.TEMPLATEID).toString().trim();
-
-				kannelurl=kannelurl+"&meta-data=%3Fsmpp%3Fentityid%3D"+msgmap.get(MapKeys.ENTITYID).toString().trim()+"%26templateid%3D"+templateid;
+				String telemarketerid=msgmap.get(MapKeys.TELEMARKETERID)==null?"":msgmap.get(MapKeys.TELEMARKETERID).toString().trim().equals("0")?"":msgmap.get(MapKeys.TELEMARKETERID).toString().trim();
+				kannelurl=kannelurl+"&meta-data=%3Fsmpp%3Fentityid%3D"+msgmap.get(MapKeys.ENTITYID).toString().trim()+"%26templateid%3D"+templateid+"%26telemarketerid%3D"+telemarketerid;
 			
 				}catch(Exception e){
 					
@@ -1057,8 +1062,11 @@ public class SMSProcessor {
 		if(msgmap.get(MapKeys.ENTITYID)!=null){
 			
 			try{
+				
+				String telemarketerid=msgmap.get(MapKeys.TELEMARKETERID)==null?"":msgmap.get(MapKeys.TELEMARKETERID).toString().trim().equals("0")?"":msgmap.get(MapKeys.TELEMARKETERID).toString().trim();
+
 				String templateid=msgmap.get(MapKeys.TEMPLATEID)==null?"":msgmap.get(MapKeys.TEMPLATEID).toString().trim();
-				kannelurl=kannelurl+"&meta-data=%3Fsmpp%3Fentityid%3D"+msgmap.get(MapKeys.ENTITYID).toString().trim()+"%26templateid%3D"+templateid;
+				kannelurl=kannelurl+"&meta-data=%3Fsmpp%3Fentityid%3D"+msgmap.get(MapKeys.ENTITYID).toString().trim()+"%26templateid%3D"+templateid+"%26telemarketerid%3D"+telemarketerid;
 			
 				}catch(Exception e){
 					

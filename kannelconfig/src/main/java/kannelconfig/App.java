@@ -154,16 +154,27 @@ public class App
     	sb.append("name = entityid").append("\n");		
     	sb.append("tag = 0x1400").append("\n");		
     	sb.append("type = octetstring").append("\n");		
-    	sb.append("length = 19").append("\n");
+    	sb.append("length = 30").append("\n");
     	
         sb.append("\n");
     	sb.append("\n");
+    	
     	sb.append("group = smpp-tlv").append("\n");	
     	sb.append("name = templateid").append("\n");		
     	sb.append("tag = 0x1401").append("\n");
     	sb.append("type = octetstring").append("\n");		
     	sb.append("length = 30").append("\n");		
-        sb.append("\n");
+        
+    	sb.append("\n");
+    	sb.append("\n");
+    	
+    	sb.append("group = smpp-tlv").append("\n");	
+    	sb.append("name = telemarketerid").append("\n");		
+    	sb.append("tag = 0x1402").append("\n");
+    	sb.append("type = octetstring").append("\n");		
+    	sb.append("length = 30").append("\n");		
+        
+    	sb.append("\n");
     	sb.append("\n");
     	
     	return sb.toString();

@@ -164,7 +164,6 @@ public class OnewayHTTPSURLConnector {
 			
 			
 			httpPost.setRequestBody(httpPost.getParameters());
-
 			httpclient.executeMethod(httpPost);
 			if(logger.isDebugEnabled())
 			logger.info(className+ "[connectPostMethod(String urlString, String data)] Status Line:  " +httpPost.getStatusLine());

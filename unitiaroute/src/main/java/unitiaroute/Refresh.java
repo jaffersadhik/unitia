@@ -2,6 +2,8 @@ package unitiaroute;
 
 import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.duplicate.DuplicateCheck;
+import com.winnovature.unitia.util.misc.Carrier;
+import com.winnovature.unitia.util.misc.TeleMarketerId;
 
 public class Refresh {
 
@@ -24,7 +26,8 @@ public class Refresh {
 	
 	public void reload(){
 		
-		
+		Carrier.getInstance().reload();
+		TeleMarketerId.getInstance().reload();
 		SMSPatternAllowed.getInstance().reload();
 		new DuplicateCheck().flushDuplicate();
 		Countrycode.getInstance().reload();

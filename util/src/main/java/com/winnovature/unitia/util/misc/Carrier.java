@@ -4,11 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import com.winnovature.unitia.util.db.Close;
-import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 
@@ -35,7 +33,7 @@ public class Carrier {
 			TableExsists table=new TableExsists();
 			if(!table.isExsists(connection, "carrier")){
 				
-				if(table.create(connection, "create table carrier(id INT PRIMARY KEY AUTO_INCREMENT,carrier varchar(45),mode varchar(50) default 'production')", false)){
+				if(table.create(connection, "create table carrier(id INT PRIMARY KEY AUTO_INCREMENT,carrier varchar(45),mode varchar(50) default 'production',telemarketerid varchar(50) default '0')", false)){
 				
 					table.create(connection, "insert into carrier(carrier) values('unitia')", false);
 				
