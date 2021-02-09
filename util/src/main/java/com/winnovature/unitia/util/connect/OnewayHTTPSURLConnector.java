@@ -128,11 +128,7 @@ public class OnewayHTTPSURLConnector {
 			return response;		
 	}
 	
-	/* This method connects client URL using HTTP GET method (Uses Apache httpClient)
-	 * @param String URL
-	 * @param HashMap params
-	 * @return String application response.
-	 */
+	
 	public String connectPostMethod(String urlString, HashMap params)throws Exception{
 		int port=0;		
 		PostMethod httpPost =	null;
@@ -158,7 +154,6 @@ public class OnewayHTTPSURLConnector {
 				);
 
 			httpPost = new PostMethod(urlString);
-			
 			if(params!=null || !params.isEmpty()){
 				
 				for(Iterator keys=params.keySet().iterator();keys.hasNext();){
@@ -166,6 +161,9 @@ public class OnewayHTTPSURLConnector {
 					httpPost.addParameter(param, (String)params.get(param));
 				}
 			}
+			
+			httpPost.setRequestBody(httpPost.getParameters());
+
 			httpclient.executeMethod(httpPost);
 			if(logger.isDebugEnabled())
 			logger.info(className+ "[connectPostMethod(String urlString, String data)] Status Line:  " +httpPost.getStatusLine());
@@ -196,10 +194,7 @@ public class OnewayHTTPSURLConnector {
 			return response;		
 	}
 	
-	/* This method connects client URL using HTTP GET method (uses socket)
-	 * @param String URL
-	 * @return String application response.
-	 */
+
 	public String postSocketRequest(String urlString) throws Exception
 	{	
 		int port	=	0;
