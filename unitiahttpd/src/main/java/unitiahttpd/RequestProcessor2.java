@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -130,9 +131,12 @@ public class RequestProcessor2
 			msgmap.put(MapKeys.MSGCLASS, msgClass);
 			
 			/*	Validate parameters	*/
-			if(StringUtils.isBlank(mnumber))
+			if(StringUtils.isBlank(mnumber)){
+				mnumber=request.getParameter("bulkmobno");
+				if(StringUtils.isBlank(mnumber)){
 				return getRejectedResponse(ESMSStatus.INVALID_OR_DUOLICATE_NUMBER);
-			
+				}
+			}
 			mnumber = mnumber.trim();
 		
 			
@@ -148,7 +152,11 @@ public class RequestProcessor2
 			
 			
 			
-		
+			String servicetype=request.getParameter("smsservicetype");
+			if(servicetype!=null&&servicetype.equals("unicodemsg")){
+				
+				formUnicode(msgmap);
+			}
 
 			
 			if(StringUtils.contains(mnumber, ","))
@@ -214,6 +222,7 @@ public class RequestProcessor2
 		
 			}
 			
+			
 			return getWhitelableAcceptedResponse();
 
 			}catch(Exception e){
@@ -225,6 +234,32 @@ public class RequestProcessor2
 	}
 	
 	
+	private void formUnicode(Map<String, Object> msgmap2) {
+		
+		try{
+		String fullmsg=msgmap2.get(MapKeys.FULLMSG).toString();
+		
+
+		
+		
+		
+		StringTokenizer st=new StringTokenizer(fullmsg,";&#");
+		
+		StringBuffer sb=new StringBuffer();
+		
+		
+		while(st.hasMoreTokens()){
+			
+			sb.append((char)Integer.parseInt(st.nextToken()));
+		}
+		msgmap2.put(MapKeys.FULLMSG, sb.toString());
+
+		}catch(Exception e){
+			
+		}
+
+	}
+
 	public void replaceSpace(Map<String, Object> msgmap2) {
 		
 		
@@ -244,7 +279,7 @@ public class RequestProcessor2
 
 	public String getRejectedResponse(int statusId)
 	{
-			return ""+statusId;
+			return ""+statusId+" : "+ESMSStatus.get(statusId);
 	}
 	
 	
@@ -259,7 +294,7 @@ public class RequestProcessor2
 	
 	public String getSystemErrorResponse(Exception e)
 	{
-		return ""+ESMSStatus.NETWORK_ERROR_ON_SMSC_1;
+		return ""+ESMSStatus.NETWORK_ERROR_ON_SMSC_1+" : "+ESMSStatus.get(ESMSStatus.NETWORK_ERROR_ON_SMSC_1);
 	}
 	
 	public int doMultipleMnumbers(String _splittedMnumber[],Map<String,Object> msgmap, int _len,Map<String,Object> logmap) {
