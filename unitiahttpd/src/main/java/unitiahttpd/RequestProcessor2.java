@@ -133,6 +133,8 @@ public class RequestProcessor2
 			/*	Validate parameters	*/
 			if(StringUtils.isBlank(mnumber)){
 				mnumber=request.getParameter("bulkmobno");
+				msgmap.put(MapKeys.MOBILE, mnumber);
+
 				if(StringUtils.isBlank(mnumber)){
 				return getRejectedResponse(ESMSStatus.INVALID_OR_DUOLICATE_NUMBER);
 				}
@@ -195,7 +197,7 @@ public class RequestProcessor2
 					
 				int mobileFlag = new Utility().mobileValidation(msgmap);
 					if(mobileFlag !=0) 
-						return getRejectedResponse(mobileFlag);
+						return getRejectedResponse(ESMSStatus.INVALID_OR_DUOLICATE_NUMBER);
 				
 				
 				if(!isEmail) {
