@@ -38,10 +38,14 @@ public class App extends AbstractHandler
         if(uri.startsWith("/sendjson")){
         	
         	doProcessJson(request,response);
-        	
+        		
         }else if(uri.startsWith("/send")){
         	
         	doProcessQS(request,response);
+        	
+        }else if(uri.startsWith("/esms/sendsmsrequestDLT")){
+        	
+        	doProcessQS2(request,response);
         	
         }else if(uri.startsWith("/balancecredits")){
         	
@@ -73,7 +77,32 @@ public class App extends AbstractHandler
         baseRequest.setHandled(true);
     }
 
-    private void doProcessMO(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void doProcessQS2(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+    	   Map<String,Object> msgmap= new HashMap<String,Object>();
+
+   		RequestProcessor2 processor = new RequestProcessor2();
+   		Bean.setDefaultValues(msgmap);
+           Map<String, Object> logmap = new HashMap<String,Object>();
+   		String responsestring=processor.processRequest(request,msgmap, logmap);
+   		logmap.put("module", "http receiver");
+   		if(responsestring.indexOf("402,")>-1){
+   			logmap.put("logname", "esms_success");
+
+   		}else{
+   			logmap.put("logname", "esms_errorresponse");
+
+   		}
+   		logmap.put("link", "/esms/sendsmsrequestDLT");
+   		logmap.put("responsestring", responsestring);
+
+   		logmap.putAll(msgmap);
+   		new FileWrite().write(logmap);
+           response.getWriter().println(responsestring);
+		
+	}
+
+	private void doProcessMO(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 
     	

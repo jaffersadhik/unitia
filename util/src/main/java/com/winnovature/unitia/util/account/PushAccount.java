@@ -10,6 +10,7 @@ import java.util.Map;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
+import com.winnovature.unitia.util.misc.MD5;
 import com.winnovature.unitia.util.misc.ResultSetToHashMapConverter;
 
 
@@ -258,6 +259,8 @@ public class PushAccount {
 				Map<String,String> data=rsConverter.toObject(resultSet);
 				data.put("superadmin",data.get("superadmin_name").toLowerCase());
 				data.put("admin",data.get("admin_name").toLowerCase());
+				data.put("encrypt_1_password",MD5.MD5( data.get("password").trim()));
+
 				_pushAccMap.put(key,data);	
 				
 			}
