@@ -90,7 +90,7 @@ public class RequestProcessor2
 
 
 				String servicetype=request.getParameter("smsservicetype");
-				if(servicetype!=null&&(servicetype.equals("unicodemsg")||"unicodeotpmsg".equals(servicetype)){
+				if(servicetype!=null&&(servicetype.equals("unicodemsg")||"unicodeotpmsg".equals(servicetype))){
 					
 					formUnicode(msgmap);
 					msgmap.put("sms_org", msgmap.get(MapKeys.FULLMSG));
