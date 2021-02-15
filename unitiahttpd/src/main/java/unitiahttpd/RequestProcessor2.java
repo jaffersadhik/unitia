@@ -88,6 +88,15 @@ public class RequestProcessor2
 				msgmap.put(MapKeys.MESSAGE, message);
 				msgmap.put(MapKeys.FULLMSG, message);
 
+
+				String servicetype=request.getParameter("smsservicetype");
+				if(servicetype!=null&&servicetype.equals("unicodemsg")){
+					
+					formUnicode(msgmap);
+					msgmap.put("sms_org", msgmap.get(MapKeys.FULLMSG));
+				}
+
+				
 			replaceSpace(msgmap);	
 			
 			setMsgType();
@@ -154,12 +163,6 @@ public class RequestProcessor2
 			
 			
 			
-			String servicetype=request.getParameter("smsservicetype");
-			if(servicetype!=null&&servicetype.equals("unicodemsg")){
-				
-				formUnicode(msgmap);
-			}
-
 			
 			if(StringUtils.contains(mnumber, ","))
 			{
