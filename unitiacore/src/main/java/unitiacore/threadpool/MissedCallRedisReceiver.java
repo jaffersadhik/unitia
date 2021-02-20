@@ -63,8 +63,12 @@ public class MissedCallRedisReceiver extends  Thread {
 					
 					data.put(MapKeys.STATUSID, ""+MessageStatus.VMN_USERNAME_MAPPING_MISSING);
 					
-					new QueueSender().sendL("submissionpool", data, false, new HashMap<String,Object>());
 					
+					Map<String,Object> logmap=new HashMap<String,Object>();
+					logmap.putAll(data);
+					logmap.put("username", "sys");
+					logmap.put("logname", "missedcallerror");
+		            new FileWrite().write(logmap);	
 					continue;
 				}
 				
