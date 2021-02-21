@@ -229,11 +229,12 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 
 	     }
 	     
-	 		values.get("smscs");
+	 	String smscs=	values.get("smscs");
+	     Map<String,Map<String,String>> result=new HashMap<String,Map<String,String>>();
 
+	 	if(smscs!=null){
 	     StringTokenizer st=new StringTokenizer(values.get("smscs"),"\t");
 	     
-	     Map<String,Map<String,String>> result=new HashMap<String,Map<String,String>>();
 	     
 	     st.nextToken();
 	     
@@ -337,7 +338,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	     st.nextToken();
 		     
 	     }
-	     
+	 	}
 	     return result;
 	}
 	
@@ -380,11 +381,12 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 
 	     }
 	     
-	 		values.get("smscs");
+	 	String smscs=	values.get("smscs");
+	     Map<String,Map<String,String>> result=new HashMap<String,Map<String,String>>();
 
+	 	if(smscs!=null){
 	     StringTokenizer st=new StringTokenizer(values.get("smscs"),"\t");
 	     
-	     Map<String,Map<String,String>> result=new HashMap<String,Map<String,String>>();
 	     
 	     st.nextToken();
 	     
@@ -468,7 +470,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	    
 	         
 	     }
-	     
+	 	}
 	     return result;
 	}
 	
