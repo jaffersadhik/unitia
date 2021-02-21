@@ -211,6 +211,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 			}
 	        xmlString= xmlString.replaceAll("online ", "online_");
 	        Document xml = convertStringToDocument(xmlString);
+	        if(xml!=null){
 	        Node user = xml.getFirstChild();
 	        NodeList childs = user.getChildNodes();
 	        Node child;
@@ -218,7 +219,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	            child = childs.item(i);
 	             values.put(child.getNodeName(), child.getTextContent());
 	        }
-
+	        }
 		
 	     Iterator itr=values.keySet().iterator();
 	     
@@ -360,6 +361,8 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	        }
 	        xmlString= xmlString.replaceAll("online ", "online_");
 	        Document xml = convertStringToDocument(xmlString);
+
+	        if(xml!=null){
 	        Node user = xml.getFirstChild();
 	        NodeList childs = user.getChildNodes();
 	        Node child;
@@ -368,7 +371,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	             values.put(child.getNodeName(), child.getTextContent());
 	        }
 
-		
+	        }
 	     Iterator itr=values.keySet().iterator();
 	     
 	     while(itr.hasNext()){
