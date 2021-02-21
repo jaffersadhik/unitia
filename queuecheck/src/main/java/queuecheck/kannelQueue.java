@@ -463,7 +463,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	}
 	
 
-	public static String connectKannel(String sUrl)  throws Exception{
+	public static String connectKannel(String sUrl)  {
 
 		String response = "";
 
@@ -499,7 +499,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 
 		} catch (Exception e) {
 			
-			e.printStackTrace();			
+						
 		} finally {
 			try {
 				if (in != null)
