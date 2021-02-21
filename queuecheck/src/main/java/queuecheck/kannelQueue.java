@@ -67,6 +67,10 @@ try{
 		while(itr.hasNext()){
 			Properties prop=mapprop.get(itr.next());
 			String version=getVersion(prop.getProperty("kannel_status"));
+			
+			if(version==null){
+				version="1.5.0";
+			}
 			if(version.indexOf("1.5.0")>-1){
 				
 				result.putAll( getStatusV2(prop.getProperty("kannel_status")));
@@ -181,14 +185,30 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	private static String getVersion(String url) throws Exception {
 
 		 String xmlString = getStringXML(url);
-	        
+
+		 if(xmlString!=null&&xmlString.trim().length()>0){
 		return xmlString.substring(xmlString.indexOf("<version>")+9, xmlString.indexOf("</version>")).split(" ")[3];
-	}
-	public static Map<String,Map<String,String>> getStatusV1(String url) throws Exception{
+	
+		 }else{
+			 
+			 return null;
+		 }
+		}
+	public static Map<String,Map<String,String>> getStatusV1(String url){
 		
 		
 		  HashMap<String, String> values = new HashMap<String, String>();
-	        String xmlString = getStringXML(url);
+	        String xmlString=null;
+			try {
+				xmlString = getStringXML(url);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			if(xmlString==null||xmlString.trim().length()<1){
+				xmlString="";
+			}
 	        xmlString= xmlString.replaceAll("online ", "online_");
 	        Document xml = convertStringToDocument(xmlString);
 	        Node user = xml.getFirstChild();
@@ -323,11 +343,21 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	
 	
 	
-	public static Map<String,Map<String,String>> getStatusV2(String url) throws Exception{
+	public static Map<String,Map<String,String>> getStatusV2(String url) {
 		
 		
 		  HashMap<String, String> values = new HashMap<String, String>();
-	        String xmlString = getStringXML(url);
+	        String xmlString=null;
+			try {
+				xmlString = getStringXML(url);
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+	        
+	        if(xmlString==null||xmlString.trim().length()<1){
+	        	xmlString="";
+	        }
 	        xmlString= xmlString.replaceAll("online ", "online_");
 	        Document xml = convertStringToDocument(xmlString);
 	        Node user = xml.getFirstChild();
@@ -521,7 +551,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 	                    xmlStr)));
 	            return doc;
 	        } catch (Exception e) {
-	            e.printStackTrace();
+	            
 	        }
 	        return null;
 	    }
