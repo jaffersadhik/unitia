@@ -18,6 +18,7 @@ import javax.xml.crypto.Data;
 
 import com.winnovature.unitia.util.account.MissedCallForward;
 import com.winnovature.unitia.util.account.PushAccount;
+import com.winnovature.unitia.util.connect.HttpsPost;
 import com.winnovature.unitia.util.connect.OnewayHTTPSURLConnector;
 import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.FileWrite;
@@ -130,8 +131,8 @@ public class DNHttpPost
 				
 				if(url.startsWith("https")){
 					
-					OnewayHTTPSURLConnector connector=new OnewayHTTPSURLConnector();
-					
+					//OnewayHTTPSURLConnector connector=new OnewayHTTPSURLConnector();
+					HttpsPost  connector=new HttpsPost();
 					try {
 						if(url.indexOf("?")>0){
 							
@@ -141,8 +142,7 @@ public class DNHttpPost
 						HashMap reqmap1=getURLParamsMap(attempttype) ;
 						reqmap1.putAll(extraparam);
 						msgmap.put("body",reqmap1);
-
-						response=connector.connectPostMethod(url,reqmap1);
+						response=connector.sendDN(url,reqmap1);
 					} catch (Exception e) {
 						response=ErrorMessage.getMessage(e);
 					}
