@@ -39,6 +39,14 @@ public class App extends AbstractHandler
         	
         	doProcessJson(request,response);
         		
+        }else if(uri.startsWith("/dntesta")){
+        	
+        	doProcessDNA(request,response);
+        	
+        }else if(uri.startsWith("/dntestb")){
+        	
+        	doProcessDNB(request,response);
+        	
         }else if(uri.startsWith("/send")){
         	
         	doProcessQS(request,response);
@@ -77,7 +85,47 @@ public class App extends AbstractHandler
         baseRequest.setHandled(true);
     }
 
-    private void doProcessQS2(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void doProcessDNB(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
+    	
+        Map<String,Object> msgmap= new HashMap<String,Object>();
+
+		Bean.setDefaultValues(msgmap);
+        Map<String, Object> logmap = new HashMap<String,Object>();
+		logmap.put("module", "http receiver");
+		
+		logmap.put("logname", "dntestb");
+		logmap.put("link", "dntestb");
+		logmap.put("username", request.getParameter("username"));
+		logmap.put("password", request.getParameter("password"));
+		logmap.putAll(msgmap);
+		new FileWrite().write(logmap);
+        response.getWriter().println("OK");
+		
+	}
+
+	private void doProcessDNA(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        Map<String,Object> msgmap= new HashMap<String,Object>();
+
+		GsonProcessor processor = new GsonProcessor();
+		Bean.setDefaultValues(msgmap);
+        Map<String, Object> logmap = new HashMap<String,Object>();
+		logmap.put("logname", "dntesta");
+
+		String responsestring=processor.getRequestFromBody(request);
+		
+		logmap.put("link", "testdna");
+		logmap.put("responsestring", responsestring);
+
+		logmap.putAll(msgmap);
+		new FileWrite().write(logmap);
+        response.getWriter().println("OK");
+		
+	}
+
+	private void doProcessQS2(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
     	   Map<String,Object> msgmap= new HashMap<String,Object>();
 
