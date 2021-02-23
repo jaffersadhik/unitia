@@ -210,7 +210,7 @@ public class App
     	sb.append("source-addr-ton=5").append("\n");		
       	sb.append("source-addr-npi=0").append("\n");		
       	sb.append("dest-addr-ton=1").append("\n");		
-     	sb.append("dest-addr-npi=0").append("\n");		
+     	sb.append("dest-addr-npi=1").append("\n");		
       	sb.append("alt-charset = utf-8").append("\n");		
       	sb.append("smsc-username =\""+data.get("username")+"\"").append("\n");		
       	sb.append("smsc-password =\""+data.get("password")+"\"").append("\n");		
@@ -238,7 +238,7 @@ public class App
 	    	sb.append("source-addr-ton=5").append("\n");		
 	      	sb.append("source-addr-npi=0").append("\n");		
 	      	sb.append("dest-addr-ton=1").append("\n");		
-	     	sb.append("dest-addr-npi=0").append("\n");		
+	     	sb.append("dest-addr-npi=1").append("\n");		
 	      	sb.append("alt-charset = utf-8").append("\n");		
 	      	sb.append("smsc-username =\""+data.get("username")+"\"").append("\n");		
 	      	sb.append("smsc-password =\""+data.get("password")+"\"").append("\n");		
