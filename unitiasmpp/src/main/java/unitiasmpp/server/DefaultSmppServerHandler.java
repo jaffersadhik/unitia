@@ -39,7 +39,7 @@ public class DefaultSmppServerHandler implements SmppServerHandler, Serializable
 		this.smppSessionHandlerInterface = smppSessionHandlerInterface;
 	}
 
-	@Override
+	
 	public synchronized void sessionBindRequested(Long sessionId, SmppSessionConfiguration sessionConfiguration,
 			final BaseBind bindRequest) throws SmppProcessingException {
 		
@@ -90,7 +90,6 @@ public class DefaultSmppServerHandler implements SmppServerHandler, Serializable
 
 	}
 
-	@Override
 	public void sessionCreated(Long sessionId, SmppServerSession session, BaseBindResp preparedBindResponse)
 			throws SmppProcessingException {
 		
@@ -111,7 +110,6 @@ public class DefaultSmppServerHandler implements SmppServerHandler, Serializable
 		new com.winnovature.unitia.util.misc.FileWrite().write(logmap);
 	}
 
-	@Override
 	public synchronized void sessionDestroyed(Long sessionId, SmppServerSession session) {
 	
 		if (this.smppSessionHandlerInterface != null) {

@@ -177,13 +177,7 @@ public class CDACConnector {
 		nameValuePairs.add(new BasicNameValuePair("password", msgmap.get(MapKeys.CDAC_PASSWORD).toString().trim()));
 		nameValuePairs.add(new BasicNameValuePair("key", genratedhashKey));
 		nameValuePairs.add(new BasicNameValuePair("templateid", msgmap.get(MapKeys.TEMPLATEID).toString()));
-		 UrlEncodedFormEntity encoded= new UrlEncodedFormEntity(nameValuePairs);
-		 msgmap.put("getContentEncoding()",encoded.getContentEncoding());
-		 msgmap.put("getContentLength()",encoded.getContentLength());
-		 msgmap.put("getContentType()",encoded.getContentType());
-
-
-		post.setEntity(encoded);
+		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 		HttpResponse response=client.execute(post);
 		BufferedReader bf=new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 		String line="";
