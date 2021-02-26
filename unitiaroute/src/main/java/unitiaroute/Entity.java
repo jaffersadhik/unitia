@@ -93,7 +93,9 @@ public class Entity {
 			statement =connection.prepareStatement("select username,senderid,entityid from dlt_entity");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
-				
+				if(resultset.getString("username")==null||resultset.getString("senderid")==null||resultset.getString("entityid")==null){
+					continue;
+				}
 				Map<String,String> senderidset=whitelistedsenderid.get(resultset.getString("username").toLowerCase());	
 				if(senderidset==null){
 					
