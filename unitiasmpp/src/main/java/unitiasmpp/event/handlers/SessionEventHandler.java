@@ -93,23 +93,19 @@ public class SessionEventHandler implements SmppSessionHandler {
 		this.isInUse = isInUse;
 	}
 
-	@Override
 	public String lookupResultMessage(int commandStatus) {
 		return null;
 	}
 
-	@Override
 	public String lookupTlvTagName(short tag) {
 		return null;
 	}
 
-	@Override
 	public void fireChannelUnexpectedlyClosed() {
 
 		SmppBind.getInstance().getBindCount(systemId, -1);
 	}
 
-	@Override
 	public PduResponse firePduRequestReceived(PduRequest pduRequest) {
 
 				
@@ -185,33 +181,27 @@ public class SessionEventHandler implements SmppSessionHandler {
 	}
 
 	
-	@Override
 	public void firePduRequestExpired(PduRequest pduRequest) {
 		
 		lastUsedTime=new Date();
 	}
 
-	@Override
 	public void fireExpectedPduResponseReceived(PduAsyncResponse pduAsyncResponse) {
 		lastUsedTime=new Date();
 	}
 
-	@Override
 	public void fireUnexpectedPduResponseReceived(PduResponse pduResponse) {
 		lastUsedTime=new Date();
 	}
 
-	@Override
 	public void fireUnrecoverablePduException(UnrecoverablePduException e) {
 		e.printStackTrace();
 	}
 
-	@Override
 	public void fireRecoverablePduException(RecoverablePduException e) {
 	
 	}
 
-	@Override
 	public void fireUnknownThrowable(Throwable t) {
 		// TODO Auto-generated method stub
 		try {

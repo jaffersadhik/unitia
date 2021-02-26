@@ -19,7 +19,6 @@ public class SmppSessionBindUnbindHandler implements SmppSessionHandlerInterface
 	public SmppSessionBindUnbindHandler() {
 		
 	}
-	@Override
 	public synchronized com.cloudhopper.smpp.SmppSessionHandler sessionCreated(
 			Long sessionId, SmppServerSession session,
 			BaseBindResp preparedBindResponse) throws SmppProcessingException {
@@ -80,7 +79,6 @@ public class SmppSessionBindUnbindHandler implements SmppSessionHandlerInterface
 		return asessionHandler ;
 	}
 
-	@Override
 	public synchronized void sessionDestroyed(Long sessionId, SmppServerSession session) {
 		try {
 

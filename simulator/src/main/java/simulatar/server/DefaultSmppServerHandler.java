@@ -76,7 +76,7 @@ public class DefaultSmppServerHandler implements SmppServerHandler, Serializable
 	
 		}catch(Exception e){
 
-			 throw e;
+			throw new SmppProcessingException(SmppConstants.STATUS_BINDFAIL);			
 		}
 		
 
