@@ -650,7 +650,7 @@ public class RouteProcessor {
 		String kannelid="cdac";
 		
 		if(kannelid!=null&&kannelid.trim().length()>0){
-			msgmap.put(MapKeys.KANNELID, kannelinfo.get(MapKeys.KANNELID));
+			msgmap.put(MapKeys.KANNELID, kannelid);
 
 		}
 		msgmap.put(MapKeys.KANNEL_IP, kannelinfo.get("ip"));
