@@ -141,7 +141,7 @@ public class SMSProcessor {
 		
 		if(kannelresponse!=null&&kannelresponse.trim().length()>0&&!kannelresponse.startsWith("402")){
 			
-			msgmap.put(MapKeys.STATUSID,kannelresponse.substring(0, kannelresponse.indexOf(':')).trim());
+			msgmap.put(MapKeys.STATUSID_ORG,kannelresponse.substring(0, kannelresponse.indexOf(':')).trim());
 		}
 
 			
