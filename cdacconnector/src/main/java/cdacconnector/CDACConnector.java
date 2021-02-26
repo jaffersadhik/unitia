@@ -170,7 +170,7 @@ public class CDACConnector {
 
 		return sb.toString();
 	}
-	
+	/*
 	public String sendSingleSMS(Map<String,Object> msgmap){
 		
 		HttpsURLConnection con=null;
@@ -230,18 +230,10 @@ public class CDACConnector {
 		}
 		return responseString;
 }
-
-	private void sleep() {
-		
-		try{
-			Thread.sleep(1000L);
-		}catch(Exception e){
-			
-		}
-	}
-
+*/
 	
-	/*
+	
+	
 	public String sendSingleSMS(Map<String,Object> msgmap){
 		
 		HttpPost post=null;
@@ -334,7 +326,7 @@ public class CDACConnector {
 			
 		}
 	}
-*/
+
 	protected String hashGenerator(String userName, String senderId, String content, String secureKey) {
 		// TODO Auto-generated method stub
 		StringBuffer finalString=new StringBuffer();
