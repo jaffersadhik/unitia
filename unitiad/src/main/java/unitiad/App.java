@@ -50,6 +50,13 @@ public class App {
 			logmap.put("started", "kannelconnector");
 
 			
+		}else if(module.equals("cdacconnector")){
+			
+			cdacconnector.App.doProcess();
+			
+			logmap.put("started", "cdacconnector");
+
+			
 		}else if(module.equals("optin")){
 			
 			optin.App.doProcess();
