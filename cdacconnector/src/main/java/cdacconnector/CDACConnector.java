@@ -2,9 +2,13 @@ package cdacconnector;
 
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -12,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -144,6 +149,99 @@ public class CDACConnector {
 	}
 	
 	
+
+	private String getQuery(Map<String,Object> msgmap,String serviceType) throws UnsupportedEncodingException{
+		
+		StringBuffer sb=new StringBuffer();
+
+		String message=msgmap.get(MapKeys.FULLMSG).toString().trim();
+
+		String genratedhashKey = hashGenerator(msgmap.get(MapKeys.CDAC_USERNAME).toString().trim(), msgmap.get(MapKeys.SENDERID).toString().trim(), message, msgmap.get(MapKeys.CDAC_KEY).toString().trim());
+
+		
+		sb.append("mobileno").append("=").append(URLEncoder.encode(msgmap.get(MapKeys.MOBILE).toString().trim(),"UTF-8")).append("&");
+		sb.append("senderid").append("=").append(URLEncoder.encode(msgmap.get(MapKeys.SENDERID).toString().trim(),"UTF-8")).append("&");
+		sb.append("content").append("=").append(URLEncoder.encode(message,"UTF-8")).append("&");
+		sb.append("smsservicetype").append(URLEncoder.encode(serviceType,"UTF-8")).append("").append("&");
+		sb.append("username").append("=").append(URLEncoder.encode(msgmap.get(MapKeys.CDAC_USERNAME).toString().trim(),"UTF-8")).append("&");
+		sb.append("password").append("=").append(URLEncoder.encode(msgmap.get(MapKeys.CDAC_PASSWORD).toString().trim(),"UTF-8")).append("&");
+		sb.append("key").append("=").append(URLEncoder.encode(genratedhashKey,"UTF-8")).append("&");
+		sb.append("templateid").append("=").append(URLEncoder.encode(msgmap.get(MapKeys.TEMPLATEID).toString().trim(),"UTF-8")).append("&");
+
+		return sb.toString();
+	}
+	
+	public String sendSingleSMS(Map<String,Object> msgmap){
+		
+		HttpsURLConnection con=null;
+		String responseString = "";
+
+		boolean isRetry=true;
+		int attempt=0;
+		while(isRetry){
+		try{
+		String httpsURL = "https://www.abcd.com/auth/login/";
+
+		String query = getQuery(msgmap,"singlemsg");
+		
+		msgmap.put("cdac_query", query);
+
+		URL myurl = new URL("https://"+msgmap.get(MapKeys.KANNEL_IP)+"/esms/sendsmsrequestDLT");
+		 con = (HttpsURLConnection)myurl.openConnection();
+		con.setRequestMethod("POST");
+
+		con.setRequestProperty("Content-length", String.valueOf(query.length())); 
+		con.setRequestProperty("Content-Type","application/x-www- form-urlencoded"); 
+		con.setRequestProperty("User-Agent", "Unitia 1.0"); 
+		con.setDoOutput(true); 
+		con.setDoInput(true); 
+
+		DataOutputStream output = new DataOutputStream(con.getOutputStream());  
+
+
+		output.writeBytes(query);
+
+		output.close();
+
+	
+		responseString= con .getResponseMessage(); 	
+		}catch(Exception e){
+			
+
+			
+			if(attempt<5){
+				isRetry=true;
+			}
+
+			responseString=getErrorMessage();
+			sleep();
+
+		
+		}finally{
+			
+			try{
+				con.disconnect();
+
+			}catch(Exception e){
+				
+			}
+		}
+		
+		}
+		return responseString;
+}
+
+	private void sleep() {
+		
+		try{
+			Thread.sleep(1000L);
+		}catch(Exception e){
+			
+		}
+	}
+
+	
+	/*
 	public String sendSingleSMS(Map<String,Object> msgmap){
 		
 		HttpPost post=null;
@@ -236,7 +334,7 @@ public class CDACConnector {
 			
 		}
 	}
-
+*/
 	protected String hashGenerator(String userName, String senderId, String content, String secureKey) {
 		// TODO Auto-generated method stub
 		StringBuffer finalString=new StringBuffer();
