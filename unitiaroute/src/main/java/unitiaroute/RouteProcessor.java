@@ -573,6 +573,7 @@ public class RouteProcessor {
 		if(CDACSmscId.getInstance().isExsists(route)){
 			
 			kannelinfo=CDACSmscId.getInstance().getData(route);
+			kannelinfo.put("is_CDAC", "yes");
 		}
 		
 		if(kannelinfo==null){
