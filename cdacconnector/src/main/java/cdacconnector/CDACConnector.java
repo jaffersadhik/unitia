@@ -153,17 +153,17 @@ public class CDACConnector {
 		//
 		//HttpPost post=new HttpPost("https://api.unitiapro.com/esms/sendsmsrequestDLT");
 
-		HttpPost post=new HttpPost("https://"+msgmap.get(MapKeys.KANNEL_IP)+":"+msgmap.get(MapKeys.KANNEL_PORT)+"/esms/sendsmsrequestDLT");
-		String genratedhashKey = hashGenerator(msgmap.get(MapKeys.CDAC_USERNAME).toString(), msgmap.get(MapKeys.SENDERID).toString(), message, msgmap.get(MapKeys.CDAC_KEY).toString());
+		HttpPost post=new HttpPost("https://"+msgmap.get(MapKeys.KANNEL_IP)+"/esms/sendsmsrequestDLT");
+		String genratedhashKey = hashGenerator(msgmap.get(MapKeys.CDAC_USERNAME).toString().trim(), msgmap.get(MapKeys.SENDERID).toString().trim(), message, msgmap.get(MapKeys.CDAC_KEY).toString().trim());
 		List<NameValuePair> nameValuePairs=new ArrayList<NameValuePair>(1);
 		nameValuePairs.add(new BasicNameValuePair("mobileno", msgmap.get(MapKeys.MOBILE).toString()));
 		nameValuePairs.add(new BasicNameValuePair("senderid",  msgmap.get(MapKeys.SENDERID).toString()));
 		nameValuePairs.add(new BasicNameValuePair("content", message));
 		nameValuePairs.add(new BasicNameValuePair("smsservicetype", "singlemsg"));
-		nameValuePairs.add(new BasicNameValuePair("username", msgmap.get(MapKeys.CDAC_USERNAME).toString()));
-		nameValuePairs.add(new BasicNameValuePair("password", msgmap.get(MapKeys.CDAC_PASSWORD).toString()));
+		nameValuePairs.add(new BasicNameValuePair("username", msgmap.get(MapKeys.CDAC_USERNAME).toString().trim()));
+		nameValuePairs.add(new BasicNameValuePair("password", msgmap.get(MapKeys.CDAC_PASSWORD).toString().trim()));
 		nameValuePairs.add(new BasicNameValuePair("key", genratedhashKey));
-		 nameValuePairs.add(new BasicNameValuePair("templateid", msgmap.get(MapKeys.TEMPLATEID).toString()));
+		nameValuePairs.add(new BasicNameValuePair("templateid", msgmap.get(MapKeys.TEMPLATEID).toString()));
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 		HttpResponse response=client.execute(post);
 		BufferedReader bf=new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -171,7 +171,7 @@ public class CDACConnector {
 		while((line=bf.readLine())!=null){
 		responseString = responseString+line;
 		}
-		System.out.println(responseString);
+		//xSystem.out.println(responseString);
 		} catch (NoSuchAlgorithmException e) {
 		} catch (KeyManagementException e) {
 		} catch (UnsupportedEncodingException e) {
