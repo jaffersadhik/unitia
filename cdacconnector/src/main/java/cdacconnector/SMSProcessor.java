@@ -221,7 +221,7 @@ public class SMSProcessor {
 		if(isfurtherprocess){
 			String kannelresponse="";
 			if(FeatureCode.isHexa(msgmap.get(MapKeys.FEATURECODE).toString())){
-				kannelresponse=new CDACConnector().sendSingleSMS(msgmap);
+				kannelresponse=new CDACConnector().sendUnicodeSMS(msgmap);
 			}else{
 				
 				kannelresponse=new CDACConnector().sendSingleSMS(msgmap);
