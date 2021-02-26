@@ -138,8 +138,8 @@ public class CDACConnector {
 					}
 				}
 				}
-		return responseString;
 		}
+		return responseString;
 
 	}
 	
