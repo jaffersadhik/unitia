@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.SSLContext;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -24,7 +23,6 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
 import com.winnovature.unitia.util.misc.Convertor;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
@@ -40,7 +38,7 @@ public class CDACConnector {
 	
 	public String sendUnicodeSMS(Map<String,Object> msgmap){
 		
-		
+		HttpPost post=null;
 		String finalmessage = "";
 
 		String message=Convertor.getMessage(msgmap.get(MapKeys.FULLMSG).toString());
@@ -82,7 +80,7 @@ public class CDACConnector {
 		Scheme scheme=new Scheme("https",443,sf);
 		HttpClient client=new DefaultHttpClient();
 		client.getConnectionManager().getSchemeRegistry().register(scheme);
-		HttpPost post=new HttpPost("https://msdgweb.mgov.gov.in/esms/sendsmsrequestDLT");
+		 post=new HttpPost("https://"+msgmap.get(MapKeys.KANNEL_IP)+"/esms/sendsmsrequestDLT");
 
 
 		String genratedhashKey = hashGenerator(username,senderId, finalmessage, secureKey);
@@ -95,6 +93,7 @@ public class CDACConnector {
 		nameValuePairs.add(new BasicNameValuePair("password", password));
 		nameValuePairs.add(new BasicNameValuePair("key", genratedhashKey));
 		nameValuePairs.add(new BasicNameValuePair("templateid", templateid));
+		
 		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 		HttpResponse response=client.execute(post);
 		BufferedReader bf=new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -123,15 +122,31 @@ public class CDACConnector {
 			sleep();
 
 		}
-		}
+		finally {
+			try{
+				post.releaseConnection();
+
+				
+				}catch(Exception e1){
+					try{
+						
+						post.abort();
+
+						
+					}catch(Exception e3){
+						
+					}
+				}
+				}
 		return responseString;
 		}
 
-	
+	}
 	
 	
 	public String sendSingleSMS(Map<String,Object> msgmap){
 		
+		HttpPost post=null;
 		String message=msgmap.get(MapKeys.FULLMSG).toString();
 		String responseString = "";
 		boolean isRetry=true;
@@ -141,7 +156,6 @@ public class CDACConnector {
 			attempt++;
 		SSLSocketFactory sf=null;
 		SSLContext context=null;
-		String encryptedPassword=null;
 		try {
 		//context=SSLContext.getInstance("TLSv1.1"); // Use this line for Java version 6
 		context=SSLContext.getInstance("TLSv1.2"); // Use this line for Java version 7 and above
@@ -152,7 +166,7 @@ public class CDACConnector {
 		client.getConnectionManager().getSchemeRegistry().register(scheme);
 		//
 
-		HttpPost post=new HttpPost("https://"+msgmap.get(MapKeys.KANNEL_IP)+"/esms/sendsmsrequestDLT");
+		 post=new HttpPost("https://"+msgmap.get(MapKeys.KANNEL_IP)+"/esms/sendsmsrequestDLT");
 		String genratedhashKey = hashGenerator(msgmap.get(MapKeys.CDAC_USERNAME).toString().trim(), msgmap.get(MapKeys.SENDERID).toString().trim(), message, msgmap.get(MapKeys.CDAC_KEY).toString().trim());
 		List<NameValuePair> nameValuePairs=new ArrayList<NameValuePair>(1);
 		nameValuePairs.add(new BasicNameValuePair("mobileno", msgmap.get(MapKeys.MOBILE).toString()));
@@ -198,7 +212,23 @@ public class CDACConnector {
 			responseString=getErrorMessage();
 			sleep();
 
-		}
+		}	finally {
+			try{
+				post.releaseConnection();
+
+				
+				}catch(Exception e1){
+					try{
+						
+						post.abort();
+
+						
+					}catch(Exception e3){
+						
+					}
+				}
+				}
+
 		
 		}
 		return responseString;
