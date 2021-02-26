@@ -28,7 +28,6 @@
   	<module>dnpostdb</module>
   	<module>scheduledb</module>
   	<module>kannelconfig</module>
-  	<module>hadoop</module>
   	<module>unitiad</module>
 
   	<module>logs</module>

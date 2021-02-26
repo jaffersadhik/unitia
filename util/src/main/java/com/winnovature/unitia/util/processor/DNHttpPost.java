@@ -14,12 +14,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import javax.xml.crypto.Data;
-
 import com.winnovature.unitia.util.account.MissedCallForward;
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.connect.HttpsPost;
-import com.winnovature.unitia.util.connect.OnewayHTTPSURLConnector;
 import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;

@@ -5,17 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.security.KeyManagementException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import javax.net.ssl.SSLContext;
 
-import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -46,10 +43,6 @@ HttpClient client=new DefaultHttpClient();
 client.getConnectionManager().getSchemeRegistry().register(scheme);
 
 
-client.getParams().setParameter(
-	    HttpMethodParams.USER_AGENT,
-	    "Unitia SMS gateway"
-	);
 
 post=new HttpPost(urlString);
 List<NameValuePair> nameValuePairs=new ArrayList<NameValuePair>(1);
