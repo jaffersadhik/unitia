@@ -573,7 +573,6 @@ public class RouteProcessor {
 		if(CDACSmscId.getInstance().isExsists(route)){
 			
 			kannelinfo=CDACSmscId.getInstance().getData(route);
-			kannelinfo.put("is_CDAC", "yes");
 		}
 		
 		if(kannelinfo==null){
@@ -597,6 +596,8 @@ public class RouteProcessor {
 			msgmap.put(MapKeys.DN_IP, "dn");
 			msgmap.put(MapKeys.DN_PORT, "8777");
 			kannelinfo.put("is_CDAC", "yes");
+			msgmap.put("is_CDAC", "yes");
+
 		}
 		if(kannelinfo!=null) {
 			
