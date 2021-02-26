@@ -104,24 +104,6 @@ public class SMSProcessor {
 			
 		
 	}
-	
-	
-	private void doMultiPartSMS() throws Exception {
-
-			
-		if(hasCredit()){
-			
-			doSendMultiPart((List<Map<String,Object>> )msgmap.get(MapKeys.MSGLIST));
-			
-		}else{
-			
-			msgmap.put(MapKeys.STATUSID, ""+MessageStatus.INVALID_CREDIT);
-
-		}
-		
-
-		
-	}
 	private void dosingleSMS() throws NumberFormatException, Exception {
 		
 			
