@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.account.Route;
+import com.winnovature.unitia.util.cdac.CDACSmscId;
 import com.winnovature.unitia.util.misc.Carrier;
 import com.winnovature.unitia.util.misc.Convertor;
 import com.winnovature.unitia.util.misc.MapKeys;
@@ -564,39 +565,50 @@ public class RouteProcessor {
 		String route=(String)msgmap.get(MapKeys.SMSCID);
 		
 		msgmap.put(MapKeys.SMSCID_ORG, route);
+	
 		
-		Map<String,String> kannelinfo=InternalKannel.getInstance().getKannelInfo(route);
+		
+		Map<String,String> kannelinfo=null;	
+		
+		if(CDACSmscId.getInstance().isExsists(route)){
 			
+			kannelinfo=CDACSmscId.getInstance().getData(route);
+		}
+		
+		if(kannelinfo==null){
+			
+		
+		kannelinfo=InternalKannel.getInstance().getKannelInfo(route);
+
 		if(kannelinfo==null){
 			
 			kannelinfo=Kannel.getInstance().getKannelInfo(route);
 		}else {
 		
+			
 			msgmap.put(MapKeys.DN_IP, "dn");
 			msgmap.put(MapKeys.DN_PORT, "8777");
 		
 		}
 				
-		
+		}else{
+			
+			msgmap.put(MapKeys.DN_IP, "dn");
+			msgmap.put(MapKeys.DN_PORT, "8777");
+			kannelinfo.put("is_CDAC", "yes");
+		}
 		if(kannelinfo!=null) {
 			
-			String kannelid=kannelinfo.get(MapKeys.KANNELID);
 			
-			if(kannelid!=null&&kannelid.trim().length()>0){
-				msgmap.put(MapKeys.KANNELID, kannelinfo.get(MapKeys.KANNELID));
-	
-			}
-			msgmap.put(MapKeys.KANNEL_IP, kannelinfo.get(MapKeys.KANNEL_IP));
-			msgmap.put(MapKeys.KANNEL_PORT, kannelinfo.get(MapKeys.KANNEL_PORT));
-			if(route.equals("apps")||route.equals("reapps")){
+			if(kannelinfo.get("is_CDAC")==null){
 				
-				msgmap.put(MapKeys.ROUTECLASS_ORG,"4");
-	        	
+				normalKanneldo(route,kannelinfo);
 			}else{
-			
-				msgmap.put(MapKeys.ROUTECLASS_ORG, kannelinfo.get(MapKeys.ROUTECLASS));
-	        	
+				
+				cdacKanneldo(route,kannelinfo);
 			}
+			
+			
 			
 			return;
 		}
@@ -608,6 +620,63 @@ public class RouteProcessor {
 	}
 
 
+	private void normalKanneldo(String route,Map<String, String> kannelinfo) {
+		
+		String kannelid=kannelinfo.get(MapKeys.KANNELID);
+		
+		if(kannelid!=null&&kannelid.trim().length()>0){
+			msgmap.put(MapKeys.KANNELID, kannelinfo.get(MapKeys.KANNELID));
+
+		}
+		msgmap.put(MapKeys.KANNEL_IP, kannelinfo.get(MapKeys.KANNEL_IP));
+		msgmap.put(MapKeys.KANNEL_PORT, kannelinfo.get(MapKeys.KANNEL_PORT));
+		if(route.equals("apps")||route.equals("reapps")){
+			
+			msgmap.put(MapKeys.ROUTECLASS_ORG,"4");
+        	
+		}else{
+		
+			msgmap.put(MapKeys.ROUTECLASS_ORG, kannelinfo.get(MapKeys.ROUTECLASS));
+        	
+		}
+		
+	}
+
+
+	private void cdacKanneldo(String route,Map<String, String> kannelinfo) {
+		
+		String kannelid="cdac";
+		
+		if(kannelid!=null&&kannelid.trim().length()>0){
+			msgmap.put(MapKeys.KANNELID, kannelinfo.get(MapKeys.KANNELID));
+
+		}
+		msgmap.put(MapKeys.KANNEL_IP, kannelinfo.get("ip"));
+		msgmap.put(MapKeys.KANNEL_PORT, kannelinfo.get("port"));
+		msgmap.put(MapKeys.CDAC_USERNAME, kannelinfo.get("username"));
+
+		msgmap.put(MapKeys.CDAC_PASSWORD, kannelinfo.get("password"));
+
+		msgmap.put(MapKeys.CDAC_KEY, kannelinfo.get("enc_key"));
+
+		msgmap.put(MapKeys.DN_SQL_DB_ID, kannelinfo.get("dnsqldbid"));
+
+		msgmap.put(MapKeys.IS_REDIS_DN, "1");
+
+		if(route.equals("apps")||route.equals("reapps")){
+			
+			msgmap.put(MapKeys.ROUTECLASS_ORG,"4");
+        	
+		}else{
+		
+			msgmap.put(MapKeys.ROUTECLASS_ORG, "1");
+        	
+		}
+		
+	}
+
+	
+	
 	public void doRouteGroupAvailable() throws Exception {
 		
 

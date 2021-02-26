@@ -2,6 +2,17 @@ package com.winnovature.unitia.util.misc;
 
 public interface MapKeys {
 
+
+	public static String CDAC_USERNAME="cdac_username";
+	
+	public static String CDAC_PASSWORD="cdac_password";
+
+	public static String CDAC_KEY="cdac_key";
+
+	public static String DN_SQL_DB_ID="dnsqldbid";
+	
+	public static String IS_REDIS_DN="isredisdn";
+
 	public static String MODULE="module";
 	
 	public static String ERROR="error";
