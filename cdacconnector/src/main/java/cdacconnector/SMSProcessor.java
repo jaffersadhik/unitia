@@ -141,7 +141,17 @@ public class SMSProcessor {
 		
 		if(kannelresponse!=null&&kannelresponse.trim().length()>0&&!kannelresponse.startsWith("402")){
 			
-			msgmap.put(MapKeys.STATUSID_ORG,kannelresponse.substring(0, kannelresponse.indexOf(':')).trim());
+			try{
+			String statusid=kannelresponse.substring(0, kannelresponse.indexOf(':')).trim();	
+
+			if(statusid.equals("ERROR")){
+				statusid=""+getFirstInt(kannelresponse);
+			}
+			msgmap.put(MapKeys.STATUSID_ORG,statusid);
+		
+			}catch(Exception e){
+				
+			}
 		}
 
 			
@@ -161,6 +171,21 @@ public class SMSProcessor {
 		
 	}
 
+	private int getFirstInt(String kannelresponse) {
+		
+		String token[]=kannelresponse.split(" ");
+		
+		for(int i=0;i<token.length;i++){
+			
+			try{
+				int statusid=Integer.parseInt(token[i]);
+				return statusid;
+			}catch(Exception e){
+				
+			}
+		}
+		 return 0;
+	}
 	private void doOtpRetry(Map<String, Object> logmap)  throws Exception {
 		
 		if(msgmap.get(MapKeys.ATTEMPT_TYPE).toString().equals("0")&&msgmap.get(MapKeys.STATUSID).toString().equals(""+MessageStatus.KANNEL_SUBMIT_SUCCESS)&&msgmap.get(MapKeys.UDH)==null&&PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.OTP_RETRY_YN).equals("1")){
