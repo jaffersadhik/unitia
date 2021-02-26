@@ -141,8 +141,7 @@ public class SMSProcessor {
 		
 		if(kannelresponse!=null&&kannelresponse.trim().length()>0&&!kannelresponse.startsWith("402")){
 			
-			StringTokenizer st=new StringTokenizer(":");
-			msgmap.put(MapKeys.STATUSID, st.nextToken().trim());
+			msgmap.put(MapKeys.STATUSID,kannelresponse.substring(0, kannelresponse.indexOf(':')).trim());
 		}
 
 			
