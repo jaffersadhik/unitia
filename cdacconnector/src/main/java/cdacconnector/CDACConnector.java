@@ -151,7 +151,6 @@ public class CDACConnector {
 		HttpClient client=new DefaultHttpClient();
 		client.getConnectionManager().getSchemeRegistry().register(scheme);
 		//
-		//HttpPost post=new HttpPost("https://api.unitiapro.com/esms/sendsmsrequestDLT");
 
 		HttpPost post=new HttpPost("https://"+msgmap.get(MapKeys.KANNEL_IP)+"/esms/sendsmsrequestDLT");
 		String genratedhashKey = hashGenerator(msgmap.get(MapKeys.CDAC_USERNAME).toString().trim(), msgmap.get(MapKeys.SENDERID).toString().trim(), message, msgmap.get(MapKeys.CDAC_KEY).toString().trim());
@@ -164,14 +163,20 @@ public class CDACConnector {
 		nameValuePairs.add(new BasicNameValuePair("password", msgmap.get(MapKeys.CDAC_PASSWORD).toString().trim()));
 		nameValuePairs.add(new BasicNameValuePair("key", genratedhashKey));
 		nameValuePairs.add(new BasicNameValuePair("templateid", msgmap.get(MapKeys.TEMPLATEID).toString()));
-		post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+		 UrlEncodedFormEntity encoded= new UrlEncodedFormEntity(nameValuePairs);
+		 msgmap.put("getContentEncoding()",encoded.getContentEncoding());
+		 msgmap.put("getContentLength()",encoded.getContentLength());
+		 msgmap.put("getContentType()",encoded.getContentType());
+
+
+		post.setEntity(encoded);
 		HttpResponse response=client.execute(post);
 		BufferedReader bf=new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 		String line="";
 		while((line=bf.readLine())!=null){
 		responseString = responseString+line;
 		}
-		//xSystem.out.println(responseString);
+		//xmsgmap.put("",responseString);
 		} catch (NoSuchAlgorithmException e) {
 		} catch (KeyManagementException e) {
 		} catch (UnsupportedEncodingException e) {
