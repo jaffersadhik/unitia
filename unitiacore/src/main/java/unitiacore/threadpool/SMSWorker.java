@@ -9,6 +9,7 @@ import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.RouterLog;
 
 import unitiaroute.RouteProcessor;
+import unitiaroute.SenderidMasking;
 
 
 public class SMSWorker  {
@@ -254,6 +255,8 @@ try{
 
 		new RouterLog().routerlog(redisid, tname, "start route.submitKannel()");
 
+		new SenderidMasking().doSenderIDMask(msgmap);
+		
 		processor.submitKannel();
 		
 		new RouterLog().routerlog(redisid, tname, "end route.submitKannel()");

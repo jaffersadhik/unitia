@@ -72,9 +72,9 @@ public class SenderidSwapping {
 				
 				TableExsists table=new TableExsists();
 				
-				if(!table.isExsists(connection, "senderid_swapping")){
+				if(!table.isExsists(connection, "senderid_swapping_withsmsc")){
 					
-					if(table.create(connection, " create table senderid_swapping(id INT PRIMARY KEY AUTO_INCREMENT ,operator varchar(2),circle varchar(2),senderid varchar(15) , senderid_swap varchar(15))", false)){
+					if(table.create(connection, " create table senderid_swapping_withsmsc(id INT PRIMARY KEY AUTO_INCREMENT ,smscid varchar(60),operator varchar(2),circle varchar(2),senderid varchar(15) , senderid_swap varchar(15))", false)){
 					
 						isTableAvailable=true;
 					}
@@ -84,13 +84,17 @@ public class SenderidSwapping {
 				}
 			}
 			
-			statement =connection.prepareStatement("select operator,circle,senderid,senderid_swap from senderid_swapping");
+			statement =connection.prepareStatement("select smscid,operator,circle,senderid,senderid_swap from senderid_swapping");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
 			
 				String operator =resultset.getString("operator");
 				String circle =resultset.getString("circle");
+				String smscid =resultset.getString("smscid");
+				if(smscid==null||smscid.trim().length()<1) {
+					smscid=Route.NULL;
+				}
 				if(operator==null||operator.trim().length()<1) {
 					operator=Route.NULL;
 				}
@@ -101,7 +105,7 @@ public class SenderidSwapping {
 				
 			
 				
-				String key=Route.CONJUNCTION+operator+Route.CONJUNCTION+circle+Route.CONJUNCTION;
+				String key=Route.CONJUNCTION+smscid+Route.CONJUNCTION+operator+Route.CONJUNCTION+circle+Route.CONJUNCTION;
 				
 				Map<String,String> map1=senderidswap.get(key);
 				

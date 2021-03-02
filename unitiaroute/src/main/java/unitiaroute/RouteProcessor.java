@@ -359,41 +359,8 @@ public class RouteProcessor {
 			}
 			
 			
-			String senderidmask=null;
-			
-			if(msgmap.get(MapKeys.COUNTRYCODE).toString().equals("91")){
-				
-				for(int i=1;i<5;i++){
-					String key=getKey(msgmap.get(MapKeys.OPERATOR).toString(),msgmap.get(MapKeys.CIRCLE).toString(),i);	
-					senderidmask=SenderidSwapping.getInstance().getSwapingSenderid(key, senderid);
-				
-					msgmap.put("masked senderid key", key);
-
-					msgmap.put("masked senderid", senderidmask);
-					if(senderidmask!=null){
-						
-						break;
-					}
-					
-					}
-				
-			}else{
-			
-				senderidmask=InternationalSenderidSwapping.getInstance().getSwapingSenderid(msgmap.get(MapKeys.COUNTRYCODE).toString());
-				
-			}
-			
-			
-			if(senderidmask==null||senderidmask.trim().length()<1){
-				
-				senderidmask=senderid;
-			}
-			if(msgmap.get(MapKeys.SENDERID_ORG)==null||msgmap.get(MapKeys.SENDERID_ORG).toString().trim().length()<1){
-				
-				msgmap.put(MapKeys.SENDERID_ORG, senderidmask);
-
-			}
-			msgmap.put(MapKeys.SENDERID, senderidmask);
+		
+			msgmap.put(MapKeys.SENDERID, senderid);
 		}
 
 		return ;
@@ -430,6 +397,7 @@ public class RouteProcessor {
 	}
 
 
+	
 	public void doBlackListSMSPattern() throws Exception {
 	
 		
