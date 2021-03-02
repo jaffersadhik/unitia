@@ -84,7 +84,7 @@ public class SenderidSwapping {
 				}
 			}
 			
-			statement =connection.prepareStatement("select smscid,operator,circle,senderid,senderid_swap from senderid_swapping");
+			statement =connection.prepareStatement("select smscid,operator,circle,senderid,senderid_swap from senderid_swapping_withsmsc");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
