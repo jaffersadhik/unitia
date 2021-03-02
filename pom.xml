@@ -42,6 +42,7 @@
   	<module>simulator</module>
   	<module>kannelconnector</module>
   	<module>cdacconnector</module>
+  	<module>routegroupprocessor</module>
     </modules>
   <dependencies>
   

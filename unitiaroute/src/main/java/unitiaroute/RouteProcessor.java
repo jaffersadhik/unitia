@@ -367,6 +367,7 @@ public class RouteProcessor {
 					String key=getKey(msgmap.get(MapKeys.OPERATOR).toString(),msgmap.get(MapKeys.CIRCLE).toString(),i);	
 					senderidmask=SenderidSwapping.getInstance().getSwapingSenderid(key, senderid);
 				
+					msgmap.put("masked senderid", senderidmask);
 					if(senderidmask!=null){
 						
 						break;
