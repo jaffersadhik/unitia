@@ -51,6 +51,8 @@ public class SenderidMasking {
 			
 			senderidmask=senderid;
 		}
+		
+		msgmap.put(MapKeys.SENDERID, senderidmask);
 
 	}
 
