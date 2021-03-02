@@ -23,7 +23,7 @@ public class SenderidMasking {
 		
 		if(msgmap.get(MapKeys.COUNTRYCODE).toString().equals("91")){
 			
-			for(int i=1;i<5;i++){
+			for(int i=1;i<9;i++){
 				
 				String key=getKey(msgmap.get(MapKeys.SMSCID).toString(),msgmap.get(MapKeys.OPERATOR).toString(),msgmap.get(MapKeys.CIRCLE).toString(),i);
 				
@@ -67,13 +67,13 @@ public class SenderidMasking {
 			 return Route.CONJUNCTION+smscid+Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION+circle+Route.CONJUNCTION;
 		case 4:
 			 return Route.CONJUNCTION+smscid+Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION;
-		case 1:
+		case 5:
 			 return Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION+operator+Route.CONJUNCTION+circle+Route.CONJUNCTION;
-		case 2:
+		case 6:
 			 return Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION+operator+Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION;
-		case 3:
+		case 7:
 			 return Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION+circle+Route.CONJUNCTION;
-		case 4:
+		case 8:
 			 return Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION+Route.NULL+Route.CONJUNCTION;
 			
 		}
