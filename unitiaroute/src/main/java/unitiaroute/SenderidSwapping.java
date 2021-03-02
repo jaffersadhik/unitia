@@ -10,6 +10,8 @@ import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
+import com.winnovature.unitia.util.misc.FileWrite;
+import com.winnovature.unitia.util.misc.MapKeys;
 
 public class SenderidSwapping {
 
@@ -105,6 +107,17 @@ public class SenderidSwapping {
 		
 		
 		this.senderidswapping=senderidswap;
+		
+		
+		Map<String,Object> logmap=new HashMap<String,Object>();
+		logmap.put("module", "senderidswapping");
+		
+		logmap.put("username", "sys");
+
+		logmap.putAll(senderidswapping);
+		logmap.put("logname", "senderidswapping");
+		
+		new FileWrite().write(logmap);
 	}
 	
 	
