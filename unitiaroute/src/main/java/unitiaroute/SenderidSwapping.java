@@ -39,6 +39,25 @@ public class SenderidSwapping {
 	
 	public void reload(){
 		
+		Map<String,Map<String,String>> temp=getData();
+		
+		if(temp!=null&&temp.size()>1){
+			
+			senderidswapping=temp;
+		}
+		Map<String,Object> logmap=new HashMap<String,Object>();
+		logmap.put("module", "senderidswapping");
+		
+		logmap.put("username", "sys");
+
+		logmap.putAll(senderidswapping);
+		logmap.put("logname", "senderidswapping");
+		
+		new FileWrite().write(logmap);
+	}
+	
+	
+	private Map<String, Map<String, String>> getData() {
 		Map<String,Map<String,String>> senderidswap=new HashMap<String,Map<String,String>>();
 
 		Connection connection =null;
@@ -103,6 +122,8 @@ public class SenderidSwapping {
 		}catch(Exception e){
 			
 			e.printStackTrace();
+			
+			return null;
 		}finally{
 			
 			Close.close(resultset);
@@ -111,21 +132,10 @@ public class SenderidSwapping {
 		}
 		
 		
-		this.senderidswapping=senderidswap;
+		return senderidswap;
 		
-		
-		Map<String,Object> logmap=new HashMap<String,Object>();
-		logmap.put("module", "senderidswapping");
-		
-		logmap.put("username", "sys");
-
-		logmap.putAll(senderidswapping);
-		logmap.put("logname", "senderidswapping");
-		
-		new FileWrite().write(logmap);
 	}
-	
-	
+
 	public String getSwapingSenderid(String key,String senderid){
 		
 		if(senderidswapping.containsKey(key)){
