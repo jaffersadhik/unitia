@@ -198,6 +198,9 @@ try{
 		route.doKannelAvailable();
 		
 		new RouterLog().routerlog(redisid, tname, "end route.doKannelAvailable()");
+		
+		new SenderidMasking().doSenderIDMask(msgmap);
+		
 
 		
 		new RouterLog().routerlog(redisid, tname, "start route.doEntityValidation()");
@@ -255,7 +258,6 @@ try{
 
 		new RouterLog().routerlog(redisid, tname, "start route.submitKannel()");
 
-		new SenderidMasking().doSenderIDMask(msgmap);
 		
 		processor.submitKannel();
 		
