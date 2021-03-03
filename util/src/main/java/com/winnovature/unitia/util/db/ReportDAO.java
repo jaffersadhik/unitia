@@ -242,7 +242,16 @@ public class ReportDAO {
 						statement.setString(46, null);
 
 					}
-					statement.setString(47, (String)msgmap.get(MapKeys.STATUSID_ORG));
+					String stausidorg=(String)msgmap.get(MapKeys.STATUSID_ORG);
+					
+					if(stausidorg==null||stausidorg.equals("ERROR")){
+						
+						statement.setString(47, null);
+
+					}else{
+						statement.setString(47, (String)msgmap.get(MapKeys.STATUSID_ORG));
+
+					}
 
 					
 					if(msgmap.get(MapKeys.CARRIER_SUBMITTIME_ORG)!=null){

@@ -454,6 +454,7 @@ public class RouteProcessor {
 	
 		String routegroup=(String)msgmap.get(MapKeys.ROUTEGROUP);
 		List<String> smscidlist=RouteGroup.getInstance().getSmscidList(routegroup);
+		
 		if(smscidlist!=null&&smscidlist.size()>0) {
 			
 			
