@@ -40,6 +40,7 @@ import com.winnovature.unitia.util.redis.QueueSender;
 
 import unitiaroute.ReRouting;
 import unitiaroute.RouteProcessor;
+import unitiaroute.SenderidMasking;
 
 public class SMSProcessor {
 	
@@ -1583,6 +1584,8 @@ public void setDLRURL(Map<String,Object> splitmap)  throws Exception{
 			msgmap.put(MapKeys.ATTEMPT_TYPE, "2");
 
 			msgmap.put(MapKeys.MSGID, ACKIdGenerator.getAckId());
+			
+			new SenderidMasking().doSenderIDMask(msgmap);
 			
 			if(processor.isIsfurtherprocess()){
 				

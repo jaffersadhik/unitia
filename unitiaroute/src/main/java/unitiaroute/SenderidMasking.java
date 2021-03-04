@@ -10,11 +10,11 @@ public class SenderidMasking {
 		
 	public  void doSenderIDMask(Map<String,Object> msgmap){
 
-		String senderid=msgmap.get(MapKeys.SENDERID).toString();
+		String senderid=(String)msgmap.get(MapKeys.SENDERID_ORG);
 		
 		String smscid=(String)msgmap.get(MapKeys.SMSCID);
 		
-		if(smscid==null){
+		if(smscid==null||senderid==null){
 			
 			return;
 		}

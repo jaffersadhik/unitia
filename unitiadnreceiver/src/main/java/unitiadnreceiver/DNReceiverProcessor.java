@@ -14,6 +14,7 @@ import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.misc.FeatureCode;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
+import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.processor.DNProcessor;
 import com.winnovature.unitia.util.redis.OtpMessageDNRegister;
 import com.winnovature.unitia.util.redis.QueueSender;
@@ -120,8 +121,23 @@ public class DNReceiverProcessor {
 
 	private boolean isFailureErrorCode(Map<String, Object> msgmap) {
 
-		return (msgmap.get(MapKeys.CARRIER_ERR)!=null && !msgmap.get(MapKeys.CARRIER_ERR).toString().equals("000"));
+		if( (msgmap.get(MapKeys.CARRIER_ERR)!=null && !msgmap.get(MapKeys.CARRIER_ERR).toString().equals("000"))){
+			
+			return true;
+		}
 	
+		String statusidorg=(String)msgmap.get(MapKeys.STATUSID_ORG);
+		String statusid=(String)msgmap.get(MapKeys.STATUSID);
+		
+		if(statusid!=null&&(""+MessageStatus.KANNEL_SUBMIT_FAILED).equals(statusid)){
+			
+			if(statusidorg!=null && !statusidorg.equals("401") ){
+				
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	private void registerOTPDNMessage(Map<String, Object> msgmap) {
