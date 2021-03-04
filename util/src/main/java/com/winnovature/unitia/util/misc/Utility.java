@@ -20,7 +20,7 @@ public class Utility {
 
 
 		try{
-		Map partnerDetails = PushAccount.instance().getPushAccount(username);
+		Map partnerDetails = PushAccount.instance().getPushAccount(username.toLowerCase());
 		msgmap.put("intl", partnerDetails.get("intl").toString());
 		
 		mobile=mobile.trim();
