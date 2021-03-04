@@ -225,7 +225,7 @@ public class DNProcessor
     	if(statuscd.equals("32")){
     		
     		msgmap.put(MapKeys.STATUSID, msgmap.get(MapKeys.STATUSID_PLATFORM));
-    		msgmap.put(MapKeys.STATUSID_ORG, msgmap.get(MapKeys.STATUSID_PLATFORM));
+    		msgmap.put(MapKeys.STATUSID_ORG, msgmap.get(MapKeys.STATUSID_ORG));
     		msgmap.put(MapKeys.KTIME, msgmap.get(MapKeys.RTIME));
     		msgmap.put(MapKeys.CARRIER_SUBMITTIME_ORG, msgmap.get(MapKeys.RTIME));
     		msgmap.put(MapKeys.CARRIER_SUBMITTIME, msgmap.get(MapKeys.RTIME));
