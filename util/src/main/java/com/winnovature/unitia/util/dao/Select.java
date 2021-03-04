@@ -343,7 +343,7 @@ public class Select {
 				data.put(MapKeys.SENDERID_ORG, resultset.getString("sender_id"));
 				data.put(MapKeys.SENDERID, resultset.getString("sender_id"));
 				data.put(MapKeys.MSGTYPE,  resultset.getString("msg_type"));
-				String mobile=new com.winnovature.unitia.util.misc.Utility().prefix91map(data,resultset.getString("username"),resultset.getString("mobile") );
+				String mobile=new com.winnovature.unitia.util.misc.Utility().prefix91map(data,resultset.getString("username").toLowerCase(),resultset.getString("mobile") );
 				data.put(MapKeys.MOBILE, mobile);
 				data.put(MapKeys.SCHEDULE_TIME, resultset.getString("execution_date"));
 				data.put(MapKeys.PARAM1, resultset.getString("campaign_activity_id"));
