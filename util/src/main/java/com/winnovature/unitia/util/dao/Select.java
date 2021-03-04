@@ -334,7 +334,7 @@ public class Select {
 			while (resultset.next()) {
 
 				Map<String, Object> data=new HashMap<String,Object>();
-				data.put(MapKeys.USERNAME, resultset.getString("username"));
+				data.put(MapKeys.USERNAME, resultset.getString("username").toLowerCase());
 				data.put(MapKeys.ACKID, resultset.getString("id"));
 				data.put(MapKeys.MSGID, resultset.getString("id"));
 				long sysdate=System.currentTimeMillis();
