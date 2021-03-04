@@ -131,7 +131,7 @@ public class DNReceiverProcessor {
 		String statusidorg=(String)msgmap.get(MapKeys.STATUSID_ORG);
 		String statusid=(String)msgmap.get(MapKeys.STATUSID);
 		
-		if(statusid!=null&&(""+MessageStatus.KANNEL_SUBMIT_FAILED).equals(statusid)){
+		if(statusid!=null&&(""+MessageStatus.KANNEL_RESPONSE_FAILED).equals(statusid)){
 			
 			if(statusidorg!=null && !statusidorg.equals("401") ){
 				
