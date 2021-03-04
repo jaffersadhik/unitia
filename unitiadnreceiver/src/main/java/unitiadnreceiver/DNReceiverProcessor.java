@@ -106,12 +106,14 @@ public class DNReceiverProcessor {
 			
 			String smscid=ReRouting.getInstance().getReRouteSmscid(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SMSCID_ORG).toString());
 
-			msgmap.put(MapKeys.SMSCID_ORG, smscid);
-
+			msgmap1.put("founding reroute smscid", smscid);
+			
 			msgmap.put(MapKeys.SMSCID, smscid);
 
 			if(isFailureErrorCode(msgmap)&&FeatureCode.isDNRetry(msgmap.get(MapKeys.FEATURECODE).toString())&&smscid!=null){
 			
+				msgmap1.put("sending to dnretrypool", "yes");
+
 				new QueueSender().sendL("dnretrypool", msgmap, false,logmap);
 
 			}
