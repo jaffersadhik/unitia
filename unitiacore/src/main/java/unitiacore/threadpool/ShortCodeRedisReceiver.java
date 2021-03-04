@@ -92,7 +92,7 @@ public class ShortCodeRedisReceiver extends  Thread {
 
 					msgmap.put(MapKeys.MSGID, ackid);
 					
-					String mnumber = new com.winnovature.unitia.util.misc.Utility().prefix91(data.get("username").toString(), msgmap.get(MapKeys.MOBILE).toString() ); 
+					String mnumber = new com.winnovature.unitia.util.misc.Utility().prefix91map(msgmap,data.get("username").toString(), msgmap.get(MapKeys.MOBILE).toString() ); 
 					
 					msgmap.put(MapKeys.MOBILE,mnumber);
 

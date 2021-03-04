@@ -44,8 +44,7 @@ public class Utility {
 		}
 		return mobile;
 	}
-
-	
+/*	
 	public String prefix91(String username, String mobile) {
 		
 
@@ -70,7 +69,7 @@ public class Utility {
 		}
 		return mobile;
 	}
-	
+*/	
 	private boolean startWith91uppeder(String mobile){
 		
 		try{
