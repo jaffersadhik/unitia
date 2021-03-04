@@ -21,7 +21,7 @@ public class Utility {
 
 		try{
 		Map partnerDetails = PushAccount.instance().getPushAccount(username);
-		
+		mobile=mobile.trim();
 		if (mobile.length() == 10
 				&& Integer.parseInt(partnerDetails.get("intl")
 						.toString()) == 0
