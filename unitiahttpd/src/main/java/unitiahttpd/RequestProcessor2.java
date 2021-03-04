@@ -77,7 +77,17 @@ public class RequestProcessor2
 			msgmap.put(MapKeys.TEMPLATEID,templateid);
 			msgmap.put(MapKeys.ENTITYID,entityid);
 
-				msgmap.put(MapKeys.MSGTYPE, msgType);
+			if(StringUtils.isBlank(mnumber)){
+				mnumber=request.getParameter("bulkmobno");
+				msgmap.put(MapKeys.MOBILE, mnumber);
+
+				if(StringUtils.isBlank(mnumber)){
+				return getRejectedResponse(ESMSStatus.INVALID_OR_DUOLICATE_NUMBER);
+				}
+			}
+			mnumber = msgmap.get(MapKeys.MOBILE).toString().trim();
+
+			msgmap.put(MapKeys.MSGTYPE, msgType);
 
 				if(StringUtils.isBlank(message))
 					return getRejectedResponse(ESMSStatus.SPAM_MESSAGE);
@@ -139,16 +149,7 @@ public class RequestProcessor2
 			msgmap.put(MapKeys.MSGCLASS, msgClass);
 			
 			/*	Validate parameters	*/
-			if(StringUtils.isBlank(mnumber)){
-				mnumber=request.getParameter("bulkmobno");
-				msgmap.put(MapKeys.MOBILE, mnumber);
-
-				if(StringUtils.isBlank(mnumber)){
-				return getRejectedResponse(ESMSStatus.INVALID_OR_DUOLICATE_NUMBER);
-				}
-			}
-			mnumber = mnumber.trim();
-		
+			
 			
 		
 			if(StringUtils.isNotEmpty(signature))
