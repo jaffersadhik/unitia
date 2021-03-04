@@ -275,7 +275,6 @@ public class ReportDAO {
 		}catch(Exception e){
 			
 			
-			e.printStackTrace();
 			
 		     
 					try{
