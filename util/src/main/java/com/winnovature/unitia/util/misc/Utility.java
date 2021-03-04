@@ -16,7 +16,8 @@ public class Utility {
 	private static Log log = LogFactory.getLog(Utility.class);
 
 	public String prefix91map(Map<String,Object> msgmap,String username, String mobile) {
-		
+		msgmap.put("prefix91", "yes");
+
 
 		try{
 		Map partnerDetails = PushAccount.instance().getPushAccount(username);
@@ -40,7 +41,7 @@ public class Utility {
 			mobile = "91" + mobile;
 		}
 		}catch(Exception e){
-			
+			msgmap.put("prefix91 err", ErrorMessage.getMessage(e));
 		}
 		return mobile;
 	}
