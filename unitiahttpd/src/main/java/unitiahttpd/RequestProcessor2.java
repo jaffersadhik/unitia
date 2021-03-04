@@ -204,7 +204,7 @@ public class RequestProcessor2
 				
 					
 					/* Prefix 91 to Mobile Number */
-					mnumber = new com.winnovature.unitia.util.misc.Utility().prefix91(username, msgmap.get(MapKeys.MOBILE).toString() ); 
+					mnumber = new com.winnovature.unitia.util.misc.Utility().prefix91map(msgmap,username, msgmap.get(MapKeys.MOBILE).toString() ); 
 					msgmap.put("after prefix", mnumber);
 
 					// Set the mnumber					
@@ -328,7 +328,7 @@ public class RequestProcessor2
 				if(!isEmail && flag == 0) {
 					
 					/* Prefix 91 to Mobile Number */
-					_mnumber = new com.winnovature.unitia.util.misc.Utility().prefix91(dtoobj.get(MapKeys.USERNAME).toString(), dtoobj.get(MapKeys.MOBILE).toString() ); 
+					_mnumber = new com.winnovature.unitia.util.misc.Utility().prefix91map(msgmap,dtoobj.get(MapKeys.USERNAME).toString(), dtoobj.get(MapKeys.MOBILE).toString() ); 
 				
 					dtoobj.put(MapKeys.MOBILE, _mnumber);
 						

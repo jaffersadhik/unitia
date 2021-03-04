@@ -15,7 +15,37 @@ public class Utility {
 	
 	private static Log log = LogFactory.getLog(Utility.class);
 
+	public String prefix91map(Map<String,Object> msgmap,String username, String mobile) {
+		
 
+		try{
+		Map partnerDetails = PushAccount.instance().getPushAccount(username);
+		msgmap.put("intl", partnerDetails.get("intl").toString());
+		
+		mobile=mobile.trim();
+		
+		msgmap.put("mobile.length()", mobile.length());
+
+		if (mobile.length() == 10
+				&& Integer.parseInt(partnerDetails.get("intl")
+						.toString()) == 0
+				) {
+			mobile = "91" + mobile;
+		}else if (mobile.length() == 10
+				&& Integer.parseInt(partnerDetails.get("intl")
+						.toString()) == 1
+				&& Integer.parseInt(partnerDetails.get("prefix91")
+						.toString()) == 1&&startWith91uppeder(mobile)) {
+			// msgMap.put("MOBILE","91"+mobile);
+			mobile = "91" + mobile;
+		}
+		}catch(Exception e){
+			
+		}
+		return mobile;
+	}
+
+	
 	public String prefix91(String username, String mobile) {
 		
 
