@@ -22,7 +22,7 @@ import com.winnovature.unitia.util.redis.RedisReader;
 
 public class RedisReceiver extends Thread {
 
-	private static String DLR_URL="http://{0}:{1}/api/dnreceiver?username={2}&senderidorg={3}&dnmsg={4}&ackid={5}&msgid={6}&mobile={7}&smscidorg={8}&rtime={9}&ktime={10}&carriersystemid={11}&carrierdr={12}&statuscd={13}&operator={14}&circle={15}&countrycode={16}&protocol={17}&msgtype={18}&featurecd={19}&fullmsg={20}&param1={21}&param2={22}&param3={23}&param4={24}&routeclass={25}&attempttype={26}&totalmsgcount={27}&splitseq={28}&statusidfromplatform={29}";
+	private static String DLR_URL="http://{0}:{1}/api/dnreceiver?username={2}&senderidorg={3}&dnmsg={4}&ackid={5}&msgid={6}&mobile={7}&smscidorg={8}&rtime={9}&ktime={10}&carriersystemid={11}&carrierdr={12}&statuscd={13}&operator={14}&circle={15}&countrycode={16}&protocol={17}&msgtype={18}&featurecd={19}&fullmsg={20}&param1={21}&param2={22}&param3={23}&param4={24}&routeclass={25}&attempttype={26}&totalmsgcount={27}&splitseq={28}&statusidfromplatform={29}&statusid_org={30}";
 
 	public static boolean GRACESTOP=false;
 
@@ -67,7 +67,8 @@ public class RedisReceiver extends Thread {
 
 					errorDNHandover(datalist);
 					
-
+					log(datalist);
+					
 					datalist=new ArrayList<Map<String,Object>>();
 					
 				}
@@ -86,6 +87,9 @@ public class RedisReceiver extends Thread {
 
 					errorDNHandover(datalist);;
 					
+					
+					log(datalist);
+
 
 					datalist=new ArrayList<Map<String,Object>>();
 				}
@@ -133,8 +137,6 @@ public class RedisReceiver extends Thread {
 			
 			if(new ReportDAO().insert("reportlog_submit",datalist)){
 			
-				log(datalist);
-				
 				return;
 			}else{
 				
@@ -265,6 +267,7 @@ public void setDLRURL(Map<String , Object> msgmap)  throws Exception{
 				URLEncoder.encode(msgmap.get(MapKeys.TOTAL_MSG_COUNT)==null?"":msgmap.get(MapKeys.TOTAL_MSG_COUNT).toString()),//27
 				URLEncoder.encode("1"),//28
 				URLEncoder.encode(msgmap.get(MapKeys.STATUSID)==null?"":msgmap.get(MapKeys.STATUSID).toString()),//29
+				URLEncoder.encode(msgmap.get(MapKeys.STATUSID_ORG)==null?"":msgmap.get(MapKeys.STATUSID_ORG).toString()),//30
 
 		};
 		
