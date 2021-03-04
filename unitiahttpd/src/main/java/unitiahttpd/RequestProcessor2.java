@@ -42,7 +42,6 @@ public class RequestProcessor2
 			this.logmap=logmap;
 			this.msgmap=msgmap;
 		
-			boolean isEmail = false;
 			//RequestObject requestObj	=	null;
 			String password		=	request.getParameter(IHTTPParams.PIN);
 			String username		=	request.getParameter(IHTTPParams.USERNAME);
@@ -203,11 +202,11 @@ public class RequestProcessor2
 						return getRejectedResponse(ESMSStatus.INVALID_OR_DUOLICATE_NUMBER);
 				
 				
-				if(!isEmail) {
 					
 					/* Prefix 91 to Mobile Number */
 					mnumber = new com.winnovature.unitia.util.misc.Utility().prefix91(username, msgmap.get(MapKeys.MOBILE).toString() ); 
-				
+					msgmap.put("after prefix", mnumber);
+
 					// Set the mnumber					
 					msgmap.put(MapKeys.MOBILE, mnumber);
 					
@@ -215,7 +214,7 @@ public class RequestProcessor2
 					int sbFlag = new Utility().validateScheduleBlockout(scheTime, msgmap);
 					if(sbFlag !=0) 
 						return getRejectedResponse(ESMSStatus.NETWORK_ERROR_ON_SMSC_1);
-				}
+			
 			
 				if(!new Utility().sendQueue(msgmap,logmap)){
 				
