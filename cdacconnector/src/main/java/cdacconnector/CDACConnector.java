@@ -30,6 +30,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.winnovature.unitia.util.misc.Convertor;
+import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 
@@ -120,13 +121,6 @@ public class CDACConnector {
 		} catch (KeyManagementException e) {
 		} catch (UnsupportedEncodingException e) {
 		} catch (ClientProtocolException e) {
-		} catch (IOException e) {
-			
-			if(attempt<5){
-				isRetry=true;
-			}
-			responseString=getErrorMessage();
-			sleep();
 		}catch(Exception e){
 			
 			if(attempt<1){
@@ -134,6 +128,8 @@ public class CDACConnector {
 			}
 
 			responseString=getErrorMessage();
+			responseString+=" \t "+ErrorMessage.getMessage(e);
+
 			sleep();
 
 		}
@@ -297,14 +293,6 @@ public class CDACConnector {
 		} catch (KeyManagementException e) {
 		} catch (UnsupportedEncodingException e) {
 		} catch (ClientProtocolException e) {
-		} catch (IOException e) {
-		
-			if(attempt<5){
-				isRetry=true;
-			}
-
-			responseString=getErrorMessage();
-			sleep();
 		}catch(Exception e){
 			
 			if(attempt<1){
@@ -312,6 +300,7 @@ public class CDACConnector {
 			}
 
 			responseString=getErrorMessage();
+			responseString+=" \t "+ErrorMessage.getMessage(e);
 			sleep();
 
 		}	finally {
