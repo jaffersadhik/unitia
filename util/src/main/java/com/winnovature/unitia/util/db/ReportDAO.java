@@ -271,7 +271,7 @@ public class ReportDAO {
 						
 						kannelresponse=kannelresponse.substring(0,100);
 					}
-					statement.setString(53, (String)msgmap.get("kannelresponse"));
+					statement.setString(53, kannelresponse);
 
 				statement.addBatch();
 			}
