@@ -139,7 +139,7 @@ public class SMSProcessor {
 
 		String kannelresponse=msgmap.get("kannelresponse").toString();
 		
-		if(kannelresponse!=null&&kannelresponse.trim().length()>0&&!kannelresponse.startsWith("402")){
+		if(kannelresponse!=null&&kannelresponse.trim().length()>0){
 			
 			try{
 			String statusid=kannelresponse.substring(0, kannelresponse.indexOf(':')).trim();	

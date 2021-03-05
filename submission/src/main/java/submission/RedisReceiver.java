@@ -171,7 +171,15 @@ private void errorDNHandover(List<Map<String, Object>> datalist) {
 			
 			if(data.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_SUCCESS)){
 			
-				continue;
+				String statusidorg=(String)data.get(MapKeys.STATUSID_ORG);
+				
+				if(statusidorg!=null&&statusidorg.equals("402")){
+					
+				}else{
+				
+					continue;
+				}
+				
 			}
 			
 			
