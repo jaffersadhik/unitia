@@ -242,7 +242,13 @@ private void errorDNHandover(List<Map<String, Object>> datalist) {
 public void setDLRURL(Map<String , Object> msgmap)  throws Exception{
 		
 		msgmap.put(MapKeys.KTIME, ""+System.currentTimeMillis());
+		String statusid=msgmap.get(MapKeys.STATUSID_ORG)==null?"":msgmap.get(MapKeys.STATUSID_ORG).toString();
 		
+		if(!statusid.equals("")){
+			
+			statusid=msgmap.get(MapKeys.STATUSID)==null?"":msgmap.get(MapKeys.STATUSID).toString();
+			
+		}
 		String [] params=
 		{
 				URLEncoder.encode(ConfigParams.getInstance().getProperty(ConfigKey.LOADBALANCER_DN_IP)),//0
@@ -274,7 +280,7 @@ public void setDLRURL(Map<String , Object> msgmap)  throws Exception{
 				URLEncoder.encode(msgmap.get(MapKeys.ATTEMPT_TYPE)==null?"0":msgmap.get(MapKeys.ATTEMPT_TYPE).toString()),//26
 				URLEncoder.encode(msgmap.get(MapKeys.TOTAL_MSG_COUNT)==null?"":msgmap.get(MapKeys.TOTAL_MSG_COUNT).toString()),//27
 				URLEncoder.encode("1"),//28
-				URLEncoder.encode(msgmap.get(MapKeys.STATUSID)==null?"":msgmap.get(MapKeys.STATUSID).toString()),//29
+				URLEncoder.encode(statusid),//29
 				URLEncoder.encode(msgmap.get(MapKeys.STATUSID_ORG)==null?"":msgmap.get(MapKeys.STATUSID_ORG).toString()),//30
 				URLEncoder.encode(msgmap.get(MapKeys.SMSCID)==null?"":msgmap.get(MapKeys.SMSCID).toString()),//31
 				URLEncoder.encode(msgmap.get(MapKeys.STATUSID)==null?"":msgmap.get(MapKeys.STATUSID).toString()),//32
