@@ -99,6 +99,7 @@ public class DNReceiverProcessor {
 
 	private void doDNRetry(Map<String, Object> msgmap1,Map<String,Object> logmap) {
 		
+		msgmap1.put(MapKeys.DN_RETRY_YN, PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN));
 		if(PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN).equals("1")){
 			
 			Map<String,Object> msgmap=new HashMap(msgmap1);
