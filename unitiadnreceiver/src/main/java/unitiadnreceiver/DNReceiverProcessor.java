@@ -99,10 +99,29 @@ public class DNReceiverProcessor {
 
 	private void doDNRetry(Map<String, Object> msgmap1,Map<String,Object> logmap) {
 		
-		if(msgmap1.get(MapKeys.ATTEMPT_TYPE).toString().equals("0") && PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN).equals("1")){
+		if(PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN).equals("1")){
 			
 			Map<String,Object> msgmap=new HashMap(msgmap1);
+			int attemptcountINt=1;
+			try{
+			String attemptcount=(String)msgmap1.get(MapKeys.ATTEMPT_COUNT);
 			
+			if(attemptcount==null){
+				
+				attemptcount="1";
+				
+			}
+			attemptcountINt=(Integer.parseInt(attemptcount)+1);
+			msgmap.put(MapKeys.ATTEMPT_COUNT, ""+attemptcountINt);
+			
+			}catch(Exception e){
+				
+			}
+			
+			if(attemptcountINt<6){
+				
+				return;
+			}
 			
 			String smscid=ReRouting.getInstance().getReRouteSmscid(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SMSCID_ORG).toString());
 
