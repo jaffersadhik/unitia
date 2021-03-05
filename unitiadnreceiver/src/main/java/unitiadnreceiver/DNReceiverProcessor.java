@@ -58,9 +58,17 @@ public class DNReceiverProcessor {
 		
 		
 		registerOTPDNMessage(msgmap);
-        
-        doDNRetry(msgmap,logmap);
-     
+		if(statuscd.equals("1")||statuscd.equals("2")){
+			doDNRetry(msgmap,logmap);
+		}else{
+			
+			String statusid=msgmap.get(MapKeys.STATUSID).toString();
+			
+			if(!statusid.equals("200")){
+				doDNRetry(msgmap,logmap);
+			}
+		}
+		
         logmap.putAll(msgmap);
 
         sendToQ(msgmap,logmap);
