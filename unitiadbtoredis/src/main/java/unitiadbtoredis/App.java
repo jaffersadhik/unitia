@@ -24,6 +24,8 @@ public class App
     	start("schedulepool");
     	start("kannelretrypool");
     	start("commonpool");
+    	start("cdac");
+
     	start("otppool");
     	start("otpretrypool");
     	start("dngenpool");

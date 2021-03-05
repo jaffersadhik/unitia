@@ -46,7 +46,7 @@ public class App
     	log.log("unitiacore.App.start() "+kannelid);
 
 				
-			for(int i=0;i<2;i++){
+			for(int i=0;i<25;i++){
 		
 				RedisReceiver obj=new RedisReceiver(i,kannelid,redisid);
 				obj.start();
