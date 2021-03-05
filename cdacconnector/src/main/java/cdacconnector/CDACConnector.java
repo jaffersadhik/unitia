@@ -258,8 +258,8 @@ public class CDACConnector {
 		context.init(null, null, null);
 		sf=new SSLSocketFactory(context, SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
 		Scheme scheme=new Scheme("https",443,sf);
-		//HttpClient client=new DefaultHttpClient();
-		
+		HttpClient client=new DefaultHttpClient();
+		/*
 		int timeout = 5;
 		RequestConfig config = RequestConfig.custom()
 		  .setConnectTimeout(timeout * 1000)
@@ -267,6 +267,7 @@ public class CDACConnector {
 		  .setSocketTimeout(timeout * 1000).build();
 		CloseableHttpClient client = 
 		  HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+		*/
 		client.getConnectionManager().getSchemeRegistry().register(scheme);
 		//
 
