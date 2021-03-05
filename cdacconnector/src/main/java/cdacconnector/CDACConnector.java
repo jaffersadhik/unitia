@@ -2,12 +2,9 @@ package cdacconnector;
 
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.MessageDigest;
@@ -16,18 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+
 import com.winnovature.unitia.util.misc.Convertor;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
@@ -83,7 +84,16 @@ public class CDACConnector {
 		context.init(null, null, null);
 		sf=new SSLSocketFactory(context, SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
 		Scheme scheme=new Scheme("https",443,sf);
-		HttpClient client=new DefaultHttpClient();
+		
+		//HttpClient client=new DefaultHttpClient();
+		
+		int timeout = 5;
+		RequestConfig config = RequestConfig.custom()
+		  .setConnectTimeout(timeout * 1000)
+		  .setConnectionRequestTimeout(timeout * 1000)
+		  .setSocketTimeout(timeout * 1000).build();
+		CloseableHttpClient client = 
+		  HttpClientBuilder.create().setDefaultRequestConfig(config).build();
 		client.getConnectionManager().getSchemeRegistry().register(scheme);
 		 post=new HttpPost("https://"+msgmap.get(MapKeys.KANNEL_IP)+"/esms/sendsmsrequestDLT");
 
@@ -119,7 +129,7 @@ public class CDACConnector {
 			sleep();
 		}catch(Exception e){
 			
-			if(attempt<5){
+			if(attempt<1){
 				isRetry=true;
 			}
 
@@ -252,7 +262,15 @@ public class CDACConnector {
 		context.init(null, null, null);
 		sf=new SSLSocketFactory(context, SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
 		Scheme scheme=new Scheme("https",443,sf);
-		HttpClient client=new DefaultHttpClient();
+		//HttpClient client=new DefaultHttpClient();
+		
+		int timeout = 5;
+		RequestConfig config = RequestConfig.custom()
+		  .setConnectTimeout(timeout * 1000)
+		  .setConnectionRequestTimeout(timeout * 1000)
+		  .setSocketTimeout(timeout * 1000).build();
+		CloseableHttpClient client = 
+		  HttpClientBuilder.create().setDefaultRequestConfig(config).build();
 		client.getConnectionManager().getSchemeRegistry().register(scheme);
 		//
 
@@ -289,7 +307,7 @@ public class CDACConnector {
 			sleep();
 		}catch(Exception e){
 			
-			if(attempt<5){
+			if(attempt<1){
 				isRetry=true;
 			}
 

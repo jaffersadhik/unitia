@@ -139,6 +139,16 @@ public class DNReceiverProcessor {
 			}
 		}
 		
+		
+
+		if(statusid!=null&&(""+MessageStatus.KANNEL_SUBMIT_FAILED).equals(statusid)){
+			
+			if(statusidorg!=null && !statusidorg.equals(""+MessageStatus.MAX_KANNEL_RETRY_EXCEEDED) ){
+				
+				return true;
+			}
+		}
+		
 		return false;
 	}
 

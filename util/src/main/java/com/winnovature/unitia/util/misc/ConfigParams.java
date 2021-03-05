@@ -50,6 +50,8 @@ public class ConfigParams {
 		prop.put(ConfigKey.MAX_KANNELRETRYPOOL, "5000");
 		prop.put(ConfigKey.MAX_LOGSPOOL, "5000");
 		prop.put(ConfigKey.MAX_SMPPDN, "200");
+		prop.put(ConfigKey.IQ_GROUP_COUNT, "1");
+
 	}
 	
 	

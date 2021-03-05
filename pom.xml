@@ -43,6 +43,7 @@
   	<module>kannelconnector</module>
   	<module>cdacconnector</module>
   	<module>routegroupprocessor</module>
+  	<module>IQProcessor</module>
     </modules>
   <dependencies>
   

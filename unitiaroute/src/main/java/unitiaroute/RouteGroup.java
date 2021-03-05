@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.winnovature.unitia.util.db.Close;
-import com.winnovature.unitia.util.db.CoreDBConnection;
-import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.RouteDBConnection;
 import com.winnovature.unitia.util.db.SQLQuery;
 import com.winnovature.unitia.util.db.TableExsists;

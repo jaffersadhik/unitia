@@ -63,7 +63,9 @@ public interface ConfigKey {
 
 	public static final String KANNEL_RESPONSE = "kannel.response";
 
-	public static final String GRACE_STOP = "grace.stop"; 
+	public static final String GRACE_STOP = "grace.stop";
+
+	public static final String IQ_GROUP_COUNT = "iq.group.count"; 
 
 	public final String MAX_MOBILE_LENGTH_ALLOWED = "max.mobile.length.allowed";
 	
