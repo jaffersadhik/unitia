@@ -111,6 +111,7 @@ public class DNReceiverProcessor {
 				attemptcount="1";
 				
 			}
+			msgmap1.put(MapKeys.ATTEMPT_COUNT, attemptcount);
 			attemptcountINt=(Integer.parseInt(attemptcount)+1);
 			msgmap.put(MapKeys.ATTEMPT_COUNT, ""+attemptcountINt);
 			
