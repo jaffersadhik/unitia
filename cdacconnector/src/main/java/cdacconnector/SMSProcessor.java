@@ -142,13 +142,24 @@ public class SMSProcessor {
 		if(kannelresponse!=null&&kannelresponse.trim().length()>0){
 			
 			try{
-			String statusid=kannelresponse.substring(0, kannelresponse.indexOf(':')).trim();	
+			if(msgmap.get(MapKeys.STATUSID).toString().equals("200")&&kannelresponse.startsWith("402")){
+				
+				
+				String statusid=kannelresponse.substring(0, 3).trim();	
+				msgmap.put(MapKeys.STATUSID_ORG,statusid);
+				
+			}else{
+				
 
-			if(statusid.equals("ERROR")){
-				statusid=""+getFirstInt(kannelresponse);
+				String statusid=kannelresponse.substring(0, kannelresponse.indexOf(':')).trim();	
+
+				if(statusid.equals("ERROR")){
+					statusid=""+getFirstInt(kannelresponse);
+				}
+				msgmap.put(MapKeys.STATUSID_ORG,statusid);
+
 			}
-			msgmap.put(MapKeys.STATUSID_ORG,statusid);
-		
+						
 			}catch(Exception e){
 				
 			}
