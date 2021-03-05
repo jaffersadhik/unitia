@@ -2,6 +2,7 @@ package com.winnovature.unitia.util.processor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
@@ -511,6 +512,33 @@ public class DNProcessor
     	
     	}
 
+
+	public void parseDliveryReceipt32(Map<String,Object> requestmap) 
+	{		
+	
+		SimpleDateFormat d=new SimpleDateFormat("yyMMddHHmmss");
+
+		String da=d.format(new Date(System.currentTimeMillis()));
+        
+        requestmap.put(MapKeys.CARRIER_MSGID, "1");
+        requestmap.put(MapKeys.CARRIER_SUBMITDATE, da);
+        requestmap.put(MapKeys.CARRIER_DONEDATE, da);
+        
+        if(requestmap.get(MapKeys.STATUSID).toString().equals("200")){
+        	
+            requestmap.put(MapKeys.CARRIER_STAT, "DELIVERED");
+
+        }else{
+            requestmap.put(MapKeys.CARRIER_STAT, "FAILED");
+
+        }
+        requestmap.put(MapKeys.CARRIER_ERR, requestmap.get(MapKeys.STATUSID).toString());
+	
+    	}
+    	
+    	
+	
+	
 	
 	public static void main(String args[]){
 		

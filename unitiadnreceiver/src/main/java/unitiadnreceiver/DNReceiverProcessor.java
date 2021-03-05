@@ -36,7 +36,14 @@ public class DNReceiverProcessor {
         if(!dr.equals("ACK/")){
         msgmap.put(MapKeys.DR,URLDecoder.decode(dr));
         
-		new DNProcessor(msgmap,logmap).parseDliveryReceipt(msgmap);
+        String statuscd=msgmap.get(MapKeys.DN_STATUSCD).toString();
+
+    	if(statuscd.equals("1")||statuscd.equals("2")){
+    		new DNProcessor(msgmap,logmap).parseDliveryReceipt(msgmap);
+    	}else{
+    		new DNProcessor(msgmap,logmap).parseDliveryReceipt32(msgmap);
+
+    	}
 		msgmap.put(MapKeys.INSERT_TYPE, "dn");
 
 		if(!msgmap.get(MapKeys.TOTAL_MSG_COUNT).toString().equals("1")){
@@ -120,7 +127,7 @@ public class DNReceiverProcessor {
 				
 			}
 			
-			if(attemptcountINt>5){
+			if(attemptcountINt>6){
 				
 				return;
 			}
