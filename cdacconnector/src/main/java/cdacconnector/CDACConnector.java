@@ -28,6 +28,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import com.winnovature.unitia.util.misc.Convertor;
 import com.winnovature.unitia.util.misc.ErrorMessage;
@@ -258,7 +260,16 @@ public class CDACConnector {
 		context.init(null, null, null);
 		sf=new SSLSocketFactory(context, SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
 		Scheme scheme=new Scheme("https",443,sf);
-		HttpClient client=new DefaultHttpClient();
+	//	HttpClient client=new DefaultHttpClient();
+		
+		DefaultHttpClient client = new DefaultHttpClient();
+
+		int timeout = 5; // seconds
+		HttpParams httpParams = client.getParams();
+		HttpConnectionParams.setConnectionTimeout(
+		  httpParams, timeout * 1000); // http.connection.timeout
+		HttpConnectionParams.setSoTimeout(
+		  httpParams, timeout * 1000); // http.socket.timeout
 		/*
 		int timeout = 5;
 		RequestConfig config = RequestConfig.custom()
