@@ -265,6 +265,12 @@ public class ReportDAO {
 					statement.setString(50, (String)msgmap.get(MapKeys.ENTITYID));
 					statement.setString(51, (String)msgmap.get(MapKeys.DLT_TYPE));
 					statement.setString(52, (String)msgmap.get(MapKeys.INTERFACE_TYPE));
+					
+					String kannelresponse=(String)msgmap.get("kannelresponse");
+					if(kannelresponse!=null&&kannelresponse.trim().length()>100){
+						
+						kannelresponse=kannelresponse.substring(0,100);
+					}
 					statement.setString(53, (String)msgmap.get("kannelresponse"));
 
 				statement.addBatch();
