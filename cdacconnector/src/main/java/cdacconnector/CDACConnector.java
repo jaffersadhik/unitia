@@ -86,15 +86,15 @@ public class CDACConnector {
 		sf=new SSLSocketFactory(context, SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
 		Scheme scheme=new Scheme("https",443,sf);
 		
-		//HttpClient client=new DefaultHttpClient();
-		
+		HttpClient client=new DefaultHttpClient();
+	/*	
 		int timeout = 5;
 		RequestConfig config = RequestConfig.custom()
 		  .setConnectTimeout(timeout * 1000)
 		  .setConnectionRequestTimeout(timeout * 1000)
 		  .setSocketTimeout(timeout * 1000).build();
-		CloseableHttpClient client = 
-		  HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+	*/
+		//	CloseableHttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
 		client.getConnectionManager().getSchemeRegistry().register(scheme);
 		 post=new HttpPost("https://"+msgmap.get(MapKeys.KANNEL_IP)+"/esms/sendsmsrequestDLT");
 
