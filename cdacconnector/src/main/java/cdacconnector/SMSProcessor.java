@@ -244,14 +244,18 @@ public class SMSProcessor {
 
 		if(isfurtherprocess){
 			String kannelresponse="";
+			
+			long start=System.currentTimeMillis();
 			if(FeatureCode.isHexa(msgmap.get(MapKeys.FEATURECODE).toString())){
 				kannelresponse=new CDACConnector().sendUnicodeSMS(msgmap);
 			}else{
 				
 				kannelresponse=new CDACConnector().sendSingleSMS(msgmap);
 			}
+			long end=System.currentTimeMillis();
 			msgmap.put("kannelresponse", kannelresponse);
-			
+			msgmap.put("cdac response time ", (end-start)+" in ms");
+
 			if(kannelresponse==null){	
 				msgmap.put(MapKeys.KANNEL_POPTIME, ""+System.currentTimeMillis());
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.KANNEL_SUBMIT_FAILED);
