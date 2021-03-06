@@ -322,7 +322,13 @@ public class RouteProcessor {
 					
 					if(!WhiteListedSenderid.getInstance().isWhiteListedSenderid(msgmap.get(MapKeys.USERNAME).toString(), senderid)){
 					
-						setDefaultSenderID();
+						msgmap.put(MapKeys.STATUSID, ""+MessageStatus.SENDER_NOT_WHITELISTED);
+						
+						isfurtherprocess=false;
+						
+						return;
+						
+						//setDefaultSenderID();
 						
 					}else{
 						
