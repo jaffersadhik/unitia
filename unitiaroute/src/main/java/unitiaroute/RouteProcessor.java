@@ -891,6 +891,22 @@ public class RouteProcessor {
 				msgmap.put(MapKeys.ENTITYID, data.get("entityid"));
 
 	
+			}else{
+				
+				String routeclass=msgmap.get(MapKeys.ROUTECLASS).toString();
+				
+				String senderid=null;
+				
+				if(msgmap.get(MapKeys.ROUTECLASS).toString().equals("1")){
+					senderid= PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.SENDERID_TRANS);
+			}else{
+
+					senderid= PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.SENDERID_PROMO);
+			}
+				msgmap.put(MapKeys.SENDERID, senderid);
+				
+				msgmap.put(MapKeys.ENTITYID, Entity.getInstance().getEntity(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SENDERID).toString()));
+
 			}
 		}
 		

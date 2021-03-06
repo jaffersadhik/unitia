@@ -139,10 +139,11 @@ public class Entity {
 	
 	
 	public String getEntity(String username,String senderid){
-		
 		if(whitelistedsenderid.containsKey(username)){
 			
-			return whitelistedsenderid.get(username).get(senderid.toLowerCase());
+			
+			
+		return whitelistedsenderid.get(username).get(senderid.toLowerCase());
 		}
 		return null;
 	}
