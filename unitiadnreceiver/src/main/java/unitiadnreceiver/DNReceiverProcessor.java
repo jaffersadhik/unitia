@@ -63,8 +63,8 @@ public class DNReceiverProcessor {
 		}else{
 			
 			String statusid=msgmap.get(MapKeys.STATUSID).toString();
-			
-			if(!statusid.equals("200")){
+			String smscid=(String)msgmap.get(MapKeys.SMSCID_ORG);
+			if(!statusid.equals("200")&&smscid!=null){
 				doDNRetry(msgmap,logmap);
 			}
 		}
