@@ -24,6 +24,10 @@ public class App {
 			
 			unitiahttpd.App.main(args);
 			
+		}else if(module.equals("admin")){
+			
+			admin.App.main(args);
+			
 		}else if(module.equals("smpp")){
 			
 			unitiasmpp.server.App.doProcess();
