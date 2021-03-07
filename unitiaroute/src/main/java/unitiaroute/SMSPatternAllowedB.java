@@ -14,25 +14,25 @@ import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 
-public class SMSPatternAllowed {
+public class SMSPatternAllowedB {
 
 	private static boolean isTableAvailable=false;
 
-	private static SMSPatternAllowed obj=null;
+	private static SMSPatternAllowedB obj=null;
 	
 	private Map<String,List<Map<String,String>>> smspatternallowedset=new HashMap<String,List<Map<String,String>>>();
 
 	
-	private SMSPatternAllowed(){
+	private SMSPatternAllowedB(){
 	
 		reload();
 	}
 	
-	public static SMSPatternAllowed getInstance(){
+	public static SMSPatternAllowedB getInstance(){
 		
 		if(obj==null){
 			
-			obj=new SMSPatternAllowed();
+			obj=new SMSPatternAllowedB();
 		}
 		
 		return obj;
@@ -69,7 +69,7 @@ public class SMSPatternAllowed {
 				}
 			}
 			
-			statement =connection.prepareStatement("select pattern_id,username,smspattern from allowed_smspattern");
+			statement =connection.prepareStatement("select pattern_id,username,smspattern from allowed_smspattern  where senderid is null");
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				

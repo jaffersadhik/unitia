@@ -74,7 +74,7 @@ public class SMSWorker  {
 			route.doBlackListSenderid();
 			route.doFilteringSMSPatternCheck();
 			route.doBlackListSMSPattern();
-			route.doAllowedSMSPatternCheck();
+			route.doAllowedSMSPatternCheckB();
 			route.doSenderCheck();
 			route.doRouteGroupAvailable();
 			route.doSMSCIDAvailable();
@@ -168,7 +168,9 @@ try{
 
 		new RouterLog().routerlog(redisid, tname, "start route.doAllowedSMSPatternCheck()");
 
-		route.doAllowedSMSPatternCheck();
+		route.doAllowedSMSPatternCheckA();
+
+		route.doAllowedSMSPatternCheckB();
 		
 		new RouterLog().routerlog(redisid, tname, "end route.doAllowedSMSPatternCheck()");
 

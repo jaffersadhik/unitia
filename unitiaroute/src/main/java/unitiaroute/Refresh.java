@@ -30,7 +30,7 @@ public class Refresh {
 		CDACSmscId.getInstance().reload();
 		Carrier.getInstance().reload();
 		TeleMarketerId.getInstance().reload();
-		SMSPatternAllowed.getInstance().reload();
+		SMSPatternAllowedB.getInstance().reload();
 		new DuplicateCheck().flushDuplicate();
 		Countrycode.getInstance().reload();
 		Kannel.getInstance().reload();
