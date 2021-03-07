@@ -63,7 +63,7 @@ public class DNReceiverProcessor {
 		}else{
 			
 			String statusid=msgmap.get(MapKeys.STATUSID).toString();
-			String smscid=(String)msgmap.get(MapKeys.SMSCID_ORG);
+			String smscid=(String)msgmap.get(MapKeys.SMSCID);
 			if(!statusid.equals("200")&&smscid!=null){
 				doDNRetry(msgmap,logmap);
 			}
@@ -140,7 +140,7 @@ public class DNReceiverProcessor {
 				return;
 			}
 			
-			String smscid=ReRouting.getInstance().getReRouteSmscid(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SMSCID_ORG).toString());
+			String smscid=ReRouting.getInstance().getReRouteSmscid(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SMSCID).toString());
 
 			msgmap1.put("founding reroute smscid", smscid);
 			
