@@ -250,6 +250,8 @@ public class RouteProcessor {
 				
 			}
 			
+			fullmsg=fullmsg.replaceAll("\n", "");
+			
 			String senderid=(String)msgmap.get(MapKeys.USERNAME);
 			
 			if(senderid==null){
@@ -349,6 +351,10 @@ public class RouteProcessor {
 			}catch(Exception e){
 				
 			}
+			
+
+			fullmsg=fullmsg.replaceAll("\n", "");
+			
 			List<Map<String,String>>  patternset=SMSPatternAllowedB.getInstance().getAllowedPaternSet(msgmap.get(MapKeys.USERNAME).toString());
 			
 			new RouterLog().routerlog(redisid, tname, "patternset : "+patternset);
