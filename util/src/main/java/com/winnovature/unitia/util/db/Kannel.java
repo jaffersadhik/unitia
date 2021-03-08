@@ -48,7 +48,7 @@ public class Kannel {
 
 	public void reload() {
 
-		String sql="select kannelid,kannel_host,sendsms_port,status_port,mysql_host,mysql_port,mysql_username,mysql_password,mysql_schema,mysql_tablename,sqlbox from  kannel_instance";
+		String sql="select kannelid,kannel_host,sendsms_port,status_port,mysql_host,mysql_port,mysql_username,mysql_password,mysql_schema,mysql_tablename,sqlbox from  kannel_instance where status='1'";
 
 		Connection connection = null;
 		PreparedStatement statement=null;
