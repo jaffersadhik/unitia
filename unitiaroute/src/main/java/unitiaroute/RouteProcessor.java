@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.cdac.CDACSmscId;
@@ -19,6 +21,7 @@ import com.winnovature.unitia.util.misc.RoundRobinTon;
 import com.winnovature.unitia.util.misc.RouterLog;
 import com.winnovature.unitia.util.misc.TeleMarketerId;
 import com.winnovature.unitia.util.misc.ToJsonString;
+import com.winnovature.unitia.util.template.Template;
 
 public class RouteProcessor {
 	
@@ -405,6 +408,97 @@ public class RouteProcessor {
 	
 		
 	}
+
+	
+	
+	
+	
+
+	public void doAllowedSMSPatternCheckC() throws Exception {
+		
+
+		String msgclass=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.MSGCLASS);
+
+		msgmap.put("msgclass", msgclass);
+		
+		if(isfurtherprocess){
+
+			if(msgclass!=null&&msgclass.equals("5")){
+				
+			String templateid=(String)msgmap.get(MapKeys.TEMPLATEID);
+
+			
+				
+				msgmap.put(MapKeys.ROUTECLASS, "1");
+				
+				if(templateid!=null&&templateid.trim().length()>0){
+
+					msgmap.put(MapKeys.DLT_TYPE, "customer");
+					msgmap.put(MapKeys.ROUTECLASS, "1");
+					return;					
+					}
+				String fullmsg=(String)msgmap.get(MapKeys.FULLMSG);
+				
+
+				try{
+					if(MessageType.isHexa( (String)msgmap.get(MapKeys.MSGTYPE))){
+						
+						fullmsg=Convertor.getMessage(fullmsg);
+					}
+				}catch(Exception e){
+					
+				}
+
+				List<Map<String,String>>  patternset=Template.getInstance().getTemplateList(msgmap.get(MapKeys.SENDERID).toString().toLowerCase());
+				
+
+				if(patternset!=null){
+				
+				for(int i=0,max=patternset.size();i<max;i++){
+				
+					Map<String,String> data=patternset.get(i);
+					String spamPattern=data.get("template_msg");
+				
+					new RouterLog().routerlog(redisid, tname, "smspattern : "+spamPattern);
+
+					
+						boolean status=isMatch(spamPattern, fullmsg);
+					if(status)
+					{
+						msgmap.put(MapKeys.ENTITYID, data.get("entity_id"));
+						msgmap.put(MapKeys.ROUTECLASS, "1");
+						msgmap.put(MapKeys.ALLOWED_PATTERN_ID,data.get("template_id"));
+						msgmap.put(MapKeys.TEMPLATEID, data.get("template_id"));
+						msgmap.put(MapKeys.DLT_TYPE, "unitia");
+						new RouterLog().routerlog(redisid, tname, "patternset : success");
+
+						return ;
+					}
+					
+					
+				}
+				
+				}
+			}
+
+
+
+				
+			}
+
+		msgmap.put(MapKeys.STATUSID, ""+MessageStatus.NO_ENTITYID);
+
+		isfurtherprocess=false;		
+
+			
+		return ;
+	
+		
+	}
+	
+
+	
+	
 	
 	public void doSenderCheck() throws Exception{
 		
@@ -1017,6 +1111,36 @@ public class RouteProcessor {
 	}
 
 
+	public boolean isMatch(String template,String fullmsg){
+		
+		String temp[]=StringUtils.split(template);
+		String msg[]=StringUtils.split(fullmsg);
+
+		if(temp.length==msg.length){
+			
+		
+		for(int i=0;i<temp.length;i++){
+			
+			String m=msg[i];
+			String t=temp[i];
+			if("{#var#}".equals(t) || t.indexOf("{#var#}")>-1 ){
+				continue;
+			}else if(! m.equalsIgnoreCase(t)){
+				return false;
+			}
+			
+			
+		}
+	
+		return true;
+
+		
+		}else{
+			
+			return false;
+		}
+	}
+	
 	public void isDLT() {
 
 		if(isfurtherprocess){

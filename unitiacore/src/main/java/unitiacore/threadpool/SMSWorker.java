@@ -7,6 +7,7 @@ import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.RouterLog;
+import com.winnovature.unitia.util.template.Template;
 
 import unitiaroute.RouteProcessor;
 import unitiaroute.SenderidMasking;
@@ -168,6 +169,10 @@ try{
 
 		new RouterLog().routerlog(redisid, tname, "start route.doAllowedSMSPatternCheck()");
 
+		String senderid=msgmap.get(MapKeys.SENDERID);
+		if(senderid!=null && Template.getInstance().isAvailableSenderid(senderid.toLowerCase())){
+			route.doAllowedSMSPatternCheckC();
+		}
 		route.doAllowedSMSPatternCheckA();
 
 		route.doAllowedSMSPatternCheckB();
