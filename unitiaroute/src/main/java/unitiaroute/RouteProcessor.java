@@ -479,17 +479,19 @@ public class RouteProcessor {
 				}
 				
 				}
+				
+				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.NO_ENTITYID);
+
+				isfurtherprocess=false;	
 			}
 
+				
 
 
 				
 			}
 
-		msgmap.put(MapKeys.STATUSID, ""+MessageStatus.NO_ENTITYID);
-
-		isfurtherprocess=false;		
-
+	
 			
 		return ;
 	
