@@ -13,6 +13,7 @@ import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.SMSCMaxQueue;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
+import com.winnovature.unitia.util.template.Template;
 
 import unitiacore.threadpool.DomesticCredit;
 import unitiacore.threadpool.QueueTon;
@@ -27,6 +28,7 @@ public class T  extends Thread{
 		while(true){
 			
 			try{
+				Template.getInstance().reload();
 				Refresh.getInsatnce().reload();
 				unitiaroute.Refresh.getInsatnce().reload();
 				DomesticCredit.getInstance().reload();
