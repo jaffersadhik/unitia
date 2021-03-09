@@ -239,7 +239,7 @@ public class ReportDAO {
 					
 					String statusid=(String) msgmap.get(MapKeys.STATUSID);
 
-					if(statusid!=null){
+					if(statusid!=null&&statusid.trim().length()>0){
 					statement.setString(46, msgmap.get(MapKeys.STATUSID).toString());
 					}else{
 						statement.setString(46, (String) msgmap.get(MapKeys.CARRIER_ERR));
