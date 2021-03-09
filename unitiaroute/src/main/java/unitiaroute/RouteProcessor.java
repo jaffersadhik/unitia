@@ -1135,7 +1135,62 @@ public class RouteProcessor {
 		return true;
 
 		
+		}else if(temp.length<msg.length){
+			
+			int extravariabecount=msg.length-temp.length;
+			
+			int msgpointer=0;
+			for(int i=0;i<temp.length;i++){
+				
+				
+				String m=msg[msgpointer];
+				
+				String t=temp[i];
+				if("{#var#}".equals(t) || t.indexOf("{#var#}")>-1 ){
+
+					if(extravariabecount==1){
+					
+						try{
+							String m1=msg[msgpointer+1];
+							String t1=temp[i+1];
+							
+							if(! m1.equalsIgnoreCase(t1)){
+								
+								String m2=msg[msgpointer+2];
+								
+								if(! m2.equalsIgnoreCase(t1)){
+								
+									return false;
+								}else{
+									msgpointer=msgpointer+2;
+
+								}
+							}else{
+								
+								msgpointer++;
+
+							}
+							
+							}catch(Exception e){
+								
+								
+							}
+						
+
+					}
+				}else if(! m.equalsIgnoreCase(t)){
+					return false;
+				}else{
+					
+					msgpointer++;
+
+				}
+			
+			} 
+			
+			return true;
 		}else{
+		
 			
 			return false;
 		}
