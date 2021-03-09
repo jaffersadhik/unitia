@@ -395,7 +395,7 @@ public class RouteProcessor {
 		new RouterLog().routerlog(redisid, tname, "promorejectyn : "+promorejectyn);
 
 		
-		if(msgclass!=null&&msgclass.equals("1")&&promorejectyn!=null&&promorejectyn.equals("1")){
+		if(msgclass!=null&&(msgclass.equals("1")||msgclass.equals("5"))&&promorejectyn!=null&&promorejectyn.equals("1")){
 			
 			msgmap.put(MapKeys.STATUSID, ""+MessageStatus.PROMO_DELIVERY_DISBALED);
 			
