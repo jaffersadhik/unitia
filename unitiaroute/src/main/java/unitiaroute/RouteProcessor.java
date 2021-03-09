@@ -1111,7 +1111,8 @@ public class RouteProcessor {
 	}
 
 
-	public boolean isMatch(String template,String fullmsg){
+	
+	public  boolean isMatch(String template,String fullmsg){
 		
 		String temp[]=StringUtils.split(template);
 		String msg[]=StringUtils.split(fullmsg);
@@ -1119,6 +1120,169 @@ public class RouteProcessor {
 		if(temp.length==msg.length){
 			
 		
+			return sameLength(temp,msg);
+
+		
+		}else if(temp.length<msg.length){
+			
+			int extravariabecount=msg.length-temp.length;
+		
+			if(extravariabecount==1){
+			
+				return extraLength1(temp,msg);
+		
+		
+			}else{
+				
+				
+				return extraLengthN(temp,msg);
+			}
+		}else{
+		
+			
+			return false;
+		}
+	}
+
+
+	private  boolean extraLengthN(String[] temp, String[] msg) {
+
+		
+
+		int msgpointer=0;
+		
+		for(int i=0;i<temp.length;i++){
+			
+			
+			String m=msg[msgpointer];
+			String t=temp[i];
+			if("{#var#}".equals(t) || t.indexOf("{#var#}")>-1 ){
+
+				
+
+				String t1="";
+				if((i+1)<temp.length){
+					t1=temp[i+1];
+				}
+					
+					
+			if("{#var#}".equals(t1) || t1.indexOf("{#var#}")>-1 ){
+						
+				msgpointer++;
+					
+			}else{
+				
+				int lastmatchedindex=getLastMatchedIndex(t,t1,msg,msgpointer+1);
+
+				if(lastmatchedindex==-1){
+					System.out.println("Index Not Matched");
+					return false;
+				}else{
+					msgpointer=lastmatchedindex;
+				}
+			}
+					
+			}else if(! m.equalsIgnoreCase(t)){
+				return false;
+			}else{
+				
+				msgpointer++;
+
+			}
+		
+		} 
+		
+		return true;
+
+	
+	}
+
+
+	private  int getLastMatchedIndex(String t,String t1, String[] msg, int msgpointer) {
+		
+		int i=msgpointer;
+		
+		for(i=msgpointer;i<msg.length;i++){
+			
+			String m1=msg[i];
+			
+			if(m1.equalsIgnoreCase(t1)){
+				
+				return i;
+			}
+		}
+		
+		if(("{#var#}".equals(t) || t.indexOf("{#var#}")>-1)&&t1.equals("") ){
+			
+			return msgpointer;
+				
+		}
+
+
+		return -1;
+	}
+
+
+	private  boolean extraLength1(String[] temp, String[] msg) {
+		
+		int extravariabecount=msg.length-temp.length;
+
+		int msgpointer=0;
+		for(int i=0;i<temp.length;i++){
+			
+			
+			String m=msg[msgpointer];
+			
+			String t=temp[i];
+			if("{#var#}".equals(t) || t.indexOf("{#var#}")>-1 ){
+
+				if(extravariabecount==1){
+				
+					try{
+						String m1=msg[msgpointer+1];
+						String t1=temp[i+1];
+						
+						if(! m1.equalsIgnoreCase(t1)){
+							
+							String m2=msg[msgpointer+2];
+							
+							if(! m2.equalsIgnoreCase(t1)){
+							
+								return false;
+							}else{
+								msgpointer=msgpointer+2;
+
+							}
+						}else{
+							
+							msgpointer++;
+
+						}
+						
+						}catch(Exception e){
+							
+							
+						}
+					
+
+				}
+			}else if(! m.equalsIgnoreCase(t)){
+				return false;
+			}else{
+				
+				msgpointer++;
+
+			}
+		
+		} 
+		
+		return true;
+
+	}
+
+
+	private  boolean sameLength(String[] temp,String[] msg ) {
+
 		for(int i=0;i<temp.length;i++){
 			
 			String m=msg[i];
@@ -1133,69 +1297,8 @@ public class RouteProcessor {
 		}
 	
 		return true;
-
-		
-		}else if(temp.length<msg.length){
-			
-			int extravariabecount=msg.length-temp.length;
-			
-			int msgpointer=0;
-			for(int i=0;i<temp.length;i++){
-				
-				
-				String m=msg[msgpointer];
-				
-				String t=temp[i];
-				if("{#var#}".equals(t) || t.indexOf("{#var#}")>-1 ){
-
-					if(extravariabecount==1){
-					
-						try{
-							String m1=msg[msgpointer+1];
-							String t1=temp[i+1];
-							
-							if(! m1.equalsIgnoreCase(t1)){
-								
-								String m2=msg[msgpointer+2];
-								
-								if(! m2.equalsIgnoreCase(t1)){
-								
-									return false;
-								}else{
-									msgpointer=msgpointer+2;
-
-								}
-							}else{
-								
-								msgpointer++;
-
-							}
-							
-							}catch(Exception e){
-								
-								
-							}
-						
-
-					}
-				}else if(! m.equalsIgnoreCase(t)){
-					return false;
-				}else{
-					
-					msgpointer++;
-
-				}
-			
-			} 
-			
-			return true;
-		}else{
-		
-			
-			return false;
-		}
 	}
-	
+
 	public void isDLT() {
 
 		if(isfurtherprocess){
