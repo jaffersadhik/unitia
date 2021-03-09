@@ -247,7 +247,7 @@ public class ReportDAO {
 					}
 					String stausidorg=(String)msgmap.get(MapKeys.STATUSID_ORG);
 					
-					if(stausidorg==null||stausidorg.equals("ERROR")){
+					if(stausidorg==null||stausidorg.equals("ERROR")||stausidorg.trim().length()<1){
 						
 						statement.setString(47, statusid);
 
