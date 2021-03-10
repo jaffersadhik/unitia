@@ -126,6 +126,10 @@ public class App {
 		}else if(module.equals("kannelconfig")){
 			
 			kannelconfig.App.doProcess();
+		}else if(module.equals("creditupdate")){
+			
+			creditupdate.App.doProcess();
+			
 		}else if(module.equals("logs")){
 			System.out.println("inside selected logs");
 			logs.App.doProcess();

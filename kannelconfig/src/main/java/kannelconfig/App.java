@@ -131,14 +131,7 @@ public class App
     	
     	
     	
-    	new SyncBal().start();
-    	
-    	log.log("unitiacore.App.doProcess() SyncBal thread started");
-
-    	new TopupBalance().start();
-
-    	log.log("unitiacore.App.doProcess() TopBalance thread started");
-
+    
 
 	}
 	private static Object getTLVConfig() {

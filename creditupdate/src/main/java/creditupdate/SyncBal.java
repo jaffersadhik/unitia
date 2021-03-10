@@ -1,4 +1,4 @@
-package kannelconfig;
+package creditupdate;
   
 import java.util.HashMap;
 import java.util.Map;

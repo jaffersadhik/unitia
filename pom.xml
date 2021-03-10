@@ -45,6 +45,7 @@
   	<module>routegroupprocessor</module>
   	<module>IQProcessor</module>
   	<module>admin</module>
+  	<module>creditupdate</module>
     </modules>
   <dependencies>
   

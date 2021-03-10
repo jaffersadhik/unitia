@@ -1,4 +1,4 @@
- package kannelconfig;
+ package creditupdate;
  
  import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,10 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.winnovature.unitia.util.db.CampaignDBConnection;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
-import com.winnovature.unitia.util.misc.MapKeys;
 
 import unitiaroute.TableExsists;
 
