@@ -178,7 +178,7 @@ private void updateMap(List<Map<String, Object>> datalist) {
 		}
 		return result;
 	}
-	
+	/*
 	private void doDNRetry(Map<String, Object> msgmap1,Map<String,Object> logmap) {
 		
 		if(msgmap1.get(MapKeys.ATTEMPT_TYPE).toString().equals("0") && PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN).equals("1")){
@@ -201,7 +201,55 @@ private void updateMap(List<Map<String, Object>> datalist) {
 		
 	}
 	
+	*/
 	
+	
+	private void doDNRetry(Map<String, Object> msgmap1,Map<String,Object> logmap) {
+		
+		msgmap1.put(MapKeys.DN_RETRY_YN, PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN));
+		
+		if(PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN).equals("1")){
+			
+			Map<String,Object> msgmap=new HashMap(msgmap1);
+			int attemptcountINt=1;
+			try{
+			String attemptcount=(String)msgmap1.get(MapKeys.ATTEMPT_COUNT);
+			
+			if(attemptcount==null){
+				
+				attemptcount="1";
+				
+			}
+			msgmap1.put(MapKeys.ATTEMPT_COUNT, attemptcount);
+			attemptcountINt=(Integer.parseInt(attemptcount)+1);
+			msgmap.put(MapKeys.ATTEMPT_COUNT, ""+attemptcountINt);
+			
+			}catch(Exception e){
+				
+			}
+			
+			if(attemptcountINt>6){
+				
+				return;
+			}
+			
+			String smscid=ReRouting.getInstance().getReRouteSmscid(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SMSCID).toString());
+
+			msgmap1.put("founding reroute smscid", smscid);
+			
+			msgmap.put(MapKeys.SMSCID, smscid);
+
+			if(isFailureErrorCode(msgmap)&&FeatureCode.isDNRetry(msgmap.get(MapKeys.FEATURECODE).toString())&&smscid!=null){
+			
+				msgmap1.put("sending to dnretrypool", "yes");
+
+				new QueueSender().sendL("dnretrypool", msgmap, false,logmap);
+
+			}
+		}
+		
+	}
+
 	private boolean isFailureErrorCode(Map<String, Object> msgmap) {
 
 		return (msgmap.get(MapKeys.CARRIER_ERR)!=null && !msgmap.get(MapKeys.CARRIER_ERR).toString().equals("000"));
