@@ -1451,6 +1451,10 @@ public class SMSProcessor {
 		String dnip=(String)msgmap.get(MapKeys.DN_IP);
 		String dnport=(String)msgmap.get(MapKeys.DN_PORT);
 		
+		String attemtcount=msgmap.get(MapKeys.ATTEMPT_COUNT)==null?"1":msgmap.get(MapKeys.ATTEMPT_COUNT).toString();
+	
+		msgmap.put(MapKeys.ATTEMPT_COUNT, attemtcount);
+		
 		if(dnip==null){
 			dnip=ConfigParams.getInstance().getProperty(ConfigKey.LOADBALANCER_DN_IP);
 		}
@@ -1493,7 +1497,7 @@ public class SMSProcessor {
 				URLEncoder.encode(templateid,"UTF-8"),//30
 				URLEncoder.encode(entityid,"UTF-8"),//31
 				URLEncoder.encode(dlttype,"UTF-8"),//32
-				URLEncoder.encode(msgmap.get(MapKeys.ATTEMPT_COUNT)==null?"1":msgmap.get(MapKeys.ATTEMPT_COUNT).toString(),"UTF-8")//33
+				URLEncoder.encode(attemtcount,"UTF-8")//33
 	
 
 		};
@@ -1520,6 +1524,9 @@ public void setDLRURL(Map<String,Object> splitmap)  throws Exception{
 			dnport=ConfigParams.getInstance().getProperty(ConfigKey.LOADBALANCER_DN_PORT);
 		}
 	
+		String attemtcount=msgmap.get(MapKeys.ATTEMPT_COUNT)==null?"1":msgmap.get(MapKeys.ATTEMPT_COUNT).toString();
+		msgmap.put(MapKeys.ATTEMPT_COUNT, attemtcount);
+
 		String templateid=msgmap.get(MapKeys.TEMPLATEID)==null?"":msgmap.get(MapKeys.TEMPLATEID).toString();
 		String entityid=msgmap.get(MapKeys.ENTITYID)==null?"":msgmap.get(MapKeys.ENTITYID).toString();
 		String dlttype=msgmap.get(MapKeys.DLT_TYPE)==null?"":msgmap.get(MapKeys.DLT_TYPE).toString();
@@ -1559,7 +1566,7 @@ public void setDLRURL(Map<String,Object> splitmap)  throws Exception{
 				URLEncoder.encode(templateid,"UTF-8"),//30
 				URLEncoder.encode(entityid,"UTF-8"),//31
 				URLEncoder.encode(dlttype,"UTF-8"),//32
-				URLEncoder.encode(msgmap.get(MapKeys.ATTEMPT_COUNT)==null?"1":msgmap.get(MapKeys.ATTEMPT_COUNT).toString(),"UTF-8")//33
+				URLEncoder.encode(attemtcount,"UTF-8")//33
 
 
 		};
