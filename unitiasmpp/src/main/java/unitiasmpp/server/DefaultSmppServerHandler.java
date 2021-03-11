@@ -83,8 +83,13 @@ public class DefaultSmppServerHandler implements SmppServerHandler, Serializable
 			logmap.put("error msg",ErrorMessage.getMessage(e));
 			new com.winnovature.unitia.util.misc.FileWrite().write(logmap);
 
-			throw new SmppProcessingException(SmppConstants.STATUS_BINDFAIL);			
-		}
+			if(e instanceof SmppProcessingException){
+				throw (SmppProcessingException)e;
+			}else{
+				throw new SmppProcessingException(SmppConstants.STATUS_BINDFAIL);			
+			
+			}
+			}
 		
 		new com.winnovature.unitia.util.misc.FileWrite().write(logmap);
 
