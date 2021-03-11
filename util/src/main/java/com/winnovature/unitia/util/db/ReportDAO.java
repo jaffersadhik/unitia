@@ -40,7 +40,7 @@ public class ReportDAO {
 		sb.append("carrier_sdate,carrier_ddate,carrier_stat,carrier_err,carrier_msgid,");
 		sb.append("carrier_systemid,carrier_dr,sms_latency_slap,sms_latency_slap_org,carrier_latency_slap,");
 		sb.append("paltform_latency_slap,statusid,statusid_org,carrier_stime_org,");
-		sb.append("templateid,entityid,dlttype,interfacetype,kannel_resp)");
+		sb.append("templateid,entityid,dlttype,interfacetype,kannel_resp,attemptcount)");
 
 		sb.append("values(");
 		sb.append("?,?,?,?,");
@@ -55,7 +55,7 @@ public class ReportDAO {
 		sb.append("?,?,?,?,?,");
 		sb.append("?,?,?,?,?,");
 		sb.append("?,?,?,?,");
-		sb.append("?,?,?,?,?)");
+		sb.append("?,?,?,?,?,?)");
 
 		SQL=sb.toString();
 
@@ -275,6 +275,7 @@ public class ReportDAO {
 						kannelresponse=kannelresponse.substring(0,100);
 					}
 					statement.setString(53, kannelresponse);
+					statement.setString(54, (String)msgmap.get(MapKeys.ATTEMPT_COUNT));
 
 				statement.addBatch();
 			}
