@@ -17,6 +17,7 @@ import com.winnovature.unitia.util.misc.FeatureCode;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
+import com.winnovature.unitia.util.misc.MessageType;
 
 public class ReportDAO {
 
@@ -113,7 +114,8 @@ public class ReportDAO {
 				String fullmsg=(String)msgmap.get(MapKeys.FULLMSG);
 			
 				try{
-					if(FeatureCode.isHexa( (String)msgmap.get(MapKeys.FEATURECODE))){
+					
+					if(MessageType.isHexa( (String)msgmap.get(MapKeys.MSGTYPE))){
 						
 						fullmsg=Convertor.getMessage(fullmsg);
 					}

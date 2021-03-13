@@ -1072,9 +1072,9 @@ public class RouteProcessor {
 	public void doEntityValidation() {
 		
 		
-			
+			if(msgmap.get(MapKeys.ENTITYID)==null||msgmap.get(MapKeys.ENTITYID).toString().trim().length()<1){
 			msgmap.put(MapKeys.ENTITYID, Entity.getInstance().getEntity(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SENDERID).toString()));
-		
+			}
 	}
 	
 	public void dodefaultEntityValidation() {
