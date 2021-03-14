@@ -516,14 +516,18 @@ public class RouteProcessor {
 					
 					if(!WhiteListedSenderid.getInstance().isWhiteListedSenderid(msgmap.get(MapKeys.USERNAME).toString(), senderid)){
 					
+						
+						String msgclass=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.MSGCLASS);
+
+						if(msgclass.equals("5")){
 						msgmap.put(MapKeys.STATUSID, ""+MessageStatus.SENDER_NOT_WHITELISTED);
 						
 						isfurtherprocess=false;
 						
 						return;
-						
-						//setDefaultSenderID();
-						
+						}else{
+						setDefaultSenderID();
+						}
 					}else{
 						
 						msgmap.put(MapKeys.SENDERID, senderid);
