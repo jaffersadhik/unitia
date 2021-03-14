@@ -34,7 +34,7 @@ public class SmppServer {
 	// data from sockets and the thread things will be processed under
 	private int maxConnectionSize = 500;
 
-	private int defaultWindowSize = SmppConstants.DEFAULT_WINDOW_SIZE;
+	private int defaultWindowSize = 10;
 	private long defaultWindowWaitTimeout = SmppConstants.DEFAULT_WINDOW_WAIT_TIMEOUT;
 	private long defaultRequestExpiryTimeout = SmppConstants.DEFAULT_REQUEST_EXPIRY_TIMEOUT;
 	private long defaultWindowMonitorInterval = SmppConstants.DEFAULT_WINDOW_MONITOR_INTERVAL;
