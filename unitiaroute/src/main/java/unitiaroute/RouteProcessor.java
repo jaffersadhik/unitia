@@ -1141,7 +1141,14 @@ public class RouteProcessor {
 			}else{
 				
 				
-				return extraLengthN(temp,msg);
+				if(isEndWithVar(temp)){
+					
+					return extraLengthNWithEndwithVar(temp,msg);	
+
+				}else{
+					
+					return extraLengthN(temp,msg);	
+				}			
 			}
 		}else{
 		
@@ -1151,6 +1158,134 @@ public class RouteProcessor {
 	}
 
 
+private  boolean extraLengthNWithEndwithVar(String[] temp, String[] msg) {
+
+
+		
+
+		int msgpointer=0;
+		
+		for(int i=0;i<temp.length;i++){
+			
+			
+			String m=msg[msgpointer];
+			String t=temp[i];
+			if("{#var#}".equals(t) || t.indexOf("{#var#}")>-1 ){
+
+				
+
+				String t1="";
+				if((i+1)<temp.length){
+					t1=temp[i+1];
+				}
+					
+					
+			if("{#var#}".equals(t1) || t1.indexOf("{#var#}")>-1 ){
+						
+				msgpointer++;
+					
+			}else{
+				
+				int lastmatchedindex=getLastMatchedIndexForEndwithVar(t,t1,msg,msgpointer+1,temp);
+
+				if(lastmatchedindex==-1){
+					System.out.println("Index Not Matched");
+					return false;
+				}else{
+					msgpointer=lastmatchedindex;
+				}
+			}
+					
+			}else if(! m.equalsIgnoreCase(t)){
+				return false;
+			}else{
+				
+				msgpointer++;
+
+			}
+		
+		} 
+		
+		return true;
+
+	
+	
+	}
+
+	
+private  int getLastMatchedIndexForEndwithVar(String t, String t1, String[] msg, int msgpointer,String[] temp) {
+
+	
+	int i=msgpointer;
+	
+	for(i=msgpointer;i<msg.length;i++){
+		
+		String m1=msg[i];
+		
+		if(m1.equalsIgnoreCase(t1)){
+			
+			return i;
+		}
+	}
+	
+	if(("{#var#}".equals(t) || t.indexOf("{#var#}")>-1)&&t1.equals("") ){
+		
+		StringBuffer sb=new StringBuffer();
+		int j=msgpointer;
+		while(j<msg.length){
+			j++;
+			if(j<msg.length){
+			sb.append(msg[j]).append(" ");
+			}
+		}
+		
+		int varCount=getLastVarCount(temp);
+		int totalmsglength=varCount*30;
+		if(sb.toString().length()<(totalmsglength+1)){
+			
+		return msgpointer;
+		
+		}
+	}
+
+
+	return -1;
+
+}
+
+
+private static int getLastVarCount(String[] temp) {
+
+	int count=0;
+	for(int i=temp.length-1;i>-1;i--){
+		
+		String t=temp[i];
+		
+		if("{#var#}".equals(t) || t.indexOf("{#var#}")>-1){
+			
+			count++;
+		}else{
+			
+			return count;
+		}
+	}
+	return count;
+}
+
+
+
+	private  boolean isEndWithVar(String[] temp) {
+		
+		String t=temp[temp.length-1];
+		
+		if("{#var#}".equals(t) || t.indexOf("{#var#}")>-1 ){
+			
+			return true;
+		}
+		return false;
+	}
+	
+	
 	private  boolean extraLengthN(String[] temp, String[] msg) {
 
 		
