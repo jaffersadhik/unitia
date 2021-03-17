@@ -68,7 +68,7 @@ public class Template {
 			
 			connection=CoreDBConnection.getInstance().getConnection();
 			
-			statement=connection.prepareStatement("select username,senderid,entity_id,template_id,template_msg,template_sample_msg,length(template_msg) a from user_reports.ui_dltrequests  order by a desc");
+			statement=connection.prepareStatement("select username,senderid,entity_id,template_id,template_msg,template_sample_msg,length(template_msg) a from user_reports.ui_dltrequests  order by senderid,a desc");
 			resultset=statement.executeQuery();
 			
 			
