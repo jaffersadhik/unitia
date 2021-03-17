@@ -1333,8 +1333,12 @@ private static int getLastVarCount(String[] temp) {
 		
 		} 
 		
-		return true;
+		if(msgpointer==msg.length){
+			return true;
 
+		}else{
+			return false;
+		}
 	
 	}
 
