@@ -28,10 +28,10 @@ jobs:
       run: docker build . --file Dockerfile --tag unitia:24jan2021
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiadngen Image Tag 
-      run: docker tag unitia:24jan2021 registry-1.docker.io/winnovature/unitia:24jan2021
+      run: docker tag unitia:24jan2021 registry-1.docker.io/winnovature1/unitia:24jan2021
     - uses: docker/build-push-action@v1
     - name: Docker Login 
       run: docker login registry-1.docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
     - uses: docker/build-push-action@v1
     - name: Dockerfileunitiadngen PushTag 
-      run: docker push registry-1.docker.io/winnovature/unitia:24jan2021
+      run: docker push registry-1.docker.io/winnovature1/unitia:24jan2021
