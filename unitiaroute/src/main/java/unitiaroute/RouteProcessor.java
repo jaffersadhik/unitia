@@ -453,7 +453,7 @@ public class RouteProcessor {
 				
 
 				if(patternset!=null){
-				
+				T1 t1=new T1();
 				for(int i=0,max=patternset.size();i<max;i++){
 				
 					Map<String,String> data=patternset.get(i);
@@ -462,7 +462,8 @@ public class RouteProcessor {
 					new RouterLog().routerlog(redisid, tname, "smspattern : "+spamPattern);
 
 					
-						boolean status=isMatch(spamPattern, fullmsg);
+					
+						boolean status=t1.isMatch(spamPattern, fullmsg);
 					if(status)
 					{
 						msgmap.put(MapKeys.ENTITYID, data.get("entity_id"));
