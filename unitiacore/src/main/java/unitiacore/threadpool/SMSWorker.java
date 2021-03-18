@@ -128,6 +128,16 @@ try{
 		return;
 		
 	}
+	
+	if(PushAccount.instance().getPushAccount(username).get("rr_yn").toString().equals("1")){
+		
+		Map<String,Object> logmap=new HashMap<String,Object>();
+		logmap.putAll(msgmap);
+		logmap.put("module", "SMSProcessor");
+		logmap.put("logname", "routerreject");
+		new FileWrite().write(logmap);
+		return;
+	}
 		RouteProcessor route=new RouteProcessor(msgmap,redisid,tname);
 		new RouterLog().routerlog(redisid, tname, "start route.doCountryCodeCheck()");
 		route.doCountryCodeCheck();
