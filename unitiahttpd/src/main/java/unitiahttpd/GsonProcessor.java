@@ -162,6 +162,12 @@ public class GsonProcessor {
         Mojo mojo=gson.fromJson(json, Mojo.class);
         
         System.out.println(mojo);
+        System.out.println(mojo.getUsername());
+        System.out.println(mojo.getPassword());
+        System.out.println(mojo.getSmslist());
+
+        System.out.println(mojo);
+
         return mojo;
 
         
