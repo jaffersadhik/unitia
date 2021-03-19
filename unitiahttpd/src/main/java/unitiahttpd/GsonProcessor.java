@@ -393,7 +393,7 @@ public  Map<String, Object> toMap(String jsonstring) {
 	  
 	        } 
 	  
-	        catch (IOException e) { 
+	        catch (Exception e) { 
 	            e.printStackTrace(); 
 	        } 
 		return null;
