@@ -59,8 +59,10 @@ public class GsonProcessor {
             	return new RequestProcessor().getRejectedResponse(MessageStatus.HTTP_QS_EMPTY_MESSAGE);
             }
             
+            System.out.println("String : "+toMap(gsonstring));
+
             Map<String,Object> requestmap=toMap(gsonstring);
-            System.out.print("requestmap : "+requestmap);
+            System.out.println("requestmap : "+requestmap);
             if(requestmap==null&&requestmap.size()<1){
     			logmap.put("logname", "invalidjson");
     			logmap.put("gsonstring", gsonstring);
