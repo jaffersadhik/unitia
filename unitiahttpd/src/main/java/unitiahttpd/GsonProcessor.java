@@ -247,6 +247,7 @@ public class GsonProcessor {
 					bean.put("tolist", sms.getTolist());
 				}
 
+				System.out.println(bean);
 				smslistarray.add(bean);
 			}
 		}
