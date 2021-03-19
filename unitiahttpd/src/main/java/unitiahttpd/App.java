@@ -315,6 +315,7 @@ public class App extends AbstractHandler
 	private void doProcessJson(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 
+		System.out.println("json Request");
     	
         Map<String,Object> msgmap= new HashMap<String,Object>();
 

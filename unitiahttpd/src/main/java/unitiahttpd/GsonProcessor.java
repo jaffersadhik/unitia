@@ -351,6 +351,7 @@ public class GsonProcessor {
     {
 
 
+    	  e.printStackTrace();
     }
 
       finally
@@ -371,7 +372,7 @@ public class GsonProcessor {
 
     {
 
-      // ignore it
+      ex.printStackTrace();
 
     }
 
