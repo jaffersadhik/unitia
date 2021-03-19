@@ -55,7 +55,7 @@ public class GsonProcessor {
             }
             
             Map<String,Object> requestmap=toMap(gsonstring);
-            
+            System.out.print("requestmap \n "+requestmap);
             if(requestmap==null&&requestmap.size()<1){
     			logmap.put("logname", "invalidjson");
     			logmap.put("gsonstring", gsonstring);
