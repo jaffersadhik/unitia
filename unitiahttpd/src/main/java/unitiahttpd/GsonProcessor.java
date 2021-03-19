@@ -259,6 +259,7 @@ public class GsonProcessor {
 
 		}
 		
+		System.out.println("smslist : "+map);
 		return map;
 	}
 	private String getWhitelableAcceptedResponse()
