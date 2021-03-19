@@ -1,7 +1,11 @@
 package unitiahttpd;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -55,7 +59,7 @@ public class GsonProcessor {
             }
             
             Map<String,Object> requestmap=toMap(gsonstring);
-            System.out.print("requestmap \n "+requestmap);
+            System.out.print("requestmap : "+requestmap);
             if(requestmap==null&&requestmap.size()<1){
     			logmap.put("logname", "invalidjson");
     			logmap.put("gsonstring", gsonstring);
@@ -313,75 +317,88 @@ public class GsonProcessor {
 	public   String getRequestFromBody(HttpServletRequest aRequest)
 
     {
-
-    BufferedReader br = null;
-
-    StringBuffer sb = new StringBuffer();
-
-    String reqString = null;
-
-     
-
-     int bytesRead = -1;
-
-      try
-
-    {
-
-      char[] charBuffer = new char[1024];
-
-      br = new BufferedReader(new InputStreamReader(aRequest.getInputStream()));
-
-     
-
-     while ((bytesRead = br.read(charBuffer)) > 0)
-
-    {
-
-      sb.append(charBuffer, 0, bytesRead);
-
+		try {
+			return read(aRequest.getInputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
     }
-
-      reqString = sb.toString();
-
-    }
-
-      catch (Exception e)
-
-    {
+	
+	private String read(InputStream is){
 
 
-    	  e.printStackTrace();
-    }
+	    BufferedReader br = null;
 
-      finally
+	    StringBuffer sb = new StringBuffer();
 
-    {
+	    String reqString = null;
 
-      try
+	     
 
-    {
+	     int bytesRead = -1;
 
-      if (br != null)
+	      try
 
-      br.close();
+	    {
 
-    }
+	      char[] charBuffer = new char[1024];
 
-      catch (Exception ex)
+	      br = new BufferedReader(new InputStreamReader(is));
 
-    {
+	     
 
-      ex.printStackTrace();
+	     while ((bytesRead = br.read(charBuffer)) > 0)
 
-    }
+	    {
 
-    }
+	      sb.append(charBuffer, 0, bytesRead);
 
-      System.out.println("reqString" +reqString);
-      return reqString;
+	    }
 
-    }
+	      reqString = sb.toString();
+
+	    }
+
+	      catch (Exception e)
+
+	    {
+
+
+	    	  e.printStackTrace();
+	    }
+
+	      finally
+
+	    {
+
+	      try
+
+	    {
+
+	      if (br != null)
+
+	      br.close();
+
+	    }
+
+	      catch (Exception ex)
+
+	    {
+
+	      ex.printStackTrace();
+
+	    }
+
+	    }
+
+	      System.out.println("reqString" +reqString);
+	      return reqString;
+
+	    
+	}
 
 public  Map<String, Object> toMap(String jsonstring) {
 		
@@ -402,6 +419,20 @@ public  Map<String, Object> toMap(String jsonstring) {
 		
 	}
 
+public static void main(String args[]){
+
+	File file=new File("E:\\fadhil1\\json.txt");
+	GsonProcessor obj=new GsonProcessor();
+	try {
+		String str=obj.read(new FileInputStream(file));
+		
+		System.out.println(obj.toMap(str));
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+}
 
 private void setMsgType(Map<String,Object>  msgmap) throws UnsupportedEncodingException{
 	 
