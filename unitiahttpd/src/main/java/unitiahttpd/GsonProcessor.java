@@ -37,7 +37,7 @@ public class GsonProcessor {
 	Map<String,Object> msgmap=null;
 	Map<String,Object> logmap=null;
 	
-	public String processRequest(HttpServletRequest request,Map<String,Object> msgmap,Map<String,Object> logmap) throws UnsupportedEncodingException
+	public String processRequestA(HttpServletRequest request,Map<String,Object> msgmap,Map<String,Object> logmap) throws UnsupportedEncodingException
 	{		
 		
 			try{
