@@ -324,7 +324,7 @@ public class App extends AbstractHandler
         Map<String, Object> logmap = new HashMap<String,Object>();
 		logmap.put("logname", "gsoninterface");
 
-		String responsestring=processor.processRequest(request,msgmap, logmap);
+		String responsestring=processor.processRequestA(request,msgmap, logmap);
 		logmap.put("module", "http receiver");
 		
 		logmap.put("link", "send");
