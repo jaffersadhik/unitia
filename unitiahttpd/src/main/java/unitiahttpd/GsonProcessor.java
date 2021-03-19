@@ -42,7 +42,19 @@ public class GsonProcessor {
 		
 			try{
 				
-		
+				String custIP		=	request.getHeader("X-FORWARDED-FOR");
+
+				if(custIP==null){
+					custIP=request.getRemoteHost();
+				}
+				
+				if(custIP==null){
+					custIP="";
+				}
+				msgmap.put(MapKeys.CUSTOMERIP, custIP);
+			
+				System.out.println("msgmap : "+msgmap);
+
 			msgmap.put(MapKeys.PROTOCOL, "http");
 			msgmap.put(MapKeys.INTERFACE_TYPE, "gson");
 
@@ -68,19 +80,7 @@ public class GsonProcessor {
     			logmap.put("gsonstring", gsonstring);
             	return new RequestProcessor().getRejectedResponse(MessageStatus.HTTP_QS_EMPTY_MESSAGE);
             }
-			String custIP		=	request.getHeader("X-FORWARDED-FOR");
-
-			if(custIP==null){
-				custIP=request.getRemoteHost();
-			}
-			
-			if(custIP==null){
-				custIP="";
-			}
-			msgmap.put(MapKeys.CUSTOMERIP, custIP);
-		
-			System.out.println("msgmap : "+msgmap);
-			
+					
 			String username=(String)requestmap.get("username");
 			if(username==null){
 				username="";
