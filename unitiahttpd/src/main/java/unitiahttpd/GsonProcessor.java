@@ -79,6 +79,7 @@ public class GsonProcessor {
 			}
 			msgmap.put(MapKeys.CUSTOMERIP, custIP);
 		
+			System.out.println("msgmap : "+msgmap);
 			
 			String username=(String)requestmap.get("username");
 			if(username==null){
