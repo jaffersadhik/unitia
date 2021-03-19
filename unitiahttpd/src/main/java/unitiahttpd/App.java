@@ -79,7 +79,7 @@ public class App extends AbstractHandler
 
         }else{
         	
-        	doProcessUnknownContext(request,response);
+        	doProcessUnknownContext(request,response,uri);
         }
         // Inform jetty that this request has now been handled
         baseRequest.setHandled(true);
@@ -208,7 +208,7 @@ public class App extends AbstractHandler
 		
 	}
 
-	private void doProcessUnknownContext(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void doProcessUnknownContext(HttpServletRequest request, HttpServletResponse response,String uri) throws IOException {
 		
 
     	String custIP		=	request.getHeader("X-FORWARDED-FOR");
@@ -223,6 +223,7 @@ public class App extends AbstractHandler
     	
 		Map<String, Object> logmap = new HashMap<String,Object>();
 
+		logmap.put("uri", uri);
 		logmap.put("username", "sys");
 		logmap.put("module", "http receiver");
 		logmap.put("logname", "unknowncntext");
@@ -320,7 +321,7 @@ public class App extends AbstractHandler
 		GsonProcessor processor = new GsonProcessor();
 		Bean.setDefaultValues(msgmap);
         Map<String, Object> logmap = new HashMap<String,Object>();
-		logmap.put("logname", "httpinterface");
+		logmap.put("logname", "gsoninterface");
 
 		String responsestring=processor.processRequest(request,msgmap, logmap);
 		logmap.put("module", "http receiver");
