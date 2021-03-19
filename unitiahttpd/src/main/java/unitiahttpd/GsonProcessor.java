@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.account.WhiteListedIP;
 import com.winnovature.unitia.util.dao.Insert;
@@ -154,7 +155,105 @@ public class GsonProcessor {
 				
 	}
 	
+	private Mojo getMojo(String json){
+		
+        Gson gson = new Gson(); 
+        
+        Mojo mojo=gson.fromJson(json, Mojo.class);
+        
+        System.out.println(mojo);
+        return mojo;
+
+        
+	}
 	
+	private Map<String,Object> getJsonMap(Mojo mojo){
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		if(mojo.getPassword()!=null){
+			map.put("password", mojo.getPassword());
+		}
+		if(mojo.getUsername()!=null){
+			map.put("username", mojo.getUsername());
+		}
+		
+		
+		List<SMS> smslist=mojo.getSmslist();
+		List<Map<String,Object>> smslistarray=new ArrayList<Map<String,Object>>();
+		if(smslist!=null){
+			
+			for(int i=0;i<smslist.size();i++){
+				
+				SMS sms=smslist.get(i);
+				
+				Map<String,Object> bean=new HashMap<String,Object>();
+				
+				if(sms.getParam1()!=null){
+					
+					bean.put("param1", sms.getParam1());
+				}
+				
+				if(sms.getParam2()!=null){
+					
+					bean.put("param2", sms.getParam2());
+				}
+
+				if(sms.getParam3()!=null){
+					
+					bean.put("param3", sms.getParam3());
+				}
+				
+				if(sms.getParam4()!=null){
+					
+					bean.put("param4", sms.getParam4());
+				}
+
+				if(sms.getScheduletime()!=null){
+					
+					bean.put("scheduletime", sms.getScheduletime());
+				}
+
+				if(sms.getEntityid()!=null){
+					
+					bean.put("entityid", sms.getEntityid());
+				}
+
+				if(sms.getTemplateid()!=null){
+					
+					bean.put("templateid", sms.getTemplateid());
+				}
+				
+				
+				if(sms.getFrom()!=null){
+					
+					bean.put("from", sms.getFrom());
+				}
+
+				
+				if(sms.getContent()!=null){
+					
+					bean.put("content", sms.getContent());
+				}
+
+				
+				if(sms.getTolist()!=null){
+					
+					bean.put("tolist", sms.getTolist());
+				}
+
+				smslistarray.add(bean);
+			}
+		}
+		
+		
+		if(smslistarray.size()>0){
+			
+			map.put("smslist",smslistarray);
+
+		}
+		
+		return map;
+	}
 	private String getWhitelableAcceptedResponse()
 	{
 		
@@ -401,7 +500,7 @@ public class GsonProcessor {
 	}
 
 public  Map<String, Object> toMap(String jsonstring) {
-		
+		/*
 		ObjectMapper mapper = new ObjectMapper();
 		
 		   try { 
@@ -416,7 +515,12 @@ public  Map<String, Object> toMap(String jsonstring) {
 		return null;
 		
 		
+		*/
+	
+	
+		Mojo mojo=getMojo(jsonstring);
 		
+		return getJsonMap(mojo);
 	}
 
 public static void main(String args[]){
