@@ -53,7 +53,7 @@ public class GsonProcessor {
 				}
 				msgmap.put(MapKeys.CUSTOMERIP, custIP);
 			
-				System.out.println("msgmap : "+msgmap);
+				////System.out.println("msgmap : "+msgmap);
 
 			msgmap.put(MapKeys.PROTOCOL, "http");
 			msgmap.put(MapKeys.INTERFACE_TYPE, "gson");
@@ -71,10 +71,10 @@ public class GsonProcessor {
             	return new RequestProcessor().getRejectedResponse(MessageStatus.HTTP_QS_EMPTY_MESSAGE);
             }
             
-            System.out.println("String : "+toMap(gsonstring));
+            ////System.out.println("String : "+toMap(gsonstring));
 
             Map<String,Object> requestmap=toMap(gsonstring);
-            System.out.println("requestmap : "+requestmap);
+            ////System.out.println("requestmap : "+requestmap);
             if(requestmap==null&&requestmap.size()<1){
     			logmap.put("logname", "invalidjson");
     			logmap.put("gsonstring", gsonstring);
@@ -142,7 +142,7 @@ public class GsonProcessor {
 				
 			}else{
 				
-				System.out.println("Multiple");
+				////System.out.println("Multiple");
 				if(!new Insert().insertA(msgmaplist)){
 					
 					return new RequestProcessor().getRejectedResponse(MessageStatus.SENT_TO_QUEUE_FAILED);
@@ -153,7 +153,7 @@ public class GsonProcessor {
 
 			}catch(Exception e){
 				
-				return getSystemErrorResponse(e);
+				return get////SystemErrorResponse(e);
 
 			}
 				
@@ -165,12 +165,12 @@ public class GsonProcessor {
         
         Mojo mojo=gson.fromJson(json, Mojo.class);
         
-        System.out.println(mojo);
-        System.out.println(mojo.getUsername());
-        System.out.println(mojo.getPassword());
-        System.out.println(mojo.getSmslist());
+        ////System.out.println(mojo);
+        ////System.out.println(mojo.getUsername());
+        ////System.out.println(mojo.getPassword());
+        ////System.out.println(mojo.getSmslist());
 
-        System.out.println(mojo);
+        ////System.out.println(mojo);
 
         return mojo;
 
@@ -253,7 +253,7 @@ public class GsonProcessor {
 					bean.put("tolist", sms.getTolist());
 				}
 
-				System.out.println(bean);
+				////System.out.println(bean);
 				smslistarray.add(bean);
 			}
 		}
@@ -265,7 +265,7 @@ public class GsonProcessor {
 
 		}
 		
-		System.out.println("smslist : "+map);
+		////System.out.println("smslist : "+map);
 		return map;
 	}
 	private String getWhitelableAcceptedResponse()
@@ -280,7 +280,7 @@ public class GsonProcessor {
 		return ToJsonString.toString(status);
 	}
 	
-	public String getSystemErrorResponse(Exception e)
+	public String get////SystemErrorResponse(Exception e)
 	{
 		Map status=new HashMap();
 		status.put("ackid", msgmap.get(MapKeys.ACKID));
@@ -507,7 +507,7 @@ public class GsonProcessor {
 
 	    }
 
-	      System.out.println("reqString" +reqString);
+	      ////System.out.println("reqString" +reqString);
 	      return reqString;
 
 	    
@@ -544,7 +544,7 @@ public static void main(String args[]){
 	try {
 		String str=obj.read(new FileInputStream(file));
 		
-		System.out.println(obj.toMap(str));
+		////System.out.println(obj.toMap(str));
 	} catch (FileNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
