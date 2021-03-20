@@ -68,7 +68,8 @@ public class TempTable {
 		result.add("clientdnpool");
 		result.add("schedulepool");
 		result.add("kannelretrypool");
-		result.add("commonpool");
+		result.add("commonpool_1");
+		result.add("commonpool_2");
 		result.add("otppool");
 		result.add("otpretrypool");
 		result.add("dngenpool");

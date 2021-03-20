@@ -218,13 +218,12 @@ public class GsonProcessor {
 					bean.put("param4", sms.getParam4());
 				}
 
-				/*
+				
 				if(sms.getScheduletime()!=null){
 					
 					bean.put("scheduletime", sms.getScheduletime());
 				}
-				*/
-
+				
 				if(sms.getEntityid()!=null){
 					
 					bean.put("entityid", sms.getEntityid());

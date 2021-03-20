@@ -40,7 +40,6 @@ public class QueueSender {
 		String redisid=null;
 		
 		long start=System.currentTimeMillis();
-		String queuenameorg=queuename;
 		queuename=getQueueName(queuename,requestObject);
 		if(queuename.startsWith("smppdn_")){
 			
@@ -79,7 +78,7 @@ public class QueueSender {
 		if(!result) {
 		
 			if(!isRetry){
-			result=new Insert().insert(queuenameorg, requestObject);
+			result=new Insert().insert(queuename, requestObject);
 			logmap.put("queue type","mysql");
 
 			}
