@@ -64,6 +64,7 @@ public class TableCount {
 		try{
 			connection=KannelDBConnection.getInstance().getConnection();
 			List<String> TABLES=TempTable.getInstance().getQueueTableName();
+			System.out.println("TABLES : "+ TABLES);
 			for(int i=0,max=TABLES.size();i<max;i++){
 		
 				String tablename=TABLES.get(i);
