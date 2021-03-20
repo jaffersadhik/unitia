@@ -49,13 +49,15 @@ public class App
     	
 		String redisid=System.getenv("redis");
 		String kannelid=System.getenv("kannelid");
+		String priority=System.getenv("priority");
 
+		String queuename="kl_"+kannelid+"_"+priority;
     	log.log("unitiacore.App.start() "+kannelid);
 
 				
 			for(int i=0;i<2;i++){
 		
-				RedisReceiver obj=new RedisReceiver(i,kannelid,redisid);
+				RedisReceiver obj=new RedisReceiver(i,queuename,redisid);
 				obj.start();
 
 				pollerlist.add(obj);

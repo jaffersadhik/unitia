@@ -343,7 +343,7 @@ public class SMSProcessor {
 		
 		if(msgmap.get("nobill")!=null){
 			
-			queuename=msgmap.get(MapKeys.KANNELID).toString();
+			queuename="kl_"+msgmap.get(MapKeys.KANNELID).toString();
 
 		}
 		if(queuename.equals("submit")&&(msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.KANNEL_SUBMIT_FAILED)||msgmap.get(MapKeys.STATUSID).equals(""+MessageStatus.INVALID_ROUTE_GROUP))){
@@ -1019,7 +1019,7 @@ public class SMSProcessor {
 			
 			if(msgmap.get("nobill")!=null){
 				
-				queuename=msgmap.get(MapKeys.KANNELID).toString();
+				queuename="kl_"+msgmap.get(MapKeys.KANNELID).toString();
 
 			}
 			

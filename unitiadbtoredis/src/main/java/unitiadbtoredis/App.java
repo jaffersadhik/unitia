@@ -13,7 +13,6 @@ public class App
     {
     	Prop.getInstance();
     	
-    
     	start("optin");
     	start("optout");
     	start("duplicate");
@@ -23,7 +22,9 @@ public class App
     	start("clientdnpool");
     	start("schedulepool");
     	start("kannelretrypool");
-    	start("commonpool");
+    	start("commonpool_1");
+    	start("commonpool_2");
+
     	start("cdac");
 
     	start("otppool");
@@ -38,14 +39,10 @@ public class App
     	start("submissionpool");
     	start("missedcallpool");
     	start("shortcodepool");
+    	start("kl_kannel2_1");
+    	start("kl_kannel2_2");
 
-    	List<String> kannelidlist =Kannel.getInstance().getKannelIdList();
     	
-    	for(int i=0;i<kannelidlist.size();i++){
-    		
-        	start(kannelidlist.get(i));
-
-    	}
     	new T().start();
     	
 

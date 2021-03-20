@@ -103,7 +103,7 @@ public class QueueSender {
 
 	private String getQueueName(String queuename, Map<String, Object> requestObject) {
 
-		if(queuename.equalsIgnoreCase("commonpool")){
+		if(queuename.equalsIgnoreCase("commonpool")||queuename.startsWith("kl_")){
 			
 			return queuename+"_"+PushAccount.instance().getPushAccount(requestObject.get(MapKeys.USERNAME).toString()).get("priority");
 		}
