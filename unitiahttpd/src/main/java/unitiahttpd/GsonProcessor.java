@@ -153,7 +153,7 @@ public class GsonProcessor {
 
 			}catch(Exception e){
 				
-				return get////SystemErrorResponse(e);
+				return getSystemErrorResponse(e);
 
 			}
 				
@@ -280,7 +280,7 @@ public class GsonProcessor {
 		return ToJsonString.toString(status);
 	}
 	
-	public String get////SystemErrorResponse(Exception e)
+	public String getSystemErrorResponse(Exception e)
 	{
 		Map status=new HashMap();
 		status.put("ackid", msgmap.get(MapKeys.ACKID));
