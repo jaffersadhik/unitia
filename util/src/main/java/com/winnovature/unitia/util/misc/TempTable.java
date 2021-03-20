@@ -59,8 +59,23 @@ public class TempTable {
 
 	}
 
+
+	private static TempTable obj=new TempTable();
 	
-	public static List<String> getQueueTableName(){
+	private TempTable(){
+		
+	}
+	
+	public static TempTable getInstance(){
+		
+		if(obj==null){
+			
+			obj=new TempTable();
+		}
+		
+		return obj;
+	}
+	public  List<String> getQueueTableName(){
 		
 		
 		List<String> result=new ArrayList<String>();
@@ -75,7 +90,7 @@ public class TempTable {
 	}
 
 
-	private static List<String> getSMSCIDTable1() {
+	private  List<String> getSMSCIDTable1() {
 
 		String prefix="kannel_";
 		String tablename="kannel";
@@ -84,7 +99,7 @@ public class TempTable {
 	}
 	
 	
-	private static List<String> getGroupNameTable() {
+	private  List<String> getGroupNameTable() {
 
 		String prefix="switch_";
 		String tablename="routegroup";
@@ -94,7 +109,7 @@ public class TempTable {
 	}
 
 
-	private static List<String> getTableName(String prefix, String tablename,String columnname) {
+	private  List<String> getTableName(String prefix, String tablename,String columnname) {
 
 		List<String> result=new ArrayList();
 		
