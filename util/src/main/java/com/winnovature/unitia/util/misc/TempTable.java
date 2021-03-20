@@ -29,37 +29,8 @@ public class TempTable {
 
 		}
 		
-	static List<String> TABLES=new ArrayList<String>();
+	List<String> TABLES=new ArrayList<String>();
 	
-	static{
-
-		TABLES.add("processor");
-		TABLES.add("optin");
-		TABLES.add("optout");
-		TABLES.add("duplicate");
-		TABLES.add("shortcodepool");
-		TABLES.add("missedcallpool");
-		TABLES.add("appspool");
-		TABLES.add("dngenpool");
-		TABLES.add("submissionpool");
-		TABLES.add("smppdn");
-		TABLES.add("httpdn");
-		TABLES.add("dnreceiverpool");
-		TABLES.add("logspool");
-		TABLES.add("dnpostpool");
-    	TABLES.add("clientdnpool");
-    	TABLES.add("schedulepool");
-    	TABLES.add("kannelretrypool");
-    	TABLES.add("commonpool");
-    	TABLES.add("otppool");
-    	TABLES.add("otpretrypool");
-    	TABLES.add("dngenpool");
-    	TABLES.add("clientdnpool");
-    	TABLES.add("dnretrypool");
-
-	}
-
-
 	private static TempTable obj=new TempTable();
 	
 	private TempTable(){
@@ -79,12 +50,30 @@ public class TempTable {
 		
 		
 		List<String> result=new ArrayList<String>();
-		
-		result.addAll(TABLES);
-		
-		result.addAll(getGroupNameTable());
-		
-		result.addAll(getSMSCIDTable1());
+
+		result.add("processor");
+		result.add("optin");
+		result.add("optout");
+		result.add("duplicate");
+		result.add("shortcodepool");
+		result.add("missedcallpool");
+		result.add("appspool");
+		result.add("dngenpool");
+		result.add("submissionpool");
+		result.add("smppdn");
+		result.add("httpdn");
+		result.add("dnreceiverpool");
+		result.add("logspool");
+		result.add("dnpostpool");
+		result.add("clientdnpool");
+		result.add("schedulepool");
+		result.add("kannelretrypool");
+		result.add("commonpool");
+		result.add("otppool");
+		result.add("otpretrypool");
+		result.add("dngenpool");
+		result.add("clientdnpool");
+		result.add("dnretrypool");
 
 		return result;
 	}

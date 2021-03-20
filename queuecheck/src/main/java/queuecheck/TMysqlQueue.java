@@ -14,6 +14,7 @@ public class TMysqlQueue  extends Thread{
 		while(true){
 			
 			try{
+				System.out.println("TMysqlQueue run ");
 				TableCount.getInstance().tableCountCheck();
 				
 				gotosleep();
