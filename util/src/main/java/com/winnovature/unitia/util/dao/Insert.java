@@ -76,7 +76,7 @@ public class Insert {
 	
 	
 	
-	public boolean insert(List<Map<String,Object>> requestlist) {
+	public boolean insertA(List<Map<String,Object>> requestlist) {
 		
 		
 		String	tablename="schedulepool";

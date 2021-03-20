@@ -143,7 +143,7 @@ public class GsonProcessor {
 			}else{
 				
 				System.out.println("Multiple");
-				if(!new Insert().insert(msgmaplist)){
+				if(!new Insert().insertA(msgmaplist)){
 					
 					return new RequestProcessor().getRejectedResponse(MessageStatus.SENT_TO_QUEUE_FAILED);
 				}
