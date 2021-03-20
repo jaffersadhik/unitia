@@ -49,7 +49,7 @@ public class RedisReceiver extends  Thread {
 				data.put("tname", tname);
 				data.put(MapKeys.INSERT_TYPE, "submit");
 	
-				if(poolname.equals("commonpool")){
+				if(poolname.startsWith("commonpool")){
 					
 					new SMSWorker(poolname,data).doOtp(redisid,tname);
 					
