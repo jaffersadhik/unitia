@@ -45,7 +45,7 @@ public Map<String,Object> getData(String queuename,String redisid){
         {
             pool = RedisQueueConnectionPool.getInstance().getPool(redisid,queuename);
             jedis = pool.getResource();
-            List<byte[]> list=jedis.brpop(15, (MODE+"_kl_"+queuename).getBytes("utf-8"));
+            List<byte[]> list=jedis.brpop(15, (MODE+queuename).getBytes("utf-8"));
            if(list!=null){
             bytes = list.get(1);
             }
