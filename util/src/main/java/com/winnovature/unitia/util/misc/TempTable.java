@@ -75,6 +75,8 @@ public class TempTable {
 		result.add("dngenpool");
 		result.add("clientdnpool");
 		result.add("dnretrypool");
+		result.add("kl_kannel2_1");
+		result.add("kl_kannel2_2");
 
 		return result;
 	}
