@@ -71,6 +71,7 @@ public class App
     	log.log("unitiacore.App.start() "+poolname);
     	
 		String redisid=System.getenv("redis");
+		String priority=System.getenv("priority");
 
 
 		if(poolname.equals("otppool") || poolname.equals("dnretrypool") || poolname.equals("kannelretrypool") || poolname.equals("otpretrypool") ){
@@ -93,6 +94,9 @@ public class App
 
 		}else{
 		
+			if(poolname.equals("commonpool")){
+				poolname=poolname+"_"+priority;
+			}
 			for(int i=0;i<2;i++){
 		
 				RedisReceiver obj=new RedisReceiver(i,poolname,redisid);

@@ -3,8 +3,10 @@ package com.winnovature.unitia.util.redis;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.dao.Insert;
 import com.winnovature.unitia.util.misc.FileWrite;
+import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.RouterLog;
 
 public class QueueSender {
@@ -38,7 +40,8 @@ public class QueueSender {
 		String redisid=null;
 		
 		long start=System.currentTimeMillis();
-		
+		String queuenameorg=queuename;
+		queuename=getQueueName(queuename,requestObject);
 		if(queuename.startsWith("smppdn_")){
 			
 			redisid="redisqueue1";
@@ -76,7 +79,7 @@ public class QueueSender {
 		if(!result) {
 		
 			if(!isRetry){
-			result=new Insert().insert(queuename, requestObject);
+			result=new Insert().insert(queuenameorg, requestObject);
 			logmap.put("queue type","mysql");
 
 			}
@@ -95,6 +98,18 @@ public class QueueSender {
 				
 				
 		}
+
+
+
+
+	private String getQueueName(String queuename, Map<String, Object> requestObject) {
+
+		if(queuename.equalsIgnoreCase("commonpool")){
+			
+			return queuename+"_"+PushAccount.instance().getPushAccount(requestObject.get(MapKeys.USERNAME).toString()).get("priority");
+		}
+		return queuename;
+	}
 
 	
 
