@@ -51,7 +51,7 @@ public class App
 		String kannelid=System.getenv("kannelid");
 		String priority=System.getenv("priority");
 
-		String queuename="kl_"+kannelid+"_"+priority;
+		String queuename=kannelid+"_"+priority;
     	log.log("unitiacore.App.start() "+kannelid);
 
 				
