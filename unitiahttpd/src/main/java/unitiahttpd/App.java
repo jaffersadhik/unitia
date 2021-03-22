@@ -20,6 +20,7 @@ import com.winnovature.unitia.util.misc.Prop;
 
 public class App extends AbstractHandler
 {
+	private static String PORT="";
     @Override
     public void handle(String target,
                        Request baseRequest,
@@ -295,10 +296,10 @@ public class App extends AbstractHandler
 		String responsestring=processor.processRequest(request,msgmap, logmap);
 		logmap.put("module", "http receiver");
 		if(responsestring.indexOf("100")>-1){
-			logmap.put("logname", "httpinterface");
+			logmap.put("logname", "httpinterface_"+PORT);
 
 		}else{
-			logmap.put("logname", "httperrorresponse");
+			logmap.put("logname", "httperrorresponse_"+PORT);
 
 		}
 		logmap.put("link", "send");
@@ -322,7 +323,7 @@ public class App extends AbstractHandler
 		GsonProcessor processor = new GsonProcessor();
 		Bean.setDefaultValues(msgmap);
         Map<String, Object> logmap = new HashMap<String,Object>();
-		logmap.put("logname", "gsoninterface");
+		logmap.put("logname", "gsoninterface_"+PORT);
 
 		String responsestring=processor.processRequestA(request,msgmap, logmap);
 		logmap.put("module", "http receiver");
@@ -339,7 +340,7 @@ public class App extends AbstractHandler
 
 	public static void main(String[] args) throws Exception
     {
-    	
+    	PORT=System.getenv("port");
     	Prop.getInstance();
     	new T().start();
 
