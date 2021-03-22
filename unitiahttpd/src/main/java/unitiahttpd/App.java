@@ -21,6 +21,9 @@ import com.winnovature.unitia.util.misc.Prop;
 public class App extends AbstractHandler
 {
 	private static String PORT="";
+	
+	
+	
     @Override
     public void handle(String target,
                        Request baseRequest,
@@ -294,12 +297,17 @@ public class App extends AbstractHandler
 		Bean.setDefaultValues(msgmap);
         Map<String, Object> logmap = new HashMap<String,Object>();
 		String responsestring=processor.processRequest(request,msgmap, logmap);
+		String protocol="http";
+		
+		if(request.isSecure()){
+			protocol="https";
+		}
 		logmap.put("module", "http receiver");
 		if(responsestring.indexOf("100")>-1){
-			logmap.put("logname", "httpinterface_"+PORT);
+			logmap.put("logname", protocol+"_interface_"+PORT);
 
 		}else{
-			logmap.put("logname", "httperrorresponse_"+PORT);
+			logmap.put("logname", protocol+"_errorresponse_"+PORT);
 
 		}
 		logmap.put("link", "send");
