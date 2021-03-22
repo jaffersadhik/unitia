@@ -299,10 +299,13 @@ public class App extends AbstractHandler
 		String responsestring=processor.processRequest(request,msgmap, logmap);
 		String protocol="http";
 		
-		if(request.isSecure()){
+		logmap.put("module", "http receiver");
+		
+		String isSecure=(String)logmap.get("upgrade-insecure-requests");
+		
+		if(isSecure!=null&&isSecure.equals("1")){
 			protocol="https";
 		}
-		logmap.put("module", "http receiver");
 		if(responsestring.indexOf("100")>-1){
 			logmap.put("logname", protocol+"_interface_"+PORT);
 

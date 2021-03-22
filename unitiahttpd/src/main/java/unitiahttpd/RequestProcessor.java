@@ -238,7 +238,7 @@ public class RequestProcessor
 		
 		while(head.hasMoreElements()){
 			String key=head.nextElement();
-			msgmap2.put(key, request.getHeader(key));
+			msgmap2.put(key.toLowerCase(), request.getHeader(key));
 		}
 		
 	}
