@@ -3,6 +3,7 @@ package unitiahttpd;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,6 +92,8 @@ public class RequestProcessor
 				msgmap.put(MapKeys.FULLMSG, message);
 
 			replaceSpace(msgmap);	
+			
+			logHeader(request,logmap);
 			
 			setMsgType();
 			
@@ -228,6 +231,18 @@ public class RequestProcessor
 	}
 	
 	
+	private void logHeader(HttpServletRequest request, Map<String, Object> msgmap2) {
+		
+		
+		Enumeration<String> head=request.getHeaderNames();
+		
+		while(head.hasMoreElements()){
+			String key=head.nextElement();
+			msgmap2.put(key, request.getHeader(key));
+		}
+		
+	}
+
 	public void replaceSpace(Map<String, Object> msgmap2) {
 		
 		
