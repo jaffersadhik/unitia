@@ -79,7 +79,6 @@ public class RequestProcessor
 			msgmap.put(MapKeys.SCHEDULE_TIME_STRING, scheTime);
 			msgmap.put(MapKeys.SENDERID,signature);
 			msgmap.put(MapKeys.TEMPLATEID,templateid);
-			msgmap.put(MapKeys.ENTITYID,entityid);
 
 				msgmap.put(MapKeys.MSGTYPE, msgType);
 
@@ -129,6 +128,13 @@ public class RequestProcessor
 				return getRejectedResponse(MessageStatus.ACCOUNT_INACTIVATED);// Account inactivated
 			}
 			
+			String ig_entityid=partnerMap.get("entityid_ig");
+			
+			if(ig_entityid!=null&&!ig_entityid.equals("1")){
+				msgmap.put(MapKeys.ENTITYID,entityid);
+
+			}
+
 			
 			/* Identifying Message is Transactional or Promotional */
 			String msgClass = partnerMap.get("msgclass");

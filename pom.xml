@@ -46,7 +46,7 @@
   	<module>IQProcessor</module>
   	<module>admin</module>
   	<module>creditupdate</module>
-  	<module>smpp2</module>
+ <!--  	<module>smpp2</module>  -->
     </modules>
   <dependencies>
   
