@@ -353,7 +353,7 @@ public class App
     	sb.append("group = smsbox").append("\n");	
     	sb.append("bearerbox-host = localhost").append("\n");		
     	sb.append("sendsms-port = 13013").append("\n");	
- //   	sb.append("immediate-sendsms-reply = true").append("\n");	
+    	sb.append("immediate-sendsms-reply = true").append("\n");	
     	
     	sb.append("\n");
     	sb.append("\n");
