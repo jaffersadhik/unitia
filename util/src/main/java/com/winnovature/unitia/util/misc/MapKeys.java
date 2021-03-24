@@ -106,6 +106,10 @@ public interface MapKeys {
 	public static String TEMPLATEID = "templateid";
 
 	public static String ENTITYID = "entityid";
+	
+	public static String TEMPLATEID_CUSTOMER = "templateid_customer";
+
+	public static String ENTITYID_CUSTOMER = "entityid_customer";
 
 	public static String UDH = "udh";
 

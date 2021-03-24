@@ -77,6 +77,24 @@ public class RequestProcessor2
 			msgmap.put(MapKeys.TEMPLATEID,templateid);
 			msgmap.put(MapKeys.ENTITYID,entityid);
 
+			if(templateid==null){
+				templateid="";
+			}
+			
+			if(templateid.length()>30){
+				templateid=templateid.substring(0,30);
+			}
+			if(entityid==null){
+				entityid="";
+			}
+			
+			if(entityid.length()>30){
+				entityid=entityid.substring(0,30);
+			}
+			
+			msgmap.put(MapKeys.TEMPLATEID_CUSTOMER,templateid);
+			msgmap.put(MapKeys.ENTITYID_CUSTOMER,entityid);
+
 			if(StringUtils.isBlank(mnumber)){
 				mnumber=request.getParameter("bulkmobno");
 				msgmap.put(MapKeys.MOBILE, mnumber);

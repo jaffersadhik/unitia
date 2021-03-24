@@ -78,7 +78,24 @@ public class RequestProcessor
 			msgmap.put(MapKeys.PARAM4, param4);
 			msgmap.put(MapKeys.SCHEDULE_TIME_STRING, scheTime);
 			msgmap.put(MapKeys.SENDERID,signature);
-			msgmap.put(MapKeys.TEMPLATEID,templateid);
+		
+			if(templateid==null){
+				templateid="";
+			}
+			
+			if(templateid.length()>30){
+				templateid=templateid.substring(0,30);
+			}
+			if(entityid==null){
+				entityid="";
+			}
+			
+			if(entityid.length()>30){
+				entityid=entityid.substring(0,30);
+			}
+			
+			msgmap.put(MapKeys.TEMPLATEID_CUSTOMER,templateid);
+			msgmap.put(MapKeys.ENTITYID_CUSTOMER,entityid);
 
 				msgmap.put(MapKeys.MSGTYPE, msgType);
 
@@ -128,18 +145,7 @@ public class RequestProcessor
 				return getRejectedResponse(MessageStatus.ACCOUNT_INACTIVATED);// Account inactivated
 			}
 			
-			String ig_entityid=partnerMap.get("entityid_ig");
-			
-			if(ig_entityid!=null&&!ig_entityid.equals("1")){
-				msgmap.put(MapKeys.ENTITYID,entityid);
-
-			}else{
-				
-				if(entityid!=null&&entityid.trim().length()>0){
-					msgmap.put(MapKeys.PARAM3,entityid);
-	
-				}
-			}
+		
 
 			
 			/* Identifying Message is Transactional or Promotional */

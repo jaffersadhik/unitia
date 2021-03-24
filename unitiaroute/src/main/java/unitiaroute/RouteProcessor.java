@@ -425,18 +425,9 @@ public class RouteProcessor {
 
 			if(msgclass!=null&&msgclass.equals("5")){
 				
-			String templateid=(String)msgmap.get(MapKeys.TEMPLATEID);
-
-			
 				
 				msgmap.put(MapKeys.ROUTECLASS, "1");
 				
-				if(templateid!=null&&templateid.trim().length()>0){
-
-					msgmap.put(MapKeys.DLT_TYPE, "customer");
-					msgmap.put(MapKeys.ROUTECLASS, "1");
-					return;					
-					}
 				String fullmsg=(String)msgmap.get(MapKeys.FULLMSG);
 				
 
@@ -480,7 +471,22 @@ public class RouteProcessor {
 				}
 				
 				}
-				
+
+				if(PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get("dlt_forward").equals("1")){
+					
+					String templateid=msgmap.get(MapKeys.TEMPLATEID_CUSTOMER).toString();
+					String entityid=msgmap.get(MapKeys.ENTITYID_CUSTOMER).toString();
+
+					if(templateid.length()>0&&entityid.length()>0){
+						
+						msgmap.put(MapKeys.ENTITYID, entityid);
+						msgmap.put(MapKeys.ALLOWED_PATTERN_ID,templateid);
+						msgmap.put(MapKeys.TEMPLATEID, templateid);
+						
+						return;
+
+					}
+				}
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.NO_ENTITYID);
 
 				isfurtherprocess=false;	
