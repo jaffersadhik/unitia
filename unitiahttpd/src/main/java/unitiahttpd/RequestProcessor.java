@@ -133,6 +133,12 @@ public class RequestProcessor
 			if(ig_entityid!=null&&!ig_entityid.equals("1")){
 				msgmap.put(MapKeys.ENTITYID,entityid);
 
+			}else{
+				
+				if(entityid!=null&&entityid.trim().length()>0){
+					msgmap.put(MapKeys.PARAM3,entityid);
+	
+				}
 			}
 
 			
