@@ -179,10 +179,8 @@ try{
 
 		new RouterLog().routerlog(redisid, tname, "start route.doAllowedSMSPatternCheck()");
 
-		String senderid=(String)msgmap.get(MapKeys.SENDERID);
-		if(senderid!=null && Template.getInstance().isAvailableSenderid(senderid.toLowerCase())){
-			route.doAllowedSMSPatternCheckC();
-		}
+		route.doAllowedSMSPatternCheckC();
+
 		route.doAllowedSMSPatternCheckA();
 
 		route.doAllowedSMSPatternCheckB();

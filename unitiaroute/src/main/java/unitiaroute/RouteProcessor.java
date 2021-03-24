@@ -425,6 +425,10 @@ public class RouteProcessor {
 
 			if(msgclass!=null&&msgclass.equals("5")){
 				
+				String senderid=(String)msgmap.get(MapKeys.SENDERID);
+				
+				if(senderid!=null && Template.getInstance().isAvailableSenderid(senderid.toLowerCase())){
+
 				
 				msgmap.put(MapKeys.ROUTECLASS, "1");
 				
@@ -490,16 +494,35 @@ public class RouteProcessor {
 				msgmap.put(MapKeys.STATUSID, ""+MessageStatus.NO_ENTITYID);
 
 				isfurtherprocess=false;	
-			}
+				}else{
+					
+					if(PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get("dlt_forward").equals("1")){
+						
+						String templateid=msgmap.get(MapKeys.TEMPLATEID_CUSTOMER).toString();
+						String entityid=msgmap.get(MapKeys.ENTITYID_CUSTOMER).toString();
+
+						if(templateid.length()>0&&entityid.length()>0&&senderid!=null&&senderid.length()>0){
+							
+							msgmap.put(MapKeys.ENTITYID, entityid);
+							msgmap.put(MapKeys.ALLOWED_PATTERN_ID,templateid);
+							msgmap.put(MapKeys.TEMPLATEID, templateid);
+							
+							return;
+
+						}
+					}
+					msgmap.put(MapKeys.STATUSID, ""+MessageStatus.SENDER_NOT_WHITELISTED);
+
+					isfurtherprocess=false;	
 
 				
-
+			}
 
 				
 			}
 
 	
-			
+		}
 		return ;
 	
 		
