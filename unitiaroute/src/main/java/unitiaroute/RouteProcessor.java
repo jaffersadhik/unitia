@@ -1113,6 +1113,8 @@ public class RouteProcessor {
 	
 	public void dodefaultEntityValidation() {
 		
+		if(isfurtherprocess){
+
 		String entityid=(String)msgmap.get(MapKeys.ENTITYID);
 		
 		if(entityid==null||entityid.trim().length()<1){
@@ -1145,7 +1147,7 @@ public class RouteProcessor {
 
 			}
 		}
-		
+		}		
 	}
 
 
