@@ -388,7 +388,7 @@ public class RouteProcessor {
 			}
 			
 			}
-		}
+		
 		
 
 		String promorejectyn=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get(MapKeys.PROMO_REJECT_YN);
@@ -403,7 +403,7 @@ public class RouteProcessor {
 			
 		}
 		msgmap.put(MapKeys.ROUTECLASS, "2");
-
+		}
 		return ;
 	
 		
