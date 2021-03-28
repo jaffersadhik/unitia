@@ -1,17 +1,20 @@
 package smpp2;
 
 import com.cloudhopper.smpp.SmppServerSession;
+import com.cloudhopper.smpp.SmppSession;
+import com.winnovature.unitia.util.misc.RoundRobinTon;
+
 import java.util.*;
 
 public class SessionStore  {
 
 	private static SessionStore obj=new SessionStore();
 	
-	Map<String,List<SmppServerSession>> rxsessionlist=new HashMap<String,List<SmppServerSession>>();
+	Map<String,List<SmppSession>> rxsessionlist=new HashMap<String,List<SmppSession>>();
 	
-	Map<String,List<SmppServerSession>> txsessionlist=new HashMap<String,List<SmppServerSession>>();
+	Map<String,List<SmppSession>> txsessionlist=new HashMap<String,List<SmppSession>>();
 
-	Map<SmppServerSession,String> lastUpdate=new HashMap<SmppServerSession,String>();
+	Map<SmppSession,String> lastUpdate=new HashMap<SmppSession,String>();
 	
 	private SessionStore(){
 		
@@ -43,7 +46,7 @@ public class SessionStore  {
 	}
 	
 	
-	private void remove(SmppServerSession session){
+	public void remove(SmppSession session){
 		
 		String username=session.getConfiguration().getSystemId();
 		
@@ -56,14 +59,14 @@ public class SessionStore  {
 		
 	}
 	
-	public void lastPDUTime(SmppServerSession session){
+	public void lastPDUTime(SmppSession session){
 		
 		lastUpdate.put(session, ""+System.currentTimeMillis());
 	}
 	
 
 	
-	private void remove(String username,boolean isReceivable,SmppServerSession session){
+	private void remove(String username,boolean isReceivable,SmppSession session){
 		
 		if(isReceivable){
 			
@@ -80,9 +83,9 @@ public class SessionStore  {
 	}
 	
 	
-	private void add(String username,boolean isReceivable,SmppServerSession session){
+	private void add(String username,boolean isReceivable,SmppSession session){
 		
-		List<SmppServerSession> sessionlist=null;
+		List<SmppSession> sessionlist=null;
 		
 		if(isReceivable){
 			
@@ -95,7 +98,7 @@ public class SessionStore  {
 		
 		if(sessionlist==null){
 			
-			sessionlist=new ArrayList<SmppServerSession>();
+			sessionlist=new ArrayList<SmppSession>();
 			
 			if(isReceivable){
 				
@@ -118,7 +121,7 @@ public class SessionStore  {
 		return true;
 	}
 
-	private String getBindType(SmppServerSession session) {
+	private String getBindType(SmppSession session) {
 		 switch (session.getBindType()) {
          case TRANSCEIVER:
              return "TRX";
@@ -129,9 +132,9 @@ public class SessionStore  {
      }
 	}
 	
-	public List<Map<String,String>> getBindData(){
+	public List<Map<String,Object>> getBindData(){
 	
-		List<Map<String,String>> result=new ArrayList<Map<String,String>>();
+		List<Map<String,Object>> result=new ArrayList<Map<String,Object>>();
 	
 		setBind(result,rxsessionlist);
 		
@@ -140,8 +143,8 @@ public class SessionStore  {
 		return result;
 	}
 
-	private void setBind(List<Map<String,String>> result,
-			Map<String, List<SmppServerSession>> txsessionlist2) {
+	private void setBind(List<Map<String,Object>> result,
+			Map<String, List<SmppSession>> txsessionlist2) {
 		
 		Iterator itr=txsessionlist2.keySet().iterator();
 		
@@ -149,13 +152,13 @@ public class SessionStore  {
 			
 			String username=itr.next().toString();
 					
-			List<SmppServerSession> sessionlist=txsessionlist2.get(username);
+			List<SmppSession> sessionlist=txsessionlist2.get(username);
 			
 			for(int i=0;i<sessionlist.size();i++){
 				
 				Map<String,Object> data=new HashMap<String,Object>();
 				
-				SmppServerSession session=sessionlist.get(i);
+				SmppSession session=sessionlist.get(i);
 				
 				data.put("bindtype", getBindType(session));
 				data.put("username", session.getConfiguration().getSystemId());
@@ -171,7 +174,7 @@ public class SessionStore  {
 				data.put("etime",""+session.getCounters().getRxEnquireLink().getRequestResponseTime());
 				data.put("eptime",""+session.getCounters().getRxEnquireLink().getRequestEstimatedProcessingTime());
 				data.put("ewtime",""+session.getCounters().getRxEnquireLink().getRequestWaitTime());
-				data.put("estatus",""+session.getCounters().getRxEnquireLink().getResponseCommandStatusCounter().createSortedMapSnapshot());
+				data.put("estatus",session.getCounters().getRxEnquireLink().getResponseCommandStatusCounter().createSortedMapSnapshot());
 
 				
 				data.put("sreqcount", ""+session.getCounters().getRxSubmitSM().getRequest());
@@ -199,13 +202,13 @@ public class SessionStore  {
 	}
 	
 	
-	private List<SmppServerSession> getExpiredSessionList(){
-		List<SmppServerSession> result=new ArrayList<SmppServerSession>();
-		Iterator<SmppServerSession> itr=lastUpdate.keySet().iterator();
+	private List<SmppSession> getExpiredSessionList(){
+		List<SmppSession> result=new ArrayList<SmppSession>();
+		Iterator<SmppSession> itr=lastUpdate.keySet().iterator();
 		
 		while(itr.hasNext()){
 			
-			SmppServerSession session=itr.next();
+			SmppSession session=itr.next();
 			String updatetime=lastUpdate.get(session);
 			
 			long ul=0;
@@ -230,11 +233,24 @@ public class SessionStore  {
 	
 	public void removeExpiredSession(){
 		
-		List<SmppServerSession> result=getExpiredSessionList();
+		List<SmppSession> result=getExpiredSessionList();
 		
 		for(int i=0;i<result.size();i++){
 			
 			remove(result.get(i));
 		}
 	}
+	
+	
+	public SmppSession getSession(String systemid){
+		
+		if(rxsessionlist.get(systemid)!=null){
+			
+			return rxsessionlist.get(systemid).get(RoundRobinTon.getInstance().getCurrentIndex("smppdnsystemid_"+systemid, rxsessionlist.size()));
+			
+		}
+		
+		return null;
+	}
+	
 }

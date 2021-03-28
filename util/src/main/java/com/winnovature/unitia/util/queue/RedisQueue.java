@@ -3,7 +3,10 @@ package com.winnovature.unitia.util.queue;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.winnovature.unitia.util.db.Close;
@@ -179,4 +182,61 @@ public class RedisQueue {
 	}
 	
 	
+	
+	public Map<String,List<String>> getSmppQueue(){
+		
+		Map<String,List<String>> result=new HashMap<String,List<String>>();
+		
+		Iterator<String> itr=redisqueuemap.keySet().iterator();
+		
+		while(itr.hasNext()){
+			
+			String redisid=itr.next();
+			
+			Map<String,String> queuemap=redisqueuemap.get(redisid);
+			
+			Iterator<String> itr2=queuemap.keySet().iterator();
+			
+			while(itr2.hasNext()){
+				
+				String queuename=itr2.next();
+
+				if(queuename.indexOf("_smpp_")>-1){
+					
+					
+					if(isQueued(queuemap,queuename)){
+						
+						List<String> list=result.get(redisid);
+						
+						if(list==null){
+							list=new ArrayList<String>();
+							result.put(redisid, list);
+						}
+						
+						list.add(queuename.replaceAll(MODE+"_", ""));
+					}
+				}
+			}
+			
+		}
+	
+		return result;
+	}
+
+	private boolean isQueued(Map<String, String> queuemap, String queuename) {
+		String count=queuemap.get(queuename);
+
+		try{
+			long c=Long.parseLong(count);
+			
+			if(c>0){
+				
+				return true;
+			}
+		}catch(Exception e){
+			
+		}
+		
+		return false;
+	}
 }

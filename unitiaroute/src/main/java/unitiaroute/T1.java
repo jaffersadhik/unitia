@@ -16,10 +16,29 @@ public class T1 {
 		obj.m6();
 		obj.m7();
 		obj.m8();
+		obj.n1();
 		System.out.println("======false=========");
 		obj.m9();
+		obj.m10();
 	}
 
+	private void n1() {
+		
+
+		String fullmsg="test: SVANidhi se Samriddhi programme, you are eligible for test test test test test test test test -MoHUA";
+		String template="{#var#}: SVANidhi se Samriddhi programme, you are eligible for {#var#}{#var#}{#var#}{#var#}{#var#}{#var#}{#var#}{#var#} -MoHUA";
+		
+	System.out.println(isMatch(template,fullmsg));
+
+		
+	}
+
+	private  void m10() {
+		String fullmsg="Dear test test, we are pleased to inform you that we have reduced our rates for the same coverage selected by you. We have initiated a partial refund of Rs 2000. Your new policy number is 222222 against Order ID 111111. Download your policy certificate by clicking on http:www.gmail.com Please call 18002666 for queries";
+		String template="dear {#var#}, your new policy number is {#var#} against order id {#var#}. download your policy certificate by clicking on {#var#} please call 18002666 for queries";
+		
+	System.out.println(isMatch(template,fullmsg));
+}
 	private  void m9() {
 		String fullmsg="Dear test test, we are pleased to inform you that we have reduced our rates for the same coverage selected by you. We have initiated a partial refund of Rs 2000. Your new policy number is 222222 against Order ID 111111. Download your policy certificate by clicking on http:www.gmail.com Please call 18002666 for queries* https://bit.ly/39KROPo";
 		String template="Dear {#var#}, your new policy number is {#var#} against Order ID {#var#}. Download your policy certificate by clicking on {#var#} Please call 18002666 for queries";
@@ -166,7 +185,7 @@ private int getUpcomingMsgPointer(int lastTempPointer, String[] temp, String[] m
 private int getMaxVarcharCount(int lastTempPointer, String[] temp) {
 
 	int pointer=lastTempPointer;
-	int count=1;
+	int count=getCount(temp[pointer]);
 	while(pointer>-1){
 		
 		pointer--;
@@ -178,7 +197,7 @@ private int getMaxVarcharCount(int lastTempPointer, String[] temp) {
 		
 		String t=temp[pointer];
 		if("{#var#}".equals(t) || t.indexOf("{#var#}")>-1 ){
-			count++;
+			count=count+getCount(t);
 		}else{
 			return (count*30)+1;
 		}
@@ -187,6 +206,24 @@ private int getMaxVarcharCount(int lastTempPointer, String[] temp) {
 	return (count*30)+1;
 
 	
+}
+
+private int getCount(String keyword) {
+	String var="{#var#}";
+	int count=0;
+	while(keyword!=null&&keyword.length()>0){
+		
+		int index=keyword.indexOf(var);
+		if(index > -1){
+		keyword=keyword.substring(index+7);
+		count++;
+		}else{
+			
+			break;
+		}
+	}
+	
+	return count;
 }
 
 private int getLastTempPointer(String[] temp, int i) {

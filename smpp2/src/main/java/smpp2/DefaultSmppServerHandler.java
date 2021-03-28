@@ -61,8 +61,9 @@ public class DefaultSmppServerHandler implements SmppServerHandler {
     
     public void sessionCreated(Long sessionId, SmppServerSession session, BaseBindResp preparedBindResponse) throws SmppProcessingException {
         // need to do something it now (flag we're ready)
-        session.serverReady(new SmppSessionHandler(session));
         SessionStore.getInstance().add(session);
+        session.serverReady(new SmppSessionHandler(session));
+
     }
 
     

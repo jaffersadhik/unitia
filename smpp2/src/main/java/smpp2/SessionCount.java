@@ -69,7 +69,7 @@ public class SessionCount {
 
 	private void init() {
 		
-		BindDAO.getInstance().insertBindLog();
+		BindDAO.getInstance().insert();
 	}
 	
 	public static SessionCount getInstance(){
