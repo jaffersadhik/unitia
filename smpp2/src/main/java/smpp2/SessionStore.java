@@ -282,6 +282,6 @@ public class SessionStore  {
 		logmap1.put("username", "sys");
 		logmap1.put("logname", "smppdnqueue");
 		logmap1.put("queues", RedisQueue.getInstance().getSmppQueue());
-		new FileWrite().write(logmap);
+		new FileWrite().write(logmap1);
 	}
 }
