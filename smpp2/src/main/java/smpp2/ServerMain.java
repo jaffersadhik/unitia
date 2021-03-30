@@ -39,7 +39,7 @@ import com.cloudhopper.smpp.impl.DefaultSmppServer;
 public class ServerMain {
     private static final Logger logger = LoggerFactory.getLogger(ServerMain.class);
 
-    static public void main(String[] args) throws Exception {
+   void doProcess() throws Exception {
     	
     	new T().start();
     	new T2().start();

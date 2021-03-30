@@ -9,7 +9,7 @@ public class App
     {
     	Prop.getInstance();
     	
-    	new ServerMain();
+    	new ServerMain().doProcess();
     }
 
 	    
