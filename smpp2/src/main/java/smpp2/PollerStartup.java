@@ -102,11 +102,11 @@ public class PollerStartup {
 			
 			}else{
 				
-				new FileWrite().write(logmap);
 				new RedisReceiver(systemid,redisid, queuename).start();
 			
 				instance.get(poolname).runninguser.add(poolname);
 				logmap.put("status","the start poller ");
+				new FileWrite().write(logmap);
 
 			}
 			

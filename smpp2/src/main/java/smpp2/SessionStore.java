@@ -2,6 +2,7 @@ package smpp2;
 
 import com.cloudhopper.smpp.SmppServerSession;
 import com.cloudhopper.smpp.SmppSession;
+import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.RoundRobinTon;
 
 import java.util.*;
@@ -252,5 +253,13 @@ public class SessionStore  {
 		
 		return null;
 	}
-	
+
+	public void print(){
+		
+		Map<String,Object> logmap=new HashMap<String,Object>();
+		logmap.put("username", "sys");
+		logmap.put("logname", "binddata");
+		logmap.put("livesession", getBindData());
+		new FileWrite().write(logmap);
+	}
 }

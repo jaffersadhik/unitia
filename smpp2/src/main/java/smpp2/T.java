@@ -25,6 +25,8 @@ public class T  extends Thread{
 				
 				PollerStartup.startConsumer();
 				
+				SessionStore.getInstance().print();
+				
 				gotosleep();
 
 			}catch(Exception e){
