@@ -28,7 +28,7 @@ public class SessionCount {
 		
 		Map<String,String> temp=getSessionCount();
 		
-		if(temp==null){
+		if(temp!=null){
 			
 			sessioncount=temp;
 		}
