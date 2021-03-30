@@ -84,6 +84,8 @@ public class ServerMain {
         logger.info("Starting SMPP server...");
         smppServer.start();
         logger.info("SMPP server started");
+        
+        System.out.println("Server Started");
 
      
     }
