@@ -81,7 +81,7 @@ public class PollerStartup {
 
 				String queuename=availableuser.get(i);
 				logmap.put("queuename",queuename);
-				logmap.put("logname","smppdnqueue");
+				logmap.put("logname","smppdnpollerstartup");
 				String poolname=redisid+"~"+queuename;
 			if(instance.get(poolname).isRunningUser(poolname)){
 				logmap.put("status","poller already running ,skip the start poller ");
