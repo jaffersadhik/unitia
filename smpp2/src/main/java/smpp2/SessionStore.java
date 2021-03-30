@@ -30,7 +30,7 @@ public class SessionStore  {
 		return obj;
 	}
 	
-	public void add(SmppServerSession session){
+	public void add(SmppSession session){
 		
 		String username=session.getConfiguration().getSystemId();
 		

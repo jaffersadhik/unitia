@@ -70,7 +70,7 @@ public class DefaultSmppServerHandler implements SmppServerHandler {
     public void sessionDestroyed(Long sessionId, SmppServerSession session) {
       
     	session.destroy();
-        
+    	 SessionStore.getInstance().remove(session);
       
     }
 
