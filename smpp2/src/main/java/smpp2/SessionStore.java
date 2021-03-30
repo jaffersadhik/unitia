@@ -180,7 +180,7 @@ public class SessionStore  {
 				data.put("ip", session.getConfiguration().getHost());
 				data.put("uptime", lastUpdate.get(session));
 				data.put("ctime",""+session.getBoundTime());
-				data.put("window",""+session.getSendWindow());
+				data.put("window",""+session.getSendWindow().getMaxSize());
 				data.put("status",""+session.getConfiguration().getRequestExpiryTimeout());
 
 				data.put("ereqcount",""+session.getCounters().getRxEnquireLink().getRequest());
