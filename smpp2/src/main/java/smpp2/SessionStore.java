@@ -1,11 +1,14 @@
 package smpp2;
 
-import com.cloudhopper.smpp.SmppServerSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import com.cloudhopper.smpp.SmppSession;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.RoundRobinTon;
-
-import java.util.*;
 
 public class SessionStore  {
 
@@ -33,14 +36,22 @@ public class SessionStore  {
 	
 	public void add(SmppSession session){
 		
+		System.out.println("Adding Session");
 		String username=session.getConfiguration().getSystemId();
-		
+		System.out.println("Adding Session username : "+username);
+
 		String hostname=session.getConfiguration().getHost();
 		
+		System.out.println("Adding Session hostname : "+hostname);
+
 		String bindType=getBindType(session);
 		
+		System.out.println("Adding Session bindType : "+bindType);
+
 		boolean isReceivable=isReceivable(bindType);
 		
+		System.out.println("Adding Session isReceivable : "+isReceivable);
+
 		add(username,isReceivable,session);
 		
 		
@@ -50,11 +61,13 @@ public class SessionStore  {
 	public void remove(SmppSession session){
 		
 		String username=session.getConfiguration().getSystemId();
-		
+		System.out.println("remove Session username = "+username);
+
 		String bindType=getBindType(session);
 		
 		boolean isReceivable=isReceivable(bindType);
-		
+		System.out.println("remove Session username = "+username+" bindType : "+bindType+" isReceivable:  "+isReceivable);
+
 		remove(username,isReceivable,session);
 		
 		
@@ -69,6 +82,7 @@ public class SessionStore  {
 	
 	private void remove(String username,boolean isReceivable,SmppSession session){
 		
+
 		if(isReceivable){
 			
 			rxsessionlist.get(username).remove(session);
