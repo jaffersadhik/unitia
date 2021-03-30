@@ -80,6 +80,8 @@ public class PollerStartup {
 				Map<String,Object> logmap=new HashMap<String,Object>();
 
 				String queuename=availableuser.get(i);
+				logmap.put("username","sys");
+
 				logmap.put("queuename",queuename);
 				logmap.put("logname","smppdnpollerstartup");
 				String poolname=redisid+"~"+queuename;
