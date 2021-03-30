@@ -181,7 +181,7 @@ public class SessionStore  {
 				data.put("uptime", lastUpdate.get(session));
 				data.put("ctime",""+session.getBoundTime());
 				data.put("window",""+session.getSendWindow().getMaxSize());
-				data.put("status",""+session.getConfiguration().getRequestExpiryTimeout());
+				data.put("status",""+session.getStateName());
 
 				data.put("ereqcount",""+session.getCounters().getRxEnquireLink().getRequest());
 				data.put("erespcount",""+session.getCounters().getRxEnquireLink().getResponse());

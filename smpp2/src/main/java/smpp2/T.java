@@ -1,6 +1,7 @@
 package smpp2;
 
 import com.winnovature.unitia.util.account.Refresh;
+import com.winnovature.unitia.util.queue.RedisQueue;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 import com.winnovature.unitia.util.redis.SmppBind;
 import com.winnovature.unitia.util.test.Account;
@@ -15,6 +16,8 @@ public class T  extends Thread{
 			
 			try{
 			
+				RedisQueue.getInstance().reload();
+				
 				Refresh.getInsatnce().reload();
 				
 				Account.getInstance();
