@@ -201,7 +201,7 @@ public class RedisQueue {
 				
 				String queuename=itr2.next();
 
-				if(queuename.indexOf("_smpp_")>-1){
+				if(queuename.indexOf("_smppdn_")>-1){
 					
 					
 					if(isQueued(queuemap,queuename)){

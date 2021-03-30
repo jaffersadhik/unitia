@@ -9,6 +9,7 @@ import java.util.Map;
 import com.cloudhopper.smpp.SmppSession;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.RoundRobinTon;
+import com.winnovature.unitia.util.queue.RedisQueue;
 
 public class SessionStore  {
 
@@ -274,6 +275,13 @@ public class SessionStore  {
 		logmap.put("username", "sys");
 		logmap.put("logname", "binddata");
 		logmap.put("livesession", getBindData());
+		new FileWrite().write(logmap);
+		
+		
+		Map<String,Object> logmap1=new HashMap<String,Object>();
+		logmap1.put("username", "sys");
+		logmap1.put("logname", "smppdnqueue");
+		logmap1.put("queues", RedisQueue.getInstance().getSmppQueue());
 		new FileWrite().write(logmap);
 	}
 }
