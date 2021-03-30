@@ -8,14 +8,17 @@ import com.winnovature.unitia.util.redis.RedisReader;
 
 public class RedisReceiver extends Thread{
 
+	String systemid=null;
 	String redisid=null;
 	String queuename=null;
 	String poolname=null;
 	RedisReader reader=new RedisReader();
 	DNWorker dnworker=new DNWorker();
 
-	public RedisReceiver(String redisid,String queuename){
+	public RedisReceiver(String systemid,String redisid,String queuename){
 		
+		
+		this.systemid=systemid;
 		this.redisid=redisid;
 		this.queuename=queuename;
 		this.poolname=redisid+"~"+queuename;
@@ -34,7 +37,7 @@ public class RedisReceiver extends Thread{
 				return ;
 			}
 			
-			dnworker.doProcess(dnlist);
+			dnworker.doProcess(systemid,dnlist);
 		}
 	}
 

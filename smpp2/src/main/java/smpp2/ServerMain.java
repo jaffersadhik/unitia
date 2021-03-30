@@ -40,6 +40,9 @@ public class ServerMain {
     private static final Logger logger = LoggerFactory.getLogger(ServerMain.class);
 
     static public void main(String[] args) throws Exception {
+    	
+    	new T().start();
+    	new T2().start();
         //
         // setup 3 things required for a server
         //
@@ -82,14 +85,7 @@ public class ServerMain {
         smppServer.start();
         logger.info("SMPP server started");
 
-        System.out.println("Press any key to stop server");
-        System.in.read();
-
-        logger.info("Stopping SMPP server...");
-        smppServer.stop();
-        logger.info("SMPP server stopped");
-        
-        logger.info("Server counters: {}", smppServer.getCounters());
+     
     }
 
     

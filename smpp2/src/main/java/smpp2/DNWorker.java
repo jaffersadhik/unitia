@@ -4,19 +4,23 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.cloudhopper.commons.util.windowing.WindowFuture;
+import com.cloudhopper.smpp.SmppConstants;
 import com.cloudhopper.smpp.SmppSession;
 import com.cloudhopper.smpp.pdu.DeliverSm;
 import com.cloudhopper.smpp.pdu.PduRequest;
 import com.cloudhopper.smpp.pdu.PduResponse;
 import com.cloudhopper.smpp.type.Address;
 import com.cloudhopper.smpp.type.SmppInvalidArgumentException;
+import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.MessageType;
+import com.winnovature.unitia.util.redis.QueueSender;
 
 public class DNWorker {
 
@@ -33,6 +37,62 @@ public class DNWorker {
 			bean.setFuture(send(systemid,dnlist.get(i)));
 			dnbeanlist.add(bean);
 		}
+		
+		for(int i=0;i<dnbeanlist.size();i++){
+			
+			DNTempBean bean=dnbeanlist.get(i);
+			
+			if(bean.getFuture()==null){
+				
+				writeResponse(bean.getDnMap(),null);
+
+			}else{
+				
+				sendQueue(bean);
+			}
+			
+		}
+	}
+
+	private void sendQueue(DNTempBean bean) {
+		
+
+		
+		
+		while(!bean.getFuture().isDone()){
+			
+			try{
+				Thread.sleep(1L);
+					
+			}catch(Exception e){
+				
+			}
+		}
+			
+			PduResponse response=bean.getFuture().getResponse();
+			
+			if(response!=null) {			
+				if(response.getCommandStatus()==SmppConstants.STATUS_OK){
+					
+					writeResponse(bean.getDnMap(),0);	
+
+					
+				}else{
+					
+					writeResponse(bean.getDnMap(),response.getCommandStatus());	
+				}
+			} else {
+				response=bean.getFuture().getResponse();
+				
+				if(response==null) {
+					writeResponse(bean.getDnMap(),null);
+					
+				} else {
+					writeResponse(bean.getDnMap(),response.getCommandStatus());
+				}
+			}
+
+	
 		
 	}
 
@@ -165,4 +225,48 @@ return request;
 		}
 		return dnMsg;
 	}
+	
+	
+private void writeResponse(Map<String,Object> aDn,Integer status) {
+		
+		try {	
+				
+			if(status==null&&aDn!=null)
+				aDn.remove("STATUS");
+			else if (status.equals(0))
+				aDn.put("STATUS","SUCCESS");
+			else if (status.equals(-2))
+				aDn.put("STATUS","EXPIRED");
+			else
+				aDn.put("STATUS","FAILED");
+			
+			String msg_status=(String)aDn.get("STATUS");
+			aDn.put(MapKeys.DNPOSTSTATUS, msg_status);
+			Map<String,Object> logmap=new HashMap<String,Object>();
+			logmap.putAll(aDn);
+			
+			if(msg_status!=null&&msg_status.equals("SUCCESS")){
+			new QueueSender().sendL("dnpostpool",aDn, false,logmap);
+			logmap.put("smppdn_ status", "send to dnpostpool redis queue");
+
+			}else{
+				
+				String queuename="smppdn_"+aDn.get(MapKeys.USERNAME).toString();
+				new QueueSender().sendL(queuename, aDn, false,logmap);
+				logmap.put("smppdn_ status", "send to "+queuename+" redis queue");
+
+			}
+			
+			
+			logmap.put("logname", "smpp_dlr_post");
+			
+			new FileWrite().write(logmap);
+
+			
+		} catch(Exception exp) {
+			
+			exp.printStackTrace();
+		}
+	}
+
 }

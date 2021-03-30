@@ -34,6 +34,12 @@ public class App {
 			
 			logmap.put("started", "smpp");
 			
+		}else if(module.equals("smpp2")){
+			
+			smpp2.App.doProcess();
+			
+			logmap.put("started", "smpp2");
+			
 		}else if(module.equals("simulator")){
 			
 			simulatar.server.App.doProcess();
