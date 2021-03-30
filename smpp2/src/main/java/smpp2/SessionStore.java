@@ -208,7 +208,7 @@ public class SessionStore  {
 				data.put("dwtime",""+session.getCounters().getTxDeliverSM().getRequestWaitTime());
 				data.put("dstatus",session.getCounters().getTxDeliverSM().getResponseCommandStatusCounter().createSortedMapSnapshot());
 
-				
+				result.add(data);
 				
 
 			}
