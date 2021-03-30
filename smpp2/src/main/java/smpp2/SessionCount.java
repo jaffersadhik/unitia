@@ -11,7 +11,7 @@ import com.winnovature.unitia.util.db.CoreDBConnection;
 
 public class SessionCount {
 
-	private static String SELECT_SQL="select username,count(*) cnt smpp_bind_log group by username" ;
+	private static String SELECT_SQL="select username,count(*) cnt from smpp_bind_log group by username" ;
 	
 	
 	private static SessionCount obj=new SessionCount();
