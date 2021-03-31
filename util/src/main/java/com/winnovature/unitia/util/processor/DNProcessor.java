@@ -341,6 +341,9 @@ public class DNProcessor
     		
     			setErrorCode();    			
     			setMessageStatusId();
+    		}else if(statuscd.equals("32")){
+    		
+    			
     		}
     	}
     	

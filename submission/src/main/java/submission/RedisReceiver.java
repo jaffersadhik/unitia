@@ -244,7 +244,7 @@ public void setDLRURL(Map<String , Object> msgmap)  throws Exception{
 		msgmap.put(MapKeys.KTIME, ""+System.currentTimeMillis());
 		String statusid=msgmap.get(MapKeys.STATUSID_ORG)==null?"":msgmap.get(MapKeys.STATUSID_ORG).toString();
 		
-		if(!statusid.equals("")){
+		if(statusid.equals("")){
 			
 			statusid=msgmap.get(MapKeys.STATUSID)==null?"":msgmap.get(MapKeys.STATUSID).toString();
 			
