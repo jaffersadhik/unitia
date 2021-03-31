@@ -226,12 +226,15 @@ public class GsonProcessor {
 				
 				if(sms.getEntityid()!=null){
 					
-					bean.put("entityid", sms.getEntityid());
+			//		bean.put("entityid", sms.getEntityid());
+					bean.put(MapKeys.ENTITYID_CUSTOMER, sms.getEntityid());
+
 				}
 
 				if(sms.getTemplateid()!=null){
 					
-					bean.put("templateid", sms.getTemplateid());
+				//	bean.put("templateid", sms.getTemplateid());
+					bean.put(MapKeys.TEMPLATEID_CUSTOMER, sms.getTemplateid());
 				}
 				
 				
