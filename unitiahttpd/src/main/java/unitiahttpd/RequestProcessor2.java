@@ -74,8 +74,6 @@ public class RequestProcessor2
 			msgmap.put(MapKeys.PARAM4, param4);
 			msgmap.put(MapKeys.SCHEDULE_TIME_STRING, scheTime);
 			msgmap.put(MapKeys.SENDERID,signature);
-			msgmap.put(MapKeys.TEMPLATEID,templateid);
-			msgmap.put(MapKeys.ENTITYID,entityid);
 
 			if(templateid==null){
 				templateid="";

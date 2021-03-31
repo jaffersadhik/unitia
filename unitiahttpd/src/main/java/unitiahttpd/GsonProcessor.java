@@ -227,14 +227,34 @@ public class GsonProcessor {
 				if(sms.getEntityid()!=null){
 					
 			//		bean.put("entityid", sms.getEntityid());
-					bean.put(MapKeys.ENTITYID_CUSTOMER, sms.getEntityid());
+					
+					String entityid=sms.getEntityid();
+
+					if(entityid==null){
+						entityid="";
+					}
+					
+					if(entityid.length()>30){
+						entityid=entityid.substring(0,30);
+					}
+
+					bean.put(MapKeys.ENTITYID_CUSTOMER, entityid);
 
 				}
 
 				if(sms.getTemplateid()!=null){
 					
 				//	bean.put("templateid", sms.getTemplateid());
-					bean.put(MapKeys.TEMPLATEID_CUSTOMER, sms.getTemplateid());
+					String templateid=sms.getTemplateid();
+					if(templateid==null){
+						templateid="";
+					}
+					
+					if(templateid.length()>30){
+						templateid=templateid.substring(0,30);
+					}
+		
+					bean.put(MapKeys.TEMPLATEID_CUSTOMER,templateid );
 				}
 				
 				
