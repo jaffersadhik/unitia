@@ -481,6 +481,10 @@ public class RouteProcessor {
 					String templateid=(String)msgmap.get(MapKeys.TEMPLATEID_CUSTOMER);
 					String entityid=(String)msgmap.get(MapKeys.ENTITYID_CUSTOMER);
 
+					if(entityid==null||entityid.length()<1){
+						
+						entityid=Entity.getInstance().getEntity(msgmap.get(MapKeys.USERNAME).toString(), senderid);
+					}
 					if(templateid!=null&&templateid.length()>0&&entityid!=null&&entityid.length()>0){
 						
 						msgmap.put(MapKeys.ENTITYID, entityid);
@@ -501,6 +505,11 @@ public class RouteProcessor {
 						String templateid=(String)msgmap.get(MapKeys.TEMPLATEID_CUSTOMER);
 						String entityid=(String)msgmap.get(MapKeys.ENTITYID_CUSTOMER);
 
+						if(entityid==null||entityid.length()<1){
+							
+							entityid=Entity.getInstance().getEntity(msgmap.get(MapKeys.USERNAME).toString(), senderid);
+						}
+		
 						if(templateid!=null&&templateid.length()>0&&entityid!=null&&entityid.length()>0&&senderid!=null&&senderid.length()>0){
 							
 							msgmap.put(MapKeys.ENTITYID, entityid);
