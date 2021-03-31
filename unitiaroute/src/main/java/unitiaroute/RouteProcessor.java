@@ -478,10 +478,10 @@ public class RouteProcessor {
 
 				if(PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get("dlt_forward").equals("1")){
 					
-					String templateid=msgmap.get(MapKeys.TEMPLATEID_CUSTOMER).toString();
-					String entityid=msgmap.get(MapKeys.ENTITYID_CUSTOMER).toString();
+					String templateid=(String)msgmap.get(MapKeys.TEMPLATEID_CUSTOMER);
+					String entityid=(String)msgmap.get(MapKeys.ENTITYID_CUSTOMER);
 
-					if(templateid.length()>0&&entityid.length()>0){
+					if(templateid!=null&&templateid.length()>0&&entityid!=null&&entityid.length()>0){
 						
 						msgmap.put(MapKeys.ENTITYID, entityid);
 						msgmap.put(MapKeys.ALLOWED_PATTERN_ID,templateid);
