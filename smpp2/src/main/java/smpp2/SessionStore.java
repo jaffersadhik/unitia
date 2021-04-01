@@ -262,7 +262,7 @@ public class SessionStore  {
 		
 		if(rxsessionlist.get(systemid)!=null){
 			
-			return rxsessionlist.get(systemid).get(RoundRobinTon.getInstance().getCurrentIndex("smppdnsystemid_"+systemid, rxsessionlist.size()));
+			return rxsessionlist.get(systemid).get(RoundRobinTon.getInstance().getCurrentIndex("smppdnsystemid_"+systemid, rxsessionlist.get(systemid).size()));
 			
 		}
 		
