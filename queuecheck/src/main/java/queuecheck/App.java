@@ -21,7 +21,7 @@ public class App
     	new TMysqlQueue().start();
     	new TRedisQueue().start();
     	new TUsers().start();
-    	
+    	new TConcateUpdate().start();
 
      }
 }
