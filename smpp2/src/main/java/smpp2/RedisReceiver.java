@@ -70,7 +70,8 @@ public class RedisReceiver extends Thread{
 			
 			Map<String,Object> data=reader.getData(queuename, redisid);
 			if(data==null){
-				return null;
+
+				break;
 			}
 			
 			dnlist.add(data);
@@ -79,6 +80,10 @@ public class RedisReceiver extends Thread{
 			
 				break;
 			}
+		}
+		if(dnlist.size()<1){
+			
+			return null;
 		}
 		return dnlist;
 	}

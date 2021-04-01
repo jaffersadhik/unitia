@@ -258,7 +258,7 @@ private void writeResponse(Map<String,Object> aDn,Integer status) {
 			}
 			
 			
-			logmap.put("logname", "deliversm_"+aDn.get(MapKeys.USERNAME).toString());
+			logmap.put("logname", "smpp_dlr_post");
 			
 			new FileWrite().write(logmap);
 
