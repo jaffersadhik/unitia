@@ -102,9 +102,10 @@ public class PollerStartup {
 				new FileWrite().write(logmap);
 
 				continue;
+
 			}
 			
-			String usr=username.substring(0,username.indexOf("_"));
+			String usr=username.substring(0,username.lastIndexOf("_"));
 
 			if(PushAccount.instance().getPushAccount(usr)!=null||usr.equals("sys")){
 				
