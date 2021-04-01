@@ -130,10 +130,11 @@ public class Utility
 						msgmap.put(MapKeys.SCHEDULE_TIME+"_org",msgmap.get(MapKeys.SCHEDULE_TIME));
 
 						msgmap.put(MapKeys.SCHEDULE_TIME, "");
-					}else if ("INVALID".equalsIgnoreCase(status)) 						
+					}else if ("INVALID".equalsIgnoreCase(status)){ 						
 						flag = MessageStatus.INVALID_SCHEDULE_TIME;	
-					msgmap.put(MapKeys.SCHEDULE_TIME, "");
+						msgmap.put(MapKeys.SCHEDULE_TIME, "");
 
+					}
 				} else {
 					flag = MessageStatus.MSG_REJECTED_SCHEDULE_OPTION_DISABLE;	
 					msgmap.put(MapKeys.SCHEDULE_TIME, "");
