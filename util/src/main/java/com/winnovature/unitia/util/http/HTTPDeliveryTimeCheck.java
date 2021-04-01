@@ -43,11 +43,11 @@ public class HTTPDeliveryTimeCheck {
 			
 			String msgclass=partnerDetails.get(MapKeys.MSGCLASS);
 
-			if ("1".equals(msgclass)) {
+			if ("1".equals(msgclass)||"5".equals(msgclass)||"3".equals(msgclass)) {
 			
 				status = isValidScheduleTime(msgmap, scheduleDate);
 
-			} else if ("2".equals(partnerDetails.get("MSGCLASS").toString())) {
+			} else if ("2".equals(msgclass)) {
 			
 				if (mobile.length() == 12
 						&&mobile.startsWith("91")) {
