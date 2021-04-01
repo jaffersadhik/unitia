@@ -85,15 +85,18 @@ public class PollerStartup {
 				logmap.put("queuename",queuename);
 				logmap.put("logname","smppdnpollerstartup");
 				String poolname=redisid+"~"+queuename;
-			if(instance.get(poolname).isRunningUser(poolname)){
+				
+				PollerStartup poller=getInstance(redisid, queuename);
+				
+				if(poller!=null&&poller.isRunningUser(poolname)){
 				logmap.put("status","poller already running ,skip the start poller ");
 				new FileWrite().write(logmap);
 
 				continue;
-			}
+				}
 			
 			
-			String systemid=instance.get(poolname).getSystemid();
+			String systemid=poller.getSystemid();
 
 			List<SmppSession> sessionlist=SessionStore.getInstance().rxsessionlist.get(systemid);
 			
@@ -106,7 +109,7 @@ public class PollerStartup {
 				
 				new RedisReceiver(systemid,redisid, queuename).start();
 			
-				instance.get(poolname).runninguser.add(poolname);
+				poller.runninguser.add(poolname);
 				logmap.put("status","the start poller ");
 				new FileWrite().write(logmap);
 
