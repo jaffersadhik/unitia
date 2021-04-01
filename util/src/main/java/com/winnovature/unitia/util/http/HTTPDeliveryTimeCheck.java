@@ -29,13 +29,13 @@ public class HTTPDeliveryTimeCheck {
 		String mobile= (String) msgmap.get(MapKeys.MOBILE);
 		try {
 			SimpleDateFormat formater = new SimpleDateFormat(format);
-			formater.setLenient(false);
 			try {
 				scheduleDate = formater.parse(scheduleTime);
 				msgmap.put(MapKeys.SCHEDULE_TIME, ""+scheduleDate.getTime());
 				
 				
-			} catch (ParseException pe) {
+			} catch (Exception pe) {
+				msgmap.put("schedule parser exception", ErrorMessage.getMessage(pe));
 				status = "INVALID";
 				return status;
 			}
