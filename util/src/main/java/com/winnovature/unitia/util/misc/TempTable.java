@@ -77,6 +77,8 @@ public class TempTable {
 		result.add("dnretrypool");
 		result.add("kl_kannel2_1");
 		result.add("kl_kannel2_2");
+		result.add("concatepool");
+		result.add("concatedata");
 
 		return result;
 	}

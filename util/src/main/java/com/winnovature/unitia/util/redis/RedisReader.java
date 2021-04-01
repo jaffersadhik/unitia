@@ -92,6 +92,7 @@ public Map<String,Object> getData(String queuename,String redisid){
 	}
 	
 
+
 	 private void stats(String queuename,String redisid,long start,long end) {
 	
 		 Map<String,Object> logmap1=new HashMap<String,Object>();

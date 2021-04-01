@@ -115,7 +115,11 @@
     <artifactId>unitiadnreceiver</artifactId>
     <version>1.0</version>
 </dependency>
-
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>concateinsert</artifactId>
+    <version>1.0</version>
+</dependency>
   <dependency>
     <groupId>winovature</groupId>
     <artifactId>unitiahttpd</artifactId>

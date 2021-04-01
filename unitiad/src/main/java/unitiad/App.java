@@ -112,6 +112,10 @@ public class App {
 			
 			delivery.App.main(args);
 			
+		}else if(module.equals("concateinsert")){
+			
+			concateinsert.App.main(args);
+			
 		}else if(module.equals("dnpostdb")){
 			
 			dnpostdb.App.main(args);

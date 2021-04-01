@@ -104,7 +104,7 @@ public class TableCount {
 				result=resultset.getString("cnt");
 			}
 		}catch(Exception e){
-			
+			result="-1";
 		}finally{
 			
 			Close.close(resultset);
