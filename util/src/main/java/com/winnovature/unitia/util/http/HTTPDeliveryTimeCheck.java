@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
+import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.MapKeys;
 
 public class HTTPDeliveryTimeCheck {
@@ -80,6 +81,7 @@ public class HTTPDeliveryTimeCheck {
 			}
 
 		} catch (Exception e) {
+			msgmap.put("schedule exception", ErrorMessage.getMessage(e));
 			status = "EXCEPTION";
 		}
 	

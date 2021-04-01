@@ -121,11 +121,14 @@ public class Utility
 				if("1".equals(sehedule_yn)) {
 					
 					status = hdtc.isValidScheduleTime(msgmap);
+					msgmap.put("schedule status", status);
 					if("EXCEPTION".equalsIgnoreCase(status)){
 						flag = MessageStatus.SCHEDULETIME_PARSE_ERROR;
 						msgmap.put(MapKeys.SCHEDULE_TIME, "");
 					}else if ("CURRENT".equalsIgnoreCase(status))
 					{
+						msgmap.put(MapKeys.SCHEDULE_TIME+"_org",msgmap.get(MapKeys.SCHEDULE_TIME));
+
 						msgmap.put(MapKeys.SCHEDULE_TIME, "");
 					}else if ("INVALID".equalsIgnoreCase(status)) 						
 						flag = MessageStatus.INVALID_SCHEDULE_TIME;	
