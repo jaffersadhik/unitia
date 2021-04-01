@@ -52,6 +52,13 @@ public class Utility
 			poolname="schedulepool";
 		}
 		
+		String concateyn=(String)msgmap.get(MapKeys.CONCATE_YN);
+		
+		if(concateyn!=null&&concateyn.equals("y")){
+			
+			poolname="concatepool";
+
+		}
 		
 		if(new QueueSender().sendL(poolname, msgmap, false,logmap)){
 			

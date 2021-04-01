@@ -288,17 +288,42 @@ public class SubmitObject implements Serializable	{
 		msgmap.put(MapKeys.MESSAGE, message);
 		msgmap.put(MapKeys.MSGTYPE, msgType);
 		msgmap.put(MapKeys.UDH, udh);
+		
+		if(udh!=null&&(udh.startsWith("05")||udh.startsWith("06"))){
+			
+			msgmap.put(MapKeys.CONCATE_YN, "y");
+
+			String temp=udh.substring(0,udh.length()-2);
+			
+			String cc= temp.substring(temp.length()-2,temp.length());
+			
+			String cf=msgmap.get(MapKeys.MOBILE)+""+temp;
+			
+			msgmap.put(MapKeys.CONCATE_YN, "y");
+			msgmap.put(MapKeys.CONCATE_CF, cf);
+			msgmap.put(MapKeys.CONCATE_CC, getDecimal(cc));
+
+
+		}
 		msgmap.put(MapKeys.SCHEDULE_TIME_STRING, deliveryTime);
 		msgmap.put(MapKeys.EXPIRY, expiry);
-		msgmap.put(MapKeys.TEMPLATEID, templateid);
-		msgmap.put(MapKeys.ENTITYID, entityid);
+		msgmap.put(MapKeys.TEMPLATEID_CUSTOMER, templateid);
+		msgmap.put(MapKeys.ENTITYID_CUSTOMER, entityid);
 		msgmap.put("esm", ""+esmClass);
 		msgmap.put("datacoding", ""+dataCoding);
 		msgmap.put("module","smppgateway");
 
 	}
 
-	
+	private String getDecimal(String cc){
+		int decimal=1;
+		try{
+		decimal=Integer.parseInt(cc,16);  
+		}catch(Exception e){
+		}
+		
+		return ""+decimal;
+	}
 	public static void main(String args[]){
 		
 		System.out.println(new String(HexUtil.toByteArray("616765206D6F7265207468616E2031363020636861726163746572")));

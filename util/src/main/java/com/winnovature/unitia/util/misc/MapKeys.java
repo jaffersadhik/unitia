@@ -3,6 +3,13 @@ package com.winnovature.unitia.util.misc;
 public interface MapKeys {
 
 
+	public static String CONCATE_YN="concate_yn";
+
+	public static String CONCATE_CF="concate_cf";
+
+	public static String CONCATE_CC="concate_cc";
+
+
 	public static String CDAC_USERNAME="cdac_username";
 	
 	public static String CDAC_PASSWORD="cdac_password";
