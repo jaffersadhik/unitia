@@ -33,7 +33,6 @@ public class App
     	start("clientdnpool");
     	start("dnretrypool");
     	start("smppdn");
-    	start("httpdn");
     	start("logspool");
     	start("appspool");
     	start("submissionpool");
@@ -41,6 +40,7 @@ public class App
     	start("shortcodepool");
     	start("kl_kannel2_1");
     	start("kl_kannel2_2");
+    	start("concatepool");
 
     	
     	new T().start();

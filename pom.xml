@@ -48,6 +48,8 @@
   	<module>creditupdate</module>
   	<module>smpp2</module>
   	<module>concateinsert</module>
+  	<module>dnhttppostinsert</module>
+  	<module>dnhttppostselect</module>
     </modules>
   <dependencies>
   

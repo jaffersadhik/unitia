@@ -288,4 +288,6 @@ public interface MapKeys {
 
 	public static String INTERFACE_TYPE = "interfacetype";
 
+	public static String POLLER_USERNAME = "poller_username";
+
 }

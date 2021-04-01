@@ -116,6 +116,14 @@ public class App {
 			
 			concateinsert.App.main(args);
 			
+		}else if(module.equals("dnhttppostinsert")){
+			
+			dnhttppostinsert.App.main(args);
+			
+		}else if(module.equals("dnhttppostselect")){
+			
+			dnhttppostselect.App.main(args);
+			
 		}else if(module.equals("dnpostdb")){
 			
 			dnpostdb.App.main(args);

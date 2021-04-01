@@ -254,7 +254,14 @@ public class Insert {
 				
 				Map<String, Object> requestObject=requestlist.get(i);
 				statement.setString(1, (String)requestObject.get(MapKeys.MSGID));
-				statement.setString(2,  (String)requestObject.get(MapKeys.USERNAME));
+				
+				if(	queuename.equals("httpdn")){
+					statement.setString(2,  (String)requestObject.get(MapKeys.POLLER_USERNAME));
+
+				}else{
+					statement.setString(2,  (String)requestObject.get(MapKeys.USERNAME));
+
+				}
 				String scheduletime= (String)requestObject.get(MapKeys.SCHEDULE_TIME);
 				
 			
