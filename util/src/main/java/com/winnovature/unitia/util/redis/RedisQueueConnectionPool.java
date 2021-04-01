@@ -16,6 +16,7 @@ public class RedisQueueConnectionPool {
 
 	private static RedisQueueConnectionPool obj=null;
 	
+	private List<RedisQueuePool> redisqueuelistForMonitor=null;
 	private List<RedisQueuePool> redisqueuelist=null;
 	private Map<String,RedisQueuePool> redisqueuemap=null;
 
@@ -30,17 +31,21 @@ public class RedisQueueConnectionPool {
 		List<String> redisidlist=RedisInstance.getInstance().getRedisInstanceList();
 		
 		redisqueuelist=new ArrayList<RedisQueuePool>();
+		redisqueuelistForMonitor=new ArrayList<RedisQueuePool>();
+
 		redisqueuemap=new HashMap<String,RedisQueuePool>();
 		for(int i=0;i<redisidlist.size();i++){
 			
 			RedisQueuePool queue1=new RedisQueuePool(redisidlist.get(i));
 			redisqueuelist.add(queue1);
+			redisqueuelistForMonitor.add(queue1);
 			redisqueuemap.put(queue1.getRedisId(), queue1);
 			
 		}
 		
 		RedisQueuePool queue1=new RedisQueuePool("redisqueue1");
-		redisqueuelist.add(queue1);
+		redisqueuelistForMonitor.add(queue1);
+
 		redisqueuemap.put(queue1.getRedisId(), queue1);
 
 	}
@@ -129,9 +134,9 @@ public class RedisQueueConnectionPool {
 		
 
 		
-		for(int i=0,max=redisqueuelist.size();i<max;i++){
+		for(int i=0,max=redisqueuelistForMonitor.size();i<max;i++){
 			
-			redisqueuelist.get(i).reload();
+			redisqueuelistForMonitor.get(i).reload();
 		}
 		
 	}
