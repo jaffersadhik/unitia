@@ -64,28 +64,49 @@ public class PollerStartup {
 		try{
 			
 		
-			Map<String,List<String>> queuemap=RedisQueue.getInstance().getSmppQueue();
+		Map<String,List<String>> queuemap=RedisQueue.getInstance().getSmppQueue();
 			
 		Iterator itr=queuemap.keySet().iterator();
 		
+		Map<String,Object> logmap=new HashMap<String,Object>();
+
+		logmap.put("username","sys");
+
+		logmap.put("logname","smppdnpollerstartup");
+		
+		if(queuemap.size()==0){
+			
+			logmap.put("status","no Queue");
+			
+			new FileWrite().write(logmap);
+
+
+		}
 		while(itr.hasNext()){
 			
 			String redisid=itr.next().toString();
 			
 			List<String> availableuser = queuemap.get(redisid);
 			
+		
+			logmap.put("redisid",redisid);
+
+			if(availableuser.size()==0){
+				
+				logmap.put("status","no Queue");
+
+				new FileWrite().write(logmap);
+
+			}
 			
 			for(int i=0;i<availableuser.size();i++){
 				
-				Map<String,Object> logmap=new HashMap<String,Object>();
-
 				String queuename=availableuser.get(i);
-				logmap.put("username","sys");
 
-				logmap.put("queuename",queuename);
-				logmap.put("logname","smppdnpollerstartup");
 				String poolname=redisid+"~"+queuename;
 				
+				logmap.put("queuename",queuename);
+
 				PollerStartup poller=getInstance(redisid, queuename);
 				
 				if(poller!=null&&poller.isRunningUser(poolname)){
