@@ -102,7 +102,7 @@ public class Insert {
 				Map<String,Object> requestObject=datalist.get(i);
 
 				statement.setString(1, requestObject.get(MapKeys.CONCATE_CF).toString());
-				statement.setString(2, requestObject.get(MapKeys.USERNAME).toString());
+				statement.setString(2, requestObject.get(MapKeys.POLLER_USERNAME).toString());
 				
 				statement.setString(3, "0");
 				statement.setString(4, "0");

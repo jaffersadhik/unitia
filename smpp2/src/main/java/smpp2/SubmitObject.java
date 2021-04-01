@@ -7,7 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
+import java.util.List;
+import java.util.ArrayList;
 import com.cloudhopper.commons.util.HexUtil;
 import com.cloudhopper.smpp.pdu.SubmitSm;
 import com.cloudhopper.smpp.pdu.SubmitSmResp;
@@ -293,15 +294,19 @@ public class SubmitObject implements Serializable	{
 			
 			msgmap.put(MapKeys.CONCATE_YN, "y");
 
+			String seq=udh.substring(udh.length()-2,udh.length());
+			
 			String temp=udh.substring(0,udh.length()-2);
 			
 			String cc= temp.substring(temp.length()-2,temp.length());
 			
-			String cf=msgmap.get(MapKeys.MOBILE)+""+temp;
+			String cf=msgmap.get(MapKeys.USERNAME)+""+msgmap.get(MapKeys.MOBILE)+""+temp;
 			
 			msgmap.put(MapKeys.CONCATE_YN, "y");
 			msgmap.put(MapKeys.CONCATE_CF, cf);
 			msgmap.put(MapKeys.CONCATE_CC, getDecimal(cc));
+			msgmap.put(MapKeys.CONCATE_SEQ, getDecimal(seq));
+			msgmap.put(MapKeys.POLLER_USERNAME, getName(msgmap.get(MapKeys.USERNAME).toString(),msgmap.get(MapKeys.MOBILE).toString()));
 
 
 		}
@@ -315,6 +320,26 @@ public class SubmitObject implements Serializable	{
 
 	}
 
+	private String getName(String username,String mobile){
+		
+		List<String> tlist=new ArrayList<String>();
+		tlist.add("t1");
+		tlist.add("t2");
+		tlist.add("t3");
+		tlist.add("t4");
+		
+		long pointer=0;
+		
+		try{
+			long m=Long.parseLong(mobile);
+			pointer=m%tlist.size();
+		}catch(Exception e){
+			
+		}
+		
+		return username+"_"+tlist.get((int)pointer);
+		
+	}
 	private String getDecimal(String cc){
 		int decimal=1;
 		try{

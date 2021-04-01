@@ -9,6 +9,8 @@ public interface MapKeys {
 
 	public static String CONCATE_CC="concate_cc";
 
+	public static String CONCATE_SEQ="concate_seq";
+
 
 	public static String CDAC_USERNAME="cdac_username";
 	
