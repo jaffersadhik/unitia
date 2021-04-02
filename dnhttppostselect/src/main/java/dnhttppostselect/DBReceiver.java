@@ -18,6 +18,8 @@ public class DBReceiver extends Thread {
 
 	public static boolean GRACESTOP=false;
 
+	String actuval_username=null;
+	
 	String username=null;
 	
 	String poolname=null;
@@ -35,6 +37,9 @@ public class DBReceiver extends Thread {
 	public DBReceiver(String poolname,String username){
 	
 		this.username=username;
+		
+		this.actuval_username=username.substring(0,username.lastIndexOf("_"));
+		
 		
 		this.poolname=poolname;
 		if(poolname.equals("schedulepool")){
@@ -72,13 +77,19 @@ public class DBReceiver extends Thread {
 			
 			if(data!=null&&data.size()>0){
 				
-			
-					for(int i=0;i<data.size();i++){
+		
+				String format=PushAccount.instance().getPushAccount(actuval_username).get("httpdn_format");
+				if(format!=null&&format.equals("gson")){
+					
+					new DNHttpPostGSON(data).doProcess();
+					
+				}else{
+				for(int i=0;i<data.size();i++){
 					
 					sendUntilSuccess(data.get(i));
 					
 					}
-				
+				}
 				deleteUntilSuccess(data);
 			}else{
 				
