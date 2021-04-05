@@ -6,9 +6,7 @@ public class T1 {
 
 	public static void main(String args[]){
 		
-		System.out.println("======true=========");
 		T1 obj=new T1();
-
 	}
 public  boolean isMatch(String template,String fullmsg){
 		
@@ -30,7 +28,7 @@ public  boolean isMatch(String template,String fullmsg){
 				int maxVarCharCount=getMaxVarcharCount(lastTempPointer,temp);
 				int upcomingmsgpointer=getUpcomingMsgPointer(lastTempPointer,temp,msg,msgpointer);
 				int varcharcount=getVarcharCount(msg,msgpointer,upcomingmsgpointer);
-			/*
+	/*		
 				System.out.println(" lastTempPointer "+ lastTempPointer);
 				System.out.println(" maxVarCharCount "+ maxVarCharCount);
 				System.out.println(" upcomingmsgpointer "+ upcomingmsgpointer);
@@ -99,12 +97,13 @@ public  boolean isMatch(String template,String fullmsg){
 private int getVarcharCount(String[] msg, int msgpointer, int upcomingmsgpointer) {
 	
 	StringBuffer sb=new StringBuffer();
-	for(int i=msgpointer;i<=upcomingmsgpointer;i++){
+	for(int i=msgpointer;i<upcomingmsgpointer;i++){
 		
 		sb.append(msg[i]).append(" ");
 		
 	}
 	
+	//System.out.println(sb.toString());
 	return sb.toString().trim().length();
 }
 
