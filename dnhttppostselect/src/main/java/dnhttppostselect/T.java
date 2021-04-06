@@ -15,7 +15,7 @@ public class T  extends Thread{
 				Refresh.getInsatnce().reload();
 				DBReceiver.GRACESTOP=ConfigParams.getInstance().getProperty(ConfigKey.GRACE_STOP).equals("1");
 				PollerStartup.updateUsers();
-
+				DNCustomParameter.getInstance().reload();
 				gotosleep();
 
 			}catch(Exception e){

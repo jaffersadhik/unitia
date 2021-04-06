@@ -215,7 +215,8 @@ public class DNHttpPostGSON
 		
     	SimpleDateFormat sdf=new SimpleDateFormat(DATE_FORMAT);
     	HashMap<String,String> data=new HashMap<String,String> ();
-    	data.put("username", URLEncoder.encode(msgmap.get(MapKeys.USERNAME).toString()));
+    	data.put("ackid", msgmap.get(MapKeys.ACKID).toString());    	
+    	data.put("username", msgmap.get(MapKeys.USERNAME).toString());
     	data.put("rtime", sdf.format(new Date(Long.parseLong(msgmap.get(MapKeys.RTIME).toString()))));
     	
     	if(msgmap.get(MapKeys.CARRIER_DONETIME)!=null){
