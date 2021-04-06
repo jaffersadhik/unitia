@@ -50,6 +50,7 @@
   	<module>concateinsert</module>
   	<module>dnhttppostinsert</module>
   	<module>dnhttppostselect</module>
+  	<module>concateexpiry</module>
     </modules>
   <dependencies>
   
