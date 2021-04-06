@@ -59,6 +59,8 @@ public class MessageStatus {
 	
 	private static Map<String,String> status=new HashMap<String,String>();
 	
+	private  Map<String,String> statusdescription=new HashMap<String,String>();
+
 	private  Map<String,String> state=new HashMap<String,String>();
 
 	private static MessageStatus obj=null;
@@ -164,7 +166,7 @@ public class MessageStatus {
 		}
 		
 		this.reversestatusid=reversestatusid;
-		MessageStatus.status=status;
+		this.statusdescription=status;
 		this.state=state;
 		this.dnretrystatusid=dnretrystatusid;
 		this.successmaskingstatusid=successmaskingstatusid;
@@ -257,5 +259,10 @@ public class MessageStatus {
 	public boolean isSuccessMasking(String statusid) {
 		return successmaskingstatusid.contains(statusid);
 
+	}
+	
+	public String getDescription(String statusid){
+		
+		return statusdescription.get(statusid);
 	}
 }

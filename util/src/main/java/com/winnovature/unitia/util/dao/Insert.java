@@ -18,7 +18,7 @@ public class Insert {
 
 	static String INSERT_SQL_PATTERN="insert into {0}(msgid,username,scheduletime,pstatus,data) values(?,?,?,?,?)";
 	
-	static String CONCATE_INSERT_SQL_PATTERN="insert into {0}(msgid,username,scheduletime,pstatus,data,cc) values(?,?,?,?,?,?)";
+	static String CONCATE_INSERT_SQL_PATTERN="insert into {0}(msgid,username,scheduletime,pstatus,data,cc,ackid) values(?,?,?,?,?,?,?)";
 
 	public boolean insert(String tablename, Map<String,Object> requestObject) {
 		
@@ -119,6 +119,8 @@ public class Insert {
 
 				statement.setString(6, (String) requestObject.get(MapKeys.CONCATE_CC));
 				
+				statement.setString(7, (String) requestObject.get(MapKeys.ACKID));
+
 				statement.addBatch();
 			}
 			statement.executeBatch();

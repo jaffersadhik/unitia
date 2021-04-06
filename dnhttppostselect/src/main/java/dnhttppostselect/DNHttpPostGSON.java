@@ -223,13 +223,19 @@ public class DNHttpPostGSON
     	data.put("statusid", URLEncoder.encode(msgmap.get(MapKeys.STATUSID).toString()));
     	data.put("status", URLEncoder.encode(MessageStatus.getInstance().getState(msgmap.get(MapKeys.STATUSID).toString())));
 
+    	String statusdescription=MessageStatus.getInstance().getDescription(msgmap.get(MapKeys.STATUSID).toString());
+    	if(statusdescription==null){
+    		statusdescription="unknown Exception";
+    	}
+    	data.put("statusdescription", statusdescription);
+
     	}
     	data.put("operator", URLEncoder.encode(msgmap.get(MapKeys.OPERATOR).toString()));
     	data.put("circle", URLEncoder.encode(msgmap.get(MapKeys.CIRCLE).toString()));
     	
     	
-    	if(msgmap.get(MapKeys.SENDERID_ORG)!=null){
-    	data.put("from", URLEncoder.encode(msgmap.get(MapKeys.SENDERID_ORG).toString()));
+    	if(msgmap.get(MapKeys.SENDERID)!=null){
+    	data.put("from", URLEncoder.encode(msgmap.get(MapKeys.SENDERID).toString()));
     	}
     	if(msgmap.get(MapKeys.MOBILE)!=null){
         	data.put("phone", URLEncoder.encode(msgmap.get(MapKeys.MOBILE).toString()));
@@ -272,9 +278,11 @@ public class DNHttpPostGSON
     	
     	if(msgmap.get(MapKeys.FULLMSG)!=null&&msgmap.get(MapKeys.FULLMSG).toString().trim().length()>0){
     		
-        	data.put("content",URLEncoder.encode(msgmap.get(MapKeys.FULLMSG).toString()));
+        	data.put("content",msgmap.get(MapKeys.FULLMSG).toString());
 
     	}
+    	
+    	
     	return data;
     }
 
