@@ -227,6 +227,10 @@ public class DNHttpPostGSON
     	if(statusdescription==null){
     		statusdescription="unknown Exception";
     	}
+    	
+    	if(msgmap.get(MapKeys.STATUSID).toString().equals("000")){
+    		statusdescription="SMS Delivered to HandSet Successfully";
+    	}
     	data.put("statusdescription", statusdescription);
 
     	}
