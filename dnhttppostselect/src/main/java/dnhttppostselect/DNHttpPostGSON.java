@@ -7,8 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import com.winnovature.unitia.util.account.PushAccount;
@@ -220,8 +222,13 @@ public class DNHttpPostGSON
     	data.put("ctime", sdf.format(new Date(Long.parseLong(msgmap.get(MapKeys.CARRIER_DONETIME).toString()))));
     	}
     	if(msgmap.get(MapKeys.STATUSID)!=null){
-    	data.put("statusid", URLEncoder.encode(msgmap.get(MapKeys.STATUSID).toString()));
-    	data.put("status", URLEncoder.encode(MessageStatus.getInstance().getState(msgmap.get(MapKeys.STATUSID).toString())));
+    	data.put("statusid", msgmap.get(MapKeys.STATUSID).toString());
+    	String status=(String)MessageStatus.getInstance().getState(msgmap.get(MapKeys.STATUSID).toString());
+    	
+    	if(status==null){
+    		status="UNKNOWN";
+    	}
+    	data.put("status", status);
 
     	String statusdescription=MessageStatus.getInstance().getDescription(msgmap.get(MapKeys.STATUSID).toString());
     	if(statusdescription==null){
@@ -234,60 +241,36 @@ public class DNHttpPostGSON
     	data.put("statusdescription", statusdescription);
 
     	}
-    	data.put("operator", URLEncoder.encode(msgmap.get(MapKeys.OPERATOR).toString()));
-    	data.put("circle", URLEncoder.encode(msgmap.get(MapKeys.CIRCLE).toString()));
-    	
-    	
+
     	if(msgmap.get(MapKeys.SENDERID)!=null){
-    	data.put("from", URLEncoder.encode(msgmap.get(MapKeys.SENDERID).toString()));
-    	}
-    	if(msgmap.get(MapKeys.MOBILE)!=null){
-        	data.put("phone", URLEncoder.encode(msgmap.get(MapKeys.MOBILE).toString()));
+        	data.put("from", URLEncoder.encode(msgmap.get(MapKeys.SENDERID).toString()));
+        }
+        if(msgmap.get(MapKeys.MOBILE)!=null){
+        
+        	data.put("mobile", URLEncoder.encode(msgmap.get(MapKeys.MOBILE).toString()));
+       }
 
-    	data.put("to", URLEncoder.encode(msgmap.get(MapKeys.MOBILE).toString()));
-    	}
-    	data.put("ackid", URLEncoder.encode(msgmap.get(MapKeys.ACKID).toString()));
     	
-    	if(attempttype==null || !attempttype.equals("9")){
-    	data.put("totalsmscount", URLEncoder.encode(msgmap.get(MapKeys.TOTAL_MSG_COUNT)==null?"0":msgmap.get(MapKeys.TOTAL_MSG_COUNT).toString()));
-    	data.put("usedcredit",URLEncoder.encode(msgmap.get(MapKeys.CREDIT)==null?"0":msgmap.get(MapKeys.CREDIT).toString()));
-
-    	}
-    	
-    	
-    	if(msgmap.get(MapKeys.PARAM1)!=null){
-    	
-        	data.put("param1",URLEncoder.encode(msgmap.get(MapKeys.PARAM1).toString()));
-
-    	}
-
-    	if(msgmap.get(MapKeys.PARAM2)!=null){
-
-        	data.put("param2",URLEncoder.encode(msgmap.get(MapKeys.PARAM2).toString()));
-    	}
-    	
-    	if(msgmap.get(MapKeys.PARAM3)!=null){
+        Set<String> customparam =DNCustomParameter.getInstance().getCustomParam(msgmap.get(MapKeys.USERNAME).toString());
+        
+        if(customparam!=null){
         	
-
-        	data.put("param3",URLEncoder.encode(msgmap.get(MapKeys.PARAM3).toString()));
-    	}
-    	
-    	if(msgmap.get(MapKeys.PARAM4)!=null){
+        Iterator<String> itr=customparam.iterator();
+        
+        while(itr.hasNext()){
         	
+        	String paramname=itr.next();
+        	
+        	String paramvalue=(String)msgmap.get(paramname);
+        	
+        	if(paramvalue!=null&&paramvalue.length()>0){
+        		
+            	data.put(paramname, paramvalue);
 
-        	data.put("param4",URLEncoder.encode(msgmap.get(MapKeys.PARAM4).toString()));
-
-    	}
-    	
-    	
-    	if(msgmap.get(MapKeys.FULLMSG)!=null&&msgmap.get(MapKeys.FULLMSG).toString().trim().length()>0){
-    		
-        	data.put("content",msgmap.get(MapKeys.FULLMSG).toString());
-
-    	}
-    	
-    	
-    	return data;
+        	}
+        }
+        }
+        return data;
     }
 
   
