@@ -244,10 +244,38 @@ public class ReportDAO {
 					String statusid=(String) msgmap.get(MapKeys.STATUSID);
 
 					if(statusid!=null&&statusid.trim().length()>0){
-					statement.setString(46, msgmap.get(MapKeys.STATUSID).toString());
+						
+						if(tablename.equals("reportlog_delivery")){
+
+							if(statusid.equals("200")){
+								statement.setString(46, "000");
+
+							}else{
+								
+								statement.setString(46, msgmap.get(MapKeys.STATUSID).toString());
+
+							}
+						}else{
+					
+							statement.setString(46, msgmap.get(MapKeys.STATUSID).toString());
+						}
 					}else{
-						statement.setString(46, (String) msgmap.get(MapKeys.CARRIER_ERR));
+						
 						statusid=(String) msgmap.get(MapKeys.CARRIER_ERR);
+
+						if(tablename.equals("reportlog_delivery")){
+							
+							if(statusid!=null&&statusid.equals("200")){
+
+								statement.setString(46, "000");
+
+							}else{
+								statement.setString(46, (String) msgmap.get(MapKeys.CARRIER_ERR));
+
+							}
+						}else{
+
+						}
 					}
 					String stausidorg=(String)msgmap.get(MapKeys.STATUSID_ORG);
 					
