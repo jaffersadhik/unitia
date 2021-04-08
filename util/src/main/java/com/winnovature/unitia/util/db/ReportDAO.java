@@ -42,7 +42,7 @@ public class ReportDAO {
 		sb.append("carrier_systemid,carrier_dr,sms_latency_slap,sms_latency_slap_org,carrier_latency_slap,");
 		sb.append("paltform_latency_slap,statusid,statusid_org,carrier_stime_org,");
 		sb.append("templateid,entityid,dlttype,interfacetype,kannel_resp,attemptcount,");
-		sb.append("templateid_customer,entityid_customer)");
+		sb.append("templateid_customer,entityid_customer,clength)");
 
 		sb.append("values(");
 		sb.append("?,?,?,?,");
@@ -58,7 +58,7 @@ public class ReportDAO {
 		sb.append("?,?,?,?,?,");
 		sb.append("?,?,?,?,");
 		sb.append("?,?,?,?,?,?,");
-		sb.append("?,?)");
+		sb.append("?,?,?)");
 
 		SQL=sb.toString();
 
@@ -284,6 +284,7 @@ public class ReportDAO {
 					statement.setString(55, (String)msgmap.get(MapKeys.TEMPLATEID_CUSTOMER));
 					statement.setString(56, (String)msgmap.get(MapKeys.ENTITYID_CUSTOMER));
 
+					statement.setString(57,  (String)msgmap.get(MapKeys.CONTENT_LENGTH));
 				statement.addBatch();
 			}
 			statement.executeBatch();

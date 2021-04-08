@@ -54,7 +54,10 @@ public class GsonProcessor {
 				msgmap.put(MapKeys.CUSTOMERIP, custIP);
 			
 				////System.out.println("msgmap : "+msgmap);
-
+				
+				
+            msgmap.put(MapKeys.CONTENT_LENGTH,request.getContentLength());
+            
 			msgmap.put(MapKeys.PROTOCOL, "http");
 			msgmap.put(MapKeys.INTERFACE_TYPE, "gson");
 

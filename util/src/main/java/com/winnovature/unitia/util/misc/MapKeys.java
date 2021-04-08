@@ -3,6 +3,8 @@ package com.winnovature.unitia.util.misc;
 public interface MapKeys {
 
 
+	public static String CONTENT_LENGTH="content_length";
+	
 	public static String CONCATE_YN="concate_yn";
 
 	public static String CONCATE_CF="concate_cf";

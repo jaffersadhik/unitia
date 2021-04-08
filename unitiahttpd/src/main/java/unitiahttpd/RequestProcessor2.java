@@ -65,6 +65,9 @@ public class RequestProcessor2
 			if(custIP==null){
 				custIP="";
 			}
+			
+            msgmap.put(MapKeys.CONTENT_LENGTH,request.getContentLength());
+
 			msgmap.put(MapKeys.CUSTOMERIP, custIP);
 			msgmap.put(MapKeys.MOBILE, mnumber);
 			msgmap.put(MapKeys.SENDERID_ORG, signature);

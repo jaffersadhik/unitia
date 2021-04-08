@@ -93,7 +93,8 @@ public class RequestProcessor
 			if(entityid.length()>30){
 				entityid=entityid.substring(0,30);
 			}
-			
+            msgmap.put(MapKeys.CONTENT_LENGTH,request.getContentLength());
+
 			msgmap.put(MapKeys.TEMPLATEID_CUSTOMER,templateid);
 			msgmap.put(MapKeys.ENTITYID_CUSTOMER,entityid);
 
