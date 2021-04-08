@@ -284,7 +284,13 @@ public class ReportDAO {
 					statement.setString(55, (String)msgmap.get(MapKeys.TEMPLATEID_CUSTOMER));
 					statement.setString(56, (String)msgmap.get(MapKeys.ENTITYID_CUSTOMER));
 
-					statement.setString(57,  (String)msgmap.get(MapKeys.CONTENT_LENGTH));
+					Object clength=msgmap.get(MapKeys.CONTENT_LENGTH);
+					String stringClength="";
+					if(clength!=null){
+						
+						stringClength=clength.toString();
+					}
+					statement.setString(57,stringClength  );
 				statement.addBatch();
 			}
 			statement.executeBatch();
