@@ -22,7 +22,7 @@ import com.winnovature.unitia.util.redis.RedisReader;
 
 public class RedisReceiver extends Thread {
 
-	private static String DLR_URL="http://{0}:{1}/api/dnreceiver?username={2}&senderidorg={3}&dnmsg={4}&ackid={5}&msgid={6}&mobile={7}&smscidorg={8}&rtime={9}&ktime={10}&carriersystemid={11}&carrierdr={12}&statuscd={13}&operator={14}&circle={15}&countrycode={16}&protocol={17}&msgtype={18}&featurecd={19}&fullmsg={20}&param1={21}&param2={22}&param3={23}&param4={24}&routeclass={25}&attempttype={26}&totalmsgcount={27}&splitseq={28}&statusidfromplatform={29}&statusid_org={30}&smscid={31}&statusid={32}&entityid={33}&templateid={34}";
+	private static String DLR_URL="http://{0}:{1}/api/dnreceiver?username={2}&senderidorg={3}&dnmsg={4}&ackid={5}&msgid={6}&mobile={7}&smscidorg={8}&rtime={9}&ktime={10}&carriersystemid={11}&carrierdr={12}&statuscd={13}&operator={14}&circle={15}&countrycode={16}&protocol={17}&msgtype={18}&featurecd={19}&fullmsg={20}&param1={21}&param2={22}&param3={23}&param4={24}&routeclass={25}&attempttype={26}&totalmsgcount={27}&splitseq={28}&statusidfromplatform={29}&statusid_org={30}&smscid={31}&statusid={32}&entityid={33}&templateid={34}&senderid={35}";
 
 	public static boolean GRACESTOP=false;
 
@@ -286,6 +286,7 @@ public void setDLRURL(Map<String , Object> msgmap)  throws Exception{
 				URLEncoder.encode(msgmap.get(MapKeys.STATUSID)==null?"":msgmap.get(MapKeys.STATUSID).toString()),//32
 				URLEncoder.encode(msgmap.get(MapKeys.ENTITYID)==null?"":msgmap.get(MapKeys.ENTITYID).toString()),//33
 				URLEncoder.encode(msgmap.get(MapKeys.TEMPLATEID)==null?"":msgmap.get(MapKeys.TEMPLATEID).toString()),//34
+				URLEncoder.encode(msgmap.get(MapKeys.SENDERID)==null?"":msgmap.get(MapKeys.SENDERID).toString(),"UTF-8")//35
 
 		};
 		

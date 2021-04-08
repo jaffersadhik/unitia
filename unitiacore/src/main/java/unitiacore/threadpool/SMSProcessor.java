@@ -53,7 +53,7 @@ public class SMSProcessor {
 	
 	private static String RETRY_URL="http://{0}:{1}/retry/retry?username={2}&password={3}&smsc={4}&from={5}&to={6}&text={7}&dlr-mask=23&dlr-url={8}";
 
-	private static String DLR_URL="http://{0}:{1}/api/dnreceiver?username={2}&senderidorg={3}&dnmsg={4}&ackid={5}&msgid={6}&mobile={7}&smscidorg={8}&rtime={9}&ktime={10}&carriersystemid={11}&carrierdr={12}&statuscd={13}&operator={14}&circle={15}&countrycode={16}&protocol={17}&msgtype={18}&featurecd={19}&fullmsg={20}&param1={21}&param2={22}&param3={23}&param4={24}&routeclass={25}&attempttype={26}&totalmsgcount={27}&splitseq={28}&credit={29}&templateid={30}&entityid={31}&dlttype={32}&attempt_count={33}";
+	private static String DLR_URL="http://{0}:{1}/api/dnreceiver?username={2}&senderidorg={3}&dnmsg={4}&ackid={5}&msgid={6}&mobile={7}&smscidorg={8}&rtime={9}&ktime={10}&carriersystemid={11}&carrierdr={12}&statuscd={13}&operator={14}&circle={15}&countrycode={16}&protocol={17}&msgtype={18}&featurecd={19}&fullmsg={20}&param1={21}&param2={22}&param3={23}&param4={24}&routeclass={25}&attempttype={26}&totalmsgcount={27}&splitseq={28}&credit={29}&templateid={30}&entityid={31}&dlttype={32}&attempt_count={33}&senderid={34}";
 	
 	private static String SYSTEMID="%o";
 	
@@ -1502,7 +1502,9 @@ public class SMSProcessor {
 				URLEncoder.encode(templateid,"UTF-8"),//30
 				URLEncoder.encode(entityid,"UTF-8"),//31
 				URLEncoder.encode(dlttype,"UTF-8"),//32
-				URLEncoder.encode(attemtcount,"UTF-8")//33
+				URLEncoder.encode(attemtcount,"UTF-8"),//33
+				URLEncoder.encode(msgmap.get(MapKeys.SENDERID)==null?"":msgmap.get(MapKeys.SENDERID).toString(),"UTF-8")//34
+
 	
 
 		};
@@ -1571,7 +1573,9 @@ public void setDLRURL(Map<String,Object> splitmap)  throws Exception{
 				URLEncoder.encode(templateid,"UTF-8"),//30
 				URLEncoder.encode(entityid,"UTF-8"),//31
 				URLEncoder.encode(dlttype,"UTF-8"),//32
-				URLEncoder.encode(attemtcount,"UTF-8")//33
+				URLEncoder.encode(attemtcount,"UTF-8"),//33
+				URLEncoder.encode(msgmap.get(MapKeys.SENDERID)==null?"":msgmap.get(MapKeys.SENDERID).toString(),"UTF-8")//34
+
 
 
 		};
