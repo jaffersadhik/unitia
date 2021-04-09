@@ -4,10 +4,6 @@ import org.apache.commons.lang.StringUtils;
 
 public class T1 {
 
-	public static void main(String args[]){
-		
-		T1 obj=new T1();
-	}
 public  boolean isMatch(String template,String fullmsg){
 		
 		String temp[]=StringUtils.split(template);
@@ -27,12 +23,31 @@ public  boolean isMatch(String template,String fullmsg){
 				int lastTempPointer=getLastTempPointer(temp,i);
 				int maxVarCharCount=getMaxVarcharCount(lastTempPointer,temp);
 				int upcomingmsgpointer=getUpcomingMsgPointer(lastTempPointer,temp,msg,msgpointer);
-				int varcharcount=getVarcharCount(msg,msgpointer,upcomingmsgpointer);
-	/*		
+				String varchar=getVarcharCharacter(msg,msgpointer,upcomingmsgpointer);
+				int varcharcount=varchar.length();
+			
+				String prefixingcharacter="";
+				if(lastTempPointer==i&& t.indexOf("{#var#}")>-1){
+					prefixingcharacter=getPrefixingCharacter(t);
+				//	System.out.println(" prefixingcharacter "+ prefixingcharacter);
+
+					int prefixingcount=prefixingcharacter.length();
+					maxVarCharCount=maxVarCharCount+prefixingcount;
+					
+					if(!varchar.startsWith(prefixingcharacter)){
+						
+						return false;
+					}
+					
+
+				}
+				/*
+				System.out.println(" i "+ i);
 				System.out.println(" lastTempPointer "+ lastTempPointer);
 				System.out.println(" maxVarCharCount "+ maxVarCharCount);
 				System.out.println(" upcomingmsgpointer "+ upcomingmsgpointer);
 				System.out.println(" varcharcount "+ varcharcount);
+				System.out.println(" varchar "+ varchar);
 */
 				if(maxVarCharCount>varcharcount){
 					msgpointer=upcomingmsgpointer;
@@ -94,7 +109,17 @@ public  boolean isMatch(String template,String fullmsg){
 		
 }
 
-private int getVarcharCount(String[] msg, int msgpointer, int upcomingmsgpointer) {
+private String getPrefixingCharacter(String t) {
+	
+	int i=t.indexOf("{#var#}");
+	if(i>0){
+	
+		return t.substring(0,i);
+	}
+	return "";
+}
+
+private String getVarcharCharacter(String[] msg, int msgpointer, int upcomingmsgpointer) {
 	
 	StringBuffer sb=new StringBuffer();
 	for(int i=msgpointer;i<upcomingmsgpointer;i++){
@@ -103,8 +128,7 @@ private int getVarcharCount(String[] msg, int msgpointer, int upcomingmsgpointer
 		
 	}
 	
-	//System.out.println(sb.toString());
-	return sb.toString().trim().length();
+	return sb.toString().trim();
 }
 
 private int getUpcomingMsgPointer(int lastTempPointer, String[] temp, String[] msg, int msgpointer) {
