@@ -25,11 +25,22 @@ public  boolean isMatch(String template,String fullmsg){
 				int upcomingmsgpointer=getUpcomingMsgPointer(lastTempPointer,temp,msg,msgpointer);
 				String varchar=getVarcharCharacter(msg,msgpointer,upcomingmsgpointer);
 				int varcharcount=varchar.length();
-			
-				String prefixingcharacter="";
+/*
+				System.out.println(" i "+ i);
+				System.out.println(" t "+ t);
+
+				System.out.println(" lastTempPointer "+ lastTempPointer);
+				System.out.println(" maxVarCharCount "+ maxVarCharCount);
+				System.out.println(" upcomingmsgpointer "+ upcomingmsgpointer);
+				System.out.println(" varcharcount "+ varcharcount);
+				System.out.println(" varchar "+ varchar);
+				System.out.println(" msgpointer "+ msgpointer);
+				System.out.println(" msg.length "+ msg.length);
+				System.out.println(" temp.length "+ temp.length);
+*/
 				if(lastTempPointer==i&& t.indexOf("{#var#}")>-1){
-					prefixingcharacter=getPrefixingCharacter(t);
-				//	System.out.println(" prefixingcharacter "+ prefixingcharacter);
+					String	prefixingcharacter=getPrefixingCharacter(t);
+		//			System.out.println(" prefixingcharacter "+ prefixingcharacter);
 
 					int prefixingcount=prefixingcharacter.length();
 					maxVarCharCount=maxVarCharCount+prefixingcount;
@@ -39,16 +50,22 @@ public  boolean isMatch(String template,String fullmsg){
 						return false;
 					}
 					
+					String	suffixingcharacter=getSufffixingCharacter(t);
+					
+			//		System.out.println(" suffixingcharacter "+ suffixingcharacter);
 
+					int suffixingcount=suffixingcharacter.length();
+					
+					maxVarCharCount=maxVarCharCount+suffixingcount;
+
+					
+					if(!varchar.endsWith(suffixingcharacter)){
+						
+						return false;
+					}
 				}
-				/*
-				System.out.println(" i "+ i);
-				System.out.println(" lastTempPointer "+ lastTempPointer);
-				System.out.println(" maxVarCharCount "+ maxVarCharCount);
-				System.out.println(" upcomingmsgpointer "+ upcomingmsgpointer);
-				System.out.println(" varcharcount "+ varcharcount);
-				System.out.println(" varchar "+ varchar);
-*/
+		
+		
 				if(maxVarCharCount>varcharcount){
 					msgpointer=upcomingmsgpointer;
 				}else{
@@ -64,9 +81,6 @@ public  boolean isMatch(String template,String fullmsg){
 		
 		} 
 /*
-		System.out.println(" msgpointer "+ msgpointer);
-		System.out.println(" msg.length "+ msg.length);
-		System.out.println(" temp.length "+ temp.length);
 */
 		if(msg.length==temp.length){
 			
@@ -109,6 +123,19 @@ public  boolean isMatch(String template,String fullmsg){
 		
 }
 
+private String getSufffixingCharacter(String t) {
+	int i=t.lastIndexOf("{#var#}");
+	if(i<t.length()){
+	
+		i=i+7;
+		if(i<t.length()){
+		return t.substring(i,t.length());
+	
+		}
+	}
+	return "";
+}
+
 private String getPrefixingCharacter(String t) {
 	
 	int i=t.indexOf("{#var#}");
@@ -122,12 +149,15 @@ private String getPrefixingCharacter(String t) {
 private String getVarcharCharacter(String[] msg, int msgpointer, int upcomingmsgpointer) {
 	
 	StringBuffer sb=new StringBuffer();
+	if(msgpointer==upcomingmsgpointer){
+		sb.append(msg[msgpointer]);
+	}else{
 	for(int i=msgpointer;i<upcomingmsgpointer;i++){
 		
 		sb.append(msg[i]).append(" ");
 		
 	}
-	
+	}
 	return sb.toString().trim();
 }
 
