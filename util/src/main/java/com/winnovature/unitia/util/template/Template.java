@@ -100,7 +100,8 @@ public class Template {
 				
 				Map<String,String> data=new HashMap<String,String>();
 				
-
+				template_msg=template_msg.replace("\t", " ");
+				template_msg=template_msg.replace("\n", " ");
 				data.put("template_msg", template_msg);
 				data.put("entity_id", entity_id);
 				data.put("template_id", template_id);
