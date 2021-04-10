@@ -274,6 +274,7 @@ public class ReportDAO {
 
 							}
 						}else{
+							statement.setString(46, (String)msgmap.get(MapKeys.STATUSID));
 
 						}
 					}
