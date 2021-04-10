@@ -446,7 +446,7 @@ public class RouteProcessor {
 
 				List<Map<String,String>>  patternset=Template.getInstance().getTemplateList(msgmap.get(MapKeys.SENDERID).toString().toLowerCase());
 				
-
+				msgmap.put("patternset", patternset);
 				if(patternset!=null){
 				T1 t1=new T1();
 				for(int i=0,max=patternset.size();i<max;i++){
