@@ -77,9 +77,14 @@ public class DBReceiver extends Thread {
 			if(data!=null&&data.size()>0){
 				
 			
+					if(queuename.equals("requestlog")){
+						sendUntilSuccess(data);
+					}else{
 					for(int i=0;i<data.size();i++){
 					
 					sendUntilSuccess(data.get(i));
+					
+					}
 					
 					}
 				
@@ -173,7 +178,6 @@ private void sendUntilSuccess(List<Map<String, Object>> maplist) {
 		Map<String,Object> logmap=new HashMap<String,Object>();
 		logmap.put("module", "dbtoredis");
 		logmap.put("logname", "dbtoredis_"+queuename);
-		logmap.putAll(maplist);
 		
 		String actualqueuename=queuename;
 		
