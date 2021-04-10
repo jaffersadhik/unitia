@@ -31,6 +31,7 @@ import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.ToJsonString;
 import com.winnovature.unitia.util.misc.WinDate;
+import com.winnovature.unitia.util.redis.QueueSender;
 
 public class GsonProcessor {
 	
@@ -141,6 +142,10 @@ public class GsonProcessor {
 				if(!new Utility().sendQueue(msgmaplist.get(0),logmap)){
 					
 					return new RequestProcessor().getRejectedResponse(MessageStatus.SENT_TO_QUEUE_FAILED);
+				}else{
+					List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+					list.add(msgmaplist.get(0));
+					new QueueSender().sendLtoRequestLog(list, false, logmap);
 				}
 				
 			}else{
@@ -149,6 +154,9 @@ public class GsonProcessor {
 				if(!new Insert().insertA(msgmaplist)){
 					
 					return new RequestProcessor().getRejectedResponse(MessageStatus.SENT_TO_QUEUE_FAILED);
+				}else{
+					
+					new QueueSender().sendLtoRequestLog(msgmaplist, false, logmap);
 				}
 			}
 			

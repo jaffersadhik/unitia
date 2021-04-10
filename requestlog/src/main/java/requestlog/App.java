@@ -36,6 +36,10 @@ public class App
 				System.out.println(logstring);
 		
 			Log.log(logstring);
+			
+			if(redisid.equals("redisqueue1")){
+				continue;
+			}
 			new RedisReceiver(poolname,redisid).start();
 
 

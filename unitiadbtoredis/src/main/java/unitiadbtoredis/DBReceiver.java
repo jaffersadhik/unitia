@@ -134,6 +134,8 @@ public class DBReceiver extends Thread {
 			
 		}
 	}
+	
+	
 	private void sendUntilSuccess(Map<String, Object> map) {
 		
 		Map<String,Object> logmap=new HashMap<String,Object>();
@@ -164,6 +166,35 @@ public class DBReceiver extends Thread {
 		}
 		
 	}
+
+	
+private void sendUntilSuccess(List<Map<String, Object>> maplist) {
+		
+		Map<String,Object> logmap=new HashMap<String,Object>();
+		logmap.put("module", "dbtoredis");
+		logmap.put("logname", "dbtoredis_"+queuename);
+		logmap.putAll(maplist);
+		
+		String actualqueuename=queuename;
+		
+		
+		
+		while(true){
+			
+			
+			if(queuesender.sendLtoRequestLog(maplist, true, logmap)){
+				
+				new FileWrite().write(logmap);
+
+				return;
+			}
+			
+			gotosleep();
+		}
+		
+	}
+
+	
 	private void gotosleep() {
 		
 		try{

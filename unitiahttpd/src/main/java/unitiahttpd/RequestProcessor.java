@@ -3,8 +3,10 @@ package unitiahttpd;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.account.WhiteListedIP;
+import com.winnovature.unitia.util.dao.Insert;
 import com.winnovature.unitia.util.http.HTTPDeliveryTimeCheck;
 import com.winnovature.unitia.util.http.IHTTPParams;
 import com.winnovature.unitia.util.http.Utility;
@@ -22,6 +25,7 @@ import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.ToJsonString;
 import com.winnovature.unitia.util.misc.WinDate;
+import com.winnovature.unitia.util.redis.QueueSender;
 
 
 
@@ -232,6 +236,10 @@ public class RequestProcessor
 				if(!new Utility().sendQueue(msgmap,logmap)){
 				
 				return getRejectedResponse(MessageStatus.SENT_TO_QUEUE_FAILED);
+				}else{
+					List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+					list.add(msgmap);
+					new QueueSender().sendLtoRequestLog(list, false, logmap);
 				}
 
 			
@@ -327,14 +335,14 @@ public class RequestProcessor
 		int flag = 0;
 		
 		try {
-			
+			List<Map<String,Object>> msgmaplist=new ArrayList<Map<String,Object>>();
 			for(int i=0;i<_len;i++) {
 					
 				boolean isEmail = false;
 				
 				Map<String,Object> dtoobj =new HashMap<String,Object>();
 				dtoobj.putAll(msgmap);
-				
+				msgmaplist.add(dtoobj);
 				String _mnumber = _splittedMnumber[i];
 				
 				
@@ -359,14 +367,24 @@ public class RequestProcessor
 				}
 			
 				if(flag == 0) {
-					
+					/*
 					if(!new Utility().sendQueue(dtoobj,logmap)){
 						
 						return MessageStatus.SENT_TO_QUEUE_FAILED;
 					}
-
+					*/
 				} 
-			}}	catch(Exception e)
+			}
+			
+			if(!new Insert().insertA(msgmaplist)){
+				
+				return MessageStatus.SENT_TO_QUEUE_FAILED;
+			}else{
+			
+				new QueueSender().sendLtoRequestLog(msgmaplist, false, logmap);
+			}
+			
+		}	catch(Exception e)
 					{
 				
 				
