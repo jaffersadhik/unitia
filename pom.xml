@@ -51,6 +51,7 @@
   	<module>dnhttppostinsert</module>
   	<module>dnhttppostselect</module>
   	<module>concateexpiry</module>
+  	<module>requestlog</module>
     </modules>
   <dependencies>
   

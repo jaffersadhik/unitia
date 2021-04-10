@@ -36,6 +36,7 @@ public class App
     	start("logspool");
     	start("appspool");
     	start("submissionpool");
+    	start("requestlog");
     	start("missedcallpool");
     	start("shortcodepool");
     	start("kl_kannel2_1");

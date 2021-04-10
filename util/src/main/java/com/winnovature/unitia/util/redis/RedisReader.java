@@ -92,6 +92,65 @@ public Map<String,Object> getData(String queuename,String redisid){
 	}
 	
 
+public List<Map<String,Object>> getDataAsList(String queuename,String redisid){
+	
+
+    long start=System.currentTimeMillis();
+    
+        JedisPool pool = null;
+        Jedis jedis = null;
+        byte[] bytes=null;
+        Object result=null;
+        try
+        {
+            pool = RedisQueueConnectionPool.getInstance().getPool(redisid,queuename);
+            jedis = pool.getResource();
+            List<byte[]> list=jedis.brpop(15, (MODE+queuename).getBytes("utf-8"));
+           if(list!=null){
+            bytes = list.get(1);
+            }
+            if(bytes==null || bytes.length == 0)
+            {
+            	result=null;
+            }
+            else
+            {
+            	result=consume(bytes);
+            }
+        }
+        catch (Exception e)
+        {
+
+        	System.err.println(new Date()+" \t "+ErrorMessage.getMessage(e));
+        	
+        	try {
+				Thread.sleep(1000L);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	
+        }finally{
+        	if (jedis != null){
+				try {
+					jedis.close();
+					
+				}
+				catch (Exception e) {
+
+					e.printStackTrace();
+				}
+		}
+        }
+        
+        long end=System.currentTimeMillis();
+        
+//    	stats(queuename,redisid,start,end);
+
+        return (List<Map<String,Object>>)result;
+    
+	}
+	
 
 	 private void stats(String queuename,String redisid,long start,long end) {
 	

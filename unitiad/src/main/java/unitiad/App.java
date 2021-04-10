@@ -108,6 +108,10 @@ public class App {
 			
 			submission.App.main(args);
 			
+		}else if(module.equals("requestlog")){
+			
+			requestlog.App.main(args);
+			
 		}else if(module.equals("delivery")){
 			
 			delivery.App.main(args);

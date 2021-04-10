@@ -159,7 +159,7 @@ public class ReportLogTable {
 		try{
 			
 		
-		
+			result.add("reportlog_requestlog");
 			result.add("reportlog_submit");
 			result.add("reportlog_delivery");
 			

@@ -60,6 +60,7 @@ public class TempTable {
 		result.add("appspool");
 		result.add("dngenpool");
 		result.add("submissionpool");
+		result.add("requestlog");
 		result.add("smppdn");
 		result.add("httpdn");
 		result.add("dnreceiverpool");
