@@ -19,6 +19,8 @@ import com.winnovature.unitia.util.account.PushAccount;
 public class FileWriteOrg {
 
 private static String MODE="";
+
+private static Set<String> LOGS=new HashSet<String>();
 	
 	static {
 		
@@ -32,8 +34,28 @@ private static String MODE="";
 			MODE=mode;
 		}
 		
+		LOGS.add("http_interface_8001");
+		LOGS.add("http_interface_8002");
+		LOGS.add("http_interface_8003");
+		LOGS.add("http_interface_8004");
+		LOGS.add("https_interface_8001");
+		LOGS.add("https_interface_8002");
+		LOGS.add("https_interface_8003");
+		LOGS.add("https_interface_8004");
 		
+		LOGS.add("gsoninterface_8001");
+		LOGS.add("gsoninterface_8002");
+		LOGS.add("gsoninterface_8003");
+		LOGS.add("gsoninterface_8004");
 
+		LOGS.add("submission");
+		LOGS.add("router");
+		LOGS.add("kannelresponsetime");
+		LOGS.add("kannelconnector");
+		LOGS.add("deliverytable");
+		LOGS.add("clientdnhttppost");
+		LOGS.add("dnreceiver");
+		LOGS.add("cdacconnector");
 	}
 
 	static Map<String,Logger> LOGSNAME=new HashMap<String,Logger>();
@@ -103,6 +125,22 @@ private static String MODE="";
 	private void logAppslog(Map<String, Object> logmap) {
 		
 		String logname=(String)logmap.get("logname");
+		
+		if(LOGS.contains(logname)){
+			
+			String username=(String)logmap.get(MapKeys.USERNAME);
+			
+			if(username!=null){
+				
+				String logsyn=PushAccount.instance().getPushAccount(username).get("logs_yn");
+				
+				if(logsyn!=null&&logsyn.equals("0")){
+					
+					return;
+				}
+			}
+		}
+		
 		if(logname!=null&&logname.length()>1){
 			savefile(logname, logmap);
 
