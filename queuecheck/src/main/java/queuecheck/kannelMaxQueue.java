@@ -170,7 +170,7 @@ public static void insertQueueintoDB(Connection connection,String smscid,String 
 		{
 						long updatetime=System.currentTimeMillis();
 			
-			insert=connection.prepareStatement("insert into queue_count_smscid(smscid,queuecount ,updatetime ) values(?,?,?)");
+			insert=connection.prepareStatement("insert into queue_max_smscid(smscid,queuecount ,updatetime ) values(?,?,?)");
 
 			insert.setString(1, smscid);
 			insert.setString(2, queuecount);
