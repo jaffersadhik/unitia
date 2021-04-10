@@ -55,7 +55,7 @@ public class DBReceiver extends Thread {
 			logmap.put("kannelid",kannelid);
 
 			logmap.put("smscid",smscid);
-			logmap.put("logname", "sqlboxdnpoller");
+			logmap.put("logname", "sqlboxdndbreceiver");
 
 			
 				

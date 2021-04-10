@@ -29,7 +29,7 @@ public class T  extends Thread{
 				com.winnovature.unitia.util.misc.kannel.reload();
 				gotosleep();
 				
-				printrouteInfo();
+				//printrouteInfo();
 
 			}catch(Exception e){
 				
@@ -37,7 +37,7 @@ public class T  extends Thread{
 			}
 		}
 	}
-
+/*
 	private void printrouteInfo() {
 		
 		Map<String,Object> logmap=new HashMap<String,Object>();
@@ -47,7 +47,7 @@ public class T  extends Thread{
 		new FileWrite().write(logmap);
 		
 	}
-
+*/
 	private void gotosleep() {
 
 
