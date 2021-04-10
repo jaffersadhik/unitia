@@ -18,6 +18,7 @@ public class TKannelSMSCID  extends Thread{
 			try{
 				com.winnovature.unitia.util.db.Kannel.getInstance().reload();
 				kannelQueue.reload();
+				kannelMaxQueue.reload();
 				gotosleep();
 			}catch(Exception e){
 				
