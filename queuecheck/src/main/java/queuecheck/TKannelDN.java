@@ -10,6 +10,7 @@ public class TKannelDN  extends Thread{
 			
 			try{
 				DLRCount.getInstance().doProcess();
+				DLRMax.getInstance().doProcess();
 				gotosleep();
 			}catch(Exception e){
 				
