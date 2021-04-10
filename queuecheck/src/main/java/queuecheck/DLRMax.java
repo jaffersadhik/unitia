@@ -223,7 +223,7 @@ private void insertQueueintoDB(Connection connection, String queuename,String co
 		{
 			long updatetime=System.currentTimeMillis();
 			
-			insert=connection.prepareStatement("insert into queue_count_dlr(queuename,count ,updatetime,mode) values(?,?,?,?)");
+			insert=connection.prepareStatement("insert into queue_max_dlr(queuename,count ,updatetime,mode) values(?,?,?,?)");
 			insert.setString(1, queuename);
 			insert.setString(2, count);
 			insert.setString(3, ""+updatetime);
@@ -250,7 +250,7 @@ private void insertQueueintoDB(Connection connection, String queuename,String co
 			
 			long updatetime=System.currentTimeMillis();
 			
-			update=connection.prepareStatement("update queue_count_dlr set count=?,updatetime=? where queuename=? and mode=?  ");
+			update=connection.prepareStatement("update queue_max_dlr set count=?,updatetime=? where queuename=? and mode=?  ");
 
 			update.setString(1, count);
 			update.setString(2, ""+updatetime);
