@@ -15,7 +15,7 @@ import com.winnovature.unitia.util.db.QueueDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 
 
-public class HttpDNCount {
+public class HttpDNMax {
 
 
 	 private static String MODE="";
@@ -35,25 +35,23 @@ public class HttpDNCount {
 			
 
 		}
-	static String SQL="select username,count(*) cnt from httpdn  group by username";
 	
-	private static HttpDNCount obj=null;
+	private static HttpDNMax obj=null;
 
-	private  Map<String,String> map=new HashMap<String,String>();
 
-	private HttpDNCount(){
+	private HttpDNMax(){
 		
 		checkQueueTableAvailable();
 	}
 	
 	
 
-	public static HttpDNCount getInstance(){
+	public static HttpDNMax getInstance(){
 		
 		
 		if(obj==null){
 			
-			obj=new HttpDNCount();
+			obj=new HttpDNMax();
 		}
 		
 		return obj;
@@ -67,9 +65,9 @@ public class HttpDNCount {
 			connection=CoreDBConnection.getInstance().getConnection();
 			TableExsists table=new TableExsists();
 			
-			if(!table.isExsists(connection, "queue_count_httpdn")){
+			if(!table.isExsists(connection, "queue_max_httpdn")){
 				
-				table.create(connection, "create table queue_count_httpdn(queuename varchar(50),count numeric(10,0),updatetime numeric(13,0),mode varchar(25) default 'production')", false);
+				table.create(connection, "create table queue_max_httpdn(queuename varchar(50),count numeric(10,0),updatetime numeric(13,0),mode varchar(25) default 'production')", false);
 			}
 			
 			
@@ -88,13 +86,34 @@ public class HttpDNCount {
 		try{
 			connection=CoreDBConnection.getInstance().getConnection();
 
-			Map<String,String> result=getDLRCount();
-			Map<String,String> emptymap=getEmptyMap(connection);
+			Map<String,String> result=getDLRCount(connection);
+			Map<String,String> map=HttpDNCount.getInstance().getMap();
 			
-			emptymap.putAll(result);
+			Iterator itr=map.keySet().iterator();
 			
-			this.map=emptymap;
-			insertQueueintoDB(connection,emptymap);
+			while(itr.hasNext()){
+				try{
+					String key=itr.next().toString();
+					String count=map.get(key);
+					
+					if(result.containsKey(key)){
+						
+						String amx=result.get(key);
+						long cc=Long.parseLong(count);
+						long max=Long.parseLong(amx);
+						if(cc>max){
+							result.put(key, count);
+
+						}
+					}else{
+						result.put(key, count);
+					}
+				}catch(Exception e){
+					
+				}
+			}
+			
+			insertQueueintoDB(connection,result);
 		
 		}catch(Exception e){
 			
@@ -127,27 +146,25 @@ public class HttpDNCount {
 	}
 
 
-	private Map<String, String> getDLRCount() {
+	private Map<String, String> getDLRCount(Connection connection) {
 		
-		Connection connection=null;
 		PreparedStatement statement=null;
 		ResultSet resultset=null;
 		Map<String,String> result=new HashMap<String,String>();
 		
 		try{
 			connection=QueueDBConnection.getInstance().getConnection();
-			statement=connection.prepareStatement(getQuery(SQL,""));
+			statement=connection.prepareStatement(getQuery("select queuename,count from queue_max_httpdn",""));
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
-				result.put(resultset.getString("username"), resultset.getString("cnt"));
+				result.put(resultset.getString("queuename"), resultset.getString("count"));
 			}
 		}catch(Exception e){
 			
 		}finally{
 			Close.close(resultset);
 			Close.close(statement);
-			Close.close(connection);
 		}
 		return result;
 	}
@@ -212,7 +229,7 @@ private void insertQueueintoDB(Connection connection,String queuename,String cou
 		{
 			long updatetime=System.currentTimeMillis();
 			
-			insert=connection.prepareStatement("insert into queue_count_httpdn(queuename,count ,updatetime,mode) values(?,?,?,?)");
+			insert=connection.prepareStatement("insert into queue_max_httpdn(queuename,count ,updatetime,mode) values(?,?,?,?)");
 			insert.setString(1, queuename);
 			insert.setString(2, count);
 			insert.setString(3, ""+updatetime);
@@ -239,7 +256,7 @@ private void insertQueueintoDB(Connection connection,String queuename,String cou
 			
 			long updatetime=System.currentTimeMillis();
 			
-			update=connection.prepareStatement("update queue_count_httpdn set count=?,updatetime=? where queuename=? and mode=?");
+			update=connection.prepareStatement("update queue_max_httpdn set count=?,updatetime=? where queuename=? and mode=?");
 
 			update.setString(1, count);
 			update.setString(2, ""+updatetime);
@@ -259,8 +276,4 @@ private void insertQueueintoDB(Connection connection,String queuename,String cou
 
 
 
-	public Map<String,String> getMap(){
-		
-		return map;
-	}
 }

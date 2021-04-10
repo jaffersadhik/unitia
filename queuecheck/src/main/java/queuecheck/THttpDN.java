@@ -10,6 +10,7 @@ public class THttpDN  extends Thread{
 			
 			try{
 				HttpDNCount.getInstance().doProcess();
+				HttpDNMax.getInstance().doProcess();
 				gotosleep();
 			}catch(Exception e){
 				
