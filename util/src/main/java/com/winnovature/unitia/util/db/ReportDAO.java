@@ -126,7 +126,7 @@ public class ReportDAO {
 				}
 				
 				
-				if("reportlog_delivery".equals(tablename)){
+				if("reportlog_delivery".equals(tablename)||"reportlog_requestlog".equals(tablename)){
 					statement.setString(7, null);
 
 				}else{
