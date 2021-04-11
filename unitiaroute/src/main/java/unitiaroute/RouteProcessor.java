@@ -450,8 +450,7 @@ public class RouteProcessor {
 				if(patternset!=null){
 				T1 t1=new T1();
 				String msg=fullmsg.toLowerCase();
-				msg=msg.replace("\n", "");
-				msg=msg.replace("\t", "");
+				
 				msgmap.put("matching msg", msg);
 
 				for(int i=0,max=patternset.size();i<max;i++){
