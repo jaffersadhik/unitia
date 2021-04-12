@@ -187,7 +187,7 @@ public class DNQueryProcessor
 					credit=resultset.getString("stotalmsgcount");
 				}
 				
-				Timestamp ctime=resultset.getTimestamp("ctime");
+				Timestamp ctime=resultset.getTimestamp("carrier_dtime");
 				
 				if(ctime!=null){
 					ctimestring=""+ctime.getTime();
