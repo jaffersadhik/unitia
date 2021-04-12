@@ -140,6 +140,7 @@ public class DNQueryProcessor
 			String sql="select rlog.msgid,rlog.senderid rsenderid,rlog.mobile,rsub.senderid ssenderid,rlog.rtime,rsub.statusid sstatusid,rdlv.carrier_dtime,rdlv.senderid dsenderid,rdlv.statusid dstatusid, rdlv.carrier_stat,rdlv.totalmsgcount dtotalmsgcount,rdlv.credit dcredit,rsub.totalmsgcount stotalmsgcount,rsub.credit scredit from reportlog_requestlog rlog left outer join reportlog_submit rsub on rlog.msgid=rsub.msgid left outer join  reportlog_delivery rdlv on rlog.msgid=rdlv.msgid where rlog.ackid=?";
 			connection=BillingDBConnection.getInstance().getConnection();
 			statement=connection.prepareStatement(sql);
+			statement.setString(1, ackid);
 			resultset=statement.executeQuery();
 			while(resultset.next()){
 				
@@ -210,7 +211,7 @@ public class DNQueryProcessor
 				data.put("credit", credit);
 				data.put("stat", stat);
 				data.put("statusid", statusid);
-				data.put("statusid", statusdescription);
+				data.put("statusdescription", statusdescription);
 				data.put("rtime", new WinDate().getLogDate(rtime));
 
 				if(ctimestring!=null){
