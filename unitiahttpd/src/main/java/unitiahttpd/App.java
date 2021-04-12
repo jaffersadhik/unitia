@@ -55,6 +55,10 @@ public class App extends AbstractHandler
         	
         	doProcessQS(request,response);
         	
+        }else if(uri.startsWith("/dnquery")){
+        	
+        	doProcessDNQuery(request,response);
+        	
         }else if(uri.startsWith("/esms/sendsmsrequestDLT")){
         	
         	doProcessQS2(request,response);
@@ -287,6 +291,45 @@ public class App extends AbstractHandler
 		
 	}
 
+	
+
+	
+	
+
+	private void doProcessDNQuery(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+
+    	
+        Map<String,Object> msgmap= new HashMap<String,Object>();
+
+		DNQueryProcessor processor = new DNQueryProcessor();
+		Bean.setDefaultValues(msgmap);
+        Map<String, Object> logmap = new HashMap<String,Object>();
+		String responsestring=processor.processRequest(request,msgmap, logmap);
+		String protocol="http";
+		
+		logmap.put("module", "dnqueryapi");
+		
+		String isSecure=(String)logmap.get("upgrade-insecure-requests");
+		
+		if(isSecure!=null&&isSecure.equals("1")){
+			protocol="https";
+		}
+			logmap.put("logname", protocol+"_dnqueryapi_"+PORT);
+
+		
+		logmap.put("link", "dnquery");
+		logmap.put("responsestring", responsestring);
+
+		logmap.putAll(msgmap);
+		new FileWrite().write(logmap);
+        response.getWriter().println(responsestring);
+
+        
+		
+	}
+
+	
 	private void doProcessQS(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 

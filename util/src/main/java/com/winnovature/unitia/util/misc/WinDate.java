@@ -34,6 +34,11 @@ public class WinDate {
 		
 		return sdfforlog.format(new Date());
 	}
+	
+	public String getLogDate(long lDate) {
+		
+		return sdfforlog.format(new Date(lDate));
+	}
 	public String getDate() {
 		
 		return sdf.format(new Date());
