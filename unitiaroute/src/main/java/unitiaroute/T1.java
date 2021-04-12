@@ -27,56 +27,54 @@ public  boolean isMatch(String template,String fullmsg){
 
 				int maxVarCharCount=getMaxVarcharCount(lastTempPointer,temp);
 				int upcomingmsgpointer=getUpcomingMsgPointer(lastTempPointer,temp,msg,msgpointer);
-				String varchar=getVarcharCharacter(msg,msgpointer,upcomingmsgpointer);
+				String varchar=getVarcharCharacter(msg,msgpointer,upcomingmsgpointer,lastTempPointer,temp);
 				int varcharcount=varchar.length();
 
 				String tempvarchar=getTempVarchar(i,lastTempPointer,temp);
 		
-				/*
-				 * 
-				System.out.println(" i "+ i);
-				System.out.println(" tempvarchar "+ tempvarchar);
+				//System.out.println(" i "+ i);
+				//System.out.println(" tempvarchar "+ tempvarchar);
 
 				if((i+1)<temp.length){
-					System.out.println(" next temp "+ temp[i+1]);
+					//System.out.println(" next temp "+ temp[i+1]);
 
 				}else{
 					
-					System.out.println(" next temp "+ "");
+					//System.out.println(" next temp "+ "");
 
 				}
 				
 				if((upcomingmsgpointer)<msg.length){
-					System.out.println(" upcoming msg "+ msg[upcomingmsgpointer]);
+					//System.out.println(" upcoming msg "+ msg[upcomingmsgpointer]);
 
 				}else{
 					
-					System.out.println(" upcoming msg "+ "");
+					//System.out.println(" upcoming msg "+ "");
 
 				}
 				
 				if((msgpointer+1)<msg.length){
-					System.out.println(" next msg "+ msg[msgpointer+1]);
+					//System.out.println(" next msg "+ msg[msgpointer+1]);
 
 				}else{
 					
-					System.out.println(" next msg "+ "");
+					//System.out.println(" next msg "+ "");
 
 				}
-				System.out.println(" lastTempPointer "+ lastTempPointer);
-				System.out.println(" maxVarCharCount "+ maxVarCharCount);
-				System.out.println(" upcomingmsgpointer "+ upcomingmsgpointer);
-				System.out.println(" varcharcount "+ varcharcount);
-				System.out.println(" varchar "+ varchar);
-				System.out.println(" msgpointer "+ msgpointer);
-				System.out.println(" msg.length "+ msg.length);
-				System.out.println(" temp.length "+ temp.length);
-*/
+				//System.out.println(" lastTempPointer "+ lastTempPointer);
+				//System.out.println(" maxVarCharCount "+ maxVarCharCount);
+				//System.out.println(" upcomingmsgpointer "+ upcomingmsgpointer);
+				//System.out.println(" varcharcount "+ varcharcount);
+				//System.out.println(" varchar "+ varchar);
+				//System.out.println(" msgpointer "+ msgpointer);
+				//System.out.println(" msg.length "+ msg.length);
+				//System.out.println(" temp.length "+ temp.length);
+
 	
 				String	prefixingcharacter=getPrefixingCharacter(tempvarchar);
 
 				
-				//					System.out.println(" prefixingcharacter "+ prefixingcharacter);
+									//System.out.println(" prefixingcharacter "+ prefixingcharacter);
 
 					
 					if(prefixingcharacter!=null&&prefixingcharacter.trim().length()>0&&!varchar.startsWith(prefixingcharacter)){
@@ -86,7 +84,7 @@ public  boolean isMatch(String template,String fullmsg){
 					
 					String	suffixingcharacter=getSufffixingCharacter(tempvarchar);
 					
-	//				System.out.println(" suffixingcharacter "+ suffixingcharacter);
+					//System.out.println(" suffixingcharacter "+ suffixingcharacter);
 
 					
 
@@ -99,14 +97,17 @@ public  boolean isMatch(String template,String fullmsg){
 					List<String> intersectlist =getIntserSectList(tempvarchar);
 					
 					if(intersectlist!=null){
+						//System.out.println("intersectlist : "+intersectlist);
 						
+					
 						for(int j=0;j<intersectlist.size();j++){
 							
 							String s=intersectlist.get(j);
 
 							if(s!=null&&s.trim().length()>0){
-							if(!(varchar.indexOf(s)>-1)){
+							if(!(varchar.indexOf(s.trim())>-1)){
 
+								//System.out.println(s);
 								return false;
 							}else{
 								
@@ -131,7 +132,9 @@ public  boolean isMatch(String template,String fullmsg){
 
 			}else if(! m.equalsIgnoreCase(t)){
 				
-	
+				//System.out.println("temp : "+t);
+				//System.out.println("msg : "+m);
+
 				return false;
 			}else{
 				msgpointer++;
@@ -208,14 +211,13 @@ private List<String> getIntserSectList(String tempvarchar) {
 
 				}
 			}
-		}else if(c[i]==' '){
 		}else{
 		
 			sb.append(c[i]);
 
 		}
 		}else{
-			if(sb.toString().trim().length()>0){
+			if(sb.toString().length()>0){
 				result.add(sb.toString());
 				sb=new StringBuffer();
 				}	
@@ -234,7 +236,7 @@ private String getTempVarchar(int min,int lastTempPointer, String[] temp) {
 		String t=temp[i];
 
 		if("{#var#}".equals(t) || t.indexOf("{#var#}")>-1 ){
-			result.append(temp[i]);
+			result.append(t).append(" ");
 		}else{
 			break;
 		}
@@ -262,13 +264,26 @@ private String getPrefixingCharacter(String t) {
 	return "";
 }
 
-private String getVarcharCharacter(String[] msg, int msgpointer, int upcomingmsgpointer) {
+private String getVarcharCharacter(String[] msg, int msgpointer, int upcomingmsgpointer,int temppointer,String [] temp) {
 	
 	StringBuffer sb=new StringBuffer();
 	if(msgpointer==upcomingmsgpointer){
 		sb.append(msg[msgpointer]);
 	}else{
-	for(int i=msgpointer;i<upcomingmsgpointer;i++){
+		int end=upcomingmsgpointer-1;
+		//System.out.println("temp[temppointer] : "+temp[temppointer]);
+		//System.out.println("msg[upcomingmsgpointer] : "+msg[upcomingmsgpointer]);
+
+		if(temppointer==temp.length-1){
+
+			if(temp[temppointer].equals(msg[upcomingmsgpointer])){
+				
+				end=upcomingmsgpointer;
+			}
+			
+		}
+		
+	for(int i=msgpointer;i<=end;i++){
 		
 		sb.append(msg[i]).append(" ");
 		
