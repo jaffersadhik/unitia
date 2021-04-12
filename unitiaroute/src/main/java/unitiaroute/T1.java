@@ -38,7 +38,7 @@ public  boolean isMatch(String template,String fullmsg){
 				System.out.println(" msg.length "+ msg.length);
 				System.out.println(" temp.length "+ temp.length);
 */
-				if(lastTempPointer==i&& t.indexOf("{#var#}")>-1){
+				if(lastTempPointer==i){
 					String	prefixingcharacter=getPrefixingCharacter(t);
 		//			System.out.println(" prefixingcharacter "+ prefixingcharacter);
 
@@ -71,6 +71,8 @@ public  boolean isMatch(String template,String fullmsg){
 				}else{
 					return false;
 				}
+				i=lastTempPointer;
+
 			}else if(! m.equalsIgnoreCase(t)){
 				return false;
 			}else{
