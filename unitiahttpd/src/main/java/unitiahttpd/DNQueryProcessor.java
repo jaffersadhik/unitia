@@ -147,7 +147,7 @@ public class DNQueryProcessor
 				String msgid=resultset.getString("msgid");
 				String senderid=resultset.getString("dsenderid");
 				String mobile=resultset.getString("mobile");
-				long rtime=resultset.getTimestamp("mobile").getTime();
+				long rtime=resultset.getTimestamp("rime").getTime();
 				String ctimestring=null;
 				String credit=resultset.getString("dcredit");
 				String totalmsgcount=resultset.getString("dtotalmsgcount");
