@@ -155,7 +155,7 @@ public class SampleTemplateAndSMS {
 
 				}
 			}catch(Exception e){
-				
+				e.printStackTrace();
 			}
 			
 		}
@@ -175,7 +175,7 @@ public class SampleTemplateAndSMS {
 				statement.setString(5, data.get("fullmessage"));
 				statement.execute();
 			}catch(Exception igmore){
-				
+				igmore.printStackTrace();
 			}finally{
 				Close.close(statement);
 				Close.close(connection);

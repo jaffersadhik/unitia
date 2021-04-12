@@ -131,9 +131,7 @@ public  boolean isMatch(String template,String fullmsg){
 
 			}else if(! m.equalsIgnoreCase(t)){
 				
-				System.out.println("temp : "+t);
-				System.out.println("msg : "+m);
-
+	
 				return false;
 			}else{
 				msgpointer++;
