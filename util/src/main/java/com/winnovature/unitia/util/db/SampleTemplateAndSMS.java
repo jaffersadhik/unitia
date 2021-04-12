@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class SampleTemplateAndSMS {
 
-	private static String CREATE_SQL="create table sample_template_sms(id INT PRIMARY KEY,username varchar(30_ not null,senderid varchar(15) not null,template_id varchar(30) not null,template text,sms text)";
+	private static String CREATE_SQL="create table sample_template_sms(id INT PRIMARY KEY,username varchar(30) not null,senderid varchar(15) not null,template_id varchar(30) not null,template text,sms text)";
 	
 	private static SampleTemplateAndSMS obj=new SampleTemplateAndSMS();
 	
