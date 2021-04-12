@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.account.Route;
 import com.winnovature.unitia.util.cdac.CDACSmscId;
+import com.winnovature.unitia.util.db.SampleTemplateAndSMS;
 import com.winnovature.unitia.util.misc.Carrier;
 import com.winnovature.unitia.util.misc.Convertor;
 import com.winnovature.unitia.util.misc.MapKeys;
@@ -471,6 +472,8 @@ public class RouteProcessor {
 						msgmap.put(MapKeys.TEMPLATEID, data.get("template_id"));
 						msgmap.put(MapKeys.DLT_TYPE, "unitia");
 						new RouterLog().routerlog(redisid, tname, "patternset : success");
+						
+						SampleTemplateAndSMS.getInstance().add(msgmap.get(MapKeys.USERNAME).toString(), msgmap.get(MapKeys.SENDERID).toString(), msgmap.get(MapKeys.TEMPLATEID).toString(), spamPattern, msg);
 
 						return ;
 					}
