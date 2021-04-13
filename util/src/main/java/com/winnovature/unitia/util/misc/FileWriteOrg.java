@@ -33,7 +33,8 @@ private static Set<String> LOGS=new HashSet<String>();
 			
 			MODE=mode;
 		}
-		
+		LOGS.add("requestlog");
+
 		LOGS.add("http_interface_8001");
 		LOGS.add("http_interface_8002");
 		LOGS.add("http_interface_8003");
