@@ -27,6 +27,7 @@ public class Refresh {
 	
 	public void reload(){
 		
+		InternalKannel.getInstance().reload();
 		CDACSmscId.getInstance().reload();
 		Carrier.getInstance().reload();
 		TeleMarketerId.getInstance().reload();
