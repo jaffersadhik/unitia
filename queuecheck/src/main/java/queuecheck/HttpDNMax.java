@@ -153,7 +153,6 @@ public class HttpDNMax {
 		Map<String,String> result=new HashMap<String,String>();
 		
 		try{
-			connection=QueueDBConnection.getInstance().getConnection();
 			statement=connection.prepareStatement(getQuery("select queuename,count from queue_max_httpdn",""));
 			resultset=statement.executeQuery();
 			while(resultset.next()){
