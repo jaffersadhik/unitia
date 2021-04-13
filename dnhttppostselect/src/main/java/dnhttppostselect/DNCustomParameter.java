@@ -16,7 +16,7 @@ public class DNCustomParameter {
 
 	private static DNCustomParameter obj=new DNCustomParameter();
 	
-	private static String SQL="create table dn_custom_param(INT PRIMARY KEY AUTO_INCREMENT,username varchar(100) not null,parameter_name varchar(100) not null)";
+	private static String SQL="create table dn_custom_param(id INT PRIMARY KEY AUTO_INCREMENT,username varchar(100) not null,parameter_name varchar(100) not null)";
 	
 	Map<String,Set<String>> customparam=new HashMap<String,Set<String>>();
 	
