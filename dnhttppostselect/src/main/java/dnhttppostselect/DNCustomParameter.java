@@ -112,6 +112,7 @@ public class DNCustomParameter {
 	catch(Exception e)
 	{
 	
+		e.printStackTrace();
 		result = null;
 	} 
 	finally 

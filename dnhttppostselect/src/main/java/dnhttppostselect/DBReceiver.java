@@ -77,6 +77,7 @@ public class DBReceiver extends Thread {
 			
 			if(data!=null&&data.size()>0){
 				
+				System.out.println("username : "+username+" poolname : "+poolname+" size "+data.size());
 		
 				String format=PushAccount.instance().getPushAccount(actuval_username).get("httpdn_format");
 				if(format!=null&&format.equals("gson")){
