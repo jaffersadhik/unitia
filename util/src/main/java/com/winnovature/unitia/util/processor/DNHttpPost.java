@@ -166,7 +166,6 @@ public class DNHttpPost
 		msgmap.put(MapKeys.DNPOSTSTATUS, response);
 		Map<String,Object> logmap=new HashMap<String,Object>();
 		
-		logmap.put("username", "sys");		
 
 		logmap.putAll(msgmap);
 		
