@@ -157,6 +157,11 @@ public class DBReceiver extends Thread {
 			actualqueuename=getQueueName(accountmap);
 		}
 		
+		if(actualqueuename.startsWith("commonpool")||actualqueuename.startsWith("kl_")){
+			
+			actualqueuename=actualqueuename.substring(0, actualqueuename.lastIndexOf("_"));
+		}
+		
 		while(true){
 			
 			
