@@ -17,6 +17,7 @@ public class TTPSSMSCID  extends Thread{
 			
 			try{
 				TPSSmscidCount.getInstance().doProcess();
+				TPSSmscidMax.getInstance().doProcess();
 				gotosleep();
 			}catch(Exception e){
 				

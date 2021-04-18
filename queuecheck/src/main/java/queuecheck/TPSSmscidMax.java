@@ -11,10 +11,11 @@ import java.util.Map;
 
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
+import com.winnovature.unitia.util.db.QueueDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 
 
-public class TPSSmscidCount {
+public class TPSSmscidMax {
 
 
 	 private static String MODE="";
@@ -35,23 +36,22 @@ public class TPSSmscidCount {
 
 		}
 	
-	private static TPSSmscidCount obj=null;
+	private static TPSSmscidMax obj=null;
 
-	private  Map<String,Map<String,String>> result=new HashMap<String,Map<String,String>>();
 
-	private TPSSmscidCount(){
+	private TPSSmscidMax(){
 		
 		checkQueueTableAvailable();
 	}
 	
 	
 
-	public static TPSSmscidCount getInstance(){
+	public static TPSSmscidMax getInstance(){
 		
 		
 		if(obj==null){
 			
-			obj=new TPSSmscidCount();
+			obj=new TPSSmscidMax();
 		}
 		
 		return obj;
@@ -65,9 +65,9 @@ public class TPSSmscidCount {
 			connection=CoreDBConnection.getInstance().getConnection();
 			TableExsists table=new TableExsists();
 			
-			if(!table.isExsists(connection, "tps_count_smscid")){
+			if(!table.isExsists(connection, "tps_max_smscid")){
 				
-				table.create(connection, "create table tps_count_smscid(smscid varchar(50),count numeric(10,0),updatetime numeric(13,0),mode varchar(25) default 'production')", false);
+				table.create(connection, "create table tps_max_smscid(smscid varchar(50),count numeric(10,0),updatetime numeric(13,0),mode varchar(25) default 'production')", false);
 			}
 			
 			
@@ -86,8 +86,34 @@ public class TPSSmscidCount {
 		try{
 			connection=CoreDBConnection.getInstance().getConnection();
 
-			setCurrentSMSCIDCount();
-			insertQueueintoDB(connection);
+			Map<String,String> result=getTPSCount(connection);
+			Map<String,Map<String,String>> map=TPSSmscidCount.getInstance().getResult();
+			
+			Iterator itr=map.keySet().iterator();
+			
+			while(itr.hasNext()){
+				try{
+					String key=itr.next().toString();
+					String count=map.get(key).get("tps");
+					
+					if(result.containsKey(key)){
+						
+						String amx=result.get(key);
+						long cc=Long.parseLong(count);
+						long max=Long.parseLong(amx);
+						if(cc>max){
+							result.put(key, count);
+
+						}
+					}else{
+						result.put(key, count);
+					}
+				}catch(Exception e){
+					
+				}
+			}
+			
+			insertQueueintoDB(connection,result);
 		
 		}catch(Exception e){
 			
@@ -100,68 +126,26 @@ public class TPSSmscidCount {
 
 
 
-	private void setCurrentSMSCIDCount() {
+	private Map<String, String> getTPSCount(Connection connection) {
 		
-		Map<String, Map<String, String>> smscqueue=kannelQueue.smscqueue;
+		PreparedStatement statement=null;
+		ResultSet resultset=null;
+		Map<String,String> result=new HashMap<String,String>();
 		
-		Iterator itr=smscqueue.keySet().iterator();
-		
-		while(itr.hasNext()){
-			
-			String smscid=itr.next().toString();
-			
-			Map<String, String> data=smscqueue.get(smscid);
-			
-			Map<String, String> data1=result.get(smscid);
-			
-			if(data1==null){
+		try{
+			statement=connection.prepareStatement(getQuery("select smscid,count from tps_max_smscid",""));
+			resultset=statement.executeQuery();
+			while(resultset.next()){
 				
-				data1=new HashMap<String,String>();
-				
-				result.put(smscid, data1);
+				result.put(resultset.getString("smscid"), resultset.getString("count"));
 			}
-			String pcount=data1.get("ccount");
-			String ccount=data.get("sent");
-
-			data1.put("pcount", pcount);
-			data1.put("ccount", ccount);
-			long tps=0;
-
-			if(pcount!=null){
-				
-				try{
-					long pInt=Integer.parseInt(pcount);
-					long cInt=Integer.parseInt(ccount);
-					long diff=cInt-pInt;
-					if(diff>0){
-					
-						String ptime=data1.get("ptime");
-						
-						if(ptime==null){
-							
-							ptime=""+System.currentTimeMillis();
-							
-							
-						}
-						
-						long tdiff=System.currentTimeMillis()-Long.parseLong(ptime);
-						
-						if(tdiff>1000){
-							
-							tdiff=tdiff/1000;
-							
-							tps=diff/tdiff;
-						}
-						
-					}
-				}catch(Exception e){
-					
-				}
-			}
+		}catch(Exception e){
 			
-			data1.put("ptime", ""+System.currentTimeMillis());
-			data1.put("tps", ""+tps);
+		}finally{
+			Close.close(resultset);
+			Close.close(statement);
 		}
+		return result;
 	}
 	
 	
@@ -182,7 +166,7 @@ private String getQuery(String sQL2, String tablename) {
 	
 
 
-public void insertQueueintoDB(Connection connection) {
+public void insertQueueintoDB(Connection connection, Map<String,String> queueCount) {
 		
 		
 		try
@@ -191,15 +175,15 @@ public void insertQueueintoDB(Connection connection) {
 			
 
 			
-			Iterator itr=result.keySet().iterator();
+			Iterator itr=queueCount.keySet().iterator();
 			
 			while(itr.hasNext()){
 				
-				String smscid=itr.next().toString();
-				String tps=result.get(smscid).get("tps");
-				if(updateDB(connection, smscid, tps)<1){
+				String queuename=itr.next().toString();
+				String count=queueCount.get(queuename);
+				if(updateDB(connection, queuename, count)<1){
 					
-					insertQueueintoDB(connection,smscid, tps);
+					insertQueueintoDB(connection,queuename, count);
 				}
 
 				
@@ -224,7 +208,7 @@ private void insertQueueintoDB(Connection connection,String queuename,String cou
 		{
 			long updatetime=System.currentTimeMillis();
 			
-			insert=connection.prepareStatement("insert into tps_count_smscid(smscid,count ,updatetime,mode) values(?,?,?,?)");
+			insert=connection.prepareStatement("insert into tps_max_smscid(smscid,count ,updatetime,mode) values(?,?,?,?)");
 			insert.setString(1, queuename);
 			insert.setString(2, count);
 			insert.setString(3, ""+updatetime);
@@ -251,7 +235,7 @@ private void insertQueueintoDB(Connection connection,String queuename,String cou
 			
 			long updatetime=System.currentTimeMillis();
 			
-			update=connection.prepareStatement("update tps_count_smscid set count=?,updatetime=? where smscid=? and mode=?");
+			update=connection.prepareStatement("update tps_max_smscid set count=?,updatetime=? where smscid=? and mode=?");
 
 			update.setString(1, count);
 			update.setString(2, ""+updatetime);
@@ -267,12 +251,6 @@ private void insertQueueintoDB(Connection connection,String queuename,String cou
 		}
 		
 		return 0;
-	}
-
-
-
-	public Map<String, Map<String, String>> getResult() {
-		return result;
 	}
 
 
