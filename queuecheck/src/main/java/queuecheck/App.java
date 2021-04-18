@@ -16,6 +16,7 @@ public class App
     	Prop.getInstance();
     	log.log("unitiacore.App.doProcess() properties loaded");
 
+    	
     	new TKannelDN().start();
     	new TKannelSMSCID().start();
     	new TMysqlQueue().start();
@@ -23,7 +24,7 @@ public class App
     	new TUsers().start();
     	new THttpDN().start();
     	new TConcateUpdate().start();
-
+    	new TTPSSMSCID().start();
      }
 }
 
