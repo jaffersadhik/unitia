@@ -43,7 +43,7 @@ public class Insert {
 			statement.setString(1, requestObject.get(MapKeys.MSGID).toString());
 			statement.setString(2, requestObject.get(MapKeys.USERNAME).toString());
 			String scheduletime=(String)requestObject.get(MapKeys.SCHEDULE_TIME);
-			if(scheduletime==null||scheduletime.trim().length()<1){
+			if(scheduletime==null||scheduletime.trim().length()<1||scheduletime.trim().length()>13){
 				scheduletime="0";
 			}
 			statement.setString(3, scheduletime);
@@ -170,7 +170,7 @@ public class Insert {
 			statement.setString(1, requestObject.get(MapKeys.MSGID).toString());
 			statement.setString(2, requestObject.get(MapKeys.USERNAME).toString());
 			String scheduletime=(String)requestObject.get(MapKeys.SCHEDULE_TIME);
-			if(scheduletime==null||scheduletime.trim().length()<1){
+			if(scheduletime==null||scheduletime.trim().length()<1||scheduletime.trim().length()>13){
 				scheduletime="0";
 			}
 			statement.setString(3, scheduletime);
@@ -268,7 +268,7 @@ public class Insert {
 				
 			
 				
-				if(scheduletime==null||scheduletime.trim().length()<1){
+				if(scheduletime==null||scheduletime.trim().length()<1||scheduletime.trim().length()>13){
 					scheduletime="0";
 				}
 				statement.setString(3,  (String)scheduletime);
