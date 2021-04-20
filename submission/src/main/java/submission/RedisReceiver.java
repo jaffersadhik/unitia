@@ -291,6 +291,7 @@ public void setDLRURL(Map<String , Object> msgmap)  throws Exception{
 		};
 		
 		String dlrurl=MessageFormat.format(DLR_URL, params);
+		dlrurl=dlrurl+"&interfacetype=submissionretry";
 		msgmap.put(MapKeys.DLR_URL, dlrurl);
 		
 		

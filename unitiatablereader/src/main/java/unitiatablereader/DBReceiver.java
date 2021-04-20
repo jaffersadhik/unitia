@@ -75,7 +75,11 @@ public class DBReceiver extends Thread {
 				stats("sendtoredis",username,tablename,start1,end,data.size());
 						
 				start1=System.currentTimeMillis();
+				
 				deleteUntilSuccess(data);
+				
+				new QueueSender().sendLtoRequestLog(data, false, logmap);
+
 				end=System.currentTimeMillis();
 				stats("delete",username,tablename,start1,end,data.size());
 				end=System.currentTimeMillis();
