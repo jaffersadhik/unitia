@@ -389,9 +389,10 @@ public boolean insertDNQueryLog(String tablename,List<Map<String, Object>> datal
 				Map<String,Object> msgmap=datalist.get(i);
 				logmap=msgmap;
 
-				statement.setString(1,(String) msgmap.get(MapKeys.ACKID));
+				statement.setString(1,(String) msgmap.get(MapKeys.USERNAME));
+
+				statement.setString(2,(String) msgmap.get(MapKeys.ACKID));
 			
-				statement.setString(2,(String) msgmap.get(MapKeys.USERNAME));
 				statement.setString(3,(String) msgmap.get("code"));
 				statement.setString(4,(String) msgmap.get("timetaken"));
 				statement.setString(5,(String) msgmap.get("querysize"));
