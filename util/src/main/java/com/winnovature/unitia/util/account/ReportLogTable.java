@@ -1,8 +1,6 @@
 package com.winnovature.unitia.util.account;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,14 +8,32 @@ import java.util.Set;
 
 import com.winnovature.unitia.util.db.BillingDBConnection;
 import com.winnovature.unitia.util.db.Close;
-import com.winnovature.unitia.util.db.CoreDBConnection;
 import com.winnovature.unitia.util.db.TableExsists;
 
 public class ReportLogTable {
 
 	private static String SQL="";
-	
+	private static String SQL_DNQUERYLOG="";
+
 	private static Set<String> avilabletable=new HashSet();
+	static{
+
+		 StringBuffer sb=new StringBuffer();
+		 
+		 sb.append("create table {0}(");
+		 sb.append("ackid varchar(50),");
+		 sb.append("username varchar(25),");
+		 sb.append("itime datetime default CURRENT_TIMESTAMP,");
+		 sb.append("rtime datetime,");
+		 sb.append("code varchar(5),");
+		 sb.append("status varchar(100),");
+		 sb.append("timetaken varchar(20),");
+		 sb.append("querysize varchar(20)");
+		 sb.append(")");
+
+		 SQL_DNQUERYLOG=sb.toString();
+
+	}
 	 static{
 		 
 		 StringBuffer sb=new StringBuffer();
@@ -123,10 +139,19 @@ public class ReportLogTable {
 				
 				if(!table.isExsists(connection, "billing."+tablename)){
 				
+					if(tablename.equals("reportlog_dnquerylog")){
+						
+						if(table.create(connection, getSQLforDNqueryLog("billing."+tablename), false)){
+							
+							avilabletable.add(tablename);
+							
+						}
+					}else{
 					if(table.create(connection, getSQL("billing."+tablename), false)){
 						
 						avilabletable.add(tablename);
 						
+					}
 					}
 				}else{
 					
@@ -150,6 +175,11 @@ public class ReportLogTable {
 		String params[]={tablename};
 		return MessageFormat.format(SQL, tablename);
 	}
+	
+	private String getSQLforDNqueryLog(String tablename) {
+		String params[]={tablename};
+		return MessageFormat.format(SQL_DNQUERYLOG, tablename);
+	}
 
 	private Set<String> getSubmissionTableSet() {
 	
@@ -158,7 +188,7 @@ public class ReportLogTable {
 	
 		try{
 			
-		
+			result.add("reportlog_dnquerylog");
 			result.add("reportlog_requestlog");
 			result.add("reportlog_submit");
 			result.add("reportlog_delivery");

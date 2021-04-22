@@ -15,6 +15,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.winnovature.unitia.util.redis.QueueSender;
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.account.WhiteListedIP;
 import com.winnovature.unitia.util.db.BillingDBConnection;
@@ -41,6 +42,7 @@ public class DNQueryProcessor
 	{		
 		
 			try{
+				long start=System.currentTimeMillis();
 		String[] splittedMnumber = null;
 		
 			this.logmap=logmap;
@@ -117,7 +119,22 @@ public class DNQueryProcessor
 				result.put("status", "Record Not Available in Database");
 
 			}
-		
+
+			long end=System.currentTimeMillis();
+
+			Map<String,Object> dnquerylog=new HashMap<String,Object>();
+			dnquerylog.put("ackid", ackid);
+			dnquerylog.put("username", username);
+			dnquerylog.put("code", result.get("code"));
+			dnquerylog.put("status", result.get("status"));
+			dnquerylog.put("timetaken", ""+(end-start));
+			dnquerylog.put("rtime",""+System.currentTimeMillis());
+
+			if(result.get("msglist")!=null){
+				
+				dnquerylog.put("querysize",""+((List)result.get("msglist")).size());
+			}
+			new QueueSender().sendL("dnquerylog",dnquerylog,false,new HashMap<String,Object > ());
 			return getWhitelableAcceptedResponse(result);
 
 			}catch(Exception e){

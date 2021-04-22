@@ -112,6 +112,10 @@ public class App {
 			
 			requestlog.App.main(args);
 			
+		}else if(module.equals("dnquerylog")){
+			
+			dnquerylog.App.main(args);
+			
 		}else if(module.equals("delivery")){
 			
 			delivery.App.main(args);

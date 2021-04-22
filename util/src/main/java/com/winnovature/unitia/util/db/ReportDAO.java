@@ -23,6 +23,8 @@ public class ReportDAO {
 
 	private static String SQL="";
 	
+	private static String SQL_DNQUERYLOG="insert into {0}(username,ackid,code,timetaken,querysize,status,rtime,itime)values(?,?,?,?,?,?,?,?)";
+
 	static{
 		
 		StringBuffer sb=new StringBuffer();
@@ -360,10 +362,91 @@ public class ReportDAO {
 		
 		return false;
 	}
+
+public boolean insertDNQueryLog(String tablename,List<Map<String, Object>> datalist) {
+		
+		Connection connection =null;
+		PreparedStatement statement=null;
+		
+		Map<String, Object> logmap=null;
+		try{
+		
+			String sql=getSQLforDNQueryLOg("billing."+tablename);
+			
+			if(!ReportLogTable.getInstance().isVailableTable(tablename)){
+			
+				ReportLogTable.getInstance().reload();
+			}
+			
+			connection= BillingDBConnection.getInstance().getConnection();
+			
+			connection.setAutoCommit(false);
+			
+			statement= connection.prepareStatement(sql);
+			
+			for(int i=0;i<datalist.size();i++){
+				
+				Map<String,Object> msgmap=datalist.get(i);
+				logmap=msgmap;
+
+				statement.setString(1,(String) msgmap.get(MapKeys.ACKID));
+			
+				statement.setString(2,(String) msgmap.get(MapKeys.USERNAME));
+				statement.setString(3,(String) msgmap.get("code"));
+				statement.setString(4,(String) msgmap.get("timetaken"));
+				statement.setString(5,(String) msgmap.get("querysize"));
+				statement.setString(6,(String) msgmap.get("status"));
+
+				statement.setTimestamp(7,new Timestamp(Long.parseLong(msgmap.get(MapKeys.RTIME).toString())));
+				statement.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+				statement.addBatch();
+			}
+			statement.executeBatch();
+			connection.commit();
+			return true;
+		}catch(Exception e){
+			
+			
+			
+		     
+					try{
+						logmap.put("module", "inserterror");
+						logmap.put("logname", "inserterror");
+						logmap.put("error", tablename+"\n"+ErrorMessage.getMessage(e));
+
+						new FileWrite().write(logmap);
+					}catch(Exception e1){
+						
+					}
+			
+	        
+			try{
+				connection.rollback();
+			}catch(Exception e1){
+				
+			}
+			
+		}finally{
+			
+			Close.close(statement);
+			Close.close(connection);
+		}
+		
+		return false;
+	}
+
+	
+	
 	private String getSQL(String tablename) {
 
 		String param[]={tablename};
 		return MessageFormat.format(SQL, param);
+	}
+
+	private String getSQLforDNQueryLOg(String tablename) {
+
+		String param[]={tablename};
+		return MessageFormat.format(SQL_DNQUERYLOG, param);
 	}
 	
 }
