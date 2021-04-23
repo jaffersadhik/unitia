@@ -116,7 +116,7 @@ public class ReportDAO {
 				statement.setString(6, (String)msgmap.get(MapKeys.MOBILE));
 				
 				String fullmsg=(String)msgmap.get(MapKeys.FULLMSG);
-			
+			/*
 				try{
 					
 					if(MessageType.isHexa( (String)msgmap.get(MapKeys.MSGTYPE))){
@@ -127,7 +127,7 @@ public class ReportDAO {
 					
 				}
 				
-				
+				*/
 				if("reportlog_delivery".equals(tablename)||"reportlog_requestlog".equals(tablename)){
 					statement.setString(7, null);
 
