@@ -209,6 +209,7 @@ public class App
       	sb.append("smsc-password =\""+data.get("password")+"\"").append("\n");		
       	sb.append("transceiver-mode=true").append("\n");		
     	sb.append("log-file = \"/var/log/kannel/"+data.get("smscid")+".log\"").append("\n");		
+    	sb.append("log-level = 3").append("\n");
 
       	
     	sb.append("\n");
