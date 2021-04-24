@@ -237,6 +237,7 @@ public class App
 	      	sb.append("smsc-password =\""+data.get("password")+"\"").append("\n");		
 	      	sb.append("transceiver-mode=false").append("\n");		
 	    	sb.append("log-file = \"/var/log/kannel/"+data.get("smscid")+".log\"").append("\n");		
+	    	sb.append("log-level = 3").append("\n");
 
 	      	
 	    	sb.append("\n");
@@ -265,6 +266,7 @@ public class App
 	      	sb.append("smsc-password =\""+data.get("password")+"\"").append("\n");		
 	      	sb.append("transceiver-mode=false").append("\n");		
 	      	sb.append("log-file = \"/var/log/kannel/"+data.get("smscid")+".log\"").append("\n");		
+	    	sb.append("log-level = 3").append("\n");
 
 	      	
 	    	sb.append("\n");
@@ -371,7 +373,7 @@ public class App
     	sb.append("dlr-storage=mysql").append("\n");		
     	sb.append("smsbox-port = 13001").append("\n");		
     	sb.append("log-file = \"/var/log/kannel/bearerbox.log\"").append("\n");		
-    	sb.append("log-level = 5").append("\n");
+    	sb.append("log-level = 3").append("\n");
     	sb.append("access-log = \"/var/log/kannel/access.log\"").append("\n");		
     	sb.append("store-type = spool").append("\n");		
     	sb.append("store-location = /var/spool/kannel").append("\n");		
