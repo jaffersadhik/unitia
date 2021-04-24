@@ -375,7 +375,7 @@ public class App
     	sb.append("smsbox-port = 13001").append("\n");		
     	sb.append("log-file = \"/var/log/kannel/bearerbox.log\"").append("\n");		
     	sb.append("log-level = 3").append("\n");
-    	sb.append("access-log = \"/var/log/kannel/access.log\"").append("\n");		
+ //   	sb.append("access-log = \"/var/log/kannel/access.log\"").append("\n");		
     	sb.append("store-type = spool").append("\n");		
     	sb.append("store-location = /var/spool/kannel").append("\n");		
 //    	sb.append("sms-outgoing-queue-limit = 1000").append("\n");		
