@@ -239,7 +239,7 @@ private void updateMap(List<Map<String, Object>> datalist) {
 			
 			msgmap.put(MapKeys.SMSCID, smscid);
 
-			if(isFailureErrorCode(msgmap)&&FeatureCode.isDNRetry(msgmap.get(MapKeys.FEATURECODE).toString())&&smscid!=null){
+			if(isFailureErrorCode(msgmap)&&smscid!=null){
 			
 				msgmap1.put("sending to dnretrypool", "yes");
 
