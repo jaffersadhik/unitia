@@ -2,6 +2,9 @@ package com.winnovature.unitia.util.misc;
 
 public interface MapKeys {
 
+	public static String ROUTERTIME="routertime";
+	public static String R_ID="router_instance_id";
+	public static String KC_ID="kc_instance_id";
 
 	public static String CONTENT_LENGTH="content_length";
 	

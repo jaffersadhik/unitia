@@ -41,7 +41,8 @@ try{
 		
 		SMSProcessor processor=new SMSProcessor(msgmap,true);
 		
-	
+		msgmap.put(MapKeys.KC_ID,redisid+"_"+poolname);
+
 		processor.submitKannel();
 		
 		new RouterLog().routerlog(redisid, tname, "end route.submitKannel()");

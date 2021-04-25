@@ -115,7 +115,8 @@ public class SMSWorker  {
 	public void doOtp(String redisid, String tname){
 		
 try{
-	
+	msgmap.put(MapKeys.ROUTERTIME,""+System.currentTimeMillis());
+	msgmap.put(MapKeys.R_ID,redisid+"_"+poolname);
 	msgmap.put(MapKeys.ATTEMPT_TYPE, "0");
 	msgmap.put(MapKeys.TOTAL_MSG_COUNT,"1");
 
