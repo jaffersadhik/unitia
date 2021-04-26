@@ -476,6 +476,7 @@ public class DNProcessor
 	public void parseDliveryReceipt(Map<String,Object> requestmap) 
 	{		
 	
+		try{
     	String statuscd=requestmap.get(MapKeys.DN_STATUSCD).toString();
 
     	if(statuscd.equals("1")||statuscd.equals("2")){
@@ -512,7 +513,15 @@ public class DNProcessor
         requestmap.put(MapKeys.CARRIER_ERR, err);
 	
     	}
-    	
+		}catch(Exception e){
+			
+			e.printStackTrace();
+			
+			System.err.println(requestmap);
+			
+			System.err.println("System going to down");
+			System.exit(-1);
+		}
     	}
 
 
