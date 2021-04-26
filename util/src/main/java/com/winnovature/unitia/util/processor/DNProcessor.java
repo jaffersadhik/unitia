@@ -497,9 +497,14 @@ public class DNProcessor
                         doneDate = dr.substring(dr.indexOf("DONE DATE:") + 10, dr.indexOf("STAT:")).trim();
         if(dr.indexOf("STAT:")!=-1)
                         stat = dr.substring(dr.indexOf("STAT:") + 5, dr.indexOf(" ",dr.indexOf("STAT:") + 5)).trim();
-        if(dr.indexOf("ERR:")!=-1)
-                        err = dr.substring(dr.indexOf("ERR:") + 4, dr.indexOf(" ",dr.indexOf("ERR:") + 4)).trim();
-
+       try{
+            if(dr.indexOf("ERR:")!=-1)
+                            err = dr.substring(dr.indexOf("ERR:") + 4, dr.indexOf(" ",dr.indexOf("ERR:") + 4)).trim();
+            }catch(Exception e1){
+            	   if(dr.indexOf("ERR:")!=-1)
+                       err = dr.substring(dr.indexOf("ERR:") + 4, dr.length()).trim();
+     
+            }
 
         
         if(stat.indexOf(":")!=-1)
