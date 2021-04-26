@@ -524,8 +524,8 @@ public class DNProcessor
 			
 			System.err.println(requestmap);
 			
-			System.err.println("System going to down");
-			System.exit(-1);
+	//		System.err.println("System going to down");
+		//	System.exit(-1);
 		}
     	}
 
