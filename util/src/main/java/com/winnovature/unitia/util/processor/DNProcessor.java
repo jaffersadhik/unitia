@@ -521,7 +521,15 @@ public class DNProcessor
 		}catch(Exception e){
 			
 			e.printStackTrace();
-			
+			SimpleDateFormat sdf=new SimpleDateFormat("yyMMddHHmmss");
+			String date=sdf.format(new Date());
+		  
+	        
+	        requestmap.put(MapKeys.CARRIER_MSGID, "1");
+	        requestmap.put(MapKeys.CARRIER_SUBMITDATE, date);
+	        requestmap.put(MapKeys.CARRIER_DONEDATE, date);
+	        requestmap.put(MapKeys.CARRIER_STAT, "UNKNOWN");
+	        requestmap.put(MapKeys.CARRIER_ERR, "996");
 			System.err.println(requestmap);
 			
 	//		System.err.println("System going to down");
