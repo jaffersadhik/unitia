@@ -45,7 +45,7 @@ public class ReportDAO {
 		sb.append("paltform_latency_slap,statusid,statusid_org,carrier_stime_org,");
 		sb.append("templateid,entityid,dlttype,interfacetype,kannel_resp,attemptcount,");
 		sb.append("templateid_customer,entityid_customer,clength,salesid,msgtype,");
-		sb.append("routertime,router_instance_id,kc_instance_id)");
+		sb.append("routertime,router_instance_id,kc_instance_id,customerid)");
 
 
 		sb.append("values(");
@@ -63,7 +63,7 @@ public class ReportDAO {
 		sb.append("?,?,?,?,");
 		sb.append("?,?,?,?,?,?,");
 		sb.append("?,?,?,?,?,");
-		sb.append("?,?,?)");
+		sb.append("?,?,?,?)");
 
 		SQL=sb.toString();
 
@@ -131,7 +131,7 @@ public class ReportDAO {
 				}
 				
 				*/
-				if("reportlog_delivery".equals(tablename)||"reportlog_requestlog".equals(tablename)){
+				if("reportlog_delivery".equals(tablename)){
 					statement.setString(7, null);
 
 				}else{
@@ -343,6 +343,12 @@ public class ReportDAO {
 					statement.setString(61, (String)msgmap.get(MapKeys.R_ID));
 					statement.setString(62, (String)msgmap.get(MapKeys.KC_ID));
 
+					
+					String customerid=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString()).get("customerid");
+					
+					statement.setString(63,customerid);
+
+					
 					statement.addBatch();
 			}
 			statement.executeBatch();
