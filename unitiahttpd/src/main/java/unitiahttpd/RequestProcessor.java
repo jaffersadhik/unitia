@@ -45,7 +45,11 @@ public class RequestProcessor
 		String[] splittedMnumber = null;
 		
 			msgmap.put(MapKeys.INTERFACE_TYPE, "qs");
+			
+			msgmap.put(MapKeys.METHOD, request.getMethod());
+			msgmap.put(MapKeys.CONTENT_TYPE, request.getContentType());
 			msgmap.put(MapKeys.PROTOCOL, "http");
+
 			this.logmap=logmap;
 			this.msgmap=msgmap;
 		
@@ -114,8 +118,14 @@ public class RequestProcessor
 
 			replaceSpace(msgmap);	
 			
-			logHeader(request,logmap);
+			RequestProcessor.logHeader(request,logmap);
 			
+			
+			String isSecure=(String)logmap.get("upgrade-insecure-requests");
+			
+			if(isSecure!=null&&isSecure.equals("1")){
+				msgmap.put(MapKeys.PROTOCOL, "https");
+			}
 			setMsgType();
 			
 			if(username==null){
@@ -258,7 +268,7 @@ public class RequestProcessor
 	}
 	
 	
-	private void logHeader(HttpServletRequest request, Map<String, Object> msgmap2) {
+	public static void logHeader(HttpServletRequest request, Map<String, Object> msgmap2) {
 		
 		
 		Enumeration<String> head=request.getHeaderNames();

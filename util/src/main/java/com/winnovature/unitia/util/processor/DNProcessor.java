@@ -274,7 +274,7 @@ public class DNProcessor
     				new QueueSender().sendL(queuename, msgmap, false,logmap);
     				logmap.put("smppdn_ status", "send to "+queuename+" redis queue");
 
-    			}else if(protocol.equalsIgnoreCase("http")){
+    			}else{
     				
 
     				new QueueSender().sendL("httpdn", msgmap, false,logmap);

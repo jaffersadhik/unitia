@@ -15,6 +15,7 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import com.winnovature.unitia.util.misc.Bean;
 import com.winnovature.unitia.util.misc.FileWrite;
+import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.Prop;
 
 
@@ -349,6 +350,9 @@ public class App extends AbstractHandler
 		if(isSecure!=null&&isSecure.equals("1")){
 			protocol="https";
 		}
+		
+		msgmap.put(MapKeys.PROTOCOL, protocol);
+		
 		if(responsestring.indexOf("100")>-1){
 			logmap.put("logname", protocol+"_interface_"+PORT);
 

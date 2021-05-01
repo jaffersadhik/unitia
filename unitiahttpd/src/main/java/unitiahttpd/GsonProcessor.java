@@ -56,10 +56,21 @@ public class GsonProcessor {
 			
 				////System.out.println("msgmap : "+msgmap);
 				
+				RequestProcessor.logHeader(request,logmap);
 				
+				String isSecure=(String)logmap.get("upgrade-insecure-requests");
+				
+				if(isSecure!=null&&isSecure.equals("1")){
+					msgmap.put(MapKeys.PROTOCOL, "https");
+				}
+				
+
             msgmap.put(MapKeys.CONTENT_LENGTH,request.getContentLength());
             
 			msgmap.put(MapKeys.PROTOCOL, "http");
+			msgmap.put(MapKeys.METHOD, request.getMethod());
+			msgmap.put(MapKeys.CONTENT_TYPE, request.getContentType());
+			
 			msgmap.put(MapKeys.INTERFACE_TYPE, "gson");
 
 			this.logmap=logmap;
