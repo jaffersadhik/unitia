@@ -1043,7 +1043,7 @@ public class SMSProcessor {
 			
 			if(queuename.startsWith("kl_")){
 				
-				if(kannelQueue.isQueued(smscid)){
+				if(kannelQueue.getInstance().isQueued(smscid)){
 					
 					msgmap.put(MapKeys.KANNEL_MAX_QUEUE, queuename);
 

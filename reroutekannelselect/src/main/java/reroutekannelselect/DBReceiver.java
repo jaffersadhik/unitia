@@ -18,7 +18,6 @@ public class DBReceiver extends Thread {
 
 	public static boolean GRACESTOP=false;
 
-	String actuval_username=null;
 	
 	String username=null;
 	
@@ -37,9 +36,6 @@ public class DBReceiver extends Thread {
 	public DBReceiver(String poolname,String username){
 	
 		this.username=username;
-		
-		this.actuval_username=username.substring(0,username.lastIndexOf("_"));
-		
 		
 		this.poolname=poolname;
 		if(poolname.equals("schedulepool")){

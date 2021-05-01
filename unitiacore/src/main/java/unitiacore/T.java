@@ -12,6 +12,7 @@ import com.winnovature.unitia.util.account.VMNAccount;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.SMSCMaxQueue;
+import com.winnovature.unitia.util.queue.kannelQueue;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 import com.winnovature.unitia.util.template.Template;
 
@@ -34,7 +35,7 @@ public class T  extends Thread{
 				DomesticCredit.getInstance().reload();
 				RedisQueueConnectionPool.getInstance().reload();
 				QueueTon.getInstance().checkQueueAvailablity();
-
+				kannelQueue.getInstance().reload();
 				Kannel.getInstance().reload();
 				SMSCMaxQueue.getInstance().reload();
 				com.winnovature.unitia.util.misc.kannel.reload();

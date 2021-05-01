@@ -1,38 +1,22 @@
 package com.winnovature.unitia.util.queue;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Properties;
-import java.util.StringTokenizer;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.CoreDBConnection;
-import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.TableExsists;
 import com.winnovature.unitia.util.misc.SMSCMaxQueue;
 
 public class kannelQueue {
 
-	static Map<String,Map<String,String>> smscqueue=new HashMap<String,Map<String,String>>();
+	static kannelQueue obj=new kannelQueue();
+	Map<String,Map<String,String>> smscqueue=new HashMap<String,Map<String,String>>();
 	
-	static{
+	private void init(){
 		
 
 			Connection connection=null;
@@ -57,13 +41,27 @@ public class kannelQueue {
 			
 		
 	}
-	public static void reload() {
+	
+	private kannelQueue(){
+		init();
+	}
+	
+	public static kannelQueue getInstance(){
+		
+		if(obj==null){
+			
+			obj=new kannelQueue();
+		}
+		
+		return obj;
+	}
+	public void reload() {
 		
 		smscqueue=getQueueFromDB();
 	}
 	
 	
-	public static Map<String,Map<String,String>> getQueueFromDB() {
+	public  Map<String,Map<String,String>> getQueueFromDB() {
 		
 		Connection connection=null;
 		PreparedStatement select=null;
@@ -108,7 +106,7 @@ public class kannelQueue {
 	}
 	 
 	 
-	 public static boolean isQueued(String smscid){
+	 public  boolean isQueued(String smscid){
 		 
 		 Map<String,String> data=smscqueue.get(smscid);
 		 
@@ -148,7 +146,7 @@ public class kannelQueue {
 		 return lQueued>lMaxQueue;
 	 }
 	 
-	 public static boolean isQueued(String smscid,boolean isPoller){
+	 public  boolean isQueued(String smscid,boolean isPoller){
 		 
 		 Map<String,String> data=smscqueue.get(smscid);
 		 

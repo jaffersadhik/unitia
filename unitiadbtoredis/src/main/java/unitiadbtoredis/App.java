@@ -41,6 +41,8 @@ public class App
     	start("shortcodepool");
     	start("kl_kannel2_1");
     	start("kl_kannel2_2");
+    	start("kl_vedioconkannel_1");
+    	start("kl_vedioconkannel_2");
     	start("concatepool");
 
     	
