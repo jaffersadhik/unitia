@@ -3,6 +3,7 @@ package reroutekannelselect;
 import com.winnovature.unitia.util.account.Refresh;
 import com.winnovature.unitia.util.misc.ConfigKey;
 import com.winnovature.unitia.util.misc.ConfigParams;
+import com.winnovature.unitia.util.misc.SMSCMaxQueue;
 import com.winnovature.unitia.util.queue.kannelQueue;
 
 public class T  extends Thread{
@@ -13,6 +14,7 @@ public class T  extends Thread{
 		while(true){
 			
 			try{
+				SMSCMaxQueue.getInstance().reload();
 				kannelQueue.getInstance().reload();
 				Refresh.getInsatnce().reload();
 				DBReceiver.GRACESTOP=ConfigParams.getInstance().getProperty(ConfigKey.GRACE_STOP).equals("1");
