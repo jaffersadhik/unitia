@@ -44,6 +44,7 @@ public class kannelQueue {
 	
 	private kannelQueue(){
 		init();
+		reload();
 	}
 	
 	public static kannelQueue getInstance(){
@@ -106,12 +107,13 @@ public class kannelQueue {
 	}
 	 
 	 
-	 public  boolean isQueued(String smscid){
+	 public  boolean isQueuedForRouter(String smscid,Map<String,Object> msgmap){
 		 
 		 Map<String,String> data=smscqueue.get(smscid);
 		 
 		 if(data==null){
 			 
+			 msgmap.put("isQueuedForRouter data", "null");
 			 return false;
 		 }
 		 
@@ -119,12 +121,16 @@ public class kannelQueue {
 		 
 		 if(status==null){
 			 
+			 msgmap.put("isQueuedForRouter status", "null");
+
 			 return false;
 		 }
 		 
 		 
 		 if(status.equals("down")){
 			 
+			 msgmap.put("isQueuedForRouter status", "down");
+
 			 return true;
 		 }
 		 
@@ -133,16 +139,22 @@ public class kannelQueue {
 		 
 		 if(queued==null){
 			 
+			 msgmap.put("isQueuedForRouter queued", "null");
+
 			 return false;
 		 }
 		 
 		 
 		 String maxqueue=SMSCMaxQueue.getInstance().getQueue(smscid);
 		 
+		 msgmap.put("isQueuedForRouter maxqueue", maxqueue);
+
 		 long lMaxQueue=Long.parseLong(maxqueue);
 		 
 		 long lQueued=Long.parseLong(queued);
 		 
+		 msgmap.put("isQueuedForRouter queued", queued);
+
 		 return lQueued>lMaxQueue;
 	 }
 	 
