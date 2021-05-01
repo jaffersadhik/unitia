@@ -1045,7 +1045,7 @@ public class SMSProcessor {
 				
 				if(kannelQueue.getInstance().isQueuedForRouter(smscid, msgmap)){
 					
-					msgmap.put(MapKeys.KANNEL_MAX_QUEUE, queuename);
+					msgmap.put(MapKeys.REROUTE_KANNEL_QUEUE_NAME, queuename);
 
 					queuename="reroute_kannel";
 				}
