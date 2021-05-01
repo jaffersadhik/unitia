@@ -107,7 +107,7 @@ public class PollerStartup {
 			}
 			
 
-			if(kannelQueue.isQueued(username,true)){
+			if(kannelQueue.getInstance().isQueued(username,true)){
 				
 				logmap.put("status","the start poller ");
 				new FileWrite().write(logmap);

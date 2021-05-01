@@ -40,7 +40,7 @@ public class kannel {
 	}
 	public static void reload() {
 		
-		kannelQueue.reload();
+		kannelQueue.getInstance().reload();
 
 }
 	
