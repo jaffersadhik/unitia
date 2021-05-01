@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import com.winnovature.unitia.util.db.BillingDBConnection;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.QueueDBConnection;
 import com.winnovature.unitia.util.misc.MapKeys;
+import com.winnovature.unitia.util.misc.RoundRobinTon;
 
 
 public class Insert {
@@ -20,6 +22,17 @@ public class Insert {
 	
 	static String CONCATE_INSERT_SQL_PATTERN="insert into {0}(msgid,username,scheduletime,pstatus,data,cc,ackid) values(?,?,?,?,?,?,?)";
 
+	List<String> tlist=new ArrayList();
+
+	public Insert(){
+		
+
+		tlist.add("t1");
+		tlist.add("t2");
+		tlist.add("t3");
+		tlist.add("t4");
+		
+	}
 	public boolean insert(String tablename, Map<String,Object> requestObject) {
 		
 		
@@ -36,12 +49,23 @@ public class Insert {
 
 		try {
 		
+			String param2=requestObject.get(MapKeys.USERNAME).toString();
+			
+			if(tablename.startsWith("httpdn")){
+				param2=getTname(requestObject.get(MapKeys.USERNAME).toString());
+				requestObject.put(MapKeys.POLLER_USERNAME, param2);
+			}else if(tablename.startsWith("reroute_kannel")){
+				
+				param2=requestObject.get(MapKeys.SMSCID).toString();
+			}
+					
+				
 				
 				connection=QueueDBConnection.getInstance().getConnection();
 					
 			statement=connection.prepareStatement(getQuery(tablename));
 			statement.setString(1, requestObject.get(MapKeys.MSGID).toString());
-			statement.setString(2, requestObject.get(MapKeys.USERNAME).toString());
+			statement.setString(2, param2);
 			String scheduletime=(String)requestObject.get(MapKeys.SCHEDULE_TIME);
 			if(scheduletime==null||scheduletime.trim().length()<1||scheduletime.trim().length()>13){
 				scheduletime="0";
@@ -303,4 +327,13 @@ public class Insert {
 		return false;
 	
 	}
+	
+	
+	private String getTname(String username) {
+		
+		int pointer=RoundRobinTon.getInstance().getCurrentIndex("dnhttppost"+username, tlist.size());
+		
+		return username+"_"+tlist.get(pointer);
+	}
+	
 }

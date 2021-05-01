@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import com.winnovature.unitia.util.account.Route;
+import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.kannel;
 
 
@@ -524,7 +525,7 @@ public class TableExsists {
 		
 		try {
 				
-				statement=connection.prepareStatement("select a.kannelid kannelid,smscid,routeclass,sendsms_port,kannel_host from kannel_config a,kannel_instance b where a.kannelid=b.kannelid");
+				statement=connection.prepareStatement("select a.kannelid kannelid,smscid,routeclass,sendsms_port,kannel_host,max_queue from kannel_config a,kannel_instance b where a.kannelid=b.kannelid");
 
 			resultset=statement.executeQuery();
 
@@ -535,6 +536,7 @@ public class TableExsists {
 				String routeclass=resultset.getString("routeclass");
 				String sendsms_port=resultset.getString("sendsms_port");
 				String kannelid=resultset.getString("kannelid");
+				String max_queue=resultset.getString("max_queue");
 
 
 					Map<String,String> data=new HashMap<String,String>();
@@ -542,6 +544,7 @@ public class TableExsists {
 					data.put("kannel_ip", kannelip);
 					data.put("routeclass", routeclass);
 					data.put("kannelid", kannelid);
+					data.put(MapKeys.KANNEL_MAX_QUEUE, max_queue);
 
 					kannel.put(smscid.trim(), data);
 

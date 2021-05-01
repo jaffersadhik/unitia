@@ -854,6 +854,8 @@ public class RouteProcessor {
 		}
 		msgmap.put(MapKeys.KANNEL_IP, kannelinfo.get(MapKeys.KANNEL_IP));
 		msgmap.put(MapKeys.KANNEL_PORT, kannelinfo.get(MapKeys.KANNEL_PORT));
+		msgmap.put(MapKeys.KANNEL_MAX_QUEUE, kannelinfo.get(MapKeys.KANNEL_MAX_QUEUE));
+
 		if(route.equals("apps")||route.equals("reapps")){
 			
 			msgmap.put(MapKeys.ROUTECLASS_ORG,"4");

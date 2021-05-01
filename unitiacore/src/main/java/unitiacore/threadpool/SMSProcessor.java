@@ -35,6 +35,7 @@ import com.winnovature.unitia.util.misc.SpecialCharacters;
 import com.winnovature.unitia.util.misc.TeleMarketerId;
 import com.winnovature.unitia.util.optin.OptinProcessor;
 import com.winnovature.unitia.util.optin.OptoutProcessor;
+import com.winnovature.unitia.util.queue.kannelQueue;
 import com.winnovature.unitia.util.redis.OtpMessageDNRegister;
 import com.winnovature.unitia.util.redis.QueueSender;
 
@@ -1028,6 +1029,24 @@ public class SMSProcessor {
 				}
 			}
 			
+			
+			String maxqueue=(String)msgmap.get(MapKeys.KANNEL_MAX_QUEUE);
+			
+			int maxqueueInt=0;
+			
+			if(maxqueue!=null){
+				try{
+				maxqueueInt=Integer.parseInt(maxqueue);
+			
+				}catch(Exception e){}
+			}
+			
+			if(queuename.startsWith("kl_")){
+				
+				if(kannelQueue.isQueued(smscid)){
+				queuename="reroute_kannel";
+				}
+			}
 			if(new QueueSender().sendL(queuename, msgmap, false, logmap)){
 				
 				logmap.put("sms processor status", "Message Sent to billing Queue Successfully");

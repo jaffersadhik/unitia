@@ -211,6 +211,8 @@ public interface MapKeys {
 
 	public static String KANNEL_PORT = "kannel_port";
 
+	public static String KANNEL_MAX_QUEUE = "kannel_max_queue";
+
 	public static String ROUTECLASS = "routeclass";
 
 	public static String COUNTRYNAME = "countryname";
