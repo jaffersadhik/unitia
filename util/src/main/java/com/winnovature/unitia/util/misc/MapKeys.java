@@ -213,6 +213,8 @@ public interface MapKeys {
 
 	public static String KANNEL_MAX_QUEUE = "kannel_max_queue";
 
+	public static String REROUTE_KANNEL_QUEUE_NAME = "reroute_kannel_queue_name";
+
 	public static String ROUTECLASS = "routeclass";
 
 	public static String COUNTRYNAME = "countryname";

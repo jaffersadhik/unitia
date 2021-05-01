@@ -53,6 +53,8 @@
   	<module>concateexpiry</module>
   	<module>requestlog</module>
   	<module>dnquerylog</module>
+  	<module>reroutekannelinsert</module>
+  	<module>reroutekannelselect</module>
     </modules>
   <dependencies>
   

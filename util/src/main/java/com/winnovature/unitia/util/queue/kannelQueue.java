@@ -147,5 +147,49 @@ public class kannelQueue {
 		 
 		 return lQueued>lMaxQueue;
 	 }
+	 
+	 public static boolean isQueued(String smscid,boolean isPoller){
+		 
+		 Map<String,String> data=smscqueue.get(smscid);
+		 
+		 if(data==null){
+			 
+			 return false;
+		 }
+		 
+		 String status=data.get("status");
+		 
+		 if(status==null){
+			 
+			 return false;
+		 }
+		 
+		 
+		 if(status.equals("down")){
+			 
+			 return true;
+		 }
+		 
+		 
+		 String queued=data.get("queued");
+		 
+		 if(queued==null){
+			 
+			 return false;
+		 }
+		 
+		 
+		 String maxqueue=SMSCMaxQueue.getInstance().getQueue(smscid);
+		 
+		 long lMaxQueue=Long.parseLong(maxqueue);
+		 
+		 if(isPoller){
+			 lMaxQueue+=40;
+		 }
+		 
+		 long lQueued=Long.parseLong(queued);
+		 
+		 return lQueued>lMaxQueue;
+	 }
 }
 

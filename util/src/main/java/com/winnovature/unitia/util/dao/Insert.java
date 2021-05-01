@@ -281,7 +281,8 @@ public class Insert {
 				Map<String, Object> requestObject=requestlist.get(i);
 				statement.setString(1, (String)requestObject.get(MapKeys.MSGID));
 				
-				if(	queuename.equals("httpdn")){
+				if(	queuename.equals("httpdn")||queuename.equals("reroute_kannel")){
+					
 					statement.setString(2,  (String)requestObject.get(MapKeys.POLLER_USERNAME));
 
 				}else{

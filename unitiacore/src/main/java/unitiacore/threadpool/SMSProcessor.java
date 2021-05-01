@@ -1044,7 +1044,10 @@ public class SMSProcessor {
 			if(queuename.startsWith("kl_")){
 				
 				if(kannelQueue.isQueued(smscid)){
-				queuename="reroute_kannel";
+					
+					msgmap.put(MapKeys.KANNEL_MAX_QUEUE, queuename);
+
+					queuename="reroute_kannel";
 				}
 			}
 			if(new QueueSender().sendL(queuename, msgmap, false, logmap)){

@@ -132,6 +132,16 @@
 </dependency>
   <dependency>
     <groupId>winovature</groupId>
+    <artifactId>reroutekannelinsert</artifactId>
+    <version>1.0</version>
+</dependency>
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>reroutekannelselect</artifactId>
+    <version>1.0</version>
+</dependency>
+  <dependency>
+    <groupId>winovature</groupId>
     <artifactId>dnhttppostinsert</artifactId>
     <version>1.0</version>
 </dependency>
