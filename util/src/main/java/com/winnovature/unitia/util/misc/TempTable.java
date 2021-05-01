@@ -80,6 +80,9 @@ public class TempTable {
 		result.add("kl_kannel2_2");
 		result.add("concatepool");
 		result.add("concatedata");
+		result.add("reroute_kannel");
+		result.add("kl_vedioconkannel_1");
+		result.add("kl_vedioconkannel_2");
 
 		return result;
 	}
