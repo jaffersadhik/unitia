@@ -1029,18 +1029,7 @@ public class SMSProcessor {
 				}
 			}
 			
-			
-			String maxqueue=(String)msgmap.get(MapKeys.KANNEL_MAX_QUEUE);
-			
-			int maxqueueInt=0;
-			
-			if(maxqueue!=null){
-				try{
-				maxqueueInt=Integer.parseInt(maxqueue);
-			
-				}catch(Exception e){}
-			}
-			
+			/*
 			if(queuename.startsWith("kl_")){
 				
 				if(kannelQueue.getInstance().isQueuedForRouter(smscid, msgmap)){
@@ -1049,7 +1038,7 @@ public class SMSProcessor {
 
 					queuename="reroute_kannel";
 				}
-			}
+			}*/
 			if(new QueueSender().sendL(queuename, msgmap, false, logmap)){
 				
 				logmap.put("sms processor status", "Message Sent to billing Queue Successfully");
