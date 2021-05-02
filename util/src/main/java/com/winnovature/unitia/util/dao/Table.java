@@ -12,11 +12,11 @@ import com.winnovature.unitia.util.db.TableExsists;
 
 public class Table {
 
-	private static final String CONCATE_TABLE_CREATE_SQL = "create table {0}(msgid varchar(100) ,ackid varchar(100) ,username varchar(30),itime timestamp default CURRENT_TIMESTAMP,scheduletime numeric(13,0),data BLOB,pstatus numeric(1,0),cc decimal(3,0),index(msgid,username,pstatus),index(ackid))";
+	private static final String CONCATE_TABLE_CREATE_SQL = "create table {0}(msgid varchar(100) ,ackid varchar(100) ,username varchar(30),itime timestamp default CURRENT_TIMESTAMP,scheduletime numeric(13,0),data LONGBLOB,pstatus numeric(1,0),cc decimal(3,0),index(msgid,username,pstatus),index(ackid))";
 
-	private static final String TABLE_CREATE_SQL = "create table {0}(msgid varchar(50) ,username varchar(30),itime timestamp default CURRENT_TIMESTAMP,scheduletime numeric(13,0),data BLOB,pstatus numeric(1,0),index(msgid,username,scheduletime,pstatus))";
+	private static final String TABLE_CREATE_SQL = "create table {0}(msgid varchar(50) ,username varchar(30),itime timestamp default CURRENT_TIMESTAMP,scheduletime numeric(13,0),data LONGBLOB,pstatus numeric(1,0),index(msgid,username,scheduletime,pstatus))";
 
-	private static final String TABLE_CREATE_SQL_WITHOUT_KEY = "create table {0}(msgid varchar(50) ,username varchar(30),itime timestamp default CURRENT_TIMESTAMP,scheduletime numeric(13,0),data BLOB,pstatus numeric(1,0),index(username,scheduletime,pstatus))";
+	private static final String TABLE_CREATE_SQL_WITHOUT_KEY = "create table {0}(msgid varchar(50) ,username varchar(30),itime timestamp default CURRENT_TIMESTAMP,scheduletime numeric(13,0),data LONGBLOB,pstatus numeric(1,0),index(username,scheduletime,pstatus))";
 
 	private static Table obj=null;
 	

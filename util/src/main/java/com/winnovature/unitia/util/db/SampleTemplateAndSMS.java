@@ -176,6 +176,7 @@ public class SampleTemplateAndSMS {
 				statement.execute();
 			}catch(Exception igmore){
 				igmore.printStackTrace();
+				System.out.println(data);
 			}finally{
 				Close.close(statement);
 				Close.close(connection);
