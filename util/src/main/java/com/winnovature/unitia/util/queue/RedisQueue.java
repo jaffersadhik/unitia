@@ -158,7 +158,7 @@ public class RedisQueue {
 			
 			if(isRetry){
 				
-				if(size>120000){
+				if(size>30000){
 							
 					return true;
 				}else{
@@ -169,7 +169,7 @@ public class RedisQueue {
 			}else{
 				
 				
-				if(size>100000){
+				if(size>20000){
 					
 					return true;
 					
