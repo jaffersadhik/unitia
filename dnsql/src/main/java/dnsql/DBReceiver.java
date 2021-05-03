@@ -242,7 +242,7 @@ private void updateMap(List<Map<String, Object>> datalist) {
 			if(isFailureErrorCode(msgmap)&&smscid!=null){
 			
 				msgmap1.put("sending to dnretrypool", "yes");
-
+				msgmap.put(MapKeys.INSERT_TYPE, "dnretry");
 				new QueueSender().sendL("dnretrypool", msgmap, false,logmap);
 
 			}
