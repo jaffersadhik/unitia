@@ -237,10 +237,13 @@ private void updateMap(List<Map<String, Object>> datalist) {
 
 			msgmap1.put("founding reroute smscid", smscid);
 			
-			msgmap.put(MapKeys.SMSCID, smscid);
 
 			if(isFailureErrorCode(msgmap)&&smscid!=null){
 			
+				msgmap.put(MapKeys.SMSCID_ORG, msgmap.get(MapKeys.SMSCID).toString());
+
+				msgmap.put(MapKeys.SMSCID, smscid);
+
 				msgmap1.put("sending to dnretrypool", "yes");
 				msgmap.put(MapKeys.INSERT_TYPE, "dnretry");
 				new QueueSender().sendL("dnretrypool", msgmap, false,logmap);

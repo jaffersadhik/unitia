@@ -43,7 +43,20 @@ public class DNWorker
 			String dnMsg = "";	
 			String msg = "";
 			Byte esm=4;
-			dnMsg=getDnMessage(esm,_deliverSMObj);
+			
+			String username=(String)_deliverSMObj.get(MapKeys.USERNAME);
+			if(username==null||username.trim().length()<1){
+				
+				username="dummy";
+			}
+			if(username.equals("smppclient1")){
+				
+				dnMsg=getDnMessageErr(esm,_deliverSMObj);
+
+			}else{
+				dnMsg=getDnMessage(esm,_deliverSMObj);
+
+			}
 			
 			DeliverSm request=getDeliverSmRequest(esm,dnMsg,_deliverSMObj);
 		
@@ -140,4 +153,47 @@ public class DNWorker
 		
 		return dnMsg;
 	}
+
+	private String getDnMessageErr(Byte esm,Map<String,String> _deliverSMObj) {
+		//if esm class is 4 it is dn message	
+		
+		String msg="";
+		String dnMsg="";
+
+		
+			
+			int endIndex =0;
+			_deliverSMObj.put(MapKeys.DNMSG, "test message");
+			if(_deliverSMObj.get(MapKeys.DNMSG) != null) {
+				msg = _deliverSMObj.get(MapKeys.DNMSG);
+				endIndex = msg.length()>=20?19:msg.length();
+			}
+			
+			msg = msg.substring(0, endIndex);
+			
+			dnMsg +="id:"+_deliverSMObj.get(MapKeys.ACKID);
+
+			dnMsg +=" sub:1";
+
+			dnMsg +=" dlvrd:1";
+
+			String subDtStr = new SimpleDateFormat(SMPP_DATE_FORMAT).format(new Date(Long.parseLong(_deliverSMObj.get(MapKeys.RTIME))));
+
+			dnMsg +=" submit date:"+ subDtStr;
+			
+			String doneDtStr = new SimpleDateFormat(SMPP_DATE_FORMAT).format(new Date(System.currentTimeMillis()));
+
+			dnMsg +=" done date:"+ doneDtStr;
+
+			dnMsg +=" stat:FAILED";
+			
+			dnMsg +=" err:101";
+
+			dnMsg +=" Text: "+msg;   
+			
+		
+		return dnMsg;
+	}
+
+
 }
