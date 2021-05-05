@@ -29,7 +29,7 @@ public class App
     	log.log("unitiacore.App.doProcess() properties loaded");
 
     	new T().start();
-    	
+    	new T10().start();
     	log.log("unitiacore.App.doProcess() memory refresh thread started");
 
      	start("shortcodepool");

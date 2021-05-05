@@ -20,7 +20,7 @@ import unitiacore.threadpool.DomesticCredit;
 import unitiacore.threadpool.QueueTon;
 import unitiaroute.Entity;
 
-public class T  extends Thread{
+public class T10  extends Thread{
 
 	long start=System.currentTimeMillis();
 	
@@ -29,20 +29,7 @@ public class T  extends Thread{
 		while(true){
 			
 			try{
-				Refresh.getInsatnce().reload();
-				unitiaroute.Refresh.getInsatnce().reload();
-				DomesticCredit.getInstance().reload();
-				RedisQueueConnectionPool.getInstance().reload();
-				QueueTon.getInstance().checkQueueAvailablity();
-				kannelQueue.getInstance().reload();
-				Kannel.getInstance().reload();
-				SMSCMaxQueue.getInstance().reload();
-				com.winnovature.unitia.util.misc.kannel.reload();
-				MissedCallSMS.getInstance().reload();
-				VMNAccount.getInstance().reload();
-				MissedCallForward.getInstance().reload();
-				ShortCodeAccount.getInstance().reload();
-				App.printThreadStatus();
+				Template.getInstance().reload();
 				gotosleep();
 				
 			//	printrouteInfo();
@@ -68,7 +55,7 @@ public class T  extends Thread{
 
 
 		try{
-			Thread.sleep(10L);
+			Thread.sleep(600000L);
 		}catch(Exception e){
 			
 		}
