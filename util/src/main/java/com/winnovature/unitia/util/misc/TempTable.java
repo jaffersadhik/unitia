@@ -83,7 +83,11 @@ public class TempTable {
 		result.add("reroute_kannel");
 		result.add("kl_vedioconkannel_1");
 		result.add("kl_vedioconkannel_2");
-
+		result.add("kl_kannelA_1");
+		result.add("kl_kannelA_2");
+		result.add("kl_kannelB_1");
+		result.add("kl_kannelB_2");
+	
 		return result;
 	}
 

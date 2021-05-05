@@ -54,7 +54,7 @@ public class Template {
 	
 	public List<Map<String,String>> getTemplateList(String senderid){
 		
-		return result.get(senderid);
+		return result.get(senderid.toLowerCase());
 	}
 	
 	public  Map<String,List<Map<String,String>>> getData(){
