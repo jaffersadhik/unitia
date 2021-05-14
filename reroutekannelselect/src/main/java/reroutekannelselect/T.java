@@ -31,7 +31,7 @@ public class T  extends Thread{
 
 
 		try{
-			Thread.sleep(50L);
+			Thread.sleep(10L);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
