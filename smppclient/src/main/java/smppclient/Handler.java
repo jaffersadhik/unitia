@@ -34,43 +34,42 @@ public class Handler implements SmppSessionHandler {
 	
 	
 		
-		@Override
+		
 		public String lookupTlvTagName(short tag) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 		
-		@Override
+		
 		public String lookupResultMessage(int commandStatus) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 		
-		@Override
+		
 		public void fireUnrecoverablePduException(UnrecoverablePduException e) {
 			// TODO Auto-generated method stub
 			
 		}
 		
-		@Override
+		
 		public void fireUnknownThrowable(Throwable t) {
 			// TODO Auto-generated method stub
 			
 		}
 		
-		@Override
+		
 		public void fireUnexpectedPduResponseReceived(PduResponse pduResponse) {
 			// TODO Auto-generated method stub
 			
 		}
 		
-		@Override
 		public void fireRecoverablePduException(RecoverablePduException e) {
 			// TODO Auto-generated method stub
 			
 		}
 		
-		@Override
+		
 		public PduResponse firePduRequestReceived(PduRequest pduRequest) {
 			
 			if(pduRequest instanceof EnquireLink){
@@ -104,19 +103,19 @@ public class Handler implements SmppSessionHandler {
 			
 		}
 
-		@Override
+		
 		public void firePduRequestExpired(PduRequest pduRequest) {
 			// TODO Auto-generated method stub
 			
 		}
 		
-		@Override
+		
 		public void fireExpectedPduResponseReceived(PduAsyncResponse pduAsyncResponse) {
 			// TODO Auto-generated method stub
 			
 		}
 		
-		@Override
+		
 		public void fireChannelUnexpectedlyClosed() {
 			// TODO Auto-generated method stub
 			

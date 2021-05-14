@@ -39,6 +39,10 @@ public class SubmitSmValidator {
 	    		
 	    	strDestAddr=validateDestinationAddress(systemId,strDestAddr,submitResponse);
 	    	
+	    	if(systemId.equals("smppclient5")){
+	    		
+	    		gotosleep();
+	    	}
 	    	msgmap.put(MapKeys.MOBILE, strDestAddr);
 			msgmap.put(MapKeys.USERNAME, systemId);
 			msgmap.put(MapKeys.CUSTOMERIP, host);
@@ -72,6 +76,17 @@ public class SubmitSmValidator {
 		}
 	
 		
+		private void gotosleep() {
+		try{
+			
+			Thread.sleep(125L);
+					
+		}catch(Exception e){
+			
+		}
+		
+	}
+
 		private String validateDestinationAddress(String systemid,String strDestAddr,SubmitSmResp submitResponse) {
 			
     		if( strDestAddr == null || strDestAddr.trim().length() < 8 

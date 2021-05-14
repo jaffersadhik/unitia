@@ -1029,7 +1029,7 @@ public class SMSProcessor {
 				}
 			}
 			
-			/*
+			
 			if(queuename.startsWith("kl_")){
 				
 				if(kannelQueue.getInstance().isQueuedForRouter(smscid, msgmap)){
@@ -1038,7 +1038,7 @@ public class SMSProcessor {
 
 					queuename="reroute_kannel";
 				}
-			}*/
+			}
 			if(new QueueSender().sendL(queuename, msgmap, false, logmap)){
 				
 				logmap.put("sms processor status", "Message Sent to billing Queue Successfully");
