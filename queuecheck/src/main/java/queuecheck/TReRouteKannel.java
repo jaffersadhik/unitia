@@ -10,7 +10,7 @@ public class TReRouteKannel  extends Thread{
 			
 			try{
 				ReRouteKannelCount.getInstance().doProcess();
-				ReRouteKannelCount.getInstance().doProcess();
+				ReRouteKannelMax.getInstance().doProcess();
 				gotosleep();
 			}catch(Exception e){
 				
