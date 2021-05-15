@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.winnovature.unitia.util.db.ReportDAO;
+import com.winnovature.unitia.util.misc.DeliveryUtility;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.processor.DNProcessor;
 import com.winnovature.unitia.util.redis.RedisReader;
@@ -54,7 +55,7 @@ public class RedisReceiver extends Thread {
 				if((datalist.size()>100 || diff > 350)&&datalist.size()!=0){
 					start=System.currentTimeMillis();
 					
-					updateMap(datalist);
+					new DeliveryUtility().updateMap(datalist);
 					
 					untilPersist(datalist);
 					
@@ -71,7 +72,7 @@ public class RedisReceiver extends Thread {
 				if((datalist.size()>100 || diff > 350)&&datalist.size()!=0){
 					start=System.currentTimeMillis();
 					
-					updateMap(datalist);
+					new DeliveryUtility().updateMap(datalist);
 					
 					untilPersist(datalist);
 					
@@ -136,20 +137,7 @@ public class RedisReceiver extends Thread {
 			
 	}
 
-private void updateMap(List<Map<String, Object>> datalist) {
-		
-		
-		for(int i=0,max=datalist.size();i<max;i++){
-			
-			Map<String, Object> data=datalist.get(i);
-			
-			new DNProcessor(data,new HashMap()).doProcess();
-			
-		
-		}
-		
-		
-	}
+
 	private void gotosleep() {
 		
 		try{

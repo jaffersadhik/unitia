@@ -7,8 +7,12 @@ import java.util.Map;
 import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.dao.Select;
 import com.winnovature.unitia.util.dao.Table;
+import com.winnovature.unitia.util.db.DNPostDAO;
+import com.winnovature.unitia.util.db.ReportDAO;
+import com.winnovature.unitia.util.misc.DeliveryUtility;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
+import com.winnovature.unitia.util.misc.SubmitUtility;
 import com.winnovature.unitia.util.redis.QueueSender;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 
@@ -77,7 +81,7 @@ public class DBReceiver extends Thread {
 			if(data!=null&&data.size()>0){
 				
 			
-					if(queuename.equals("requestlog")){
+					if(queuename.equals("requestlog")||queuename.equals("submissionpool")||queuename.equals("dnreceiverpool")||queuename.equals("dnpostpool")){
 						sendUntilSuccess(data);
 					}else{
 					for(int i=0;i<data.size();i++){
@@ -178,7 +182,7 @@ public class DBReceiver extends Thread {
 	}
 
 	
-private void sendUntilSuccess(List<Map<String, Object>> maplist) {
+private void sendUntilSuccess(List<Map<String, Object>> datalist) {
 		
 		Map<String,Object> logmap=new HashMap<String,Object>();
 		logmap.put("module", "dbtoredis");
@@ -190,12 +194,43 @@ private void sendUntilSuccess(List<Map<String, Object>> maplist) {
 		
 		while(true){
 			
-			
-			if(queuesender.sendLtoRequestLog(maplist, true, logmap)){
+			if(queuename.equals("requestlog")){
+			if(new ReportDAO().insert("reportlog_requestlog",datalist)){
 				
 				new FileWrite().write(logmap);
 
 				return;
+			}
+			}else if(queuename.equals("submissionpool")){
+				
+				if(new ReportDAO().insert("reportlog_submit",datalist)){
+					
+					new FileWrite().write(logmap);
+				
+					new SubmitUtility().errorDNHandover(datalist);
+
+					return;
+				}
+			}else if(queuename.equals("dnreceiverpool")){
+				
+				new DeliveryUtility().updateMap(datalist);
+				
+				if(new ReportDAO().insert("reportlog_delivery",datalist)){
+					
+					new FileWrite().write(logmap);
+
+					return;
+				}
+			}else if(queuename.equals("dnpostpool")){
+				
+				new DeliveryUtility().updateMap(datalist);
+				
+				if(new DNPostDAO().insert("delivery_post",datalist)){
+							
+					new FileWrite().write(logmap);
+
+					return;
+				}
 			}
 			
 			gotosleep();
