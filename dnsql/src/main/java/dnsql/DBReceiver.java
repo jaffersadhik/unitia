@@ -16,6 +16,7 @@ import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.db.KannelStoreDBConnection;
 import com.winnovature.unitia.util.db.ReportDAO;
+import com.winnovature.unitia.util.db.SplitupDAO;
 import com.winnovature.unitia.util.misc.FeatureCode;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
@@ -75,10 +76,14 @@ public class DBReceiver extends Thread {
 
 				List<Map<String,Object>> result=getPersistResult(data);
 			
+				List<Map<String,Object>> splitupresult=getSplitupResult(data);
 
 				
 				updateMap(result);
 				
+				updateTimeStamp(splitupresult);
+
+				untilPersistSplitup(splitupresult);
 
 				untilPersist(result);
 				
@@ -113,6 +118,27 @@ public class DBReceiver extends Thread {
 	
 	
 
+private void untilPersistSplitup(List<Map<String, Object>> splitupresult) {
+		
+	
+	while(true){
+		
+		if(splitupresult==null || splitupresult.size()<1){
+			
+			return;
+		}
+		
+		
+		if(new SplitupDAO().insert("splitup_delivery",splitupresult)){
+		
+			return;
+		}else{
+			
+			gotosleep();
+		}
+	}
+		
+	}
 private void doDNRetryForAll(List<Map<String, Object>> result) {
 		
 	for(int i=0,max=result.size();i<max;i++){
@@ -135,6 +161,21 @@ private void updateMap(List<Map<String, Object>> datalist) {
 		
 		
 	}
+
+private void updateTimeStamp(List<Map<String, Object>> datalist) {
+	
+	
+	for(int i=0,max=datalist.size();i<max;i++){
+		
+		Map<String, Object> data=datalist.get(i);
+		
+		new DNProcessor(data,new HashMap()).setTimeStamp();
+		
+	
+	}
+	
+	
+}
 	private void untilPersist(List<Map<String, Object>> datalist) {
 
 
@@ -175,6 +216,24 @@ private void updateMap(List<Map<String, Object>> datalist) {
 		}
 		
 		result.add(msgmap);
+		}
+		return result;
+	}
+	
+	private List<Map<String, Object>> getSplitupResult(List<Map<String, Object>> data) {
+		
+		List<Map<String, Object>> result=new ArrayList<Map<String,Object>>();
+		
+		for(int i=0,max=data.size();i<max;i++){
+			Map<String,Object> msgmap=data.get(i);
+		new DNProcessor(msgmap,new HashMap()).parseDliveryReceipt(msgmap);
+		msgmap.put(MapKeys.INSERT_TYPE, "dn");
+
+		if(!msgmap.get(MapKeys.TOTAL_MSG_COUNT).toString().equals("1")){
+			
+			result.add(msgmap);
+		}
+		
 		}
 		return result;
 	}

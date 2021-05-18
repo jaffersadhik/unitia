@@ -216,7 +216,7 @@ public class DNProcessor
 	       return result;
 	}
 
-	private void setTimeStamp() {
+	public void setTimeStamp() {
     	
     	String statuscd=msgmap.get(MapKeys.DN_STATUSCD).toString();
     	
