@@ -11,9 +11,10 @@ public class TTPSControll extends Thread {
 				
 				TPSCheck.getInstance().reload();
 				TPSCheck.getInstance().clearCounter();
-				
+				gotosleep();
 			}catch(Exception e){
-				
+				gotosleep();
+
 			}
 		}
 	}
