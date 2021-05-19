@@ -47,6 +47,7 @@ public class TPSCheck {
 			}
 		}catch(Exception e){
 			
+			e.printStackTrace();
 		}
 		return false;
 	}

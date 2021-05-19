@@ -21,7 +21,7 @@ public class TTPSControll extends Thread {
 	public void gotosleep(){
 		
 		try{
-			Thread.sleep(10000L);
+			Thread.sleep((1*60*60*1000));
 		}catch(Exception e){
 			
 		}

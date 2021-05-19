@@ -1,5 +1,6 @@
 package com.winnovature.unitia.util.misc;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.winnovature.unitia.util.redis.TPSRedisConnectionPool;
@@ -24,9 +25,9 @@ public class TPSProcessor
              
             jedis = pool.getResource();
             
-            
+            SimpleDateFormat sdf=new SimpleDateFormat("yyMMddHHmmss");
            
-            decrementedVal = jedis.hincrBy(smscid,""+new Date().getSeconds(), (long)1);
+            decrementedVal = jedis.hincrBy(smscid,sdf.format(new Date()), (long)1);
 
          }
         catch (Exception e)

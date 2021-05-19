@@ -1,15 +1,5 @@
 package com.winnovature.unitia.util.redis;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.winnovature.unitia.util.misc.Log;
-import com.winnovature.unitia.util.misc.RedisInstance;
-import com.winnovature.unitia.util.misc.RoundRobinTon;
-import com.winnovature.unitia.util.queue.RedisQueue;
-
 import redis.clients.jedis.JedisPool;
 
 public class TPSRedisConnectionPool {
