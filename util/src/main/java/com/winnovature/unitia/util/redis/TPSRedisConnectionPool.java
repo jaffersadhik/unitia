@@ -7,7 +7,7 @@ public class TPSRedisConnectionPool {
 	private static TPSRedisConnectionPool obj=null;
 	
 
-	RedisQueuePool redispool=null;
+	TPSRedisPool redispool=null;
 
 	private TPSRedisConnectionPool(){
 		
@@ -16,7 +16,7 @@ public class TPSRedisConnectionPool {
 	
 	private void init() {
 
-		redispool=new RedisQueuePool("tpsredis");
+		redispool=new TPSRedisPool("tpsredis");
 		
 	}
 
