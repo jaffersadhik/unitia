@@ -30,7 +30,7 @@ public class TPSCheck {
 	}
 	
 	
-	public boolean isAllowed(String smscid){
+	public boolean isAllowed(String smscid,Map<String,Object> map){
 		
 		try{
 			long max=Long.parseLong(maxtps.get(smscid));
@@ -40,7 +40,7 @@ public class TPSCheck {
 				return true;
 			}
 			long currenttps=new TPSProcessor().getTPS(smscid);
-			
+			map.put("currenttps", ""+currenttps);
 			if((max+1)>currenttps){
 				
 				return true;

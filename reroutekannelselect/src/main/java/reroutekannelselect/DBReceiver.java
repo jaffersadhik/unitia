@@ -118,7 +118,7 @@ public class DBReceiver extends Thread {
 			
 		if(!kannelQueue.getInstance().isQueued(username,true)){
 		
-			if(TPSCheck.getInstance().isAllowed(username)){
+			if(TPSCheck.getInstance().isAllowed(username,map)){
 				if(new QueueSender().sendL(map.get(MapKeys.REROUTE_KANNEL_QUEUE_NAME).toString(), map, false, new HashMap<String, Object>())){
 					
 					return;
