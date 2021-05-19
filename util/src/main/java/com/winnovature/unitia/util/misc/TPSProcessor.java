@@ -27,9 +27,9 @@ public class TPSProcessor
             
             SimpleDateFormat sdf=new SimpleDateFormat("yyMMddHHmmss");
            String date=sdf.format(new Date());
-            if(!jedis.exists(smscid)){
+            if(!jedis.hexists(smscid,date)){
                 
-            	jedis.hset(smscid, date, "0");
+            	jedis.hset(smscid, date, "1");
 
            }
             
