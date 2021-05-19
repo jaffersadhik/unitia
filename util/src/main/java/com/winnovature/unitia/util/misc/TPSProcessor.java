@@ -27,16 +27,13 @@ public class TPSProcessor
             
             SimpleDateFormat sdf=new SimpleDateFormat("yyMMddHHmmss");
            String date=sdf.format(new Date());
-            if(jedis.exists(smscid)){
+            if(!jedis.exists(smscid)){
                 
-            	
-                decrementedVal = jedis.hincrBy(smscid,date, (long)1);
+            	jedis.hset(smscid, date, "0");
 
-                }else{
-                	jedis.hset(smscid, date, "1");
-                	decrementedVal=1;
-                	
-                }
+           }
+            
+            decrementedVal = jedis.hincrBy(smscid,date, 1);
 
          }
         catch (Exception e)
