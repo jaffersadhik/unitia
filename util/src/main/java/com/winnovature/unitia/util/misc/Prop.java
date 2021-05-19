@@ -681,6 +681,30 @@ public Properties getRedisQueue2Prop() {
 		}
 		
 		return result;
+	}
+
+
+	public Properties getTpsedisProp() {
+		
+		String fileName="tpsredis.prop";
+		
+		Properties result= new FileReader().getProperties(fileName);
+	
+		if(result==null){
+			
+			File source=new File("/opt/tomcat/conf/redisqueue.prop");
+			File dest=new File(fileName);
+			try {
+				Files.copy(source.toPath(), dest.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			result= new FileReader().getProperties(fileName);
+		}
+		
+		return result;
 	}	
 	
 

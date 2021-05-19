@@ -32,6 +32,7 @@ import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
 import com.winnovature.unitia.util.misc.MessageType;
 import com.winnovature.unitia.util.misc.SpecialCharacters;
+import com.winnovature.unitia.util.misc.TPSCheck;
 import com.winnovature.unitia.util.misc.TeleMarketerId;
 import com.winnovature.unitia.util.optin.OptinProcessor;
 import com.winnovature.unitia.util.optin.OptoutProcessor;
@@ -1031,8 +1032,14 @@ public class SMSProcessor {
 			
 			
 			if(queuename.startsWith("kl_")){
-				
+				if(TPSCheck.getInstance().isAllowed(smscid)){
 				if(kannelQueue.getInstance().isQueuedForRouter(smscid, msgmap)){
+					
+					msgmap.put(MapKeys.REROUTE_KANNEL_QUEUE_NAME, queuename);
+
+					queuename="reroute_kannel";
+				}
+				}else{
 					
 					msgmap.put(MapKeys.REROUTE_KANNEL_QUEUE_NAME, queuename);
 

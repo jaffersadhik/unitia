@@ -296,6 +296,9 @@ public class RedisQueuePool {
 		}else if(redisid.equals("rq6")){
 			pool= new RedisPool().createJedisPool(Prop.getInstance().getRQ6Prop());
 	
+		}else if(redisid.equals("tpsredis")){
+			pool= new RedisPool().createJedisPool(Prop.getInstance().getTpsedisProp());
+	
 		}
 		
 		Log.log("RedisQueuePool createPool pool "+pool);

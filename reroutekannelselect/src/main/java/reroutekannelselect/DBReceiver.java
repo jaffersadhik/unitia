@@ -9,6 +9,7 @@ import com.winnovature.unitia.util.dao.Select;
 import com.winnovature.unitia.util.dao.Table;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
+import com.winnovature.unitia.util.misc.TPSCheck;
 import com.winnovature.unitia.util.processor.DNHttpPost;
 import com.winnovature.unitia.util.queue.kannelQueue;
 import com.winnovature.unitia.util.redis.QueueSender;
@@ -117,12 +118,18 @@ public class DBReceiver extends Thread {
 			
 		if(!kannelQueue.getInstance().isQueued(username,true)){
 		
-			if(new QueueSender().sendL(map.get(MapKeys.REROUTE_KANNEL_QUEUE_NAME).toString(), map, false, new HashMap<String, Object>())){
-			
-			return;
+			if(TPSCheck.getInstance().isAllowed(username)){
+				if(new QueueSender().sendL(map.get(MapKeys.REROUTE_KANNEL_QUEUE_NAME).toString(), map, false, new HashMap<String, Object>())){
+					
+					return;
+				}else{
+					gotosleep();
+				}
 			}else{
-			gotosleep();
+				
+				gotosleep();
 			}
+			
 		}else{
 				
 				gotosleep();
@@ -136,7 +143,7 @@ public class DBReceiver extends Thread {
 		
 		try{
 			
-			Thread.sleep(10L);
+			Thread.sleep(3L);
 		}catch(Exception e){
 			
 		}

@@ -12,6 +12,7 @@ import com.winnovature.unitia.util.account.VMNAccount;
 import com.winnovature.unitia.util.db.Kannel;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.SMSCMaxQueue;
+import com.winnovature.unitia.util.misc.TPSCheck;
 import com.winnovature.unitia.util.queue.kannelQueue;
 import com.winnovature.unitia.util.redis.RedisQueueConnectionPool;
 import com.winnovature.unitia.util.template.Template;
@@ -43,6 +44,8 @@ public class T  extends Thread{
 				MissedCallForward.getInstance().reload();
 				ShortCodeAccount.getInstance().reload();
 				App.printThreadStatus();
+				TPSCheck.getInstance().reload();
+
 				gotosleep();
 				
 			//	printrouteInfo();

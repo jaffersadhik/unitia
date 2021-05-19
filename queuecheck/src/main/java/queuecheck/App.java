@@ -16,6 +16,7 @@ public class App
     	Prop.getInstance();
     	log.log("unitiacore.App.doProcess() properties loaded");
 
+    	new TTPSControll().start();
     	new TReRouteKannel().start();
     	new TKannelDN().start();
     	new TKannelSMSCID().start();
