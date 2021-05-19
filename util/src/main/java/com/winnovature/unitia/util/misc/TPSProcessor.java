@@ -26,8 +26,17 @@ public class TPSProcessor
             jedis = pool.getResource();
             
             SimpleDateFormat sdf=new SimpleDateFormat("yyMMddHHmmss");
-           
-            decrementedVal = jedis.hincrBy(smscid,sdf.format(new Date()), (long)1);
+           String date=sdf.format(new Date());
+            if(jedis.exists(smscid)){
+                
+            	
+                decrementedVal = jedis.hincrBy(smscid,date, (long)1);
+
+                }else{
+                	jedis.hset(smscid, date, "1");
+                	decrementedVal=1;
+                	
+                }
 
          }
         catch (Exception e)
