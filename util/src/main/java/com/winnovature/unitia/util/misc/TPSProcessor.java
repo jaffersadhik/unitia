@@ -14,7 +14,7 @@ public class TPSProcessor
 	
 
 
-    public long getTPS(String smscid) 
+    public long getTPS(String smscid,int msgpart) 
     {
         JedisPool pool =TPSRedisConnectionPool.getInstance().getPool();
         Jedis jedis = null;
@@ -29,7 +29,7 @@ public class TPSProcessor
            String date=sdf.format(new Date());
            
             
-            decrementedVal = jedis.hincrBy(smscid,date, 1);
+            decrementedVal = jedis.hincrBy(smscid,date, msgpart);
 
          }
         catch (Exception e)

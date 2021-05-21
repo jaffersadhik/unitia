@@ -1032,7 +1032,7 @@ public class SMSProcessor {
 			
 			
 			if(queuename.startsWith("kl_")){
-				if(TPSCheck.getInstance().isAllowed(smscid,logmap)){
+				if(TPSCheck.getInstance().isAllowed(smscid,msgmap)){
 				if(kannelQueue.getInstance().isQueuedForRouter(smscid, msgmap)){
 					
 					msgmap.put(MapKeys.REROUTE_KANNEL_QUEUE_NAME, queuename);

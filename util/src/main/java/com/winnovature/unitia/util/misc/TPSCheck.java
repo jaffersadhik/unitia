@@ -39,7 +39,14 @@ public class TPSCheck {
 				
 				return true;
 			}
-			long currenttps=new TPSProcessor().getTPS(smscid);
+			
+			int totalmsgcount=1;
+			try{
+				totalmsgcount=Integer.parseInt(map.get(MapKeys.TOTAL_MSG_COUNT).toString());
+			}catch(Exception e){
+				
+			}
+			long currenttps=new TPSProcessor().getTPS(smscid,totalmsgcount);
 			map.put("currenttps", ""+currenttps);
 			if((max+1)>currenttps){
 				
