@@ -33,7 +33,14 @@ public class TPSCheck {
 	public boolean isAllowed(String smscid,Map<String,Object> map){
 		
 		try{
-			long max=Long.parseLong(maxtps.get(smscid));
+			
+			long max=100;
+			
+			try{
+				max=Long.parseLong(maxtps.get(smscid));
+			}catch(Exception e){
+				
+			}
 			
 			if(max<=0){
 				
@@ -53,7 +60,7 @@ public class TPSCheck {
 				return true;
 			}
 		}catch(Exception e){
-			
+			System.err.println("smscid " +smscid);
 			e.printStackTrace();
 		}
 		return false;
