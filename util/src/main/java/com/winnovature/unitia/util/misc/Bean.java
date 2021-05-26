@@ -7,8 +7,10 @@ public class Bean {
 	public static void setDefaultValues(Map<String,Object> msgmap){
 		WinDate date= new WinDate();
 		msgmap.put(MapKeys.ACKID, ACKIdGenerator.getAckId());
+		
+		if(msgmap.get(MapKeys.MSGID)==null){
 		msgmap.put(MapKeys.MSGID, msgmap.get(MapKeys.ACKID));
-		long sysdate=System.currentTimeMillis();
+		}long sysdate=System.currentTimeMillis();
 		msgmap.put(MapKeys.RTIME, ""+sysdate);
 
 	}
