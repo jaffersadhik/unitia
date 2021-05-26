@@ -25,7 +25,7 @@ public void errorDNHandover(List<Map<String, Object>> datalist) {
 			
 				String statusidorg=(String)data.get(MapKeys.STATUSID_ORG);
 				
-				if(statusidorg!=null&&statusidorg.equals("402")){
+				if(statusidorg!=null&&(statusidorg.equals("402")||statusidorg.equals("139"))){
 					
 				}else{
 				
