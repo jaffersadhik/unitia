@@ -7,7 +7,7 @@ public class App
     {
     	
 
-    	
+    	new ExpiryMover().start();
 
      }
 

@@ -2,15 +2,10 @@ package concateinsert;
 
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.winnovature.unitia.util.dao.Insert;
-import com.winnovature.unitia.util.db.ReportDAO;
-import com.winnovature.unitia.util.misc.FileWrite;
-import com.winnovature.unitia.util.processor.DNProcessor;
 import com.winnovature.unitia.util.redis.RedisReader;
 
 public class RedisReceiver extends Thread {

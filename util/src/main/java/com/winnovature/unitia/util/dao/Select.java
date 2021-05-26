@@ -39,6 +39,25 @@ public class Select {
 		return null;
 	}
 
+	
+	public List<Map<String, Object>> getDataAsExpired(String tablename) {
+
+		try {
+			if(!Table.getInstance().isAvailableTable(tablename)){
+				
+				Table.getInstance().addTable(tablename);
+			}
+	
+				return getRecordsAsExpired(tablename);
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+		}
+
+		return null;
+	}
 	private List<Map<String, Object>> getRecords(String tablename,String username) {
 
 		Connection connection = null;
@@ -84,6 +103,51 @@ public class Select {
 
 			update(tablename, result,false);
 		}
+		return result;
+	}
+
+	
+	private List<Map<String, Object>> getRecordsAsExpired(String tablename) {
+
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		try {
+			
+			
+
+			connection = QueueDBConnection.getInstance().getConnection();
+			
+			statement = connection.prepareStatement(
+						" select data from " + tablename + " where itime < ? and pstatus=0 limit 100");
+			
+
+			statement.setLong(1, (System.currentTimeMillis()-(20*60*1000)));
+
+			resultset = statement.executeQuery();
+
+			while (resultset.next()) {
+
+				byte[] Bytes = resultset.getBytes("data");
+
+				ByteArrayInputStream bis = new ByteArrayInputStream(Bytes);
+
+				ObjectInputStream ois = new ObjectInputStream(bis);
+
+				result.add((Map<String, Object>) ois.readObject());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			Close.close(resultset);
+			Close.close(statement);
+			Close.close(connection);
+		}
+
+		
 		return result;
 	}
 

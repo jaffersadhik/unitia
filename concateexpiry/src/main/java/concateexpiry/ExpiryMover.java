@@ -3,6 +3,11 @@ package concateexpiry;
 import java.util.List;
 import java.util.Map;
 
+import com.winnovature.unitia.util.dao.Select;
+import com.winnovature.unitia.util.db.ReportDAO;
+import com.winnovature.unitia.util.misc.MapKeys;
+import com.winnovature.unitia.util.misc.MessageStatus;
+
 public class ExpiryMover extends Thread {
 
 	public void run(){
@@ -29,15 +34,9 @@ public class ExpiryMover extends Thread {
 	private void doProcess() {
 	
 		try{
-			List<Map<String,Object>> expirylist=getData();
 			
-			if(expirylist!=null&&expirylist.size()>0){
-				
-				for(int i=0;i<expirylist.size();i++){
-					
-					sendtoQueue(expirylist.get(i));
-				}
-			}
+			getDataAndInsert();
+			
 		}catch(Exception e){
 			
 			e.printStackTrace();
@@ -45,13 +44,56 @@ public class ExpiryMover extends Thread {
 		
 	}
 
-	private void sendtoQueue(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
-	private List<Map<String, Object>> getData() {
-		// TODO Auto-generated method stub
-		return null;
+	private void getDataAndInsert() {
+		Select select=new Select();
+
+		while(true){
+		List<Map<String, Object>> datalist=select.getDataAsExpired("concatedata");
+		
+		if(datalist!=null){
+			
+			for(int i=0;i<datalist.size();i++){
+				
+				Map<String, Object> data=datalist.get(i);
+				
+				data.put(MapKeys.STATUSID, ""+MessageStatus.CONCATE_EXPIRED);
+			}
+			
+			if(datalist.size()>0){
+				
+				untilPersist(datalist);
+			}else{
+				
+				return;
+			}
+		}else{
+			
+			return;
+		}
+
+		}
+	}
+	
+	private void untilPersist(List<Map<String, Object>> datalist) {
+
+
+		if(datalist==null || datalist.size()<1){
+			
+			return;
+		}
+		while(true){
+			
+			if(new ReportDAO().insert("reportlog_submit",datalist)){
+			
+				return;
+			}else{
+				
+				gotosleep();
+			}
+		}
+			
+		
 	}
 }

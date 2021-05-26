@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.winnovature.unitia.util.account.PushAccount;
+import com.winnovature.unitia.util.dao.Insert;
 import com.winnovature.unitia.util.dao.Select;
 import com.winnovature.unitia.util.dao.Table;
 import com.winnovature.unitia.util.db.DNPostDAO;
@@ -81,7 +82,7 @@ public class DBReceiver extends Thread {
 			if(data!=null&&data.size()>0){
 				
 			
-					if(queuename.equals("requestlog")||queuename.equals("submissionpool")||queuename.equals("dnreceiverpool")||queuename.equals("dnpostpool")){
+					if(queuename.equals("requestlog")||queuename.equals("submissionpool")||queuename.equals("dnreceiverpool")||queuename.equals("dnpostpool")||queuename.equals("concatepool")){
 						sendUntilSuccess(data);
 					}else{
 					for(int i=0;i<data.size();i++){
@@ -223,7 +224,6 @@ private void sendUntilSuccess(List<Map<String, Object>> datalist) {
 				}
 			}else if(queuename.equals("dnpostpool")){
 				
-				new DeliveryUtility().updateMap(datalist);
 				
 				if(new DNPostDAO().insert("delivery_post",datalist)){
 							
@@ -231,7 +231,17 @@ private void sendUntilSuccess(List<Map<String, Object>> datalist) {
 
 					return;
 				}
+			}else if(queuename.equals("concatepool")){
+				
+				
+				if(new Insert().insertforConcate("concatedata", datalist)){
+							
+					new FileWrite().write(logmap);
+
+					return;
+				}
 			}
+			
 			
 			gotosleep();
 		}

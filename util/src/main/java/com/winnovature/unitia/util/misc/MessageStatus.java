@@ -55,6 +55,7 @@ public class MessageStatus {
 	public static final int KANNEL_RESPONSE_FAILED = 136;
 	public static final int VMN_USERNAME_MAPPING_MISSING = 137;
 	public static final int NO_ENTITYID = 138;
+	public static final int CONCATE_EXPIRED = 139;
 
 	
 	private static Map<String,String> status=new HashMap<String,String>();
@@ -113,6 +114,7 @@ public class MessageStatus {
 		status.put(""+MessageStatus.KANNEL_RESPONSE_FAILED, "Message Rejected due to Invalid Response from Kannel");
 		status.put(""+MessageStatus.VMN_USERNAME_MAPPING_MISSING, "Missed Call Received But VMN Username Mapping Missing");
 		status.put(""+MessageStatus.NO_ENTITYID, "No Entity Id");
+		status.put(""+MessageStatus.CONCATE_EXPIRED, "Smpp concate wait time expired");
 
 	}
 

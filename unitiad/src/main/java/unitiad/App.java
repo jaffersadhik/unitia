@@ -124,6 +124,10 @@ public class App {
 			
 			concateinsert.App.main(args);
 			
+		}else if(module.equals("concateexpiry")){
+			
+			concateexpiry.App.main(args);
+			
 		}else if(module.equals("reroutekannelinsert")){
 			
 			reroutekannelinsert.App.main(args);

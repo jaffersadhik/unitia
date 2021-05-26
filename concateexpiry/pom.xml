@@ -6,4 +6,13 @@
     <version>1.0</version>
   </parent>
   <artifactId>concateexpiry</artifactId>
+  
+    <dependencies>
+  <dependency>
+    <groupId>winovature</groupId>
+    <artifactId>util</artifactId>
+    <version>1.0</version>
+</dependency>
+
+  </dependencies>
 </project>
