@@ -51,9 +51,9 @@ public class ExpiryMover extends Thread {
 
 		while(true){
 		List<Map<String, Object>> datalist=select.getDataAsExpired("concatedata");
-		
 		if(datalist!=null){
-			
+			System.out.println("datalist : size "+datalist.size());
+				
 			for(int i=0;i<datalist.size();i++){
 				
 				Map<String, Object> data=datalist.get(i);
