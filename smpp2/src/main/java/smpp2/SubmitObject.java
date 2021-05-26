@@ -301,10 +301,12 @@ public class SubmitObject implements Serializable	{
 			String cc= temp.substring(temp.length()-2,temp.length());
 			
 			String cf=msgmap.get(MapKeys.USERNAME)+""+msgmap.get(MapKeys.MOBILE)+""+temp;
-			
+			msgmap.put(MapKeys.MSGID, cf);
 			msgmap.put(MapKeys.CONCATE_YN, "y");
 			msgmap.put(MapKeys.CONCATE_CF, cf);
 			msgmap.put(MapKeys.CONCATE_CC, getDecimal(cc));
+			msgmap.put(MapKeys.TOTAL_MSG_COUNT,  getDecimal(cc));
+			msgmap.put(MapKeys.SPLIT_SEQ, getDecimal(seq));
 			msgmap.put(MapKeys.CONCATE_SEQ, getDecimal(seq));
 			msgmap.put(MapKeys.POLLER_USERNAME, getName(msgmap.get(MapKeys.USERNAME).toString(),msgmap.get(MapKeys.MOBILE).toString()));
 
