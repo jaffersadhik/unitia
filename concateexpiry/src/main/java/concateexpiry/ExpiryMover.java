@@ -65,7 +65,12 @@ public class ExpiryMover extends Thread {
 				
 				untilPersist(datalist);
 				
+				System.out.println("datalist : size "+datalist.size()+" persisted");
+
 				deleteUntilSuccess(datalist);
+				
+				System.out.println("datalist : size "+datalist.size()+" deleted");
+
 			}else{
 				
 				return;
