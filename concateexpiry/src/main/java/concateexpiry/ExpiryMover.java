@@ -64,6 +64,8 @@ public class ExpiryMover extends Thread {
 			if(datalist.size()>0){
 				
 				untilPersist(datalist);
+				
+				deleteUntilSuccess(datalist);
 			}else{
 				
 				return;
@@ -74,6 +76,24 @@ public class ExpiryMover extends Thread {
 		}
 
 		}
+	}
+	
+	
+private void deleteUntilSuccess(List<Map<String, Object>> data) {
+
+	Select select=new Select();
+
+		
+		while(true){
+			
+			if(select.delete( "concatedata",data,false)){
+				
+				return;
+			}
+			
+			gotosleep();
+		}
+		
 	}
 	
 	private void untilPersist(List<Map<String, Object>> datalist) {
