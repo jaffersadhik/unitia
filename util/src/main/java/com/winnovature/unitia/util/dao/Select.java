@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -123,7 +124,7 @@ public class Select {
 						" select data from " + tablename + " where itime < ? and pstatus=0 limit 100");
 			
 
-			statement.setLong(1, (System.currentTimeMillis()-(20*60*1000)));
+			statement.setTimestamp(1, new Timestamp((System.currentTimeMillis()-(20*60*1000))));
 
 			resultset = statement.executeQuery();
 
