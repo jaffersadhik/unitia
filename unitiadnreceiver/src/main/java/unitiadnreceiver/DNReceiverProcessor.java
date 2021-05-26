@@ -48,9 +48,9 @@ public class DNReceiverProcessor {
 
 		if(!msgmap.get(MapKeys.TOTAL_MSG_COUNT).toString().equals("1")){
 			
-			String statusid=msgmap.get(MapKeys.SPLIT_SEQ).toString();
-			
-			if(!statusid.equals("139")&&!msgmap.get(MapKeys.SPLIT_SEQ).toString().equals("1")){
+			String statusid=msgmap.get(MapKeys.STATUSID).toString();
+			String splitseq=(String)msgmap.get(MapKeys.SPLIT_SEQ);
+			if(!statusid.equals("139")&&(splitseq!=null&&!splitseq.equals("1"))){
 					
 					return;
 				}
