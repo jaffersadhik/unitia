@@ -91,7 +91,9 @@ public class DNWorker {
 		List<String> ackidlist=getAckidList(ackidliststring);
 		
 		List<Map<String, Object>> result=new ArrayList<Map<String, Object>>();
+		String splitseq=msgmap.get(MapKeys.SPLIT_SEQ).toString();
 		
+		if(splitseq.equals("1")){
 		for(int i=0;i<ackidlist.size();i++){
 		
 			Map<String, Object> clonemap=getCloneMap(msgmap);
@@ -100,6 +102,7 @@ public class DNWorker {
 			
 			result.add(clonemap);
 			
+		}
 		}
 		return result;
 	}
