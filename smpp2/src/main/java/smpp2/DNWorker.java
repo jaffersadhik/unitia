@@ -5,8 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import com.cloudhopper.commons.util.windowing.WindowFuture;
 import com.cloudhopper.smpp.SmppConstants;
@@ -31,11 +33,30 @@ public class DNWorker {
 		List<DNTempBean> dnbeanlist=new ArrayList<DNTempBean>();
 		for(int i=0;i<dnlist.size();i++){
 			
-			DNTempBean bean=new DNTempBean();
 			
-			bean.setDnMap(dnlist.get(i));
-			bean.setFuture(send(systemid,dnlist.get(i)));
+			Map<String, Object> msgmap=dnlist.get(i);
+			
+			String ackidlist=(String)msgmap.get(MapKeys.ACKID_LIST);
+			
+			if(ackidlist==null||ackidlist.trim().length()<3){
+			DNTempBean bean=new DNTempBean();
+			bean.setDnMap(msgmap);
+			bean.setFuture(send(systemid,msgmap));
 			dnbeanlist.add(bean);
+			}else{
+				List<Map<String, Object>> clonemsglist=getMessageList(msgmap,ackidlist);
+		
+			
+				for(int j=0;j<clonemsglist.size();j++){
+					
+					DNTempBean bean=new DNTempBean();
+					bean.setDnMap(clonemsglist.get(j));
+					bean.setFuture(send(systemid,clonemsglist.get(j)));
+					dnbeanlist.add(bean);
+				}
+			}
+		
+			
 		}
 		
 		for(int i=0;i<dnbeanlist.size();i++){
@@ -52,6 +73,49 @@ public class DNWorker {
 			}
 			
 		}
+	}
+
+	private List<Map<String, Object>> getMessageList(Map<String, Object> msgmap, String ackidliststring) {
+
+		List<String> ackidlist=getAckidList(ackidliststring);
+		
+		List<Map<String, Object>> result=new ArrayList<Map<String, Object>>();
+		
+		for(int i=0;i<ackidlist.size();i++){
+		
+			Map<String, Object> clonemap=getCloneMap(msgmap);
+			
+			clonemap.put(MapKeys.ACKID, ackidlist.get(i));
+			
+			result.add(clonemap);
+			
+		}
+		return result;
+	}
+
+	private Map<String, Object> getCloneMap(Map<String, Object> msgmap) {
+
+		Map<String, Object> clonemap=new HashMap<String,Object>();
+		
+		Iterator itr=msgmap.keySet().iterator();
+		
+		while(itr.hasNext()){
+			
+			String key=itr.next().toString();
+			
+			clonemap.put(key, msgmap.get(key));
+		}
+		return clonemap;
+	}
+
+	private List<String> getAckidList(String ackidliststring) {
+		StringTokenizer st=new StringTokenizer(ackidliststring,"<<SPLIT>>");
+		List<String> ackidlist=new ArrayList<String>();
+		while(st.hasMoreElements()){
+			
+			ackidlist.add(st.nextElement().toString());
+		}
+		return ackidlist;
 	}
 
 	private void sendQueue(DNTempBean bean) {

@@ -1,4 +1,4 @@
-package queuecheck;
+package concateexpiry;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +35,7 @@ public class TConcateUpdate extends Thread{
 				
 			connection=QueueDBConnection.getInstance().getConnection();
 					
-			statement=connection.prepareStatement("update concatedata set pstatus=1 where msgid in (select msgid from (select msgid,cc,count(*) from concatedata where pstatus=0 group by msgid,cc having count(*)=cc)a)");
+			statement=connection.prepareStatement("update concatedata set pstatus=2 where msgid in (select msgid from (select msgid,cc,count(*) from concatedata where pstatus=0 group by msgid,cc having count(*)=cc)a)");
 			
 			statement.execute();
 			

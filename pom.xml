@@ -54,6 +54,7 @@
   	<module>dnquerylog</module>
   	<module>reroutekannelinsert</module>
   	<module>reroutekannelselect</module>
+  	<module>concateselect</module>
     </modules>
   <dependencies>
   

@@ -371,6 +371,62 @@ public class Select {
 	
 	}
 
+	public Map<String,List<Map<String,Object>>> getDataForConcate(String tablename,String username){
+		
+		Map<String,List<Map<String,Object>>> result=new HashMap<String,List<Map<String,Object>>>();
+
+
+
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+		try {
+			
+			
+
+			connection = QueueDBConnection.getInstance().getConnection();
+			
+			statement = connection.prepareStatement(
+						" select msgid,data from " + tablename + " where username=? and pstatus=2 limit 100");
+			
+			statement.setString(1, username);
+
+
+			resultset = statement.executeQuery();
+
+			while (resultset.next()) {
+
+				String msgid= resultset.getString("msgid");
+				List<Map<String,Object>> datalist=result.get(msgid);
+				if(datalist==null){
+					
+					datalist=new ArrayList<Map<String,Object>>();
+					result.put(msgid, datalist);
+				}
+				byte[] Bytes = resultset.getBytes("data");
+
+				ByteArrayInputStream bis = new ByteArrayInputStream(Bytes);
+
+				ObjectInputStream ois = new ObjectInputStream(bis);
+
+				datalist.add((Map<String, Object>) ois.readObject());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			Close.close(resultset);
+			Close.close(statement);
+			Close.close(connection);
+		}
+
+		
+		return result;
+	
+		
+		
+	}
 	private List<Map<String, Object>> getRecords(String tablename, String username, boolean iscampign, Map<String, Object> logmap) {
 		
 		

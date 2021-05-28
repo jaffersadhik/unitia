@@ -6,6 +6,8 @@ public interface MapKeys {
 	public static String R_ID="router_instance_id";
 	public static String KC_ID="kc_instance_id";
 
+	public static String ACKID_LIST="ackidlist";
+
 	public static String METHOD="method";
 
 	public static String CONTENT_TYPE="content_type";

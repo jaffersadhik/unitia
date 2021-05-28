@@ -324,22 +324,18 @@ public class SubmitObject implements Serializable	{
 
 	private String getName(String username,String mobile){
 		
-		List<String> tlist=new ArrayList<String>();
-		tlist.add("t1");
-		tlist.add("t2");
-		tlist.add("t3");
-		tlist.add("t4");
+		
 		
 		long pointer=0;
 		
 		try{
 			long m=Long.parseLong(mobile);
-			pointer=m%tlist.size();
+			pointer=m%TableList.getInstance().getList().size();
 		}catch(Exception e){
 			
 		}
 		
-		return username+"_"+tlist.get((int)pointer);
+		return username+"_"+TableList.getInstance().getList().get((int)pointer);
 		
 	}
 	private String getDecimal(String cc){

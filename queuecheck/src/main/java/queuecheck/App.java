@@ -4,6 +4,7 @@ import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.Prop;
 
 
+
 public class App 
 {
  
@@ -24,7 +25,6 @@ public class App
     	new TRedisQueue().start();
     	new TUsers().start();
     	new THttpDN().start();
-    	new TConcateUpdate().start();
     	new TTPSSMSCID().start();
      }
 }
