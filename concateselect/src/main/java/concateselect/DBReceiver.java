@@ -147,7 +147,7 @@ private void sendUntilSuccess(Map<String, Object> map) {
 			
 			String featurecode=getFeatureCode(datalist.get(0).get(MapKeys.MSGTYPE).toString());
 		
-			List<Map<String,String>> splitmaplist = getSplitMapList(datalist);
+			List<Map<String,Object>> splitmaplist = getSplitMapList(datalist);
 
 			Map<String,Object> msgmap=datalist.get(0);
 			
@@ -165,24 +165,22 @@ private void sendUntilSuccess(Map<String, Object> map) {
 		
 		return result;
 	}
-	private List<Map<String, String>> getSplitMapList(List<Map<String, Object>> datalist) {
+	private List<Map<String, Object>> getSplitMapList(List<Map<String, Object>> datalist) {
 		
-		List<Map<String, String>> msgmaplist=new ArrayList<Map<String, String>>();
+		List<Map<String, Object>> msgmaplist=new ArrayList<Map<String, Object>>();
+
 		for(int i=0;i<datalist.size();i++)
 		{
-			Map<String,Object> msgmap=datalist.get(i);
 			
-			Map<String,String> cloneMsgMap = new HashMap();
+			Map<String,Object> cloneMsgMap = new HashMap<String,Object>();
 									
-			cloneMsgMap.put(MapKeys.MSGID, msgmap.get(MapKeys.MSGID).toString());
-			
-			int splitseq=(i+1);
-			
-			cloneMsgMap.put(MapKeys.SPLIT_SEQ,msgmap.get(MapKeys.SPLIT_SEQ).toString());
+			cloneMsgMap.put(MapKeys.MSGID, datalist.get(i).get(MapKeys.MSGID).toString());
+
+			cloneMsgMap.put(MapKeys.SPLIT_SEQ,datalist.get(i).get(MapKeys.SPLIT_SEQ).toString());
 		
-			cloneMsgMap.put(MapKeys.FULLMSG,msgmap.get(MapKeys.FULLMSG).toString());
+			cloneMsgMap.put(MapKeys.FULLMSG,datalist.get(i).get(MapKeys.FULLMSG).toString());
 			
-			cloneMsgMap.put(MapKeys.UDH,msgmap.get(MapKeys.UDH).toString());
+			cloneMsgMap.put(MapKeys.UDH,datalist.get(i).get(MapKeys.UDH).toString());
 			
 			msgmaplist.add(cloneMsgMap);
 
