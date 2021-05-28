@@ -1,6 +1,7 @@
 package com.winnovature.unitia.util.redis;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.util.Date;
@@ -8,9 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.winnovature.unitia.util.misc.CompressedObject;
 import com.winnovature.unitia.util.misc.ErrorMessage;
 import com.winnovature.unitia.util.misc.FileWrite;
-import com.winnovature.unitia.util.misc.MapKeys;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -32,7 +33,7 @@ public class RedisReader {
 		MODE=mode+"_";
 
 	}
-public Map<String,Object> getData(String queuename,String redisid){
+public Map<String,Object> getData(String queuename,String redisid) throws ClassNotFoundException, IOException{
 		
 
     long start=System.currentTimeMillis();
@@ -87,7 +88,14 @@ public Map<String,Object> getData(String queuename,String redisid){
         
 //    	stats(queuename,redisid,start,end);
 
-        return (Map<String,Object>)result;
+        if(result instanceof CompressedObject){
+        	
+        	return (Map<String,Object>)((CompressedObject)result).getObject();
+        }else{
+        	
+            return (Map<String,Object>)result;
+
+        }
     
 	}
 	

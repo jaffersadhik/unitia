@@ -1,6 +1,7 @@
 package reroutekannelinsert;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,7 +49,13 @@ public class RedisReceiver extends Thread {
 			Map<String,Object> msgmap=null;
 					
 				
-			msgmap=reader.getData(poolname,redisid);
+			try {
+				msgmap=reader.getData(poolname,redisid);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.exit(-1);
+			} 
 			
 			if(msgmap!=null){
 				
@@ -103,8 +110,9 @@ public class RedisReceiver extends Thread {
 				return;
 			}
 			
+			boolean result=new Insert().insert("reroute_kannel", datalist);
 			
-			if(new Insert().insert("reroute_kannel", datalist)){
+			if(result){
 			
 				return;
 			}else{

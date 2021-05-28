@@ -13,6 +13,7 @@ import com.winnovature.unitia.util.db.BillingDBConnection;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.QueueDBConnection;
 import com.winnovature.unitia.util.misc.MapKeys;
+import com.winnovature.unitia.util.misc.ParameterKey;
 import com.winnovature.unitia.util.misc.RoundRobinTon;
 
 
@@ -33,7 +34,7 @@ public class Insert {
 		tlist.add("t4");
 		
 	}
-	public boolean insert(String tablename, Map<String,Object> requestObject) {
+	public boolean insert(String tablename, Object requestObject,String username,String msgid,String scheduletime,String smscid) {
 		
 		
 		if(tablename.startsWith("smppdn_")){
@@ -49,14 +50,13 @@ public class Insert {
 
 		try {
 		
-			String param2=requestObject.get(MapKeys.USERNAME).toString();
+			String param2=username;
 			
 			if(tablename.startsWith("httpdn")){
-				param2=getTname(requestObject.get(MapKeys.USERNAME).toString());
-				requestObject.put(MapKeys.POLLER_USERNAME, param2);
+				param2=getTname(username);
 			}else if(tablename.startsWith("reroute_kannel")){
 				
-				param2=requestObject.get(MapKeys.SMSCID).toString();
+				param2=smscid;
 			}
 					
 				
@@ -64,9 +64,8 @@ public class Insert {
 				connection=QueueDBConnection.getInstance().getConnection();
 					
 			statement=connection.prepareStatement(getQuery(tablename));
-			statement.setString(1, requestObject.get(MapKeys.MSGID).toString());
+			statement.setString(1, msgid);
 			statement.setString(2, param2);
-			String scheduletime=(String)requestObject.get(MapKeys.SCHEDULE_TIME);
 			if(scheduletime==null||scheduletime.trim().length()<1||scheduletime.trim().length()>13){
 				scheduletime="0";
 			}
@@ -303,7 +302,7 @@ public class Insert {
 	            
 	            ObjectOutputStream oos = new ObjectOutputStream(bos);
 	            
-	            oos.writeObject(requestObject);
+	            oos.writeObject(ParameterKey.getInstance().getObject(requestObject));
 	            
 	            byte[] Bytes = bos.toByteArray();
 

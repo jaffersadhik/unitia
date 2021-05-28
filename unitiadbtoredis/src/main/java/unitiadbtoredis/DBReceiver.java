@@ -1,5 +1,6 @@
 package unitiadbtoredis;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -170,11 +171,16 @@ public class DBReceiver extends Thread {
 		while(true){
 			
 			
-			if(queuesender.sendL( actualqueuename, map, true, logmap)){
-				
-				new FileWrite().write(logmap);
+			try {
+				if(queuesender.sendL( actualqueuename, map, true, logmap)){
+					
+					new FileWrite().write(logmap);
 
-				return;
+					return;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 			gotosleep();

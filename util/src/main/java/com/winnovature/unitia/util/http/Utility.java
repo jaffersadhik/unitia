@@ -1,5 +1,6 @@
 package com.winnovature.unitia.util.http;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -37,7 +38,7 @@ public class Utility
 			
 		}
 	}
-	public boolean sendQueue(Map<String,Object> msgmap,Map<String,Object> logmap){
+	public boolean sendQueue(Map<String,Object> msgmap,Map<String,Object> logmap) throws IOException{
 	
 
 		Map<String,String> accountmap=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString());

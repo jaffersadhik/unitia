@@ -1,5 +1,6 @@
 package com.winnovature.unitia.util.redis;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,6 @@ import com.winnovature.unitia.util.dao.Insert;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.ParameterKey;
-import com.winnovature.unitia.util.misc.RouterLog;
 
 public class QueueSender {
 
@@ -35,12 +35,16 @@ public class QueueSender {
 	
 
 	
-	public boolean sendL(String queuename,Map<String,Object> requestObject,boolean isRetry,Map<String,Object > logmap) {
+	public boolean sendL(String queuename,Map<String,Object> requestObject,boolean isRetry,Map<String,Object > logmap) throws IOException {
 		
 		boolean result=false;
 		
 		String redisid=null;
 		
+		String username=(String)requestObject.get(MapKeys.USERNAME);
+		String msgid=(String)requestObject.get(MapKeys.MSGID);
+		String smscid=(String)requestObject.get(MapKeys.SMSCID);
+		String scheduletime=(String)requestObject.get(MapKeys.SCHEDULE_TIME);
 		long start=System.currentTimeMillis();
 		queuename=getQueueName(queuename,requestObject);
 		if(queuename.startsWith("smppdn_")){
@@ -70,17 +74,17 @@ public class QueueSender {
 			redisid=RedisQueueConnectionPool.getInstance().getRedisId(queuename,isRetry,logmap);
 		}
 		
-
+		Object pushObject=ParameterKey.getInstance().getObject(requestObject);
 		if(redisid!=null){
 			
 		
-				result=new RedisWrite().lpushtoQueue(RedisQueueConnectionPool.getInstance().getPool(redisid,queuename),MODE+queuename , ParameterKey.getInstance().getObject(requestObject)) ;
+				result=new RedisWrite().lpushtoQueue(RedisQueueConnectionPool.getInstance().getPool(redisid,queuename),MODE+queuename ,pushObject ) ;
 		}
 		
 		if(!result) {
-		
+
 			if(!isRetry){
-			result=new Insert().insert(queuename,ParameterKey.getInstance().getObject(requestObject) );
+			result=new Insert().insert(queuename,pushObject,username,msgid,scheduletime,smscid );
 			logmap.put("queue type","mysql");
 
 			}

@@ -148,6 +148,8 @@ public class DNWorker
 
 			dnMsg +=" stat:DELIVRD";
 			
+			dnMsg +=" err:000";
+
 			dnMsg +=" Text: "+msg;   
 			
 		

@@ -1,6 +1,7 @@
 package delivery;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,7 +44,19 @@ public class RedisReceiver extends Thread {
 			Map<String,Object> msgmap=null;
 					
 				
-			msgmap=reader.getData(poolname,redisid);
+			try {
+				msgmap=reader.getData(poolname,redisid);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+				System.exit(-1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.exit(-1);
+
+			}
 			
 			if(msgmap!=null){
 				
@@ -55,7 +68,14 @@ public class RedisReceiver extends Thread {
 				if((datalist.size()>100 || diff > 350)&&datalist.size()!=0){
 					start=System.currentTimeMillis();
 					
-					new DeliveryUtility().updateMap(datalist);
+					try {
+						new DeliveryUtility().updateMap(datalist);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+						System.exit(-1);
+					}
 					
 					untilPersist(datalist);
 					
@@ -72,7 +92,14 @@ public class RedisReceiver extends Thread {
 				if((datalist.size()>100 || diff > 350)&&datalist.size()!=0){
 					start=System.currentTimeMillis();
 					
-					new DeliveryUtility().updateMap(datalist);
+					try {
+						new DeliveryUtility().updateMap(datalist);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+						System.exit(-1);
+					}
 					
 					untilPersist(datalist);
 					

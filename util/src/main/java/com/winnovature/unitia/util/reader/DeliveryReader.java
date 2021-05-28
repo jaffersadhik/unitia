@@ -1,5 +1,6 @@
 package com.winnovature.unitia.util.reader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +38,7 @@ public class DeliveryReader extends Thread{
 		}
 	}
 	
-	private void updateMap(List<Map<String, Object>> datalist) {
+	private void updateMap(List<Map<String, Object>> datalist) throws IOException {
 		
 		
 		for(int i=0,max=datalist.size();i<max;i++){

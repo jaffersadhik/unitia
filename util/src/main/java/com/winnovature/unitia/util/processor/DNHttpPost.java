@@ -1,6 +1,7 @@
 package com.winnovature.unitia.util.processor;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -35,7 +36,7 @@ public class DNHttpPost
 		msgmap=data;
 	}
 
-	public void doProcess()
+	public void doProcess() throws IOException
     {
 		
 		
@@ -117,7 +118,7 @@ public class DNHttpPost
 		return reqmap;
 	}
 
-	private void connect(String url, String attempttype, Map extraparam) {
+	private void connect(String url, String attempttype, Map extraparam) throws IOException {
 		
 
 		long start=System.currentTimeMillis();
@@ -206,7 +207,7 @@ public class DNHttpPost
         return reqParam;
     }
 	
-	private void sendToQ(Map<String, Object> msgmap, Map<String, Object> logmap) {
+	private void sendToQ(Map<String, Object> msgmap, Map<String, Object> logmap) throws IOException {
     	
 		
 		new QueueSender().sendL("dnpostpool", msgmap, false,logmap);

@@ -1,5 +1,6 @@
 package smpp2;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +69,19 @@ public class RedisReceiver extends Thread{
 		long start=System.currentTimeMillis();
 		while(true){
 			
-			Map<String,Object> data=reader.getData(queuename, redisid);
+			Map<String, Object> data=null;
+			try {
+				data = reader.getData(queuename, redisid);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.exit(-1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.exit(-1);
+
+			}
 			if(data==null){
 
 				break;

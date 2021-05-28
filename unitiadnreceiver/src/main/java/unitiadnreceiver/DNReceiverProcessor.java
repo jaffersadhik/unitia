@@ -101,7 +101,7 @@ public class DNReceiverProcessor {
 		return diff>(5*60*1000);
 	}
 
-	private void sendToQ(Map<String, Object> msgmap, Map<String, Object> logmap) {
+	private void sendToQ(Map<String, Object> msgmap, Map<String, Object> logmap) throws IOException {
 		
 	    new QueueSender().sendL("dnreceiverpool", msgmap, false,logmap);
 		
@@ -114,7 +114,7 @@ public class DNReceiverProcessor {
 		
 	}*/
 
-	private void doDNRetry(Map<String, Object> msgmap1,Map<String,Object> logmap) {
+	private void doDNRetry(Map<String, Object> msgmap1,Map<String,Object> logmap) throws IOException {
 		
 		msgmap1.put(MapKeys.DN_RETRY_YN, PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN));
 		if(PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN).equals("1")){

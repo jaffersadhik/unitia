@@ -1,5 +1,6 @@
 package dnsql;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
@@ -139,7 +140,7 @@ private void untilPersistSplitup(List<Map<String, Object>> splitupresult) {
 	}
 		
 	}
-private void doDNRetryForAll(List<Map<String, Object>> result) {
+private void doDNRetryForAll(List<Map<String, Object>> result) throws IOException {
 		
 	for(int i=0,max=result.size();i<max;i++){
 		
@@ -147,7 +148,7 @@ private void doDNRetryForAll(List<Map<String, Object>> result) {
 	}
 		
 	}
-private void updateMap(List<Map<String, Object>> datalist) {
+private void updateMap(List<Map<String, Object>> datalist) throws IOException {
 		
 		
 		for(int i=0,max=datalist.size();i<max;i++){
@@ -270,7 +271,7 @@ private void updateTimeStamp(List<Map<String, Object>> datalist) {
 	*/
 	
 	
-	private void doDNRetry(Map<String, Object> msgmap1,Map<String,Object> logmap) {
+	private void doDNRetry(Map<String, Object> msgmap1,Map<String,Object> logmap) throws IOException {
 		
 		msgmap1.put(MapKeys.DN_RETRY_YN, PushAccount.instance().getPushAccount(msgmap1.get(MapKeys.USERNAME).toString()).get(MapKeys.DN_RETRY_YN));
 		

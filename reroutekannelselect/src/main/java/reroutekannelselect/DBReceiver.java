@@ -1,5 +1,6 @@
 package reroutekannelselect;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +81,14 @@ public class DBReceiver extends Thread {
 				
 				for(int i=0;i<data.size();i++){
 					
-					sendUntilSuccess(data.get(i));
+					try {
+						sendUntilSuccess(data.get(i));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+						System.exit(-1);
+					}
 					
 					
 				}
@@ -112,7 +120,7 @@ public class DBReceiver extends Thread {
 	}
 	
 	
-	private void sendUntilSuccess(Map<String, Object> map) {
+	private void sendUntilSuccess(Map<String, Object> map) throws IOException {
 		
 		while(true){
 			

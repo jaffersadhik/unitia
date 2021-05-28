@@ -1,5 +1,6 @@
 package unitiatablereader;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,16 +141,31 @@ public class DBReceiver extends Thread {
 		
 			if(isNumber(map)){
 			
-				if(queuesender.sendL( queuename, map, true, logmap)){
-				
-				break;
-				}
-			}else{
-				
-				if(queuesender.sendL( "submissionpool", map, true, logmap)){
+				try {
+					if(queuesender.sendL( queuename, map, true, logmap)){
 					
 					break;
 					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+					System.exit(-1);
+				}
+			}else{
+				
+				try {
+					if(queuesender.sendL( "submissionpool", map, true, logmap)){
+						
+						break;
+						}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+					System.exit(-1);
+
+				}
 			}
 			
 			gotosleep();

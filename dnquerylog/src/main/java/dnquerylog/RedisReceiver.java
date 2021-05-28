@@ -1,6 +1,7 @@
 package dnquerylog;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -47,7 +48,19 @@ public class RedisReceiver extends Thread {
 			
 				
 					
-			Map<String,Object>  msgmap=reader.getData(poolname,redisid);
+			Map<String, Object> msgmap=null;
+			try {
+				msgmap = reader.getData(poolname,redisid);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.exit(-1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.exit(-1);
+
+			}
 			
 			if(msgmap!=null){
 				

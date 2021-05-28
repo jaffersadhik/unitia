@@ -1,5 +1,6 @@
 package concateselect;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -114,8 +115,15 @@ private void sendUntilSuccess(Map<String, Object> map) {
 		
 		while(true){
 			
-			
-			if(queuesender.sendL( "commonpool", map, true, logmap)){
+			boolean result=false;
+			try {
+				result = queuesender.sendL( "commonpool", map, true, logmap);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.exit(-1);
+			}
+			if(result){
 				
 				new FileWrite().write(logmap);
 

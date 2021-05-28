@@ -1,5 +1,6 @@
 package com.winnovature.unitia.util.processor;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +34,7 @@ public class DNProcessor
     	this.msgmap=requestmap;
     }
     
-    public void doProcess()
+    public void doProcess() throws IOException
     {
         
     
@@ -255,7 +256,7 @@ public class DNProcessor
 		
 	}
 
-	private void sendtoClientDnQueue() {
+	private void sendtoClientDnQueue() throws IOException {
 		
      Map<String,String> accountinfo=PushAccount.instance().getPushAccount(msgmap.get(MapKeys.USERNAME).toString());
 		

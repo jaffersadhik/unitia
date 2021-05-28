@@ -1,5 +1,6 @@
 package dnhttppostselect;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -33,7 +34,7 @@ public class DNHttpPostGSON
 		msglist=data;
 	}
 
-	public void doProcess()
+	public void doProcess() throws IOException
     {
 		
 		List<Map<String,String>> bodylist=new ArrayList<Map<String,String>>();
@@ -193,7 +194,7 @@ public class DNHttpPostGSON
         return reqParam;
     }
 	
-	private void sendToQ(List<Map<String, Object>> msglist, String response) {
+	private void sendToQ(List<Map<String, Object>> msglist, String response) throws IOException {
     	
 		
 		for(int i=0;i<msglist.size();i++){

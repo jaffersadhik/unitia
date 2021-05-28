@@ -1,5 +1,6 @@
 package com.winnovature.unitia.util.misc;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,7 @@ import com.winnovature.unitia.util.processor.DNProcessor;
 
 public class DeliveryUtility {
 
-public void updateMap(List<Map<String, Object>> datalist) {
+public void updateMap(List<Map<String, Object>> datalist) throws IOException {
 		
 		
 		for(int i=0,max=datalist.size();i<max;i++){

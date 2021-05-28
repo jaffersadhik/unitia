@@ -1,5 +1,6 @@
 package scheduledb;
 
+import java.io.IOException;
 import java.util.Map;
 
 import com.winnovature.unitia.util.reader.QueueTon;
@@ -33,7 +34,18 @@ public class RedisReceiver extends Thread {
 					
 			if(QueueTon.getInstance().isVailable()){
 				
-				msgmap=reader.getData(poolname,redisid);
+				try {
+					msgmap=reader.getData(poolname,redisid);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.exit(-1);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.exit(-1);
+
+				}
 			}
 			
 			if(msgmap!=null){

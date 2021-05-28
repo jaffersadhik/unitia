@@ -91,10 +91,6 @@ public class RedisReceiver extends  Thread {
 					
 					new DNGenWorker( poolname,  data).doProcess();
 					
-				}else if(poolname.equals("httpdn")){
-					
-					new DNHttpPost(data).doProcess();
-					
 				}else if(poolname.equals("otppool")){
 					
 					new SMSWorker(poolname,data).doOtp(redisid,tname);

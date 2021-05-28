@@ -1,11 +1,15 @@
 package com.winnovature.unitia.util.misc;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.DeflaterOutputStream;
 
 public class ParameterKey {
 
@@ -52,7 +56,7 @@ public class ParameterKey {
 		return keys;
 	}
 
-	public Map<String,Object> getObject(Map<String,Object> data){
+	public Object getObject(Map<String,Object> data) throws IOException{
 		
 		Map<String,Object> result=new HashMap<String,Object>();
 		Iterator itr=data.keySet().iterator();
@@ -66,7 +70,18 @@ public class ParameterKey {
 			}
 		}
 		
-		return result;
+		CompressedObject object=new CompressedObject();
+		object.setDatabytes(toCompressedBytes(result));
+		return object;
+	}
+	
+	
+	public  byte[] toCompressedBytes(Object o) throws IOException {
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    ObjectOutputStream oos = new ObjectOutputStream(new DeflaterOutputStream(baos));
+	    oos.writeObject(o);
+	    oos.close();
+	    return baos.toByteArray();
 	}
 	public static void main(String args[]){
 		

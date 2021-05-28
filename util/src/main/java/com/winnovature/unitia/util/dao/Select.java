@@ -16,6 +16,7 @@ import java.util.Set;
 import com.winnovature.unitia.util.db.CampaignDBConnection;
 import com.winnovature.unitia.util.db.Close;
 import com.winnovature.unitia.util.db.QueueDBConnection;
+import com.winnovature.unitia.util.misc.CompressedObject;
 import com.winnovature.unitia.util.misc.MapKeys;
 
 public class Select {
@@ -88,7 +89,15 @@ public class Select {
 
 				ObjectInputStream ois = new ObjectInputStream(bis);
 
-				result.add((Map<String, Object>) ois.readObject());
+				Object obj=ois.readObject();
+				
+				if(obj instanceof CompressedObject){
+					result.add((Map<String, Object>) ((CompressedObject)obj).getObject());
+
+				}else{
+					result.add((Map<String, Object>) obj);
+
+				}
 			}
 
 		} catch (Exception e) {
@@ -136,7 +145,16 @@ public class Select {
 
 				ObjectInputStream ois = new ObjectInputStream(bis);
 
-				result.add((Map<String, Object>) ois.readObject());
+				Object obj=(Map<String, Object>) ois.readObject();
+				if(obj instanceof CompressedObject){
+					
+					result.add((Map<String, Object>)((CompressedObject)obj).getObject());
+
+				}else{
+					
+					result.add((Map<String, Object>)obj);
+
+				}
 			}
 
 		} catch (Exception e) {
@@ -409,8 +427,19 @@ public class Select {
 
 				ObjectInputStream ois = new ObjectInputStream(bis);
 
-				datalist.add((Map<String, Object>) ois.readObject());
-			}
+				Object obj= ois.readObject();
+				
+				if(obj instanceof CompressedObject){
+					
+					datalist.add((Map<String, Object>)((CompressedObject)obj).getObject());
+
+				}else{
+					
+					datalist.add((Map<String, Object>)obj);
+				}
+
+				}
+				
 
 		} catch (Exception e) {
 			e.printStackTrace();
