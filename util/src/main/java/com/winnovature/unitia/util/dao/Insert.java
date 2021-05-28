@@ -203,7 +203,7 @@ public class Insert {
             
             ObjectOutputStream oos = new ObjectOutputStream(bos);
             
-            oos.writeObject(requestObject);
+            oos.writeObject(ParameterKey.getInstance().getObject(requestObject));
             
             byte[] Bytes = bos.toByteArray();
 
