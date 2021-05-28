@@ -8,6 +8,7 @@ import com.winnovature.unitia.util.account.PushAccount;
 import com.winnovature.unitia.util.dao.Insert;
 import com.winnovature.unitia.util.misc.FileWrite;
 import com.winnovature.unitia.util.misc.MapKeys;
+import com.winnovature.unitia.util.misc.ParameterKey;
 import com.winnovature.unitia.util.misc.RouterLog;
 
 public class QueueSender {
@@ -73,13 +74,13 @@ public class QueueSender {
 		if(redisid!=null){
 			
 		
-				result=new RedisWrite().lpushtoQueue(RedisQueueConnectionPool.getInstance().getPool(redisid,queuename),MODE+queuename , requestObject) ;
+				result=new RedisWrite().lpushtoQueue(RedisQueueConnectionPool.getInstance().getPool(redisid,queuename),MODE+queuename , ParameterKey.getInstance().getObject(requestObject)) ;
 		}
 		
 		if(!result) {
 		
 			if(!isRetry){
-			result=new Insert().insert(queuename, requestObject);
+			result=new Insert().insert(queuename,ParameterKey.getInstance().getObject(requestObject) );
 			logmap.put("queue type","mysql");
 
 			}
