@@ -1,5 +1,7 @@
 package smpp2;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,15 +46,23 @@ public class DNWorker {
 			bean.setFuture(send(systemid,msgmap));
 			dnbeanlist.add(bean);
 			}else{
-				List<Map<String, Object>> clonemsglist=getMessageList(msgmap,ackidlist);
+				List<Map<String, Object>> clonemsglist=null;
+				try {
+					clonemsglist = getMessageList(msgmap,ackidlist);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		
 			
+				if(clonemsglist!=null){
 				for(int j=0;j<clonemsglist.size();j++){
 					
 					DNTempBean bean=new DNTempBean();
 					bean.setDnMap(clonemsglist.get(j));
 					bean.setFuture(send(systemid,clonemsglist.get(j)));
 					dnbeanlist.add(bean);
+				}
 				}
 			}
 		
@@ -75,7 +85,7 @@ public class DNWorker {
 		}
 	}
 
-	private List<Map<String, Object>> getMessageList(Map<String, Object> msgmap, String ackidliststring) {
+	private List<Map<String, Object>> getMessageList(Map<String, Object> msgmap, String ackidliststring) throws UnsupportedEncodingException {
 
 		List<String> ackidlist=getAckidList(ackidliststring);
 		
@@ -108,8 +118,8 @@ public class DNWorker {
 		return clonemap;
 	}
 
-	private List<String> getAckidList(String ackidliststring) {
-		StringTokenizer st=new StringTokenizer(ackidliststring,"<<SPLIT>>");
+	private List<String> getAckidList(String ackidliststring) throws UnsupportedEncodingException {
+		StringTokenizer st=new StringTokenizer(ackidliststring,URLEncoder.encode("<<SPLIT>>","UTF-8"));
 		List<String> ackidlist=new ArrayList<String>();
 		while(st.hasMoreElements()){
 			
