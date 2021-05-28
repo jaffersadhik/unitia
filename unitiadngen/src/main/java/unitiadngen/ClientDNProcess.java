@@ -37,7 +37,7 @@ public class ClientDNProcess {
 	
 	}
 
-	private void sendToQ(Map<String, Object> msgmap, Map<String, Object> logmap) {
+	private void sendToQ(Map<String, Object> msgmap, Map<String, Object> logmap) throws IOException {
 		
 
 		

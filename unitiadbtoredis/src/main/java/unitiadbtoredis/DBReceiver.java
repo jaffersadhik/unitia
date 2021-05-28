@@ -220,7 +220,14 @@ private void sendUntilSuccess(List<Map<String, Object>> datalist) {
 				}
 			}else if(queuename.equals("dnreceiverpool")){
 				
-				new DeliveryUtility().updateMap(datalist);
+				try {
+					new DeliveryUtility().updateMap(datalist);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.err.println("dnreceiverpool error");
+					System.exit(-1);
+				}
 				
 				if(new ReportDAO().insert("reportlog_delivery",datalist)){
 					

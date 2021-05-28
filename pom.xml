@@ -29,7 +29,6 @@
   	<module>kannelconfig</module>
   	<module>unitiad</module>
 
-  	<module>logs</module>
   	<module>dnsql</module>
   	<module>smppclient</module>
   	<module>demo</module>
