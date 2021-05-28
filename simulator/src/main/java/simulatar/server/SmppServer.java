@@ -16,7 +16,7 @@ public class SmppServer {
 	
 
 	private String name = "SmppServer";
-	private int port = 2775;
+	private int port = 8080;
 	// length of time to wait for a bind request
 	private long bindTimeout = 30000;
 	private int dnRequestTimeout=3000;
