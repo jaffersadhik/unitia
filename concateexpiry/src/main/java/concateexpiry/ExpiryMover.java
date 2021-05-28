@@ -7,6 +7,7 @@ import com.winnovature.unitia.util.dao.Select;
 import com.winnovature.unitia.util.db.ReportDAO;
 import com.winnovature.unitia.util.misc.MapKeys;
 import com.winnovature.unitia.util.misc.MessageStatus;
+import com.winnovature.unitia.util.misc.SubmitUtility;
 
 public class ExpiryMover extends Thread {
 
@@ -66,6 +67,8 @@ public class ExpiryMover extends Thread {
 				untilPersist(datalist);
 				
 				System.out.println("datalist : size "+datalist.size()+" persisted");
+
+				new SubmitUtility().errorDNHandover(datalist);
 
 				deleteUntilSuccess(datalist);
 				
