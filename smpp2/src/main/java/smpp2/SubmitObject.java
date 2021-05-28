@@ -300,7 +300,7 @@ public class SubmitObject implements Serializable	{
 			
 			String cc= temp.substring(temp.length()-2,temp.length());
 			
-			String cf=msgmap.get(MapKeys.USERNAME)+""+msgmap.get(MapKeys.MOBILE)+""+temp;
+			String cf=msgmap.get(MapKeys.USERNAME)+"-"+msgmap.get(MapKeys.MOBILE)+"-"+temp;
 			msgmap.put(MapKeys.MSGID, cf);
 			msgmap.put(MapKeys.CONCATE_YN, "y");
 			msgmap.put(MapKeys.CONCATE_CF, cf);

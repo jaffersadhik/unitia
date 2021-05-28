@@ -128,6 +128,10 @@ public class App {
 			
 			concateexpiry.App.main(args);
 			
+		}else if(module.equals("concateselect")){
+			
+			concateselect.App.main(args);
+			
 		}else if(module.equals("reroutekannelinsert")){
 			
 			reroutekannelinsert.App.main(args);
