@@ -37,7 +37,7 @@ public void errorDNHandover(List<Map<String, Object>> datalist) {
 			
 				setDLRURL(data);
 				
-				deliverThroughURL(new URL(data.get(MapKeys.DLR_URL).toString()));
+				data.put("dlr_handover_response", deliverThroughURL(new URL(data.get(MapKeys.DLR_URL).toString())));
 				
 			} catch (Exception e) {
 				
@@ -47,7 +47,7 @@ public void errorDNHandover(List<Map<String, Object>> datalist) {
 		
 	}
 	
-	private void deliverThroughURL(final URL url)
+	private String deliverThroughURL(final URL url)
     {
         HttpURLConnection httpConnection = null;
         final int responseCode = 0;
@@ -88,6 +88,8 @@ public void errorDNHandover(List<Map<String, Object>> datalist) {
         }
         catch (Exception ex2)
         {}
+        
+        return urlResponse;
     }
     
 	
