@@ -1,6 +1,7 @@
 package smpp2;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -119,7 +120,7 @@ public class DNWorker {
 	}
 
 	private List<String> getAckidList(String ackidliststring) throws UnsupportedEncodingException {
-		StringTokenizer st=new StringTokenizer(ackidliststring,URLEncoder.encode("<<SPLIT>>","UTF-8"));
+		StringTokenizer st=new StringTokenizer(URLDecoder.decode(ackidliststring,"UTF-8"),"<<SPLIT>>");
 		List<String> ackidlist=new ArrayList<String>();
 		while(st.hasMoreElements()){
 			
