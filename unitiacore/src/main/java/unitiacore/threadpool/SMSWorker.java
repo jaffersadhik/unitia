@@ -65,8 +65,9 @@ public class SMSWorker  {
 		
 
 		msgmap.put(MapKeys.ATTEMPT_TYPE, "0");
-		msgmap.put(MapKeys.TOTAL_MSG_COUNT,"1");
-
+		if(msgmap.get(MapKeys.TOTAL_MSG_COUNT)==null){
+			msgmap.put(MapKeys.TOTAL_MSG_COUNT,"1");
+			}
 			RouteProcessor route=new RouteProcessor(msgmap,"a","a");
 			
 			route.doCountryCodeCheck();
@@ -118,8 +119,9 @@ try{
 	msgmap.put(MapKeys.ROUTERTIME,""+System.currentTimeMillis());
 	msgmap.put(MapKeys.R_ID,redisid+"_"+poolname);
 	msgmap.put(MapKeys.ATTEMPT_TYPE, "0");
+	if(msgmap.get(MapKeys.TOTAL_MSG_COUNT)==null){
 	msgmap.put(MapKeys.TOTAL_MSG_COUNT,"1");
-
+	}
 	String username=(String)msgmap.get(MapKeys.USERNAME);
 	
 	if(username==null||PushAccount.instance().getPushAccount(username)==null){
