@@ -157,6 +157,8 @@ private void sendUntilSuccess(Map<String, Object> map) {
 			
 			msgmap.put(MapKeys.ACKID_LIST, ackidlist);
 			
+			msgmap.put(MapKeys.FULLMSG, fullmessage);
+
 			result.add(msgmap);
 		}
 		
