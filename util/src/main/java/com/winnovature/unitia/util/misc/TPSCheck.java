@@ -42,10 +42,7 @@ public class TPSCheck {
 				
 			}
 			
-			if(max<=0){
-				
-				return true;
-			}
+
 			
 			int totalmsgcount=1;
 			try{
