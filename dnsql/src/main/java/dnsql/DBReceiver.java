@@ -207,7 +207,12 @@ private void updateTimeStamp(List<Map<String, Object>> datalist) {
 
 		if(!msgmap.get(MapKeys.TOTAL_MSG_COUNT).toString().equals("1")){
 			
-			String statusid=msgmap.get(MapKeys.STATUSID).toString();
+			String statusid=(String)msgmap.get(MapKeys.STATUSID);
+			
+			if(statusid==null){
+				
+				statusid="";
+			}
 			
 				if(!statusid.equals("139")&&!msgmap.get(MapKeys.SPLIT_SEQ).toString().equals("1")){
 					
