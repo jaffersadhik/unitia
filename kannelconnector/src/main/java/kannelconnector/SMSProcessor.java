@@ -923,7 +923,7 @@ public class SMSProcessor {
 					URLEncoder.encode(msgmap.get(MapKeys.SENDERID).toString(),"UTF-8"),
 					URLEncoder.encode(msgmap.get(MapKeys.MOBILE).toString(),"UTF-8"),
 					msg,
-					URLEncoder.encode(msgmap.get(MapKeys.DLR_URL).toString(),"UTF-8"),
+					URLEncoder.encode(splitupmsg.get(MapKeys.DLR_URL).toString(),"UTF-8"),
 			};
 		
 		String kannelurl="";
@@ -1373,7 +1373,7 @@ public void setDLRURL(Map<String,Object> splitmap)  throws Exception{
 		};
 		
 		String dlrurl=MessageFormat.format(DLR_URL, params);
-		msgmap.put(MapKeys.DLR_URL, dlrurl);
+		splitmap.put(MapKeys.DLR_URL, dlrurl);
 		
 		
 	}
