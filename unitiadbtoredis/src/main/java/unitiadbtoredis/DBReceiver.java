@@ -266,7 +266,7 @@ private void sendUntilSuccess(List<Map<String, Object>> datalist) {
 		
 		try{
 			
-			Thread.sleep(100L);
+			Thread.sleep(50L);
 		}catch(Exception e){
 			
 		}

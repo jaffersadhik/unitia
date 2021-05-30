@@ -50,11 +50,9 @@ public class Insert {
 
 		try {
 		
-			String param2=username;
+			String param2=getTname(tablename,username);
 			
-			if(tablename.startsWith("httpdn")){
-				param2=getTname(username);
-			}else if(tablename.startsWith("reroute_kannel")){
+			if(tablename.startsWith("reroute_kannel")){
 				
 				param2=smscid;
 			}
@@ -329,9 +327,9 @@ public class Insert {
 	}
 	
 	
-	private String getTname(String username) {
+	private String getTname(String tablename,String username) {
 		
-		int pointer=RoundRobinTon.getInstance().getCurrentIndex("dnhttppost"+username, tlist.size());
+		int pointer=RoundRobinTon.getInstance().getCurrentIndex(tablename+":"+username, tlist.size());
 		
 		return username+"_"+tlist.get(pointer);
 	}
