@@ -91,6 +91,12 @@ public class TempTable {
 		result.add("kl_kannelC_2");
 		result.add("kl_kannelD_1");
 		result.add("kl_kannelD_2");
+		result.add("kl_kannelE_1");
+		result.add("kl_kannelE_2");
+		result.add("kl_kannelF_1");
+		result.add("kl_kannelF_2");
+		result.add("kl_kannelG_1");
+		result.add("kl_kannelG_2");
 		return result;
 	}
 

@@ -51,7 +51,12 @@ public class App
     	start("kl_kannelC_2");
     	start("kl_kannelD_1");
     	start("kl_kannelD_2");
-      
+    	start("kl_kannelE_1");
+    	start("kl_kannelE_2");
+    	start("kl_kannelF_1");
+    	start("kl_kannelF_2");
+    	start("kl_kannelG_1");
+    	start("kl_kannelG_2");    
     	start("concatepool");
 
     	
