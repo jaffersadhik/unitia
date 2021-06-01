@@ -61,8 +61,23 @@ public class RedisQueueConnectionPool {
 	}
 
 	public JedisPool getPool(String redisid,String queuename) {
-		return redisqueuemap.get(redisid).getPool();
-	}
+		if(redisqueuemap!=null){
+			
+			RedisQueuePool pool=redisqueuemap.get(redisid);
+			
+			if(pool!=null){
+				
+				return pool.getPool();
+
+			}else{
+				System.out.print("redisid is "+redisid +" pool is null" );
+				return null;
+			}
+		}else{
+			System.out.print("redisid is "+redisid +" redisqueuemap is null" );
+			return null;
+		}
+		}
 
 	public  boolean isAvilable(String redisid,String queuename,boolean isRetry,Map<String,Object> logmap){
 		
